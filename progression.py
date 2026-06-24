@@ -1766,4 +1766,14 @@ MathQuest.js:42550 add listeners""",
     "requires": [["quest:gTree.25"]],
     "receive": ["quest:aSword.1"],
   },
+  {
+    "room": {"north": 14, "east": 18},
+    "requires": [["quest:aSword.1", "weapon:bane blade"]],
+    "receive": ["quest:aSword.2"],
+  },
+  {
+    "room": {"north": 500, "east": 501},
+    "requires": [["quest:aSword.2", "skill:reveal"]],
+    "receive": ["quest:aSword.3"],
+  },
 ]
