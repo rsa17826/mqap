@@ -9,16 +9,17 @@ from . import items
 # We will have a lookup from location name to ID here that, in world.py, we will import and bind to the world class.
 # Even if a location doesn't exist on specific options, it must be present in this lookup.
 LOCATION_NAME_TO_ID: dict[str, int] = {}
-from .progression import PROG
-_id_counter = 0
-for thing in PROG:
-  if "receive" in thing:
-    for itemInfo in thing["receive"]:
-      if any(itemInfo.startswith(prefix) for prefix in ["item:", "weapon:", "armor:", "food:", "skill:"]):
-        itemName = itemInfo.split("#")[0]
-        if itemName not in LOCATION_NAME_TO_ID:
-          LOCATION_NAME_TO_ID[itemName] = _id_counter
-          _id_counter += 1
+from .room_geometry import GEOM
+
+temp: set[str] = set()
+i = 0
+for room in GEOM:
+  _id = f'{room["north"]}_{room["east"]}'
+  if _id not in temp:
+    temp.add(_id)
+    LOCATION_NAME_TO_ID[_id] = i
+    i += 1
+
 
 # Each Location instance must correctly report the "game" it belongs to.
 # To make this simple, it is common practice to subclass the basic Location class and override the "game" field.

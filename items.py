@@ -6,28 +6,68 @@ from worlds.AutoWorld import World
 # Every item must have a unique integer ID associated with it.
 # We will have a lookup from item name to ID here that, in world.py, we will import and bind to the world class.
 # Even if an item doesn't exist on specific options, it must be present in this lookup.
-ITEM_NAME_TO_ID = {
-  "Key": 1,
-  "Sword": 2,
-  "Shield": 3,
-  "Hammer": 4,
-  "Health Upgrade": 5,
-  "Confetti Cannon": 6,
-  "Math Trap": 7,
-}
+ITEM_NAME_TO_ID: dict[str, int] = {}
+from .progression import PROG
 
 # Items should have a defined default classification.
 # In our case, we will make a dictionary from item name to classification.
 DEFAULT_ITEM_CLASSIFICATIONS = {
-  "Key": ItemClassification.progression,
-  "Sword": ItemClassification.progression
-  | ItemClassification.useful, # Items can have multiple classifications.
-  "Shield": ItemClassification.progression,
-  "Hammer": ItemClassification.progression,
-  "Health Upgrade": ItemClassification.useful,
-  "Confetti Cannon": ItemClassification.filler,
-  "Math Trap": ItemClassification.trap,
+  # "Key": ItemClassification.progression,
+  # "Sword": ItemClassification.progression
+  # | ItemClassification.useful, # Items can have multiple classifications.
+  # "Shield": ItemClassification.progression,
+  # "Hammer": ItemClassification.progression,
+  # "Health Upgrade": ItemClassification.useful,
+  # "Confetti Cannon": ItemClassification.filler,
+  # "Math Trap": ItemClassification.trap,
 }
+_id_counter = 0
+for thing in PROG:
+  if "receive" in thing:
+    for itemInfo in thing["receive"]:
+      if any(
+        itemInfo.startswith(prefix)
+        for prefix in [
+          "item:",
+          "weapon:",
+          "armor:",
+          "food:",
+          "skill:",
+          "magic:",
+        ]
+      ):
+        itemName = itemInfo.split("#")[0]
+        if itemName not in ITEM_NAME_TO_ID:
+          ITEM_NAME_TO_ID[itemName] = _id_counter
+          # TODO
+          DEFAULT_ITEM_CLASSIFICATIONS[itemName] = (
+            ItemClassification.filler
+            if any(
+              itemInfo.startswith(prefix) for prefix in ["item:", "food:"]
+            )
+            else (
+              ItemClassification.useful
+              if any(
+                itemInfo.startswith(prefix)
+                for prefix in [
+                  "skill:",
+                  "armor:",
+                ]
+              )
+              else (
+                ItemClassification.progression
+                if any(
+                  itemInfo.startswith(prefix)
+                  for prefix in [
+                    "magic:",
+                    "weapon:",
+                  ]
+                )
+                else ItemClassification.filler
+              )
+            )
+          )
+          _id_counter += 1
 
 
 # Each Item instance must correctly report the "game" it belongs to.
@@ -49,7 +89,7 @@ def get_random_filler_item_name(world: World) -> str:
   # DO NOT use a bare random object from Python's built-in random module.
   # if world.random.randint(0, 99) < world.options.trap_chance:
   #   return "Math Trap"
-  return "Confetti Cannon"
+  return "item:gold"
 
 
 def create_item_with_correct_classification(world: World, name: str) -> MathQuestItem:
@@ -78,13 +118,7 @@ def create_all_items(world: World) -> None:
   # Creating items should generally be done via the world's create_item method.
   # First, we create a list containing all the items that always exist.
 
-  itempool: list[Item] = [
-    world.create_item("Key"),
-    world.create_item("Sword"),
-    world.create_item("Shield"),
-    world.create_item("Health Upgrade"),
-    world.create_item("Health Upgrade"),
-  ]
+  itempool: list[Item] = [world.create_item(k) for k in ITEM_NAME_TO_ID.keys()]
 
   # Some items may only exist if the player enables certain options.
   # In our case, If the hammer option is enabled, the sixth item is the Hammer.

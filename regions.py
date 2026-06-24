@@ -22,6 +22,7 @@ def create_all_regions(world: World) -> None:
   from .room_geometry import GEOM
 
   temp: set[str] = set()
+  i=0
   for room in GEOM:
     _id = f'{room["north"]}_{room["east"]}'
     if _id not in temp:
@@ -32,6 +33,7 @@ def create_all_regions(world: World) -> None:
         world.multiworld,
       )
       world.multiworld.regions.append(region)
+      i+=1
   # Creating a region is as simple as calling the constructor of the Region class.
 
   # Some regions may only exist if the player enables certain options.
