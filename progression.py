@@ -1725,4 +1725,45 @@ MathQuest.js:42550 add listeners""",
     "receive": [],
     "info": "how show the warp requiring this",
   },
+  {
+    "room": {"north": 5, "east": 24},
+    "requires": [["quest:gTree.18"]],
+    "receive": ["quest:gTree.19", "food:holy water#1"],
+  },
+  {
+    "room": {"north": 5, "east": 24},
+    "requires": [["quest:gTree.19"]],
+    "receive": ["quest:gTree.20"],
+  },
+  {
+    "room": {"north": 15, "east": 18},
+    "requires": [["quest:gTree.20"]],
+    "receive": ["quest:gTree.21"],
+  },
+  {
+    "room": {"north": 16, "east": 14},
+    "requires": [["quest:gTree.21"]],
+    "receive": ["quest:gTree.22"],
+    "info": "passage up now available",
+  },
+  {
+    "room": {"north": 24, "east": 9},
+    "requires": [["quest:gTree.22"]],
+    "receive": ["quest:gTree.23", "goal:boss dead"],
+  },
+  {
+    "room": {"north": 24, "east": 9},
+    "requires": [["quest:gTree.23"]],
+    "receive": ["quest:gTree.24"],
+  },
+  {
+    "room": {"north": 14, "east": 18},
+    "requires": [["quest:gTree.24"]],
+    "receive": ["quest:gTree.25", "misc:power up#10", "item:gold#1000"],
+  },
+  {
+    "room": {"north": 14, "east": 18},
+    "requires": [["quest:gTree.25"]],
+    "receive": ["quest:aSword.1"],
+  },
 ]
