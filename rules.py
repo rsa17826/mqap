@@ -142,11 +142,11 @@ def set_completion_condition(world: World) -> None:
   # Finally, we need to set a completion condition for our world, defining what the player needs to win the game.
   # For this, we can use world.set_completion_rule.
   # You can just set a completion condition directly like any other condition, referencing items the player receives:
-  world.set_completion_rule(HasAll("Sword", "Shield"))
+  # world.set_completion_rule(HasAll("Sword", "Shield"))
 
   # In our case, we went for the Victory event design pattern (see create_events() in locations.py).
   # So lets undo what we just did, and instead set the completion condition to:
-  world.set_completion_rule(Has("Victory"))
+  world.set_completion_rule(Has("goal:boss dead"))
 
 
 # One final comment about rules:
