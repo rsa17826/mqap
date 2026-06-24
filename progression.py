@@ -1535,4 +1535,9 @@ PROG: list[ProgressionNode] = [
     # TODO
     "info":"also unblocks the path here add info to other place too"
   },
+  {
+    "room": {"north": 21, "east": 20},
+    "requires": [["loot:bear tooth#15", "quest:gTree.3"]],
+    "receive": ["quest:gTree.4"],
+  },
 ]
