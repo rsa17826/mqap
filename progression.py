@@ -97,12 +97,6 @@ PROG: list[ProgressionNode] = [
     "receive": ["item:key#1"],
   },
   {
-    "room": {"north": 16, "east": 21},
-    "requires": [["skill:dig", "???"]],
-    "receive": ["item:ring health"],
-    "info": "???",
-  },
-  {
     "room": {"north": 15, "east": 19},
     "requires": [["item:ring health"]],
     "receive": ["item:gold#300", "item:bomb#10", "food:banana#5"],
@@ -131,27 +125,12 @@ PROG: list[ProgressionNode] = [
     ],
     "receive": ["item:gold#100", "item:bomb#12", "food:apple#30"],
   },
-  # {
-  #   # "room": {"north": 13, "east": 21},
-  #   # "requires": [["quest:bomb.?"]],
-  #   # "receive": ["permit:bomb"],
-  # },
-  # {
-  #   "room": {"north": 13, "east": 21},
-  #   "requires": [["quest:bomb.?", "entrance.south0"]],
-  #   "receive": ["quest:bomb.?"],
-  # },
   {
     "room": {"north": 12, "east": 21},
     "requires": [["item:emerald#1", "permit:bomb"]],
     "receive": ["item:diamond#1", "food:banana#20"],
   },
   {"room": {"north": 12, "east": 19}, "info": "warp skill warp point"},
-  # {
-  #   "room": {"north": 13, "east": 16},
-  #   "requires": [["quest:rings.?", "entrance.south0", "permit:bomb"]],
-  #   "receive": ["ring.evasion", "quest:rings.?"],
-  # },
   {
     "room": {"north": 13, "east": 16},
     "requires": [["item:key#1", "entrance.west0"]],
@@ -968,7 +947,7 @@ PROG: list[ProgressionNode] = [
   # },
   # {
   #   "room": {"north": 13, "east": 21},
-  #   "requires": [["quest:bBomb.?"]],
+  #   "requires": [["quest:bBomb.?", "entrance.south0"]],
   #   "receive": ["quest:bBomb.?"],
   # },
   # {
@@ -1348,7 +1327,7 @@ PROG: list[ProgressionNode] = [
   # },
   {
     "room": {"north": 21, "east": 20},
-    "requires": [[]],
+    "requires": [["entrance.south0"]],
     "receive": ["quest:bBomb.1"],
   },
   # {
@@ -1606,7 +1585,7 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 13, "east": 21},
-    "requires": [["quest:bBomb.1"]],
+    "requires": [["quest:bBomb.1", "entrance.south0"]],
     "receive": ["quest:bBomb.2"],
   },
   {
@@ -1616,9 +1595,9 @@ PROG: list[ProgressionNode] = [
     "info": "sable broke here once but now working, unsure why",
   },
   {
-    "room": {"north": 21, "east": 13},
-    "requires": [["quest:bBomb.3"]],
-    "receive": ["quest:bBomb.4", "item:bomb#15"],
+    "room": {"north": 13, "east": 21},
+    "requires": [["quest:bBomb.3", "entrance.south0"]],
+    "receive": ["quest:bBomb.4", "item:bomb#15", "permit:bomb"],
     "info": """bomb active here so find ui update code here
 [ACCESS SET] Key: quest"1" was set to: 4 from 3 bBomb Error
 at Object.set (http://127.0.0.1:1533/MathQuest/MathQuest.js:19993:15)
@@ -1807,5 +1786,36 @@ MathQuest.js:42550 add listeners""",
     "room": {"north": 12, "east": 11},
     "requires": [["quest:canteen.2"]],
     "receive": ["quest:canteen.3", "item:diamnond#1"],
+  },
+  {"room": {"north": 14, "east": 22}, "requires": [[]], "receive": ["quest:rings.1"]},
+  {
+    "room": {"north": 14, "east": 22},
+    "requires": [["quest:rings.1", "skill:dig"]],
+    "receive": ["item:ring of gold"],
+  },
+  {
+    "room": {"north": 14, "east": 22},
+    "requires": [["quest:rings.1", "item:ring of gold"]],
+    "receive": ["quest:rings.2"],
+  },
+  {
+    "room": {"north": 16, "east": 21},
+    "requires": [["skill:dig", "quest:rings.1"]],
+    "receive": ["item:ring health"],
+  },
+  {
+    "room": {"north": 14, "east": 22},
+    "requires": [["item:ring of gold", "item:ring health", "quest:rings.1"]],
+    "receive": ["quest:rings.3"],
+  },
+  {
+    "room": {"north": 14, "east": 22},
+    "requires": [["item:ring of gold", "item:ring health", "item:ring evasion", "quest:rings.1"]],
+    "receive": ["quest:rings.4"],
+  },
+  {
+    "room": {"north": 13, "east": 16},
+    "requires": [["quest:rings.1", "entrance.south0", "permit:bomb"]],
+    "receive": ["ring.evasion"],
   },
 ]
