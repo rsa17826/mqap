@@ -52,20 +52,44 @@ def connect_regions(world: World) -> None:
   # Okay, now we can get connecting. For this, we need to create Entrances.
   # Entrances are inherently one-way, but crucially, AP assumes you can always return to the origin region.
   # One way to create an Entrance is by calling the Entrance constructor.
+
   for room in GEOM:
     cur = world.get_region(f'{room["north"]}_{room["east"]}')
+
     for _dir in ("north", "south", "east", "west"):
+      # 1. Determine the exact coordinates of the adjacent room based on the direction
+      target_north = room["north"]
+      target_east = room["east"]
+      _id = f'{room["north"]}_{room["east"]}'
+      if _id in ("100_100", "300_300"):
+        continue
+      if _dir == "north":
+        target_north += 1
+      elif _dir == "south":
+        target_north -= 1
+      elif _dir == "east":
+        target_east += 1
+      elif _dir == "west":
+        target_east -= 1
+
+      target_name = f"{target_north}_{target_east}"
+      # print(target_name, _dir, room)
+
+      # 2. Iterate through the exits if they exist in this direction
       i = 0
       for _exit in room["exits"][_dir]:
+        # Build a unique identifier for this entrance
+        entrance_name = f"Exit from {_id} {_dir}.{i}"
+
         entrance = Entrance(
           world.player,
-          f'{room["north"]+1}_{room["east"]}_{_dir}.{i}',
+          entrance_name,
           parent=cur,
         )
         cur.exits.append(entrance)
 
-        # You MUST explicitly connect it to the target region object:
-        target_region = world.get_region(f'{room["north"]+1}_{room["east"]}')
+        # 3. Securely connect to the correct calculated adjacent room
+        target_region = world.get_region(target_name)
         entrance.connect(target_region)
         i += 1
 

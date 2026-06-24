@@ -36,7 +36,7 @@ class MathQuestWorld(World):
 
   # There is always one region that the generator starts from & assumes you can always go back to.
   # This defaults to "Menu", but you can change it by overriding origin_region_name.
-  origin_region_name: str = "main"
+  origin_region_name: str = "20_20"
 
   # Our world class must have certain functions ("steps") that get called during generation.
   # The main ones are: create_regions, set_rules, create_items.
