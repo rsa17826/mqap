@@ -34,7 +34,9 @@ for thing in PROG:
           "food:",
           "skill:",
           "magic:",
+          "permit:",
           "goal:",
+          "misc:",
         ]
       ):
         itemName = itemInfo.split("#")[0]
@@ -59,7 +61,7 @@ for thing in PROG:
                 ItemClassification.progression
                 if any(
                   itemInfo.startswith(prefix)
-                  for prefix in ["magic:", "weapon:", "goal:"]
+                  for prefix in ["magic:", "weapon:", "goal:", "permit:"]
                 )
                 else ItemClassification.filler
               )

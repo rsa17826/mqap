@@ -11,6 +11,7 @@ from . import items
 LOCATION_NAME_TO_ID: dict[str, int] = {}
 # from .room_geometry import GEOM
 from .progression import PROG
+
 _id_counter = 0
 for thing in PROG:
   if "receive" in thing:
@@ -24,6 +25,9 @@ for thing in PROG:
           "food:",
           "skill:",
           "magic:",
+          "permit:",
+          "goal:",
+          "misc:",
         ]
       ):
         itemName = f"{thing['room']['north']}_{thing['room']['east']} - {itemInfo.split("#")[0]}"
