@@ -375,13 +375,13 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 7, "east": 25},
-    "requires": [["magic:fire.2?"]],
-    "receive": ["state:lit torch.+1"],
+    "requires": [["magic:fire.2"]],
+    "receive": ["state:lit torch 2"],
   },
   {
     "room": {"north": 8, "east": 21},
-    "requires": [["magic:fire.2?"]],
-    "receive": ["state:lit torch.+1"],
+    "requires": [["magic:fire.2"]],
+    "receive": ["state:lit torch 1"],
   },
   {
     "room": {"north": 9, "east": 22},
@@ -1678,20 +1678,51 @@ at Jh.onKeyDown (http://127.0.0.1:1533/MathQuest/MathQuest.js:99147:18)
     "room": {"north": 11, "east": 9},
     "requires": [["entrance.north0"], ["entrance.east1"]],
     "receive": ["quest:warp.1"],
-  },{
+  },
+  {
     "room": {"north": 12, "east": 11},
     "requires": [["entrance.west0"], ["entrance.south0"]],
-    "receive": ["quest:canteen.1"]
-  },{
+    "receive": ["quest:canteen.1"],
+  },
+  {
     "room": {"north": 8, "east": 9},
     "requires": [["item:fire crystal"]],
-    "receive": [],"info":"""289 374
+    "receive": [],
+    "info": """289 374
 MathQuest.js:42502 remove listeners
 MathQuest.js:31398 enterHandlertrue
 MathQuest.js:111001 [ER DEBUG] Transition initiated. From room: 8,9 at position X/Y: 350,300
 MathQuest.js:111037 [ER DEBUG] Checking redirection for vanilla move path key: 8_9_7_9
 MathQuest.js:111157 [ER DEBUG] No randomizer override entry for key [8_9_7_9]. Retaining game defaults.
 MathQuest.js:31309 0 0 0 0
-MathQuest.js:42550 add listeners"""
+MathQuest.js:42550 add listeners""",
+  },
+  {
+    "room": {"north": 7, "east": 11},
+    "requires": [["quest:gTree.15"]],
+    "receive": ["quest:gTree.16"],
+  },
+  {
+    "room": {"north": 7, "east": 10},
+    "requires": [["quest:gTree.16", "permit:bomb"]],
+    "receive": ["quest:gTree.17"],
+    "info": "forgot to add permit:bomb to above, do so later",
+  },
+  {
+    "room": {"north": 15, "east": 18},
+    "requires": [["quest:gTree.17"]],
+    # TODO
+    "receive": ["quest:gTree.18", "permit:shadowsoul entrance"],
+  },
+  {
+    "room": {"north": 9, "east": 22},
+    "requires": [["entrance.south0"]],
+    "receive": ["quest:seeds.1"],
+  },
+  {
+    "room": {"north": 6, "east": 23},
+    "requires": [["state:lit torch 2", "state:lit torch 1"]],
+    "receive": [],
+    "info": "how show the warp requiring this",
   },
 ]
