@@ -1664,4 +1664,34 @@ at Jh.onKeyDown (http://127.0.0.1:1533/MathQuest/MathQuest.js:99147:18)
     "requires": [["quest:pam.7", "entrance.south1"]],
     "receive": ["quest:pam.8"],
   },
+  {
+    "room": {"north": 12, "east": 9},
+    "requires": [["quest:gTree.13"]],
+    "receive": ["quest:gTree.14"],
+  },
+  {
+    "room": {"north": 12, "east": 9},
+    "requires": [["quest:gTree.14", "loot:sClaw#7", "loot:cFang#5"]],
+    "receive": ["quest:gTree.15", "misc:fire crystal"],
+  },
+  {
+    "room": {"north": 11, "east": 9},
+    "requires": [["entrance.north0"], ["entrance.east1"]],
+    "receive": ["quest:warp.1"],
+  },{
+    "room": {"north": 12, "east": 11},
+    "requires": [["entrance.west0"], ["entrance.south0"]],
+    "receive": ["quest:canteen.1"]
+  },{
+    "room": {"north": 8, "east": 9},
+    "requires": [["item:fire crystal"]],
+    "receive": [],"info":"""289 374
+MathQuest.js:42502 remove listeners
+MathQuest.js:31398 enterHandlertrue
+MathQuest.js:111001 [ER DEBUG] Transition initiated. From room: 8,9 at position X/Y: 350,300
+MathQuest.js:111037 [ER DEBUG] Checking redirection for vanilla move path key: 8_9_7_9
+MathQuest.js:111157 [ER DEBUG] No randomizer override entry for key [8_9_7_9]. Retaining game defaults.
+MathQuest.js:31309 0 0 0 0
+MathQuest.js:42550 add listeners"""
+  },
 ]

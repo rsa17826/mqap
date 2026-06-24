@@ -56,8 +56,8 @@ for thing in PROG:
               )
               else (
                 ItemClassification.progression
-                if any(
-                  itemInfo.startswith(prefix)
+                if any(:
+                                      itemInfo.startswith(prefix)
                   for prefix in [
                     "magic:",
                     "weapon:",
