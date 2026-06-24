@@ -48,14 +48,15 @@ def create_regular_locations(world: MathQuestWorld) -> None:
   i = 0
   for thing in PROG:
     if "receive" in thing:
-      for itemName in thing["receive"]:
+      for itemInfo in thing["receive"]:
         if (
-          itemName.startswith("item:")
-          or itemName.startswith("weapon:")
-          or itemName.startswith("armor:")
-          or itemName.startswith("food:")
-          or itemName.startswith("skill:")
+          itemInfo.startswith("item:")
+          or itemInfo.startswith("weapon:")
+          or itemInfo.startswith("armor:")
+          or itemInfo.startswith("food:")
+          or itemInfo.startswith("skill:")
         ):
+          itemName = itemInfo.split("#")[0]
           LOCATION_NAME_TO_ID[itemName] = i
           item = MathQuestLocation(
             world.player,
