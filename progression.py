@@ -1508,4 +1508,14 @@ PROG: list[ProgressionNode] = [
     "requires": [[]],
     "receive": ["quest:dig.1"],
   },
+  {
+    "room": {"north": 19, "east": 21},
+    "requires": [["skill:dig", "quest:dig.1"]],
+    "receive": ["misc:small locket", "quest:dig.2"],
+  },
+  {
+    "room": {"north": 19, "east": 21},
+    "requires": [["misc:small locket", "quest:dig.2"]],
+    "receive": ["quest:dig.3", "item:gold#25"],
+  },
 ]
