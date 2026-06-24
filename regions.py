@@ -19,17 +19,19 @@ def create_and_connect_regions(world: World) -> None:
 
 
 def create_all_regions(world: World) -> None:
-  from .exits import EXITS
   from .room_geometry import GEOM
-  from .progression import PROG
 
+  temp: set[str] = set()
   for room in GEOM:
-    region = Region(
-      f'{room["north"]}_{room["east"]}',
-      world.player,
-      world.multiworld,
-    )
-    world.multiworld.regions.append(region)
+    _id = f'{room["north"]}_{room["east"]}'
+    if _id not in temp:
+      temp.add(_id)
+      region = Region(
+        _id,
+        world.player,
+        world.multiworld,
+      )
+      world.multiworld.regions.append(region)
   # Creating a region is as simple as calling the constructor of the Region class.
 
   # Some regions may only exist if the player enables certain options.
@@ -52,50 +54,20 @@ def connect_regions(world: World) -> None:
   # One way to create an Entrance is by calling the Entrance constructor.
   for room in GEOM:
     cur = world.get_region(f'{room["north"]}_{room["east"]}')
-    if any(
-      x["north"] == room["north"] + 1 and x["east"] == room["east"] for x in GEOM
-    ):
-      entrance = Entrance(
-        world.player, f'Exit to {room["north"]+1}_{room["east"]}', parent=cur
-      )
-      cur.exits.append(entrance)
+    for _dir in ("north", "south", "east", "west"):
+      i = 0
+      for _exit in room["exits"][_dir]:
+        entrance = Entrance(
+          world.player,
+          f'{room["north"]+1}_{room["east"]}_{_dir}.{i}',
+          parent=cur,
+        )
+        cur.exits.append(entrance)
 
-      # You MUST explicitly connect it to the target region object:
-      target_region = world.get_region(f'{room["north"]+1}_{room["east"]}')
-      entrance.connect(target_region)
-    if any(
-      x["north"] == room["north"] - 1 and x["east"] == room["east"] for x in GEOM
-    ):
-      entrance = Entrance(
-        world.player, f'Exit to {room["north"]-1}_{room["east"]}', parent=cur
-      )
-      cur.exits.append(entrance)
-
-      # You MUST explicitly connect it to the target region object:
-      target_region = world.get_region(f'{room["north"]-1}_{room["east"]}')
-      entrance.connect(target_region)
-    if any(
-      x["north"] == room["north"] and x["east"] == room["east"] + 1 for x in GEOM
-    ):
-      entrance = Entrance(
-        world.player, f'Exit to {room["north"]}_{room["east"]+1}', parent=cur
-      )
-      cur.exits.append(entrance)
-
-      # You MUST explicitly connect it to the target region object:
-      target_region = world.get_region(f'{room["north"]}_{room["east"]+1}')
-      entrance.connect(target_region)
-    if any(
-      x["north"] == room["north"] and x["east"] == room["east"] - 1 for x in GEOM
-    ):
-      entrance = Entrance(
-        world.player, f'Exit to {room["north"]}_{room["east"]-1}', parent=cur
-      )
-      cur.exits.append(entrance)
-
-      # You MUST explicitly connect it to the target region object:
-      target_region = world.get_region(f'{room["north"]}_{room["east"]-1}')
-      entrance.connect(target_region)
+        # You MUST explicitly connect it to the target region object:
+        target_region = world.get_region(f'{room["north"]+1}_{room["east"]}')
+        entrance.connect(target_region)
+        i += 1
 
   # You can then connect the Entrance to the target region.
   # overworld_to_bottom_right_room.connect(bottom_right_room)
