@@ -60,6 +60,12 @@ def create_all_regions(world: World) -> None:
 def connect_regions(world: World) -> None:
   from ._room_geometry import GEOM
 
+  # 1. Map out which room IDs have area configurations for quick lookup
+  room_has_areas = {f'{r["north"]}_{r["east"]}': "areas" in r for r in GEOM}
+
+  # 2. Direction inversion mapping
+  opposites = {"north": "south", "south": "north", "east": "west", "west": "east"}
+
   for room in GEOM:
     room_id = f'{room["north"]}_{room["east"]}'
     if room_id in ("100_100", "300_300"):
@@ -83,7 +89,9 @@ def connect_regions(world: World) -> None:
         target_east += 1
       elif direction == "west":
         target_east -= 1
-      target_region = world.get_region(f"{target_north}_{target_east}")
+
+      target_room_id = f"{target_north}_{target_east}"
+      opposite_direction = opposites[direction]
 
       for idx in range(num_exits):
         source_region = (
@@ -91,6 +99,15 @@ def connect_regions(world: World) -> None:
           if has_areas
           else world.get_region(room_id)
         )
+
+        # FIX: If the target room utilizes sub-areas, land on its specific slot wrapper
+        if room_has_areas.get(target_room_id, False):
+          target_region = world.get_region(
+            f"{target_room_id}#{_slot_id(opposite_direction, idx)}"
+          )
+        else:
+          target_region = world.get_region(target_room_id)
+
         entrance_name = f"Exit from {room_id} {direction}.{idx}"
         entrance = Entrance(world.player, entrance_name, parent=source_region)
         source_region.exits.append(entrance)

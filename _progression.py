@@ -955,11 +955,6 @@ PROG: list[ProgressionNode] = [
   #   "requires": [["quest:gTree.?"]],
   #   "receive": ["quest:gTree.?"],
   # },
-  {
-    "room": {"north": 19, "east": 21},
-    "requires": [[]],
-    "receive": ["quest:dig.1"],
-  },
   # {
   #   "room": {"north": 14, "east": 17},
   #   "requires": [["quest:mChal.?"]],
@@ -1817,5 +1812,11 @@ MathQuest.js:42550 add listeners""",
     "room": {"north": 13, "east": 16},
     "requires": [["quest:rings.1", "entrance.south0", "permit:bomb"]],
     "receive": ["ring.evasion"],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [[]],
+    "receive": ["skill:dig"],
+    "info":"can be got anywhere"
   },
 ]
