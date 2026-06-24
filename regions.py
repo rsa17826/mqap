@@ -27,7 +27,7 @@ def _reqs_to_rule(reqs: list[list[str]]) -> Rule | None:
 
 
 def create_all_regions(world: World) -> None:
-  from .room_geometry import GEOM
+  from ._room_geometry import GEOM
 
   seen: set[str] = set()
   for room in GEOM:
@@ -58,7 +58,7 @@ def create_all_regions(world: World) -> None:
 
 
 def connect_regions(world: World) -> None:
-  from .room_geometry import GEOM
+  from ._room_geometry import GEOM
 
   for room in GEOM:
     room_id = f'{room["north"]}_{room["east"]}'

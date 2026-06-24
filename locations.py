@@ -10,7 +10,7 @@ from . import items
 # Even if a location doesn't exist on specific options, it must be present in this lookup.
 LOCATION_NAME_TO_ID: dict[str, int] = {}
 # from .room_geometry import GEOM
-from .progression import PROG
+from ._progression import PROG
 
 _id_counter = 0
 for thing in PROG:

@@ -7,7 +7,7 @@ from worlds.AutoWorld import World
 # We will have a lookup from item name to ID here that, in world.py, we will import and bind to the world class.
 # Even if an item doesn't exist on specific options, it must be present in this lookup.
 ITEM_NAME_TO_ID: dict[str, int] = {}
-from .progression import PROG
+from ._progression import PROG
 
 # Items should have a defined default classification.
 # In our case, we will make a dictionary from item name to classification.
