@@ -98,13 +98,15 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 16, "east": 21},
-    "requires": [["item:ring health"]],
-    "receive": ["skill:dig"],
+    "requires": [["skill:dig", "???"]],
+    "receive": ["item:ring health"],
+    "info": "???",
   },
   {
     "room": {"north": 15, "east": 19},
     "requires": [["item:ring health"]],
     "receive": ["item:gold#300", "item:bomb#10", "food:banana#5"],
+    "info": "???",
   },
   {
     "room": {"north": 14, "east": 19},
@@ -1555,5 +1557,36 @@ PROG: list[ProgressionNode] = [
     "room": {"north": 15, "east": 23},
     "requires": [["quest:pam.1", "skill:dig"]],
     "receive": ["quest:pam.2"],
+  },
+  {
+    "room": {"north": 19, "east": 20},
+    "requires": [["quest:pam.2"]],
+    "receive": ["quest:pam.3", "item:gold#20"],
+  },
+  {
+    "room": {"north": 12, "east": 20},
+    "requires": [["quest:pam.3"]],
+    "receive": ["quest:pam.4"],
+    # TODO make sure to show all req pam also req skill dig
+  },
+  {
+    "room": {"north": 19, "east": 20},
+    "requires": [["quest:pam.4"]],
+    "receive": ["quest:pam.5", "food:gingerbread cookie#10"],
+  },
+  {
+    "room": {"north": 14, "east": 18},
+    "requires": [["quest:gTree.7"]],
+    "receive": ["quest:gTree.8"],
+  },
+  {
+    "room": {"north": 14, "east": 18},
+    "requires": [["quest:gTree.8"]],
+    "receive": ["quest:gTree.9"],
+  },
+  {
+    "room": {"north": 17, "east": 19},
+    "requires": [[]],
+    "receive": ["quest:oMan.1", "misc:old pendant"],
   },
 ]
