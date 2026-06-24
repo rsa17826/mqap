@@ -7,12 +7,12 @@ from BaseClasses import ItemClassification, Location
 from . import items
 
 if TYPE_CHECKING:
-  from .world import MathQuestWorld
+  from worlds.AutoWorld import World
 
 # Every location must have a unique integer ID associated with it.
 # We will have a lookup from location name to ID here that, in world.py, we will import and bind to the world class.
 # Even if a location doesn't exist on specific options, it must be present in this lookup.
-LOCATION_NAME_TO_ID = {}
+LOCATION_NAME_TO_ID: dict[str, int] = {}
 
 
 # Each Location instance must correctly report the "game" it belongs to.
@@ -34,12 +34,12 @@ def get_location_names_with_ids(location_names: list[str]) -> dict[str, int | No
   }
 
 
-def create_all_locations(world: MathQuestWorld) -> None:
+def create_all_locations(world: World) -> None:
   create_regular_locations(world)
   create_events(world)
 
 
-def create_regular_locations(world: MathQuestWorld) -> None:
+def create_regular_locations(world: World) -> None:
   from .exits import EXITS
   from .room_geometry import GEOM
   from .progression import PROG
@@ -68,7 +68,7 @@ def create_regular_locations(world: MathQuestWorld) -> None:
           mainRegion.locations.append(item)
 
 
-def create_events(world: MathQuestWorld) -> None:
+def create_events(world: World) -> None:
   # Sometimes, the player may perform in-game actions that allow them to progress which are not related to Items.
   # In our case, the player must press a button in the top left room to open the final boss door.
   # AP has something for this purpose: "Event locations" and "Event items".
@@ -105,7 +105,7 @@ def create_events(world: MathQuestWorld) -> None:
   # Luckily, we have another event we want to create: The Victory event.
   # We will use this event to track whether the player can win the game.
   # The Victory event is a completely optional abstraction - This will be discussed more in set_rules().
-  final_boss_room.add_event(
+  _ = final_boss_room.add_event(
     "Final Boss Defeated",
     "Victory",
     location_type=MathQuestLocation,
