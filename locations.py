@@ -24,6 +24,7 @@ for thing in PROG:
           "food:",
           "skill:",
           "magic:",
+          "goal:",
         ]
       ):
         itemName = f"{thing['room']['north']}_{thing['room']['east']} - {itemInfo.split("#")[0]}"
@@ -67,7 +68,7 @@ def create_all_locations(world: World) -> None:
 
 def create_regular_locations(world: World) -> None:
   mainRegion = world.get_region("20_20")
-
+  # TODO
   for itemName, location_id in LOCATION_NAME_TO_ID.items():
     item = MathQuestLocation(
       world.player,

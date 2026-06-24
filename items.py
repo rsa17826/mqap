@@ -34,6 +34,7 @@ for thing in PROG:
           "food:",
           "skill:",
           "magic:",
+          "goal:",
         ]
       ):
         itemName = itemInfo.split("#")[0]
@@ -41,29 +42,33 @@ for thing in PROG:
           ITEM_NAME_TO_ID[itemName] = _id_counter
           # TODO
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = (
-            ItemClassification.filler
-            if any(
-              itemInfo.startswith(prefix) for prefix in ["item:", "food:"]
-            )
+            ItemClassification.progression
+            if itemInfo.startswith("goal:")
             else (
-              ItemClassification.useful
+              ItemClassification.filler
               if any(
-                itemInfo.startswith(prefix)
-                for prefix in [
-                  "skill:",
-                  "armor:",
-                ]
+                itemInfo.startswith(prefix) for prefix in ["item:", "food:"]
               )
               else (
-                ItemClassification.progression
+                ItemClassification.useful
                 if any(
                   itemInfo.startswith(prefix)
                   for prefix in [
-                    "magic:",
-                    "weapon:",
+                    "skill:",
+                    "armor:",
                   ]
                 )
-                else ItemClassification.filler
+                else (
+                  ItemClassification.progression
+                  if any(
+                    itemInfo.startswith(prefix)
+                    for prefix in [
+                      "magic:",
+                      "weapon:",
+                    ]
+                  )
+                  else ItemClassification.filler
+                )
               )
             )
           )
