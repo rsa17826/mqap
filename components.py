@@ -1,5 +1,4 @@
-from worlds.LauncherComponents import Component, Type, components, launch
-
+from worlds.LauncherComponents import Component, Type, components
 
 # You then add this function as a component by appending a Component instance to LauncherComponents.components.
 # Now, it will show up in the Launcher with its display name,

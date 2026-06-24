@@ -1,13 +1,9 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from BaseClasses import ItemClassification, Location
+from worlds.AutoWorld import World
 
 from . import items
-
-if TYPE_CHECKING:
-  from worlds.AutoWorld import World
 
 # Every location must have a unique integer ID associated with it.
 # We will have a lookup from location name to ID here that, in world.py, we will import and bind to the world class.

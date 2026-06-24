@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import TypedDict, NotRequired, Literal
+from typing import Literal, NotRequired, TypedDict
 
 
 class ExitBase(TypedDict):

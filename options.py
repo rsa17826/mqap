@@ -74,7 +74,7 @@ option_groups: list[OptionGroup] = [
 ]
 
 # Finally, we can define some option presets if we want the player to be able to quickly choose a specific "mode".
-option_presets = {
+option_presets: dict[str, dict[str, bool]] = {
   "main": {
     "item_rando": True,
     "EntranceRando": True,

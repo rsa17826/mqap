@@ -1,34 +1,11 @@
 from collections.abc import Mapping
-from typing import Any, override
+from typing import ClassVar, cast, override
 
-# Imports of base Archipelago modules must be absolute.
-from worlds.AutoWorld import World
-
-# Imports of your world's files must be relative.
-from . import items, locations, regions, rules, web_world
-from . import (
-  options as MathQuest_options,
-) # rename due to a name conflict with World.options
-
-# MathQuest will go through all the parts of the world api one step at a time,
-# with many examples and comments across multiple files.
-# If you'd rather read one continuous document, or just like reading multiple sources,
-# we also have this document specifying the entire world api:
-# https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/world%20api.md
-
-
-# The world class is the heart and soul of an apworld implementation.
-# It holds all the data and functions required to build the world and submit it to the multiworld generator.
-# You could have all your world code in just this one class, but for readability and better structure,
-# it is common to split up world functionality into multiple files.
-# This implementation in particular has the following additional files, each covering one topic:
-# regions.py, locations.py, rules.py, items.py, options.py and web_world.py.
-# It is recommended that you read these in that specific order, then come back to the world class.
-from typing import ClassVar
-from worlds.AutoWorld import WebWorld
-
-from typing import cast
 from Options import PerGameCommonOptions
+from worlds.AutoWorld import WebWorld, World
+
+from . import items, locations, regions, rules, web_world
+from . import options as MathQuest_options
 
 
 class MathQuestWorld(World):

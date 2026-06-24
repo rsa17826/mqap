@@ -1,5 +1,4 @@
-from typing import TypedDict, NotRequired
-
+from typing import NotRequired, TypedDict
 
 class RoomCoordinates(TypedDict):
   north: int
@@ -308,7 +307,7 @@ PROG: list[ProgressionNode] = [
       ["item:minotour horn", "entrance.north0"],
       ["item:minotour horn", "entrance.east0"],
     ],
-    "receive": ["item:broken aplha axe#1"],
+    "receive": ["item:broken alpha axe#1"],
   },
   {
     "room": {"north": 6, "east": 13},

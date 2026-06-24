@@ -1,11 +1,7 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from BaseClasses import Item, ItemClassification
-
-if TYPE_CHECKING:
-  from .world import MathQuestWorld
+from worlds.AutoWorld import World
 
 # Every item must have a unique integer ID associated with it.
 # We will have a lookup from item name to ID here that, in world.py, we will import and bind to the world class.
@@ -37,13 +33,13 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
 # Each Item instance must correctly report the "game" it belongs to.
 # To make this simple, it is common practice to subclass the basic Item class and override the "game" field.
 class MathQuestItem(Item):
-  game = "MathQuest"
+  game: str = "MathQuest"
 
 
 # Ontop of our regular itempool, our world must be able to create arbitrary amounts of filler as requested by core.
 # To do this, it must define a function called world.get_filler_item_name(), which we will define in world.py later.
 # For now, let's make a function that returns the name of a random filler item here in items.py.
-def get_random_filler_item_name(world: MathQuestWorld) -> str:
+def get_random_filler_item_name(world: World) -> str:
   # MathQuest has an option called "trap_chance".
   # This is the percentage chance that each filler item is a Math Trap instead of a Confetti Cannon.
   # For this purpose, we need to use a random generator.
@@ -56,9 +52,7 @@ def get_random_filler_item_name(world: MathQuestWorld) -> str:
   return "Confetti Cannon"
 
 
-def create_item_with_correct_classification(
-  world: MathQuestWorld, name: str
-) -> MathQuestItem:
+def create_item_with_correct_classification(world: World, name: str) -> MathQuestItem:
   # Our world class must have a create_item() function that can create any of our items by name at any time.
   # So, we make this helper function that creates the item by name with the correct classification.
   # Note: This function's content could just be the contents of world.create_item in world.py directly,
@@ -67,14 +61,14 @@ def create_item_with_correct_classification(
 
   # It is perfectly normal and valid for an item's classification to differ based on the player's options.
   # In our case, Health Upgrades are only relevant to logic (and thus labeled as "progression") in hard mode.
-  if name == "Health Upgrade" and world.options.hard_mode:
-    classification = ItemClassification.progression
+  # if name == "Health Upgrade" and world.options.hard_mode:
+  #   classification = ItemClassification.progression
 
   return MathQuestItem(name, classification, ITEM_NAME_TO_ID[name], world.player)
 
 
 # With those two helper functions defined, let's now get to actually creating and submitting our itempool.
-def create_all_items(world: MathQuestWorld) -> None:
+def create_all_items(world: World) -> None:
   # This is the function in which we will create all the items that this world submits to the multiworld item pool.
   # There must be exactly as many items as there are locations.
   # In our case, there are either six or seven locations.
@@ -95,11 +89,11 @@ def create_all_items(world: MathQuestWorld) -> None:
   # Some items may only exist if the player enables certain options.
   # In our case, If the hammer option is enabled, the sixth item is the Hammer.
   # Otherwise, we add a filler Confetti Cannon.
-  if world.options.hammer:
-    # Once again, it is important to stress that even though the Hammer doesn't always exist,
-    # it must be present in the worlds item_name_to_id.
-    # Whether it is actually in the itempool is determined purely by whether we create and add the item here.
-    itempool.append(world.create_item("Hammer"))
+  # if world.options.hammer:
+  #   # Once again, it is important to stress that even though the Hammer doesn't always exist,
+  #   # it must be present in the worlds item_name_to_id.
+  #   # Whether it is actually in the itempool is determined purely by whether we create and add the item here.
+  #   itempool.append(world.create_item("Hammer"))
 
   # Archipelago requires that each world submits as many locations as it submits items.
   # This is where we can use our filler and trap items.
