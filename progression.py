@@ -182,7 +182,7 @@ PROG: list[ProgressionNode] = [
     "receive": ["armour:alpha armour.+inf"],
   },
   {
-    "room": {"north": 13, "east": 11},
+    "room": {"north": 11, "east": 13},
     "requires": [["item:mage staff#1"]],
     "receive": ["food:blueberry#1"],
   },
