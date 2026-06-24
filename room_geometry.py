@@ -1016,6 +1016,7 @@ GEOM: list[ExitBase] = [
         "areas": [
           [{"side": "west", "idx": 0}],
           [{"side": "west", "idx": 1}, {"side": "south", "idx": 1}],
+          [{"side": "north", "idx": 0}, {"side": "south", "idx": 0}],
         ],
       }
     ],
@@ -1679,16 +1680,6 @@ GEOM: list[ExitBase] = [
   {
     "north": 11,
     "east": 26,
-    "areas": [
-      {
-        "areas": [[{"side": "west", "idx": 0}, {"side": "south", "idx": 0}]],
-        "reqs": [["misc:stomp code", "skill:stomp"]],
-      },
-      {
-        "areas": [[{"side": "west", "idx": 0}], [{"side": "south", "idx": 0}]],
-        "reqs": [[]],
-      },
-    ],
     "exits": {
       "west": [],
       "south": [{"left": 6, "right": 7}],
@@ -1875,6 +1866,10 @@ GEOM: list[ExitBase] = [
       {
         "reqs": [[]],
         "areas": [[{"side": "south", "idx": 0}], [{"side": "west", "idx": 0}]],
+      },
+      {
+        "reqs": [["misc:stomp code"]],
+        "areas": [[{"side": "south", "idx": 0},{"side": "west", "idx": 0}]],
       }
     ],
     "exits": {
@@ -2183,12 +2178,6 @@ GEOM: list[ExitBase] = [
   {
     "north": 14,
     "east": 24,
-    "areas": [
-      {
-        "reqs": [[]],
-        "areas": [[{"side": "west", "idx": 0}, {"side": "north", "idx": 1}]],
-      }
-    ],
     "exits": {
       "west": [],
       "south": [{"left": 1, "right": 9}],
