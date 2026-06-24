@@ -564,7 +564,7 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 19, "east": 21},
-    "requires": [["???", "item:bear tooth#1"]],
+    "requires": [["quest:dig.3", "item:bear tooth#1"]],
     "receive": ["item:gold#18"],
   },
   {"room": {"north": 19, "east": 20}, "receive": ["quest:pam.1"]},
@@ -1517,5 +1517,22 @@ PROG: list[ProgressionNode] = [
     "room": {"north": 19, "east": 21},
     "requires": [["misc:small locket", "quest:dig.2"]],
     "receive": ["quest:dig.3", "item:gold#25"],
+  },
+  {
+    "room": {"north": 21, "east": 20},
+    "requires": [["food:honey#10"]],
+    "receive": ["magic:crush"],
+  },
+  {
+    "room": {"north": 21, "east": 20},
+    "requires": [["quest:gTree.1"]],
+    "receive": ["quest:gTree.2"],
+  },
+  {
+    "room": {"north": 18, "east": 22},
+    "requires": [["quest:gTree.2"]],
+    "receive": ["quest:gTree.3"],
+    # TODO
+    "info":"also unblocks the path here add info to other place too"
   },
 ]
