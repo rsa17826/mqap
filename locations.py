@@ -9,7 +9,16 @@ from . import items
 # We will have a lookup from location name to ID here that, in world.py, we will import and bind to the world class.
 # Even if a location doesn't exist on specific options, it must be present in this lookup.
 LOCATION_NAME_TO_ID: dict[str, int] = {}
-
+from .progression import PROG
+_id_counter = 0
+for thing in PROG:
+  if "receive" in thing:
+    for itemInfo in thing["receive"]:
+      if any(itemInfo.startswith(prefix) for prefix in ["item:", "weapon:", "armor:", "food:", "skill:"]):
+        itemName = itemInfo.split("#")[0]
+        if itemName not in LOCATION_NAME_TO_ID:
+          LOCATION_NAME_TO_ID[itemName] = _id_counter
+          _id_counter += 1
 
 # Each Location instance must correctly report the "game" it belongs to.
 # To make this simple, it is common practice to subclass the basic Location class and override the "game" field.
@@ -36,32 +45,16 @@ def create_all_locations(world: World) -> None:
 
 
 def create_regular_locations(world: World) -> None:
-  from .exits import EXITS
-  from .room_geometry import GEOM
-  from .progression import PROG
-
   mainRegion = world.get_region("main")
-  i = 0
-  for thing in PROG:
-    if "receive" in thing:
-      for itemInfo in thing["receive"]:
-        if (
-          itemInfo.startswith("item:")
-          or itemInfo.startswith("weapon:")
-          or itemInfo.startswith("armor:")
-          or itemInfo.startswith("food:")
-          or itemInfo.startswith("skill:")
-        ):
-          itemName = itemInfo.split("#")[0]
-          LOCATION_NAME_TO_ID[itemName] = i
-          item = MathQuestLocation(
-            world.player,
-            itemName,
-            world.location_name_to_id[itemName],
-            mainRegion,
-          )
-          i += 1
-          mainRegion.locations.append(item)
+
+  for itemName, location_id in LOCATION_NAME_TO_ID.items():
+    item = MathQuestLocation(
+      world.player,
+      itemName,
+      location_id,
+      mainRegion,
+    )
+    mainRegion.locations.append(item)
 
 
 def create_events(world: World) -> None:
