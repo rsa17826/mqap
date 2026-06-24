@@ -5,11 +5,11 @@ It is a completely standalone resource, but there will be links to additional re
 # Prerequisites #
 #################
 
-APQuest will only explain how to write the generation-side code for your game, not how to write a client or mod for it.
+MathQuest will only explain how to write the generation-side code for your game, not how to write a client or mod for it.
 For a more zoomed out view of how to add a game to Archipelago, you can read this document:
 https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/adding%20games.md
 
-APQuest assumes you already vaguely know what an apworld is.
+MathQuest assumes you already vaguely know what an apworld is.
 If you don't know, read this first:
 https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/apworld%20specification.md
 
@@ -18,7 +18,7 @@ Here's an explanation for how to do that.
 https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/running%20from%20source.md
 
 #######################
-# How to read APQuest #
+# How to read MathQuest #
 #######################
 
 You'll want to start with __init__.py, then move to world.py.
@@ -35,7 +35,7 @@ Copy from it at your own risk.
 # Further reading #
 ###################
 
-APQuest is a very simple game, so not every edge case will be covered.
+MathQuest is a very simple game, so not every edge case will be covered.
 The world API document goes a lot more in-depth on certain topics:
 https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/world%20api.md
 

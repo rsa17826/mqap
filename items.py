@@ -44,7 +44,7 @@ class MathQuestItem(Item):
 # To do this, it must define a function called world.get_filler_item_name(), which we will define in world.py later.
 # For now, let's make a function that returns the name of a random filler item here in items.py.
 def get_random_filler_item_name(world: MathQuestWorld) -> str:
-  # APQuest has an option called "trap_chance".
+  # MathQuest has an option called "trap_chance".
   # This is the percentage chance that each filler item is a Math Trap instead of a Confetti Cannon.
   # For this purpose, we need to use a random generator.
 
@@ -103,13 +103,13 @@ def create_all_items(world: MathQuestWorld) -> None:
 
   # Archipelago requires that each world submits as many locations as it submits items.
   # This is where we can use our filler and trap items.
-  # APQuest has two of these: The Confetti Cannon and the Math Trap.
+  # MathQuest has two of these: The Confetti Cannon and the Math Trap.
   # (Unfortunately, Archipelago is a bit ambiguous about its terminology here:
   #  "filler" is an ItemClassification separate from "trap", but in a lot of its functions,
   #  Archipelago will use "filler" to just mean "an additional item created to fill out the itempool".
   #  "Filler" in this sense can technically have any ItemClassification,
   #  but most commonly ItemClassification.filler or ItemClassification.trap.
-  #  Starting here, the word "filler" will be used to collectively refer to APQuest's Confetti Cannon and Math Trap,
+  #  Starting here, the word "filler" will be used to collectively refer to MathQuest's Confetti Cannon and Math Trap,
   #  which are ItemClassification.filler and ItemClassification.trap respectively.)
   # Creating filler items works the same as any other item. But there is a question:
   # How many filler items do we actually need to create?
@@ -133,7 +133,7 @@ def create_all_items(world: MathQuestWorld) -> None:
 
   # Finally, we create that many filler items and add them to the itempool.
   # To create our filler, we could just use world.create_item("Confetti Cannon").
-  # But there is an alternative that works even better for most worlds, including APQuest.
+  # But there is an alternative that works even better for most worlds, including MathQuest.
   # As discussed above, our world must have a get_filler_item_name() function defined,
   # which must return the name of an infinitely repeatable filler item.
   # Defining this function enables the use of a helper function called world.create_filler().
@@ -150,7 +150,7 @@ def create_all_items(world: MathQuestWorld) -> None:
   # But there are many other games which *only* have infinitely repeatable filler items.
   # They don't care about specific amounts of specific filler items, instead only caring about the proportions.
   # In this case, world.create_filler() can just be used for the entire filler itempool.
-  # APQuest is one of these games:
+  # MathQuest is one of these games:
   # Regardless of whether it's filler for the regular itempool or additional filler for item links / etc.,
   # we always just want a Confetti Cannon or a Math Trap depending on the "trap_chance" option.
   # We defined this behavior in our get_random_filler_item_name() function, which in world.py,

@@ -7,10 +7,10 @@ from worlds.AutoWorld import World
 # Imports of your world's files must be relative.
 from . import items, locations, regions, rules, web_world
 from . import (
-  options as apquest_options,
+  options as MathQuest_options,
 ) # rename due to a name conflict with World.options
 
-# APQuest will go through all the parts of the world api one step at a time,
+# MathQuest will go through all the parts of the world api one step at a time,
 # with many examples and comments across multiple files.
 # If you'd rather read one continuous document, or just like reading multiple sources,
 # we also have this document specifying the entire world api:
@@ -26,7 +26,7 @@ from . import (
 # It is recommended that you read these in that specific order, then come back to the world class.
 class MathQuestWorld(World):
   """
-  APQuest is a minimal 8bit-era inspired adventure game with grid-like movement.
+  MathQuest is a minimal 8bit-era inspired adventure game with grid-like movement.
   Good games don't need more than six checks.
   """
 
@@ -36,13 +36,13 @@ class MathQuestWorld(World):
   game = "MathQuest"
 
   # The WebWorld is a definition class that governs how this world will be displayed on the website.
-  web = web_world.APQuestWebWorld()
+  web = web_world.MathQuestWebWorld()
 
   # This is how we associate the options defined in our options.py with our world.
-  # (Note: options.py has been imported as "apquest_options" at the top of this file to avoid a name conflict)
-  options_dataclass = apquest_options.APQuestOptions
+  # (Note: options.py has been imported as "MathQuest_options" at the top of this file to avoid a name conflict)
+  options_dataclass = MathQuest_options.MathQuestOptions
   options: (
-    apquest_options.APQuestOptions
+    MathQuest_options.MathQuestOptions
   ) # Common mistake: This has to be a colon (:), not an equals sign (=).
 
   # Our world class must have a static location_name_to_id and item_name_to_id defined.

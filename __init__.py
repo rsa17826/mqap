@@ -1,5 +1,5 @@
 # The first thing you should make for your world is an archipelago.json manifest file.
-# You can reference APQuest's, but you should change the "game" field (obviously),
+# You can reference MathQuest's, but you should change the "game" field (obviously),
 # and you should also change the "minimum_ap_version" - probably to the current value of Utils.__version__.
 
 # Apart from the regular apworld code that allows generating multiworld seeds with your game,

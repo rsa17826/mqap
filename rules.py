@@ -69,7 +69,7 @@ def set_all_entrance_rules(world: MathQuestWorld) -> None:
   # # Notice how you have to explicitly capture world.player here so that the rule applies to the correct player?
   # # Well, Rule Builder does this part for you, inside of world.set_rule.
   # # This doesn't just result in shorter code, it also means you can define rules statically (at the module level).
-  # # APQuest opts to create its Rule objects locally, but just to show what this would look like,
+  # # MathQuest opts to create its Rule objects locally, but just to show what this would look like,
   # # we'll re-set the "Overworld to Top Left Room" rule to a constant defined at the top of this file:
   # world.set_rule(overworld_to_top_left_room, HAS_KEY)
 
@@ -153,11 +153,11 @@ def set_completion_condition(world: MathQuestWorld) -> None:
 
 
 # One final comment about rules:
-# If your world exclusively uses Rule Builder rules (like APQuest), it's worth trying CachedRuleBuilderWorld.
+# If your world exclusively uses Rule Builder rules (like MathQuest), it's worth trying CachedRuleBuilderWorld.
 # CachedRuleBuilderWorld is a subclass of World that has a bunch of caching magic to make rules faster.
 # Just have your world class subclass CachedRuleBuilderWorld instead of World:
-#   class APQuestWorld(CachedRuleBuilderWorld): ...
+#   class MathQuestWorld(CachedRuleBuilderWorld): ...
 # This may speed up your world, or it may make it slower.
 # The exact factors are complex and not well understood, but there is no harm in trying it.
 # Generate a few seeds and see if there is a noticeable difference!
-# If you're wondering, author has checked: APQuest is too simple to see any benefits, so we'll stick with "World".
+# If you're wondering, author has checked: MathQuest is too simple to see any benefits, so we'll stick with "World".
