@@ -1776,4 +1776,36 @@ MathQuest.js:42550 add listeners""",
     "requires": [["quest:aSword.2", "skill:reveal"]],
     "receive": ["quest:aSword.3"],
   },
+  {
+    "room": {"north": 15, "east": 24},
+    "requires": [["quest:oMan.1", "misc:old pendant"]],
+    "receive": ["quest:oMan.2"],
+  },
+  {
+    "room": {"north": 17, "east": 19},
+    "requires": [["quest:oMan.2"]],
+    "receive": ["quest:oMan.3"],
+  },
+  {
+    "room": {"north": 11, "east": 21},
+    "requires": [["quest:oMan.3"]],
+    "receive": ["quest:oMan.4"],
+  },
+  {
+    "room": {"north": 10, "east": 15},
+    "requires": [["quest:oMan.4"]],
+    "receive": ["quest:oMan.5"],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [["quest:canteen.1"]],
+    "receive": ["quest:canteen.2"],
+    # TODO
+    "info": "not 20 20 but anywhere with water",
+  },
+  {
+    "room": {"north": 12, "east": 11},
+    "requires": [["quest:canteen.2"]],
+    "receive": ["quest:canteen.3", "item:diamnond#1"],
+  },
 ]
