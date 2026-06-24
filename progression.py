@@ -1589,4 +1589,48 @@ PROG: list[ProgressionNode] = [
     "requires": [[]],
     "receive": ["quest:oMan.1", "misc:old pendant"],
   },
+  {
+    "room": {"north": 21, "east": 21},
+    "requires": [["food:hony#5", "loot:venom#1"]],
+    "receive": ["skill:craft"],
+  },
+  {
+    "room": {"north": 16, "east": 14},
+    "requires": [["quest:gTree.9"]],
+    "receive": ["quest:gTree.10"],
+  },
+  {
+    "room": {"north": 15, "east": 18},
+    "requires": [["quest:gTree.10"]],
+    "receive": ["quest:gTree.11", "food:beef jerky#3"],
+  },
+  {
+    "room": {"north": 13, "east": 21},
+    "requires": [["quest:bBomb.1"]],
+    "receive": ["quest:bBomb.2"],
+  },
+  {
+    "room": {"north": 21, "east": 20},
+    "requires": [["quest:bBomb.2"]],
+    "receive": ["quest:bBomb.3"],
+    "info": "sable broke here once but now working, unsure why",
+  },
+  {
+    "room": {"north": 21, "east": 13},
+    "requires": [["quest:bBomb.3"]],
+    "receive": ["quest:bBomb.4", "item:bomb#15"],
+    "info": """bomb active here so find ui update code here
+  [ACCESS SET] Key: quest"1" was set to: 4 from 3 bBomb Error
+  at Object.set (http://127.0.0.1:1533/MathQuest/MathQuest.js:19993:15)
+  at V.dialogueMess (http://127.0.0.1:1533/MathQuest/MathQuest.js:59689:47)
+  at _createObject.dialogue (http://127.0.0.1:1533/MathQuest/MathQuest.js:31370:13)
+  at _createObject.messEnter (http://127.0.0.1:1533/MathQuest/MathQuest.js:31788:18)
+  at Qr.cllosureHandler [as callback] (http://127.0.0.1:1533/MathQuest/MathQuest.js:257:43)
+  at Jh.__dispatchEvent (http://127.0.0.1:1533/MathQuest/MathQuest.js:1617:37)
+  at Jh.__dispatch (http://127.0.0.1:1533/MathQuest/MathQuest.js:2275:55)
+  at Jh.__dispatchStack (http://127.0.0.1:1533/MathQuest/MathQuest.js:99926:26)
+  at Jh.__onKey (http://127.0.0.1:1533/MathQuest/MathQuest.js:100517:18)
+  at Jh.onKeyDown (http://127.0.0.1:1533/MathQuest/MathQuest.js:99147:18)
+  """,
+  },
 ]
