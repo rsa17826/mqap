@@ -1,5 +1,6 @@
 from typing import NotRequired, TypedDict
 
+
 class RoomCoordinates(TypedDict):
   north: int
   east: int
@@ -779,10 +780,10 @@ PROG: list[ProgressionNode] = [
     "receive": ["skill:shield"],
   },
   # {
-    # "room": {"north": 18, "east": 10},
-    # "requires": [["quest:pam.?"]],
-    # "receive": ["food:newton apple#15"],
-    # "info": "fill refresh too",
+  # "room": {"north": 18, "east": 10},
+  # "requires": [["quest:pam.?"]],
+  # "receive": ["food:newton apple#15"],
+  # "info": "fill refresh too",
   # },
   {
     "room": {"north": 17, "east": 16},
@@ -1533,11 +1534,26 @@ PROG: list[ProgressionNode] = [
     "requires": [["quest:gTree.2"]],
     "receive": ["quest:gTree.3"],
     # TODO
-    "info":"also unblocks the path here add info to other place too"
+    "info": "also unblocks the path here add info to other place too",
+  },
+  {
+    "room": {"north": 19, "east": 23},
+    "requires": [["loot:bear tooth#15", "quest:gTree.3"]],
+    "receive": ["quest:gTree.4"],
+  },
+  {
+    "room": {"north": 18, "east": 19},
+    "requires": [["quest:gTree.4"]],
+    "receive": ["quest:gTree.5"],
   },
   {
     "room": {"north": 21, "east": 20},
-    "requires": [["loot:bear tooth#15", "quest:gTree.3"]],
-    "receive": ["quest:gTree.4"],
+    "requires": [["quest:gTree.5"]],
+    "receive": ["quest:gTree.6", "item:gold#50"],
+  },
+  {
+    "room": {"north": 15, "east": 23},
+    "requires": [["quest:pam.1", "skill:dig"]],
+    "receive": ["quest:pam.2"],
   },
 ]
