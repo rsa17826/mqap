@@ -1620,17 +1620,48 @@ PROG: list[ProgressionNode] = [
     "requires": [["quest:bBomb.3"]],
     "receive": ["quest:bBomb.4", "item:bomb#15"],
     "info": """bomb active here so find ui update code here
-  [ACCESS SET] Key: quest"1" was set to: 4 from 3 bBomb Error
-  at Object.set (http://127.0.0.1:1533/MathQuest/MathQuest.js:19993:15)
-  at V.dialogueMess (http://127.0.0.1:1533/MathQuest/MathQuest.js:59689:47)
-  at _createObject.dialogue (http://127.0.0.1:1533/MathQuest/MathQuest.js:31370:13)
-  at _createObject.messEnter (http://127.0.0.1:1533/MathQuest/MathQuest.js:31788:18)
-  at Qr.cllosureHandler [as callback] (http://127.0.0.1:1533/MathQuest/MathQuest.js:257:43)
-  at Jh.__dispatchEvent (http://127.0.0.1:1533/MathQuest/MathQuest.js:1617:37)
-  at Jh.__dispatch (http://127.0.0.1:1533/MathQuest/MathQuest.js:2275:55)
-  at Jh.__dispatchStack (http://127.0.0.1:1533/MathQuest/MathQuest.js:99926:26)
-  at Jh.__onKey (http://127.0.0.1:1533/MathQuest/MathQuest.js:100517:18)
-  at Jh.onKeyDown (http://127.0.0.1:1533/MathQuest/MathQuest.js:99147:18)
-  """,
+[ACCESS SET] Key: quest"1" was set to: 4 from 3 bBomb Error
+at Object.set (http://127.0.0.1:1533/MathQuest/MathQuest.js:19993:15)
+at V.dialogueMess (http://127.0.0.1:1533/MathQuest/MathQuest.js:59689:47)
+at _createObject.dialogue (http://127.0.0.1:1533/MathQuest/MathQuest.js:31370:13)
+at _createObject.messEnter (http://127.0.0.1:1533/MathQuest/MathQuest.js:31788:18)
+at Qr.cllosureHandler [as callback] (http://127.0.0.1:1533/MathQuest/MathQuest.js:257:43)
+at Jh.__dispatchEvent (http://127.0.0.1:1533/MathQuest/MathQuest.js:1617:37)
+at Jh.__dispatch (http://127.0.0.1:1533/MathQuest/MathQuest.js:2275:55)
+at Jh.__dispatchStack (http://127.0.0.1:1533/MathQuest/MathQuest.js:99926:26)
+at Jh.__onKey (http://127.0.0.1:1533/MathQuest/MathQuest.js:100517:18)
+at Jh.onKeyDown (http://127.0.0.1:1533/MathQuest/MathQuest.js:99147:18)
+""",
+  },
+  {
+    "room": {"north": 10, "east": 17},
+    "requires": [["quest:pam.5"]],
+    "receive": ["quest:pam.6"],
+  },
+  {
+    "room": {"north": 19, "east": 20},
+    "requires": [["quest:pam.6"]],
+    "receive": ["quest:pam.7", "food:chocolate#5"],
+  },
+  {
+    "room": {"north": 10, "east": 19},
+    "requires": [["quest:gTree.11"]],
+    "receive": ["quest:gTree.12", "misc:orb of peace"],
+  },
+  {
+    "room": {"north": 15, "east": 18},
+    "requires": [["quest:gTree.12"]],
+    "receive": ["quest:gTree.13"],
+  },
+  {
+    "room": {"north": 12, "east": 14},
+    "requires": [["quest:bBomb.4"]],
+    "receive": ["quest:bBomb.5"],
+    "info": "fix warp zone around here they appear to be incorrect",
+  },
+  {
+    "room": {"north": 9, "east": 11},
+    "requires": [["quest:pam.7", "entrance.south1"]],
+    "receive": ["quest:pam.8"],
   },
 ]
