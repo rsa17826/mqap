@@ -2360,8 +2360,8 @@ EXITS = {
       "direction": "south",
       "origin": {"north": 18, "east": 17},
       "dest": {"north": 17, "east": 17},
-      "dest_x": 200,
-      "dest_y": 400,
+      "dest_x": 371,
+      "dest_y": 327,
       "notes": "origin-keyed fixup applied",
     },
     {
@@ -6657,8 +6657,8 @@ EXITS = {
       "requires": [["permit:volcano"]],
       "origin": {"north": 17, "east": 17},
       "dest": {"north": 18, "east": 17},
-      "dest_x": 255,
-      "dest_y": 354,
+      "dest_x": 336,
+      "dest_y": 475,
       "one_way": True,
     },
     {
