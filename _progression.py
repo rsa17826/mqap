@@ -806,12 +806,7 @@ manager.correct - manager.wrong > 800 = halo
     "requires": [["item:medallion#200"]],
     "receive": ["skill:shield"],
   },
-  # {
-  # "room": {"north": 18, "east": 10},
-  # "requires": [["quest:pam.?"]],
-  # "receive": ["food:newton apple#15"],
-  # "info": "fill refresh too",
-  # },
+
   {
     "room": {"north": 17, "east": 16},
     "requires": [["item:key#1"]],
@@ -2039,8 +2034,145 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 18, "east": 19},
-    "requires": [["item:key3#1"]],
+    "requires": [["item:key#1"]],
     "receive": ["item:gold#100"],
     "info": "does not give a strawberry and gp is 100*level of craft emerald",
+  },{
+      "room": {"north": 17, "east": 20},
+      "requires": [["item:key#1"]],
+      "receive": ["item:gold#200", "food:beef jerky#5"]
+  },{
+      "room": {"north": 15, "east": 19},
+      "requires": [["skill:reveal", "permit:bomb"]],
+      "receive": ["misc:red chest"]
+  },{
+      "room": {"north": 15, "east": 19},
+      "requires": [["item:key#1", "permit:bomb"]],
+      "receive": ["item:gold#300", "item:bomb#10", "food:banana#5"]
+  },{
+      "room": {"north": 14, "east": 19},
+      "requires": [["item:key#1", "entrance.south0"]],
+      "receive": ["armor:regen armor"]
+  },{
+      "room": {"north": 11, "east": 19},
+      "requires": [["item:key#1", "entrance.south2"]],
+      "receive": ["food:sunflower seed#1", "food:strawberry#1"]
+  },{
+      "room": {"north": 8, "east": 18},
+      "requires": [["item:emerald#1", "entrance.north1"]],
+      "receive": ["item:bomb#25", "food:steak#5"]
+  },{
+      "room": {"north": 11, "east": 18},
+      "requires": [["item:key#1"]],
+      "receive": ["magic:refresh#1"]
+  },{
+      "room": {"north": 15, "east": 18},
+      "requires": [["misc:blue crystal#1", "permit:bomb.2", "quest:gTree.?"]],
+      "receive": ["food:chocolate#20", "item:bomb#50"]
+  },{
+      "room": {"north": 19, "east": 18},
+      "requires": [["item:blue crystal#1"]],
+      "receive": ["item:rubies#3"]
+  },{
+      "room": {"north": 21, "east": 18},
+      "requires": [["item:emerald#1"]],
+      "receive": ["item:diamond#2", "food:pepper#30"],
+      "info":"30 not 20"
+},{
+    "room": {"north": 19, "east": 17},
+    "requires": [["skill:reveal", "entrance.south0"],["skill:reveal", "entrance.east0"]],
+    "receive": ["misc:red chest"]
+},{
+    "room": {"north": 18, "east": 17},
+    "requires": [["item:key#1"]],
+    "receive": ["item:gold#1000"]
+},{
+    "room": {"north": 11, "east": 17},
+    "requires": [["item:key#1"]],
+    "receive": ["item:gold#200", "item:bomb#8"]
+},{
+    "room": {"north": 13, "east": 16},
+    "requires": [["item:key#1", "entrance.south"]],
+    "receive": ["magic:weak"]
+},{
+    "room": {"north": 13, "east": 16},
+    "requires": [["item:key#1"]],
+    "receive": ["weapon:survival knife#1"]
+},{
+    "room": {"north": 17, "east": 16},
+    "requires": [["item:key#1"]],
+    "receive": ["item:diamond#5"]
+},
+  {
+  "room": {"north": 18, "east": 15},
+  "requires": [["misc:blue crystal"]],
+  "receive": ["food:newton apple#15"],
+  "info": "fill refresh too",
+  },{
+      "room": {"north": 17, "east": 15},
+      "requires": [["item:emerald#1"]],
+      "receive": ["item:gold#100", "food:gingerbread cookie#50"]
+  },{
+      "room": {"north": 16, "east": 15},
+      "requires": [["misc:blue crystal#1"]],
+      "receive": ["armor:diamond armor", "quest:pam.16"]
+  },{
+      "room": {"north": 14, "east": 15},
+      "requires": [["item:key#1"]],
+      "receive": ["food:orange#12"]
+  },{
+      "room": {"north": 9, "east": 15},
+      "requires": [["item:key#1"]],
+      "receive": ["armor:phantom coat"]
+  },{
+      "room": {"north": 5, "east": 15},
+      "requires": [["skill:reveal"]],
+      "receive": ["misc:red chest"]
+  },{
+      "room": {"north": 14, "east": 14},
+      "requires": [["skill:reveal"]],
+      "receive": ["misc:red chest"]
+  },{
+      "room": {"north": 15, "east": 14},
+      "requires": [["item:key#1", "entrance.east"],["item:key#1", "permit:bomb"]],
+      "receive": ["food:carrot#5"]
+  },{
+      "room": {"north": 23, "east": 10},
+      "requires": [["item:emerald#1"]],
+      "receive": ["armor:alpha armor"]
+  },{
+      "room": {"north": 23, "east": 10},
+      "requires": [["item:key#1"]],
+      "receive": ["item:diamond#5", "food:newton apple#2"],
+      "info":"2 not 3"
+  },{
+      "room": {"north": 21, "east": 11},
+      "requires": [["item:key#1", "entrance.north0"]],
+      "receive": ["food:gummy bear#5"]
+  },{
+      "room": {"north": 23, "east": 13},
+      "requires": [["item:skill:reveal#1"]],
+      "receive": ["misc:red chest"]
+  },{
+      "room": {"north": 24, "east": 14},
+      "requires": [["item:key#1"]],
+      "receive": ["armor:grim gear"]
+  },{
+      "room": {"north": 10, "east": 13},
+      "requires": [["permit:bomb", "item:gold#500", "skill:reveal"]],
+      "receive": ["misc:ninja"]
+  },{
+      "room": {"north": 10, "east": 13},
+      "requires": [["item:emerald#1"]],
+      "receive": ["item:gold#1", "item:diamond#1", "item:aurastone#1", "item:slamstone#1", "food:elixir#1", "food:holy water#1"]
+  },{
+      "room": {"north": 9, "east": 13},
+      "requires": [["item:key#1"]],
+      "receive": ["item:bomb#10"],
+      "info":"chest respawns on room reentry"
+  },{
+      "room": {"north": 6, "east": 13},
+      "requires": [["item:key#1"]],
+      "receive": ["food:grape#5", "food:strawberry#1"]
   },
 ]
