@@ -789,9 +789,9 @@ PROG: list[ProgressionNode] = [
   {
     "room": {"north": 18, "east": 13},
     "requires": [
-      ["item:cotton thread#10", "item:shadow crest#5", "???", "permit:bomb"]
+      ["item:cotton thread#10", "item:shadow crest#5", "skill:reveal"]
     ],
-    "receive": ["misc:max bombs.+50"],
+    "receive": ["misc:max bombs.149"],
   },
   {"room": {"north": 19, "east": 12}, "info": "warp skill warp point"},
   {
