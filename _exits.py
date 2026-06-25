@@ -4,264 +4,204 @@ EXITS = {
       "id": "door:stairsDown:21_21_20_21",
       "mechanism": "object",
       "trigger_object": "stairsDown",
-      "origin": {
-        "north": 21,
-        "east": 21
-      },
-      "dest": {
-        "north": 20,
-        "east": 21
-      },
+      "origin": {"north": 21, "east": 21},
+      "dest": {"north": 20, "east": 21},
       "dest_x": 552,
-      "dest_y": 439
+      "dest_y": 439,
     },
     {
       "id": "door:stairsDown:20_21_21_21",
       "mechanism": "object",
       "trigger_object": "stairsDown",
-      "origin": {
-        "north": 20,
-        "east": 21
-      },
-      "dest": {
-        "north": 21,
-        "east": 21
-      },
+      "origin": {"north": 20, "east": 21},
+      "dest": {"north": 21, "east": 21},
       "dest_x": 556,
-      "dest_y": 124
+      "dest_y": 124,
     },
     {
       "id": "door:stairsDown:20_21_19_22",
       "mechanism": "object",
       "trigger_object": "stairsDown",
-      "origin": {
-        "north": 20,
-        "east": 21
-      },
-      "dest": {
-        "north": 19,
-        "east": 22
-      },
+      "origin": {"north": 20, "east": 21},
+      "dest": {"north": 19, "east": 22},
       "dest_x": 571,
-      "dest_y": 421
+      "dest_y": 421,
     },
     {
       "id": "door:stairsDown:19_22_20_21",
       "mechanism": "object",
       "trigger_object": "stairsDown",
-      "origin": {
-        "north": 19,
-        "east": 22
-      },
-      "dest": {
-        "north": 20,
-        "east": 21
-      },
+      "origin": {"north": 19, "east": 22},
+      "dest": {"north": 20, "east": 21},
       "dest_x": 117,
-      "dest_y": 166
+      "dest_y": 166,
     },
     {
       "id": "door:drain:18_25_500_500",
       "mechanism": "object",
       "trigger_object": "drain",
-      "origin": {
-        "north": 18,
-        "east": 25
-      },
-      "dest": {
-        "north": 500,
-        "east": 500
-      },
+      "origin": {"north": 18, "east": 25},
+      "dest": {"north": 500, "east": 500},
       "dest_x": 475,
-      "dest_y": 239
+      "dest_y": 239,
     },
     {
       "id": "door:drain:500_500_18_25",
       "mechanism": "object",
       "trigger_object": "drain",
-      "origin": {
-        "north": 500,
-        "east": 500
-      },
-      "dest": {
-        "north": 18,
-        "east": 25
-      },
+      "origin": {"north": 500, "east": 500},
+      "dest": {"north": 18, "east": 25},
       "dest_x": 143,
-      "dest_y": 413
+      "dest_y": 413,
     },
     {
       "id": "door:stairsDown:12_22_12_23",
       "mechanism": "object",
       "trigger_object": "stairsDown",
-      "origin": {
-        "north": 12,
-        "east": 22
-      },
-      "dest": {
-        "north": 12,
-        "east": 23
-      },
+      "origin": {"north": 12, "east": 22},
+      "dest": {"north": 12, "east": 23},
       "dest_x": 54,
-      "dest_y": 120
+      "dest_y": 120,
     },
     {
       "id": "door:stairsDown:12_23_12_22",
       "mechanism": "object",
       "trigger_object": "stairsDown",
-      "origin": {
-        "north": 12,
-        "east": 23
-      },
-      "dest": {
-        "north": 12,
-        "east": 22
-      },
+      "origin": {"north": 12, "east": 23},
+      "dest": {"north": 12, "east": 22},
       "dest_x": 110,
-      "dest_y": 160
+      "dest_y": 160,
     },
     {
       "id": "door:stairsDown:6_23_5_23",
       "mechanism": "object",
       "trigger_object": "stairsDown",
-      "origin": {
-        "north": 6,
-        "east": 23
-      },
-      "dest": {
-        "north": 5,
-        "east": 23
-      },
+      "origin": {"north": 6, "east": 23},
+      "dest": {"north": 5, "east": 23},
       "dest_x": 180,
-      "dest_y": 388
+      "dest_y": 388,
     },
     {
       "id": "door:stairsDown:5_23_6_23",
       "mechanism": "object",
       "trigger_object": "stairsDown",
-      "origin": {
-        "north": 5,
-        "east": 23
-      },
-      "dest": {
-        "north": 6,
-        "east": 23
-      },
+      "origin": {"north": 5, "east": 23},
+      "dest": {"north": 6, "east": 23},
       "dest_x": 297,
-      "dest_y": 198
+      "dest_y": 198,
     },
     {
       "id": "door:warpRing:9_21_12_14",
       "mechanism": "object",
       "trigger_object": "warpRing",
-      "origin": {
-        "north": 9,
-        "east": 21
-      },
-      "dest": {
-        "north": 12,
-        "east": 14
-      },
+      "origin": {"north": 9, "east": 21},
+      "dest": {"north": 12, "east": 14},
       "dest_x": 150,
-      "dest_y": 124
+      "dest_y": 124,
     },
     {
       "id": "door:warpRing:12_14_9_21",
       "mechanism": "object",
       "trigger_object": "warpRing",
-      "origin": {
-        "north": 12,
-        "east": 14
-      },
-      "dest": {
-        "north": 9,
-        "east": 21
-      },
+      "origin": {"north": 12, "east": 14},
+      "dest": {"north": 9, "east": 21},
       "dest_x": 561,
-      "dest_y": 125
+      "dest_y": 125,
     },
     {
       "id": "door:stairsDown:10.1_21_10_21",
       "mechanism": "object",
       "trigger_object": "stairsDown",
-      "origin": {
-        "north": 10.1,
-        "east": 21
-      },
-      "dest": {
-        "north": 10,
-        "east": 21
-      },
+      "origin": {"north": 10.1, "east": 21},
+      "dest": {"north": 10, "east": 21},
       "dest_x": 556,
-      "dest_y": 117
+      "dest_y": 117,
     },
     {
       "id": "door:stairsDown:10_21_10.1_21",
       "mechanism": "object",
       "trigger_object": "stairsDown",
-      "origin": {
-        "north": 10,
-        "east": 21
-      },
-      "dest": {
-        "north": 10.1,
-        "east": 21
-      },
+      "origin": {"north": 10, "east": 21},
+      "dest": {"north": 10.1, "east": 21},
       "dest_x": 550,
-      "dest_y": 222
+      "dest_y": 222,
     },
     {
       "id": "door:stairsDown:10.1_21_9_20",
       "mechanism": "object",
       "trigger_object": "stairsDown",
-      "origin": {
-        "north": 10,
-        "east": 21
-      },
-      "dest": {
-        "north": 9,
-        "east": 20
-      },
+      "origin": {"north": 10, "east": 21},
+      "dest": {"north": 9, "east": 20},
       "dest_x": 522,
-      "dest_y": 401
+      "dest_y": 401,
     },
     {
       "id": "door:stairsDown:9_20_10.1_21",
       "mechanism": "object",
       "trigger_object": "stairsDown",
-      "origin": {
-        "north": 9,
-        "east": 20
-      },
-      "dest": {
-        "north": 10.1,
-        "east": 21
-      },
+      "origin": {"north": 9, "east": 20},
+      "dest": {"north": 10.1, "east": 21},
       "dest_x": 593,
-      "dest_y": 425
+      "dest_y": 425,
     },
     {
       "id": "door:stairsDown:9_22_10.1_21",
       "mechanism": "object",
       "trigger_object": "stairsDown",
-      "origin": {
-        "north": 9,
-        "east": 22
-      },
-      "dest": {
-        "north": 10.1,
-        "east": 21
-      },
+      "origin": {"north": 9, "east": 22},
+      "dest": {"north": 10.1, "east": 21},
       "dest_x": 454,
       "dest_y": 64,
-      "one_way": True
-    }
+      "one_way": True,
+    },
+    {
+      "id": "door:statue:8_9_7_9",
+      "mechanism": "object",
+      "trigger_object": "statue",
+      "requires": [["misc:fire crystal"]],
+      "origin": {"north": 8, "east": 9},
+      "dest": {"north": 7, "east": 9},
+      "dest_x": 335,
+      "dest_y": 159,
+      "one_way": True,
+    },
+    {
+      "id": "door:building:10_16_11_16",
+      "mechanism": "object",
+      "trigger_object": "building",
+      "requires": [[]],
+      "origin": {"north": 10, "east":16},
+      "dest": {"north": 11, "east": 16},
+      "dest_x": 330,
+      "dest_y": 500,
+      "one_way": True,
+    },{
+    "id": "door:stairsDown:10_12_7_12",
+    "mechanism": "object",
+    "trigger_object": "stairsDown",
+    "requires": [[]],
+    "origin": {"north": 10, "east":12},
+    "dest": {"north": 7, "east": 12},
+    "dest_x": 300,
+    "dest_y": 125,
+    "one_way": True,
+    },{
+    "id": "door:stairsDown:7_12_10_12",
+    "mechanism": "object",
+    "trigger_object": "stairsDown",
+    "requires": [[]],
+    "origin": {"north": 7, "east":12},
+    "dest": {"north": 10, "east": 12},
+    "dest_x": 225,
+    "dest_y": 400,
+    "one_way": True,
+    },
   ],
   "known_gaps": [
     {
       "label": "drain_waterwarp_room9_14_split",
       "description": "Room (9,14) has TWO different water-warp sub-exits from drain, distinguished by char x-position (<=420 -> east--, >420 -> north++), not captured here since override regex only matches a plain 2-clause north==X && east==Y condition. Needs manual entry if this room's water-warp is to be included in the shuffle.",
-      "source_line": 34694
+      "source_line": 34694,
     }
-  ]
+  ],
 }
