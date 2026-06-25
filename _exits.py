@@ -6933,6 +6933,16 @@ EXITS = {
       "dest_x": 116,
       "dest_y": 180,
       "one_way": True,
+    },{
+    "id": "door:castle:20_12_21_12",
+    "mechanism": "object",
+    "trigger_object": "castle",
+    "requires": [[]],
+    "origin": {"north": 20, "east":12},
+    "dest": {"north": 21, "east": 12},
+    "dest_x": 332,
+    "dest_y": 500,
+    "one_way": True,
     },
   ],
   "known_gaps": [

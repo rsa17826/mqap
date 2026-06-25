@@ -21,11 +21,13 @@ class DirNodeLR(TypedDict):
   top: int
   bottom: int
   newX: NotRequired[int]
+  newY: NotRequired[int]
 
 
 class DirNodeUD(TypedDict):
   left: int
   right: int
+  newX: NotRequired[int]
   newY: NotRequired[int]
 
 
@@ -3219,7 +3221,7 @@ GEOM: list[ExitBase] = [
     "east": 12,
     "exits": {
       "west": [{"top": 4, "bottom": 6}],
-      "south": [{"left": 6, "right": 7}],
+      "south": [{"left": 6, "right": 7, "newY":172, "newX":308}],
       "east": [{"top": 4, "bottom": 6}],
       "north": [],
     },
