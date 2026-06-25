@@ -2031,4 +2031,16 @@ MathQuest.js:42550 add listeners""",
     ],
     "receive": ["???"],
   },
+  # TODO start of all chests remove dupes when done
+  {
+    "room": {"north": 18, "east": 20},
+    "requires": [["item:key"]],
+    "receive": ["item:gold#30"],
+  },
+  {
+    "room": {"north": 18, "east": 19},
+    "requires": [["item:key3#1"]],
+    "receive": ["item:gold#100"],
+    "info": "does not give a strawberry and gp is 100*level of craft emerald",
+  },
 ]
