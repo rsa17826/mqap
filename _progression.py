@@ -1882,7 +1882,7 @@ MathQuest.js:42550 add listeners""",
     "receive": ["quest:rings.5"],
   },
   {
-  "room": {"north": 6 , "east": 5},
+  "room": {"north": 11 , "east": 11},
     "requires": [
       ["quest:rings.5"],
     ],
