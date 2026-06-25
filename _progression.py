@@ -172,8 +172,8 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 12, "east": 12},
-    "requires": [["quest:headstone", "entrance.west0"]],
-    "receive": ["quest:headstone.+1"],
+    "requires": [["quest:headstone.1", "entrance.west0"]],
+    "receive": ["misc:headstone 2"],
   },
   {"room": {"north": 10, "east": 12}, "info": "warp skill warp point"},
   {"room": {"north": 12, "east": 9}, "receive": ["spawnpoint"]},
@@ -222,11 +222,6 @@ PROG: list[ProgressionNode] = [
     "requires": [["item:venom"]],
     "receive": ["food:orange"],
   },
-  # {
-  #   # "room": {"north": 11, "east": 9},
-  #   # "requires": [["quest:headstone.?"]],
-  #   # "receive": ["skill:warp"],
-  # },
   {"room": {"north": 11, "east": 9}, "receive": ["quest:headstone"]},
   {
     "room": {"north": 11, "east": 9},
@@ -403,8 +398,8 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 10, "east": 25},
-    "requires": [["quest:headstone"]],
-    "receive": ["quest:headstone.+1"],
+    "requires": [["quest:headstone.1"]],
+    "receive": ["misc:headstone 3"],
   },
   # {
   #   # "room": {"north": 11, "east": 20},
@@ -501,8 +496,8 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 18, "east": 24},
-    "requires": [["quest:headstone"]],
-    "receive": ["quest:headstone.+1"],
+    "requires": [["quest:headstone.1"]],
+    "receive": ["misc:headstone 4"],
   },
   # {
   #   # "room": {"north": 16, "east": 20},
@@ -773,8 +768,8 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 16, "east": 16},
-    "requires": [["quest:headstone"]],
-    "receive": ["quest:headstone.+1"],
+    "requires": [["quest:headstone.1"]],
+    "receive": ["misc:headstone 1"],
   },
   # {
   #   "room": {"north": 16, "east": 10},
@@ -1903,5 +1898,13 @@ MathQuest.js:42550 add listeners""",
         "quest:rings.1",
       ]],
       "receive": ["quest:rings.7"]
+  },{
+      "room": {"north": 16, "east": 15},
+      "requires": [["quest:pam.9", "skill:dig"]],
+      "receive": ["quest:pam.10"]
+  },{
+      "room": {"north": 19, "east": 20},
+      "requires": [["quest:pam.10"]],
+      "receive": ["quest:pam.11", "food:peper#5", "food:orange#20"]
   },
 ]
