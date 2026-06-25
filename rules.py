@@ -5,9 +5,9 @@ from rule_builder.rules import Has, HasAll
 
 from worlds.AutoWorld import World
 
-HAS_KEY = Has(
-  "Key"
-) # Hmm, what could this be? A little foreshadowing perhaps? :) You'll find out if you keep reading!
+# HAS_KEY = Has(
+#   "Key"
+# ) # Hmm, what could this be? A little foreshadowing perhaps? :) You'll find out if you keep reading!
 
 
 def set_all_rules(world: World) -> None:
@@ -148,13 +148,3 @@ def set_completion_condition(world: World) -> None:
   # So lets undo what we just did, and instead set the completion condition to:
   world.set_completion_rule(Has("goal:boss dead"))
 
-
-# One final comment about rules:
-# If your world exclusively uses Rule Builder rules (like MathQuest), it's worth trying CachedRuleBuilderWorld.
-# CachedRuleBuilderWorld is a subclass of World that has a bunch of caching magic to make rules faster.
-# Just have your world class subclass CachedRuleBuilderWorld instead of World:
-#   class World(CachedRuleBuilderWorld): ...
-# This may speed up your world, or it may make it slower.
-# The exact factors are complex and not well understood, but there is no harm in trying it.
-# Generate a few seeds and see if there is a noticeable difference!
-# If you're wondering, author has checked: MathQuest is too simple to see any benefits, so we'll stick with "World".
