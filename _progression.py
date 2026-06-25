@@ -1882,29 +1882,34 @@ MathQuest.js:42550 add listeners""",
     "receive": ["quest:rings.5"],
   },
   {
-  "room": {"north": 11 , "east": 11},
+    "room": {"north": 11, "east": 11},
     "requires": [
       ["quest:rings.5"],
     ],
     "receive": ["quest:rings.6", "item:ring of poison"],
-    "info":"can be anywhere in desert but this loc required for .5 so best to put it here"
-  },{
-      "room": {"north": 14, "east": 22},
-      "requires": [ [
+    "info": "can be anywhere in desert but this loc required for .5 so best to put it here",
+  },
+  {
+    "room": {"north": 14, "east": 22},
+    "requires": [
+      [
         "item:ring of gold",
         "item:ring of health",
         "item:ring of evasion",
         "item:ring of poison",
         "quest:rings.1",
-      ]],
-      "receive": ["quest:rings.7"]
-  },{
-      "room": {"north": 16, "east": 15},
-      "requires": [["quest:pam.9", "skill:dig"]],
-      "receive": ["quest:pam.10"]
-  },{
-      "room": {"north": 19, "east": 20},
-      "requires": [["quest:pam.10"]],
-      "receive": ["quest:pam.11", "food:peper#5", "food:orange#20"]
+      ]
+    ],
+    "receive": ["quest:rings.7"],
+  },
+  {
+    "room": {"north": 16, "east": 15},
+    "requires": [["quest:pam.9", "skill:dig"]],
+    "receive": ["quest:pam.10"],
+  },
+  {
+    "room": {"north": 19, "east": 20},
+    "requires": [["quest:pam.10"]],
+    "receive": ["quest:pam.11", "food:peper#5", "food:orange#20"],
   },
 ]
