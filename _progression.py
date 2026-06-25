@@ -316,11 +316,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": ["item:gold#750"],
   },
-  {
-    "room": {"north": 6, "east": 12},
-    "requires": [["item:key#1"]],
-    "receive": ["item:quartz geode#2"],
-  },
+
   {
     "room": {"north": 6, "east": 10},
     "requires": [["item:key#1", "permit:bomb"]],
@@ -2174,5 +2170,30 @@ MathQuest.js:42550 add listeners""",
       "room": {"north": 6, "east": 13},
       "requires": [["item:key#1"]],
       "receive": ["food:grape#5", "food:strawberry#1"]
+  },
+    {
+    "room": {"north": 6, "east": 12},
+    "requires": [["item:key#1"]],
+    "receive": ["item:quartz geode#2"],
+  },{
+      "room": {"north": 12, "east": 12},
+      "requires": [["misc:blue crystal#1", "entrance.east1"],["misc:blue crystal#1", "entrance.south0"]],
+      "receive": ["magic:blessing"]
+  },{
+      "room": {"north": 8, "east": 10},
+      "requires": [["skill:reveal", "entrance.east0"],["skill:reveal", "entrance.west0"],["skill:reveal", "entrance.north0"]],
+      "receive": ["misc:red chest"]
+  },{
+      "room": {"north": 8, "east": 10},
+      "requires": [["item:emerald#1", "entrance.north1"],["item:emerald#1", "entrance.east1"],["item:emerald#1", "entrance.east2"]],
+      "receive": ["item:gold#100", "food:beef jerkey#30"]
+  },{
+      "room": {"north": 9, "east": 10},
+      "requires": [["item:key#1", "permit:bomb"]],
+      "receive": ["item:gold#750"]
+  },{
+      "room": {"north": 10, "east": 9},
+      "requires": [["item:key#1", "permit:bomb.2"]],
+      "receive": ["food:steak#30"]
   },
 ]
