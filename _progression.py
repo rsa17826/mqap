@@ -98,7 +98,7 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 15, "east": 19},
-    "requires": [["item:ring health"]],
+    "requires": [["item:ring of health"]],
     "receive": ["item:gold#300", "item:bomb#10", "food:banana#5"],
     "info": "???",
   },
@@ -788,9 +788,7 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 18, "east": 13},
-    "requires": [
-      ["item:cotton thread#10", "item:shadow crest#5", "skill:reveal"]
-    ],
+    "requires": [["item:cotton thread#10", "item:shadow crest#5", "skill:reveal"]],
     "receive": ["misc:max bombs.149"],
   },
   {"room": {"north": 19, "east": 12}, "info": "warp skill warp point"},
@@ -1791,11 +1789,11 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 16, "east": 21},
     "requires": [["skill:dig", "quest:rings.1"]],
-    "receive": ["item:ring health"],
+    "receive": ["item:ring of health"],
   },
   {
     "room": {"north": 14, "east": 22},
-    "requires": [["item:ring of gold", "item:ring health", "quest:rings.1"]],
+    "requires": [["item:ring of gold", "item:ring of health", "quest:rings.1"]],
     "receive": ["quest:rings.3"],
   },
   {
@@ -1803,8 +1801,8 @@ MathQuest.js:42550 add listeners""",
     "requires": [
       [
         "item:ring of gold",
-        "item:ring health",
-        "item:ring evasion",
+        "item:ring of health",
+        "item:ring of evasion",
         "quest:rings.1",
       ]
     ],
@@ -1824,7 +1822,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 20, "east": 20},
     "requires": [[]],
-    "receive": ["item:cotton thread", "item:shadow crest"],
+    "receive": ["item:cotton thread", "item:shadow crest", "item:orc coin"],
     # TODO sort mob drops
   },
   {
@@ -1859,5 +1857,51 @@ MathQuest.js:42550 add listeners""",
     "room": {"north": 13, "east": 21},
     "requires": [["quest:bBomb.8"]],
     "receive": ["quest:bBomb.9", "permit:bomb.2"],
+  },
+  {
+    "room": {"north": 19, "east": 20},
+    "requires": [["quest:pam.8"]],
+    "receive": ["quest:pam.9"],
+  },
+  {
+    "room": {"north": 18, "east": 19},
+    "requires": [["quest:seeds.1"]],
+    "receive": ["quest:seeds.2"],
+  },
+  {
+    "room": {"north": 18, "east": 19},
+    "requires": [["quest:seeds.2", "item:orc coin#20"]],
+    "receive": ["quest:seeds.3"],
+  },
+  {
+    "room": {"north": 9, "east": 22},
+    "requires": [["quest:seeds.3", "entrance.south0"]],
+    "receive": ["quest:seeds.4", "food:orange#10", "food:pepper#3"],
+  },
+  {
+    "room": {"north": 11, "east": 11},
+    "requires": [
+      ["quest:rings.4", "entrance.north0"],
+      ["quest:rings.4", "entrance.west0"],
+    ],
+    "receive": ["quest:rings.5"],
+  },
+  {
+  "room": {"north": 6 , "east": 5},
+    "requires": [
+      ["quest:rings.5"],
+    ],
+    "receive": ["quest:rings.6", "item:ring of poison"],
+    "info":"can be anywhere in desert but this loc required for .5 so best to put it here"
+  },{
+      "room": {"north": 14, "east": 22},
+      "requires": [ [
+        "item:ring of gold",
+        "item:ring of health",
+        "item:ring of evasion",
+        "item:ring of poison",
+        "quest:rings.1",
+      ]],
+      "receive": ["quest:rings.7"]
   },
 ]
