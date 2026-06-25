@@ -3,8 +3,8 @@ from typing import Literal, NotRequired, TypedDict
 
 
 class ExitBase(TypedDict):
-  north: int
-  east: int
+  north: int | float
+  east: int | float
   exits: ExitNode
   areas: NotRequired[list[AreaNode]]
   err: NotRequired[bool]
@@ -1869,8 +1869,8 @@ GEOM: list[ExitBase] = [
       },
       {
         "reqs": [["misc:stomp code"]],
-        "areas": [[{"side": "south", "idx": 0},{"side": "west", "idx": 0}]],
-      }
+        "areas": [[{"side": "south", "idx": 0}, {"side": "west", "idx": 0}]],
+      },
     ],
     "exits": {
       "west": [{"top": 2, "bottom": 3}],
@@ -3521,6 +3521,15 @@ GEOM: list[ExitBase] = [
   {
     "north": 201,
     "east": 200,
+    "exits": {"west": [], "south": [], "east": [], "north": []},
+  },
+  {
+    # Pocket room between the two stairsDown warps near 10_21 / 9_20.
+    # Not part of the grid (no GEOM-adjacent edges reference it, see _exits.py),
+    # only reachable via door entries in EXITS["doors"]. Fully open inside,
+    # so no "areas" key.
+    "north": 10.1,
+    "east": 21,
     "exits": {"west": [], "south": [], "east": [], "north": []},
   },
   {

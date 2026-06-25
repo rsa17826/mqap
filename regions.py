@@ -8,6 +8,7 @@ from worlds.AutoWorld import World
 def create_and_connect_regions(world: World) -> None:
   create_all_regions(world)
   connect_regions(world)
+  connect_doors(world)
 
 
 def _slot_id(side: str, idx: int) -> str:
@@ -55,6 +56,31 @@ def create_all_regions(world: World) -> None:
     for slot_id in slot_ids:
       slot_region = Region(f"{room_id}#{slot_id}", world.player, world.multiworld)
       world.multiworld.regions.append(slot_region)
+
+
+def connect_doors(world: World) -> None:
+  from ._exits import EXITS
+
+  # Doors (stairs, drains, warp rings, etc.) are point-to-point teleports that
+  # aren't part of the directional grid or the "areas" slot system. Like
+  # locations, we don't know which sub-area a trigger object sits behind, so
+  # they connect from/to each room's base region, same place locations live.
+  for door in EXITS["doors"]:
+    origin_id = f'{door["origin"]["north"]}_{door["origin"]["east"]}'
+    dest_id = f'{door["dest"]["north"]}_{door["dest"]["east"]}'
+
+    origin_region = world.get_region(origin_id)
+    dest_region = world.get_region(dest_id)
+
+    entrance_name = f"Door {door['id']}"
+    entrance = Entrance(world.player, entrance_name, parent=origin_region)
+    origin_region.exits.append(entrance)
+    entrance.connect(dest_region)
+
+    # Reverse doors are listed as their own separate entry in EXITS["doors"]
+    # (e.g. "door:stairsDown:21_21_20_21" alongside "door:stairsDown:20_21_21_21"),
+    # so we never add a return connection here ourselves -- a door explicitly
+    # marked one_way (no matching reverse entry in the data) stays one-way.
 
 
 def connect_regions(world: World) -> None:
@@ -146,6 +172,7 @@ def _connect_internal_slots(world: World, room, room_id: str) -> None:
             conditional_rules[pair] = (
               node_rule if existing is None else (existing | node_rule)
             )
+            # print("conditional_rules", conditional_rules[pair])
 
   for pair in unconditional_pairs:
     a, b = tuple(pair)
