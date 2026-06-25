@@ -1819,4 +1819,9 @@ MathQuest.js:42550 add listeners""",
     "receive": ["skill:dig"],
     "info":"can be got anywhere"
   },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [["quest:warp.1", "misc:headstone 1","misc:headstone 2","misc:headstone 3","misc:headstone 4"]],
+    "receive": ["quest:warp.2", "skill:warp"],
+  },
 ]
