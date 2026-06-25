@@ -22,7 +22,7 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 21, "east": 20},
-    "requires": [["drop:venom#1", "???"]],
+    "requires": [["item:venom#1", "???"]],
     "receive": ["food:orange#1"],
   },
   {
@@ -279,7 +279,7 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 6, "east": 10},
-    "requires": [["item:key#1", "permit:bomb.1"]],
+    "requires": [["item:key#1", "permit:bomb"]],
     "receive": ["food:chocolate#3"],
   },
   {
@@ -334,12 +334,12 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 11, "east": 17},
-    "requires": [["item:key#1", "permit:bomb.1"]],
+    "requires": [["item:key#1", "permit:bomb"]],
     "receive": ["item:bomb#8", "item:gold#200"],
   },
   {
     "room": {"north": 7, "east": 10},
-    "requires": [["permit:bomb.1", "???"]],
+    "requires": [["permit:bomb", "???"]],
     "receive": ["item:orb of ???"],
   },
   {
@@ -844,11 +844,6 @@ PROG: list[ProgressionNode] = [
       ["permit:bomb", "entrance.south1", "item:key#1"],
     ],
     "receive": ["weapon:shadow staff"],
-  },
-  {
-    "room": {"north": 4, "east": 25},
-    "requires": [["??? sign debugger"]],
-    "receive": ["???"],
   },
   # {
   #   # "room": {"north": 3, "east": 20},
@@ -1514,7 +1509,7 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 19, "east": 23},
-    "requires": [["loot:bear tooth#15", "quest:gTree.3"]],
+    "requires": [["item:bear tooth#15", "quest:gTree.3"]],
     "receive": ["quest:gTree.4"],
   },
   {
@@ -1565,7 +1560,7 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 21, "east": 21},
-    "requires": [["food:hony#5", "loot:venom#1"]],
+    "requires": [["food:honey#5", "item:venom#1"]],
     "receive": ["skill:craft"],
   },
   {
@@ -1645,7 +1640,7 @@ at Jh.onKeyDown (http://127.0.0.1:1533/MathQuest/MathQuest.js:99147:18)
   },
   {
     "room": {"north": 12, "east": 9},
-    "requires": [["quest:gTree.14", "loot:sClaw#7", "loot:cFang#5"]],
+    "requires": [["quest:gTree.14", "item:scorpiion claw#7", "item:cFang#5"]],
     "receive": ["quest:gTree.15", "misc:fire crystal"],
   },
   {
@@ -1825,6 +1820,12 @@ MathQuest.js:42550 add listeners""",
     "requires": [[]],
     "receive": ["skill:dig"],
     "info": "can be got anywhere",
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [[]],
+    "receive": ["item:cotton thread", "item:shadow crest"],
+    # TODO sort mob drops
   },
   {
     "room": {"north": 20, "east": 20},
