@@ -101,14 +101,12 @@ def connect_regions(world: World) -> None:
     if has_areas:
       _connect_internal_slots(world, room, room_id)
       for direction in ("north", "south", "east", "west"):
-        if len(room["exits"][direction]) > 0:
-          slot_region = world.get_region(f"{room_id}#{_slot_id(direction, 0)}")
+        num_exits = len(room["exits"][direction])
+        for idx in range(num_exits):
+          slot_region = world.get_region(f"{room_id}#{_slot_id(direction, idx)}")
           base_region = world.get_region(room_id)
-
-          # Create a bidirectional link between the entry slot and the room's item container
-          _ = slot_region.connect(base_region, f"{room_id} slot to base")
-          _ = base_region.connect(slot_region, f"{room_id} base to slot")
-          break
+          _ = slot_region.connect(base_region, f"{room_id} {direction}.{idx} to base")
+          _ = base_region.connect(slot_region, f"{room_id} base to {direction}.{idx}")
 
     for direction in ("north", "south", "east", "west"):
       num_exits = len(room["exits"][direction])
