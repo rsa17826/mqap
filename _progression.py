@@ -17,7 +17,13 @@ PROG: list[ProgressionNode] = [
   {
     "room": {"north": 20, "east": 20},
     "requires": [[]],
-    "receive": ["skill:dig", "skill:kick"],
+    "receive": [
+      "skill:dig",
+      "skill:kick",
+      "item:aurastone",
+      "item:key",
+      "item:gold",
+    ],
     "info": "can be got anywhere",
   },
   {"room": {"north": 20, "east": 20}, "receive": ["spawnpoint"]},
@@ -671,16 +677,16 @@ PROG: list[ProgressionNode] = [
     "requires": [["quest:rings.11"]],
     "receive": ["quest:rings.12"],
   },
-  {
-    "room": {"north": 19, "east": 18},
-    "requires": [
-      ["???", "entrance.north0"],
-      ["???", "entrance.south1"],
-      ["???", "entrance.east0"],
-    ],
-    "receive": ["misc:npc debugger 1"],
-    "info": "npc has to move out the way before other npc works",
-  },
+  # {
+  #   "room": {"north": 19, "east": 18},
+  #   "requires": [
+  #     ["???", "entrance.north0"],
+  #     ["???", "entrance.south1"],
+  #     ["???", "entrance.east0"],
+  #   ],
+  #   "receive": ["misc:npc debugger 1"],
+  #   "info": "npc has to move out the way before other npc works",
+  # },
   {
     "room": {"north": 21, "east": 18},
     "requires": [["item:emerald#1"]],
@@ -1961,13 +1967,15 @@ MathQuest.js:42550 add listeners""",
     "room": {"north": 21, "east": 20},
     "requires": [["quest:geo.3"]],
     "receive": ["quest:geo.4"],
-  },{
-      "room": {"north": 6, "east": 12},
-      "requires": [["quest:geo.4"]],
-      "receive": ["quest:geo.5", "skill:convert"]
-  },{
-      "room": {"north": 6, "east": 12},
-      "requires": [["quest:rings.12", "quest:geo.5", "item:gold#1000"]],
-      "receive": ["quest:rings.13"]
+  },
+  {
+    "room": {"north": 6, "east": 12},
+    "requires": [["quest:geo.4"]],
+    "receive": ["quest:geo.5", "skill:convert"],
+  },
+  {
+    "room": {"north": 6, "east": 12},
+    "requires": [["quest:rings.12", "quest:geo.5", "item:gold#1000"]],
+    "receive": ["quest:rings.13"],
   },
 ]
