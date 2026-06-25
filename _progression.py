@@ -14,6 +14,12 @@ class ProgressionNode(TypedDict):
 
 
 PROG: list[ProgressionNode] = [
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [[]],
+    "receive": ["skill:dig", "skill:kick"],
+    "info": "can be got anywhere",
+  },
   {"room": {"north": 20, "east": 20}, "receive": ["spawnpoint"]},
   {
     "room": {"north": 15, "east": 21},
@@ -1683,7 +1689,7 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 6, "east": 23},
-    "requires": [["state:lit torch 2", "state:lit torch 1"]],
+    "requires": [[]],
     "receive": [],
     "info": "how show the warp requiring this",
   },
@@ -1808,12 +1814,7 @@ MathQuest.js:42550 add listeners""",
     "requires": [["quest:rings.1", "entrance.south0", "permit:bomb"]],
     "receive": ["ring.evasion"],
   },
-  {
-    "room": {"north": 20, "east": 20},
-    "requires": [[]],
-    "receive": ["skill:dig"],
-    "info": "can be got anywhere",
-  },
+
   {
     "room": {"north": 20, "east": 20},
     "requires": [[]],
@@ -1911,5 +1912,9 @@ MathQuest.js:42550 add listeners""",
     "room": {"north": 19, "east": 20},
     "requires": [["quest:pam.10"]],
     "receive": ["quest:pam.11", "food:peper#5", "food:orange#20"],
+  },{
+      "room": {"north": 15, "east": 16},
+      "requires": [["quest:rings.7", "permit:bomb"]],
+      "receive": ["quest:rings.8"]
   },
 ]
