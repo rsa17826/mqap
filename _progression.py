@@ -1638,7 +1638,7 @@ at Jh.onKeyDown (http://127.0.0.1:1533/MathQuest/MathQuest.js:99147:18)
   },
   {
     "room": {"north": 12, "east": 9},
-    "requires": [["quest:gTree.14", "item:scorpiion claw#7", "item:cFang#5"]],
+    "requires": [["quest:gTree.14", "item:scorpiion claw#7", "item:cobra fang#5"]],
     "receive": ["quest:gTree.15", "misc:fire crystal"],
   },
   {
