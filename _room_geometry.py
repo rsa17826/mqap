@@ -652,7 +652,7 @@ GEOM: list[ExitBase] = [
             {"side": "north", "idx": 0},
           ]
         ],
-        "reqs": [["quest:shadowsoulEntrance.?"]],
+        "reqs": [["permit:shadowsoul entrance"]],
       }
     ],
     "exits": {
@@ -1650,7 +1650,7 @@ GEOM: list[ExitBase] = [
             {"side": "east", "idx": 0},
           ]
         ],
-        "reqs": [["quest:shadowsoulEntrance.?"]],
+        "reqs": [["permit:shadowsoul entrance"]],
       },
       {
         "reqs": [[]],
@@ -2871,7 +2871,7 @@ GEOM: list[ExitBase] = [
     "areas": [
       {
         "areas": [[{"side": "west", "idx": 0}, {"side": "east", "idx": 0}]],
-        "reqs": [["quest:wolf pass.?"]],
+        "reqs": [["quest:gTree.2"]],
       },
       {
         "areas": [[{"side": "west", "idx": 0}], [{"side": "east", "idx": 0}]],
