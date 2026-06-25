@@ -6649,6 +6649,17 @@ EXITS = {
       "dest_y": 253,
       "one_way": True,
     },
+    {
+      "id": "door:volcano:17_17_18_17",
+      "mechanism": "object",
+      "trigger_object": "volcano",
+      "requires": [["permit:volcano"]],
+      "origin": {"north": 17, "east": 17},
+      "dest": {"north": 18, "east": 17},
+      "dest_x": 255,
+      "dest_y": 354,
+      "one_way": True,
+    },
   ],
   "known_gaps": [
     {

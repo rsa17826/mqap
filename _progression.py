@@ -1805,7 +1805,14 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 14, "east": 22},
-    "requires": [["item:ring of gold", "item:ring health", "item:ring evasion", "quest:rings.1"]],
+    "requires": [
+      [
+        "item:ring of gold",
+        "item:ring health",
+        "item:ring evasion",
+        "quest:rings.1",
+      ]
+    ],
     "receive": ["quest:rings.4"],
   },
   {
@@ -1817,11 +1824,39 @@ MathQuest.js:42550 add listeners""",
     "room": {"north": 20, "east": 20},
     "requires": [[]],
     "receive": ["skill:dig"],
-    "info":"can be got anywhere"
+    "info": "can be got anywhere",
   },
   {
     "room": {"north": 20, "east": 20},
-    "requires": [["quest:warp.1", "misc:headstone 1","misc:headstone 2","misc:headstone 3","misc:headstone 4"]],
+    "requires": [
+      [
+        "quest:warp.1",
+        "misc:headstone 1",
+        "misc:headstone 2",
+        "misc:headstone 3",
+        "misc:headstone 4",
+      ]
+    ],
     "receive": ["quest:warp.2", "skill:warp"],
+  },
+  {
+    "room": {"north": 13, "east": 21},
+    "requires": [["quest:bBomb.5"]],
+    "receive": ["quest:bBomb.6", "permit:volcano"],
+  },
+  {
+    "room": {"north": 17, "east": 17},
+    "requires": [["quest:bBomb.6"]],
+    "receive": ["quest:bBomb.7"],
+  },
+  {
+    "room": {"north": 20, "east": 18},
+    "requires": [["quest:bBomb.7"]],
+    "receive": ["quest:bBomb.8"],
+  },
+  {
+    "room": {"north": 13, "east": 21},
+    "requires": [["quest:bBomb.8"]],
+    "receive": ["quest:bBomb.9", "permit:bomb.2"],
   },
 ]
