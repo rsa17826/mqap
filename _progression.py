@@ -172,7 +172,7 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 12, "east": 12},
-    "requires": [["quest:headstone.1", "entrance.west0"]],
+    "requires": [["quest:rings.1", "entrance.west0"]],
     "receive": ["misc:headstone 2"],
   },
   {"room": {"north": 10, "east": 12}, "info": "warp skill warp point"},
@@ -398,7 +398,7 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 10, "east": 25},
-    "requires": [["quest:headstone.1"]],
+    "requires": [["quest:rings.1"]],
     "receive": ["misc:headstone 3"],
   },
   # {
@@ -496,7 +496,7 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 18, "east": 24},
-    "requires": [["quest:headstone.1"]],
+    "requires": [["quest:rings.1"]],
     "receive": ["misc:headstone 4"],
   },
   # {
@@ -768,7 +768,7 @@ PROG: list[ProgressionNode] = [
   },
   {
     "room": {"north": 16, "east": 16},
-    "requires": [["quest:headstone.1"]],
+    "requires": [["quest:rings.1"]],
     "receive": ["misc:headstone 1"],
   },
   # {
