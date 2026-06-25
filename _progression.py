@@ -1937,14 +1937,14 @@ MathQuest.js:42550 add listeners""",
     "room": {"north": 20, "east": 18},
     "requires": [
       [
-        "quest:rings.12",
+        "quest:rings.13",
         "item:steel fragment#5",
         "item:dragon scale#3",
         "item:funny bone#10",
         "misc:geomana",
       ]
     ],
-    "receive": ["quest:rings.13"],
+    "receive": ["quest:rings.14"],
   },
   {"room": {"north": 6, "east": 12}, "requires": [[]], "receive": ["quest:geo.1"]},
   {
@@ -1958,8 +1958,16 @@ MathQuest.js:42550 add listeners""",
     "receive": ["quest:geo.3"],
   },
   {
-    "room": {"north": 21, "east": 2},
+    "room": {"north": 21, "east": 20},
     "requires": [["quest:geo.3"]],
     "receive": ["quest:geo.4"],
+  },{
+      "room": {"north": 6, "east": 12},
+      "requires": [["quest:geo.4"]],
+      "receive": ["quest:geo.5", "skill:convert"]
+  },{
+      "room": {"north": 6, "east": 12},
+      "requires": [["quest:rings.12", "quest:geo.5", "item:gold#1000"]],
+      "receive": ["quest:rings.13"]
   },
 ]
