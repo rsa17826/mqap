@@ -21,7 +21,7 @@ for thing in PROG:
         for prefix in [
           "item:",
           "weapon:",
-          "armor:",
+          "armour:",
           "food:",
           "skill:",
           "magic:",

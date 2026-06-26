@@ -48,16 +48,16 @@ manager.correct - manager.wrong > 800 = halo
       "item:boar tusk",
       "item:cobra fang",
       "item:emerald",
-      "item:fire crystal",
+      "misc:fire crystal",
       "item:funny bone",
       "item:gator skin",
       "item:golden feather",
       "item:kings crest",
       "item:mage staff",
       "item:mages hat",
-      "item:minotour horn",
+      "item:minotaur horn",
       "item:ring of evasion",
-      "item:scorpiion claw",
+      "item:scorpion claw",
       "item:shark tooth",
       "item:slamstone",
       "item:steel fragment",
@@ -100,32 +100,32 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 20, "east": 20},
     "requires": [["item:gold"]],
-    "receive": ["armor:vest"],
+    "receive": ["armour:vest"],
   },
   {
     "room": {"north": 20, "east": 20},
     "requires": [["item:gold"]],
-    "receive": ["armor:magic robe"],
+    "receive": ["armour:magic robe"],
   },
   {
     "room": {"north": 20, "east": 20},
     "requires": [["item:gold"]],
-    "receive": ["armor:iron armour"],
+    "receive": ["armour:iron armour"],
   },
   {
     "room": {"north": 20, "east": 20},
     "requires": [["item:gold"]],
-    "receive": ["food:apple"],
+    "receive": ["food:apple#inf"],
   },
   {
     "room": {"north": 20, "east": 20},
     "requires": [["item:gold"]],
-    "receive": ["food:honey"],
+    "receive": ["food:honey#inf"],
   },
   {
     "room": {"north": 20, "east": 20},
     "requires": [["item:gold"]],
-    "receive": ["food:grapes"],
+    "receive": ["food:grapes#inf"],
   },
   {"room": {"north": 18, "east": 20}, "info": "warp skill warp point"},
   {
@@ -167,7 +167,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 14, "east": 19},
     "requires": [["item:key#1", "entrance.south0"]],
-    "receive": ["armour:regen armor"],
+    "receive": ["armour:regen armour"],
   },
   {
     "room": {"north": 15, "east": 21},
@@ -206,7 +206,7 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 13, "east": 13},
-    "requires": [["armor:alpha armor", "???"]],
+    "requires": [["armour:alpha armour", "???"]],
     "receive": ["armour:alpha armour.+inf"],
   },
   {
@@ -234,7 +234,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 12, "east": 9},
     "requires": [["item:gold"]],
-    "receive": ["food:beef jerkey"],
+    "receive": ["food:beef jerky"],
   },
   {
     "room": {"north": 12, "east": 9},
@@ -259,12 +259,12 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 12, "east": 9},
     "requires": [["item:gold"]],
-    "receive": ["armor:sun armour"],
+    "receive": ["armour:sun armour"],
   },
   {
     "room": {"north": 12, "east": 9},
     "requires": [["item:gold"]],
-    "receive": ["armor:speed vest"],
+    "receive": ["armour:speed vest"],
   },
   {
     "room": {"north": 12, "east": 9},
@@ -324,8 +324,8 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 5, "east": 9},
     "requires": [
-      ["item:minotour horn", "entrance.north0"],
-      ["item:minotour horn", "entrance.east0"],
+      ["item:minotaur horn", "entrance.north0"],
+      ["item:minotaur horn", "entrance.east0"],
     ],
     "receive": ["item:broken alpha axe#1"],
   },
@@ -342,12 +342,12 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 5, "east": 15},
     "requires": [["skill:reveal"]],
-    "receive": ["red chest"],
+    "receive": ["misc:red chest"],
   },
   {
     "room": {"north": 9, "east": 15},
     "requires": [["item:key#1"]],
-    "receive": ["armor:phantom coat"],
+    "receive": ["armour:phantom coat"],
   },
   {"room": {"north": 10, "east": 16}, "info": "warp skill warp point"},
   {
@@ -360,7 +360,7 @@ manager.correct - manager.wrong > 800 = halo
     "requires": [["weapon:random axe", "???"]],
     "receive": ["weapon:random axe.+1"],
   },
-  {"room": {"north": 8, "east": 17}, "receive": ["green secret code"]},
+  {"room": {"north": 8, "east": 17}, "receive": ["misc:green secret code"]},
   {
     "room": {"north": 8, "east": 18},
     "requires": [["item:emerald#1", "entrance.north1"]],
@@ -433,7 +433,7 @@ manager.correct - manager.wrong > 800 = halo
         "permit:bomb.2",
       ],
     ],
-    "receive": ["craft.elixir"],
+    "receive": ["craft:elixir"],
   },
   {
     "room": {"north": 10, "east": 25},
@@ -443,7 +443,7 @@ manager.correct - manager.wrong > 800 = halo
   # {
   #   # "room": {"north": 11, "east": 20},
   #   # "requires": [["quest:pam.?"]],
-  #   # "receive": ["food:beef jerkey#20"],
+  #   # "receive": ["food:beef jerky#20"],
   # },
   {"room": {"north": 11, "east": 24}, "info": "warp skill warp point"},
   # {
@@ -464,7 +464,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 11, "east": 22},
     "requires": [["item:shark tooth#10", "skill:craft"]],
-    "receive": ["craft.emerald"],
+    "receive": ["craft:emerald"],
   },
   {
     "room": {"north": 12, "east": 25},
@@ -563,7 +563,7 @@ manager.correct - manager.wrong > 800 = halo
     "requires": [
       ["item:ring of gold", "item:troll wristband#5", "item:gator skin#2"]
     ],
-    "receive": ["craft.ring of gold"],
+    "receive": ["craft:ring of gold"],
   },
   {
     "room": {"north": 20, "east": 22},
@@ -573,7 +573,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 20, "east": 23},
     "requires": [["skill:reveal", "entrance.east0"]],
-    "receive": ["red chest"],
+    "receive": ["misc:red chest"],
   },
   {
     "room": {"north": 19, "east": 22},
@@ -664,7 +664,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 17, "east": 20},
     "requires": [["permit:bomb", "item:key#1"]],
-    "receive": ["food:beef jerkey#5", "item:gold#200"],
+    "receive": ["food:beef jerky#5", "item:gold#200"],
   },
   # {
   #   "room": {"north": 17, "east": 19},
@@ -809,12 +809,12 @@ manager.correct - manager.wrong > 800 = halo
   # {
   #   "room": {"north": 16, "east": 10},
   #   "requires": [["quest:pam.?"]],
-  #   "receive": ["armor:diamond armour"],
+  #   "receive": ["armour:diamond armour"],
   # },
   {
     "room": {"north": 17, "east": 15},
     "requires": [["item:emerald#1"]],
-    "receive": ["item:gold#100", "food:coolie#50"],
+    "receive": ["item:gold#100", "food:gingerbread cookie#50"],
   },
   {
     "room": {"north": 18, "east": 13},
@@ -825,7 +825,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 24, "east": 14},
     "requires": [["item:key#1"]],
-    "receive": ["armor:grim gear"],
+    "receive": ["armour:grim gear"],
   },
   {
     "room": {"north": 23, "east": 10},
@@ -877,7 +877,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 4, "east": 13},
     "requires": [["item:gold"]],
-    "receive": ["food:gingerbread"],
+    "receive": ["food:gingerbread cookie"],
   },
   {
     "room": {"north": 4, "east": 13},
@@ -887,7 +887,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 4, "east": 13},
     "requires": [["item:shark tooth#5", "item:viking horn#5", "item:tentacle#5"]],
-    "receive": ["craft.newton apple"],
+    "receive": ["craft:newton apple"],
   },
   {
     "room": {"north": 9, "east": 13},
@@ -902,7 +902,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 11, "east": 15},
     "requires": [["skill:craft", "item:troll wristband#5", "item:wolf pelt#2"]],
-    "receive": ["craft.key"],
+    "receive": ["craft:key"],
   },
   # {
   #   "room": {"north": 9, "east": 25},
@@ -1659,7 +1659,7 @@ at Jh.onKeyDown (http://127.0.0.1:1533/MathQuest/MathQuest.js:99147:18)
   },
   {
     "room": {"north": 12, "east": 9},
-    "requires": [["quest:gTree.14", "item:scorpiion claw#7", "item:cobra fang#5"]],
+    "requires": [["quest:gTree.14", "item:scorpion claw#7", "item:cobra fang#5"]],
     "receive": ["quest:gTree.15", "misc:fire crystal"],
   },
   {
@@ -1674,7 +1674,7 @@ at Jh.onKeyDown (http://127.0.0.1:1533/MathQuest/MathQuest.js:99147:18)
   },
   {
     "room": {"north": 8, "east": 9},
-    "requires": [["item:fire crystal"]],
+    "requires": [["misc:fire crystal"]],
     "receive": [],
     "info": """289 374
 MathQuest.js:42502 remove listeners
@@ -1794,7 +1794,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 12, "east": 11},
     "requires": [["quest:canteen.2"]],
-    "receive": ["quest:canteen.3", "item:diamnond#1"],
+    "receive": ["quest:canteen.3", "item:diamond#1"],
   },
   {"room": {"north": 14, "east": 22}, "requires": [[]], "receive": ["quest:rings.1"]},
   {
@@ -1832,7 +1832,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 13, "east": 16},
     "requires": [["quest:rings.1", "entrance.south0", "permit:bomb"]],
-    "receive": ["ring.evasion"],
+    "receive": ["item:ring of evasion"],
   },
   {
     "room": {"north": 20, "east": 20},
@@ -2036,7 +2036,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 14, "east": 19},
     "requires": [["item:key#1", "entrance.south0"]],
-    "receive": ["armor:regen armor"],
+    "receive": ["armour:regen armour"],
   },
   {
     "room": {"north": 11, "east": 19},
@@ -2089,7 +2089,7 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 13, "east": 16},
-    "requires": [["item:key#1", "entrance.south"]],
+    "requires": [["item:key#1", "entrance.south0"]],
     "receive": ["magic:weak"],
   },
   {
@@ -2116,7 +2116,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 16, "east": 15},
     "requires": [["misc:blue crystal#1"]],
-    "receive": ["armor:diamond armor", "quest:pam.16"],
+    "receive": ["armour:diamond armour", "quest:pam.16"],
   },
   {
     "room": {"north": 14, "east": 15},
@@ -2126,7 +2126,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 9, "east": 15},
     "requires": [["item:key#1"]],
-    "receive": ["armor:phantom coat"],
+    "receive": ["armour:phantom coat"],
   },
   {
     "room": {"north": 5, "east": 15},
@@ -2140,13 +2140,13 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 15, "east": 14},
-    "requires": [["item:key#1", "entrance.east"], ["item:key#1", "permit:bomb"]],
+    "requires": [["item:key#1", "entrance.east0"], ["item:key#1", "permit:bomb"]],
     "receive": ["food:carrot#5"],
   },
   {
     "room": {"north": 23, "east": 10},
     "requires": [["item:emerald#1"]],
-    "receive": ["armor:alpha armor"],
+    "receive": ["armour:alpha armour"],
   },
   {
     "room": {"north": 23, "east": 10},
@@ -2161,13 +2161,13 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 23, "east": 13},
-    "requires": [["item:skill:reveal#1"]],
+    "requires": [["skill:reveal"]],
     "receive": ["misc:red chest"],
   },
   {
     "room": {"north": 24, "east": 14},
     "requires": [["item:key#1"]],
-    "receive": ["armor:grim gear"],
+    "receive": ["armour:grim gear"],
   },
   {
     "room": {"north": 10, "east": 13},
@@ -2226,7 +2226,7 @@ MathQuest.js:42550 add listeners""",
       ["item:emerald#1", "entrance.east1"],
       ["item:emerald#1", "entrance.east2"],
     ],
-    "receive": ["item:gold#100", "food:beef jerkey#30"],
+    "receive": ["item:gold#100", "food:beef jerky#30"],
   },
   {
     "room": {"north": 9, "east": 10},
@@ -2250,7 +2250,7 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 15, "east": 21},
-    "requires": [["item:key#1", "entrance.south"]],
+    "requires": [["item:key#1", "entrance.south0"]],
     "receive": ["item:gold#0", "item:bomb#5"],
   },
   {
@@ -2306,7 +2306,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 4, "east": 24},
     "requires": [["item:key#1", "entrance.east0"]],
-    "receive": ["item:cherry#10"],
+    "receive": ["food:cherry#10"],
   },
   {
     "room": {"north": 6, "east": 24},
@@ -2339,7 +2339,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 11, "east": 25},
     "requires": [["misc:blue crystal"]],
-    "receive": ["food:beef jerkey#20"],
+    "receive": ["food:beef jerky#20"],
   },
   {
     "room": {"north": 3, "east": 26},

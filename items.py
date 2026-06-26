@@ -30,7 +30,7 @@ for thing in PROG:
         for prefix in [
           "item:",
           "weapon:",
-          "armor:",
+          "armour:",
           "food:",
           "skill:",
           "magic:",
@@ -54,7 +54,7 @@ for thing in PROG:
                 itemInfo.startswith(prefix)
                 for prefix in [
                   "skill:",
-                  "armor:",
+                  "armour:",
                 ]
               )
               else (
