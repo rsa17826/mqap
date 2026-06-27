@@ -162,7 +162,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 11, "east": 13},
     "requires": [["~item:mage staff#1"]],
-    "receive": ["food:blueberry#1"],
+    "receive": ["food:blueberries#1"],
   },
   {
     "room": {"north": 11, "east": 12},
@@ -335,7 +335,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 12, "east": 25},
     "requires": [["~item:shark tooth#10", "skill:craft"]],
-    "receive": ["food:gummy bear#10", "~item:diamond#50"],
+    "receive": ["food:gummy bear#10", "~item:diamonds#50"],
   },
   {
     "room": {"north": 13, "east": 25},
@@ -392,7 +392,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 21, "east": 23},
     "requires": [["skill:dig"]],
-    "receive": ["~item:diamond#1"],
+    "receive": ["~item:diamonds#1"],
   },
   {
     "room": {"north": 21, "east": 22},
@@ -455,7 +455,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 21, "east": 18},
     "requires": [["~item:emerald#1"]],
-    "receive": ["~item:diamond#2", "~food:peppers#20"],
+    "receive": ["~item:diamonds#2", "~food:peppers#20"],
   },
   {
     "room": {"north": 21, "east": 17},
@@ -559,7 +559,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 23, "east": 10},
     "requires": [["~item:key#1"]],
-    "receive": ["~food:newton apple#3", "~item:diamond#3"],
+    "receive": ["~food:newton apple#3", "~item:diamonds#3"],
   },
   {
     "room": {"north": 24, "east": 11},
@@ -914,7 +914,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 12, "east": 11},
     "requires": [["quest:canteen.2"]],
-    "receive": ["quest:canteen.3", "~item:diamond#1"],
+    "receive": ["quest:canteen.3", "~item:diamonds#1"],
   },
   {"room": {"north": 14, "east": 22}, "requires": [[]], "receive": ["quest:rings.1"]},
   {
@@ -1180,7 +1180,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 21, "east": 18},
     "requires": [["~item:emerald#1"]],
-    "receive": ["~item:diamond#2", "~food:pepper#30"],
+    "receive": ["~item:diamonds#2", "~food:pepper#30"],
     "info": "30 not 20",
   },
   {
@@ -1204,7 +1204,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 17, "east": 16},
     "requires": [["~item:key#1"]],
-    "receive": ["~item:diamond#5"],
+    "receive": ["~item:diamonds#5"],
   },
   {
     "room": {"north": 18, "east": 15},
@@ -1220,7 +1220,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 16, "east": 15},
     "requires": [["misc:blue crystal#1"]],
-    "receive": ["armour:diamond armour", "quest:pam.16"],
+    "receive": ["armour:diamonds armour", "quest:pam.16"],
   },
   {
     "room": {"north": 14, "east": 15},
@@ -1255,7 +1255,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 23, "east": 10},
     "requires": [["~item:key#1"]],
-    "receive": ["~item:diamond#5", "~food:newton apple#2"],
+    "receive": ["~item:diamonds#5", "~food:newton apple#2"],
     "info": "2 not 3",
   },
   {
@@ -1283,7 +1283,7 @@ MathQuest.js:42550 add listeners""",
     "requires": [["~item:emerald#1"]],
     "receive": [
       "~~item:gold#1",
-      "~item:diamond#1",
+      "~item:diamonds#1",
       "~item:aurastone#1",
       "~item:slamstone#1",
       "food:elixir#1",
@@ -1370,7 +1370,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 12, "east": 21},
     "requires": [["~item:emerald#1", "permit:bomb"]],
-    "receive": ["~item:diamond#2", "food:banana#20"],
+    "receive": ["~item:diamonds#2", "food:banana#20"],
   },
   {
     "room": {"north": 11, "east": 21},
@@ -1390,12 +1390,12 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 17, "east": 22},
     "requires": [["misc:blue crystal"]],
-    "receive": ["~item:diamond#20"],
+    "receive": ["~item:diamonds#20"],
   },
   {
     "room": {"north": 21, "east": 23},
     "requires": [["~item:key#1"]],
-    "receive": ["~~item:gold#300", "~item:diamond#2"],
+    "receive": ["~~item:gold#300", "~item:diamonds#2"],
   },
   {
     "room": {"north": 19, "east": 23},
@@ -1439,12 +1439,12 @@ MathQuest.js:42550 add listeners""",
       ["misc:blue crystal", "entrance.south0"],
       ["misc:blue crystal", "entrance.west0"],
     ],
-    "receive": ["~item:diamond#5", "food:steak#12"],
+    "receive": ["~item:diamonds#5", "food:steak#12"],
   },
   {
     "room": {"north": 12, "east": 25},
     "requires": [["misc:blue crystal"]],
-    "receive": ["~item:diamond#50", "food:gummy bear#50"],
+    "receive": ["~item:diamonds#50", "food:gummy bear#50"],
   },
   {
     "room": {"north": 11, "east": 25},
@@ -1468,6 +1468,6 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 9, "east": 26},
     "requires": [["~item:key#1"]],
-    "receive": ["food:blueberry#10"],
+    "receive": ["food:blueberries#10"],
   },
 ]
