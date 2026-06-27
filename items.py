@@ -6,9 +6,7 @@ from worlds.AutoWorld import World
 # Every item must have a unique integer ID associated with it.
 # We will have a lookup from item name to ID here that, in world.py, we will import and bind to the world class.
 # Even if an item doesn't exist on specific options, it must be present in this lookup.
-ITEM_NAME_TO_ID: dict[str, int] = {
-  "item:gold":99999
-}
+ITEM_NAME_TO_ID: dict[str, int] = {"item:gold": 99999}
 from ._progression import PROG
 
 # Items should have a defined default classification.
@@ -27,9 +25,8 @@ _id_counter = 1
 for thing in PROG:
   if "receive" in thing:
     for itemInfo in thing["receive"]:
-      if any(
-        itemInfo.startswith(prefix)
-        for prefix in [
+      if itemInfo.startswith(
+        (
           "item:",
           "weapon:",
           "armour:",
@@ -39,7 +36,7 @@ for thing in PROG:
           "permit:",
           # "goal:",
           "misc:",
-        ]
+        )
       ):
         itemName = itemInfo.split("#")[0]
         if itemName not in ITEM_NAME_TO_ID:
@@ -47,9 +44,7 @@ for thing in PROG:
           # TODO
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = (
             ItemClassification.filler
-            if any(
-              itemInfo.startswith(prefix) for prefix in ["item:", "food:"]
-            )
+            if itemInfo.startswith(("item:", "food:"))
             else (
               ItemClassification.useful
               if any(
@@ -61,9 +56,13 @@ for thing in PROG:
               )
               else (
                 ItemClassification.progression
-                if any(
-                  itemInfo.startswith(prefix)
-                  for prefix in ["magic:", "weapon:", "goal:", "permit:"]
+                if itemInfo.startswith(
+                  (
+                    "magic:",
+                    "weapon:",
+                    "flag:final boss dead",
+                    "permit:",
+                  )
                 )
                 else ItemClassification.filler
               )

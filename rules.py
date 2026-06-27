@@ -146,5 +146,5 @@ def set_completion_condition(world: World) -> None:
 
   # In our case, we went for the Victory event design pattern (see create_events() in locations.py).
   # So lets undo what we just did, and instead set the completion condition to:
-  world.set_completion_rule(Has("goal:boss dead"))
+  world.set_completion_rule(Has("flag:final boss dead"))
 

@@ -172,7 +172,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 12, "east": 12},
     "requires": [["quest:rings.1", "entrance.west0"]],
-    "receive": ["flag:misc:headstone 2"],
+    "receive": ["misc:headstone 2"],
   },
   {"room": {"north": 10, "east": 12}, "info": "warp skill warp point"},
   {"room": {"north": 12, "east": 9}, "receive": ["spawnpoint"]},
@@ -324,7 +324,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 10, "east": 25},
     "requires": [["quest:rings.1"]],
-    "receive": ["flag:misc:headstone 3"],
+    "receive": ["misc:headstone 3"],
   },
   {"room": {"north": 11, "east": 24}, "info": "warp skill warp point"},
   {
@@ -387,7 +387,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 18, "east": 24},
     "requires": [["quest:rings.1"]],
-    "receive": ["flag:misc:headstone 4"],
+    "receive": ["misc:headstone 4"],
   },
   {
     "room": {"north": 21, "east": 23},
@@ -546,7 +546,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 16, "east": 16},
     "requires": [["quest:rings.1"]],
-    "receive": ["flag:flag:misc:headstone 1"],
+    "receive": ["misc:headstone 1"],
   },
   {
     "room": {"north": 18, "east": 13},
@@ -807,7 +807,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 7, "east": 11},
     "requires": [["quest:gTree.15"]],
-    "receive": ["quest:gTree.16"],
+    "receive": ["quest:gTree.16", "flag:7_11 boss dead"],
   },
   {
     "room": {"north": 7, "east": 10},
@@ -857,7 +857,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 24, "east": 9},
     "requires": [["quest:gTree.22"]],
-    "receive": ["quest:gTree.23", "flag:goal:boss dead"],
+    "receive": ["quest:gTree.23", "flag:final boss dead"],
   },
   {
     "room": {"north": 24, "east": 9},
@@ -959,10 +959,10 @@ MathQuest.js:42550 add listeners""",
     "requires": [
       [
         "quest:warp.1",
-        "flag:misc:headstone 1",
-        "flag:misc:headstone 2",
-        "flag:misc:headstone 3",
-        "flag:misc:headstone 4",
+        "misc:headstone 1",
+        "misc:headstone 2",
+        "misc:headstone 3",
+        "misc:headstone 4",
       ]
     ],
     "receive": ["quest:warp.2", "skill:warp"],
