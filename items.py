@@ -44,7 +44,7 @@ for thing in PROG:
           # TODO
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = (
             ItemClassification.filler
-            if itemInfo.startswith(("item:", "food:"))
+            if itemInfo.startswith(("item:", "food:", "item:ring"))
             else (
               ItemClassification.useful
               if any(
@@ -62,6 +62,7 @@ for thing in PROG:
                     "weapon:",
                     "flag:final boss dead",
                     "permit:",
+                    "item:fire crystal",
                   )
                 )
                 else ItemClassification.filler
