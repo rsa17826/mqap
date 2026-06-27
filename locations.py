@@ -12,7 +12,7 @@ LOCATION_NAME_TO_ID: dict[str, int] = {}
 # from .room_geometry import GEOM
 from ._progression import PROG
 
-_id_counter = 0
+_id_counter = 1
 for thing in PROG:
   if "receive" in thing:
     for itemInfo in thing["receive"]:
@@ -26,7 +26,6 @@ for thing in PROG:
           "skill:",
           "magic:",
           "permit:",
-          "goal:",
           "misc:",
         ]
       ):
@@ -87,7 +86,7 @@ def create_events(world: World) -> None:
     if "receive" in thing:
       for itemInfo in thing["receive"]:
         # Identify non-physical items like quests
-        if itemInfo.startswith("quest:"):
+        if itemInfo.startswith(("quest:", "flag:")):
           event_name = itemInfo.split("#")[0]
           room_id = f"{thing['room']['north']}_{thing['room']['east']}"
 

@@ -6,7 +6,9 @@ from worlds.AutoWorld import World
 # Every item must have a unique integer ID associated with it.
 # We will have a lookup from item name to ID here that, in world.py, we will import and bind to the world class.
 # Even if an item doesn't exist on specific options, it must be present in this lookup.
-ITEM_NAME_TO_ID: dict[str, int] = {}
+ITEM_NAME_TO_ID: dict[str, int] = {
+  "item:gold":99999
+}
 from ._progression import PROG
 
 # Items should have a defined default classification.
@@ -19,9 +21,9 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
   # "Hammer": ItemClassification.progression,
   # "Health Upgrade": ItemClassification.useful,
   # "Confetti Cannon": ItemClassification.filler,
-  # "Math Trap": ItemClassification.trap,
+  "item:gold": ItemClassification.trap,
 }
-_id_counter = 0
+_id_counter = 1
 for thing in PROG:
   if "receive" in thing:
     for itemInfo in thing["receive"]:
@@ -35,7 +37,7 @@ for thing in PROG:
           "skill:",
           "magic:",
           "permit:",
-          "goal:",
+          # "goal:",
           "misc:",
         ]
       ):
