@@ -16,18 +16,17 @@ _id_counter = 1
 for thing in PROG:
   if "receive" in thing:
     for itemInfo in thing["receive"]:
-      if any(
-        itemInfo.startswith(prefix)
-        for prefix in [
+      if itemInfo.startswith(
+        (
           "item:",
           "weapon:",
-          "armour:",
+          "armor:",
           "food:",
           "skill:",
           "magic:",
           "permit:",
           "misc:",
-        ]
+        )
       ):
         itemName = f"{thing['room']['north']}_{thing['room']['east']} - {itemInfo.split("#")[0]}"
         if itemName not in LOCATION_NAME_TO_ID:
@@ -79,6 +78,8 @@ def create_regular_locations(world: World) -> None:
       region,
     )
     region.locations.append(location)
+
+
 def create_events(world: World) -> None:
   from ._progression import PROG
 
@@ -94,7 +95,7 @@ def create_events(world: World) -> None:
           region = world.get_region(room_id)
 
           # Create an Event Location and lock the Event Item to it automatically
-          _=region.add_event(
+          _ = region.add_event(
             location_name=f"{room_id} - {event_name}",
             item_name=event_name,
             location_type=MathQuestLocation,

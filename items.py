@@ -27,7 +27,6 @@ for thing in PROG:
     for itemInfo in thing["receive"]:
       itemName = itemInfo.split("#")[0]
       if itemName not in ITEM_NAME_TO_ID:
-        ITEM_NAME_TO_ID[itemName] = _id_counter
         # TODO
         if itemInfo.startswith(
           (
@@ -41,8 +40,10 @@ for thing in PROG:
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = (
             ItemClassification.progression
           )
-        elif itemInfo.startswith(("skill:", "armour:", "item:ring")):
+          ITEM_NAME_TO_ID[itemName] = _id_counter
+        elif itemInfo.startswith(("skill:", "armor:", "item:ring")):
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.useful
+          ITEM_NAME_TO_ID[itemName] = _id_counter
         elif itemInfo.startswith(
           (
             "item:",
@@ -51,8 +52,12 @@ for thing in PROG:
           )
         ):
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.filler
+          ITEM_NAME_TO_ID[itemName] = _id_counter
+        elif itemInfo.startswith(("quest:", "area:")):
+          continue
         else:
           print(itemName, "not used")
+          continue
         _id_counter += 1
 
 
