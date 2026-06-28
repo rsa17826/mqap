@@ -25,51 +25,35 @@ _id_counter = 1
 for thing in PROG:
   if "receive" in thing:
     for itemInfo in thing["receive"]:
-      if itemInfo.startswith(
-        (
-          "item:",
-          "weapon:",
-          "armour:",
-          "food:",
-          "skill:",
-          "magic:",
-          "permit:",
-          # "goal:",
-          "misc:",
-        )
-      ):
-        itemName = itemInfo.split("#")[0]
-        if itemName not in ITEM_NAME_TO_ID:
-          ITEM_NAME_TO_ID[itemName] = _id_counter
-          # TODO
-          DEFAULT_ITEM_CLASSIFICATIONS[itemName] = (
-            ItemClassification.filler
-            if itemInfo.startswith(("item:", "food:", "item:ring"))
-            else (
-              ItemClassification.useful
-              if any(
-                itemInfo.startswith(prefix)
-                for prefix in [
-                  "skill:",
-                  "armour:",
-                ]
-              )
-              else (
-                ItemClassification.progression
-                if itemInfo.startswith(
-                  (
-                    "magic:",
-                    "weapon:",
-                    "flag:final boss dead",
-                    "permit:",
-                    "item:fire crystal",
-                  )
-                )
-                else ItemClassification.filler
-              )
-            )
+      itemName = itemInfo.split("#")[0]
+      if itemName not in ITEM_NAME_TO_ID:
+        ITEM_NAME_TO_ID[itemName] = _id_counter
+        # TODO
+        if itemInfo.startswith(
+          (
+            "magic:",
+            "weapon:",
+            "flag:final boss dead",
+            "permit:",
+            "item:fire crystal",
           )
-          _id_counter += 1
+        ):
+          DEFAULT_ITEM_CLASSIFICATIONS[itemName] = (
+            ItemClassification.progression
+          )
+        elif itemInfo.startswith(("skill:", "armour:", "item:ring")):
+          DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.useful
+        elif itemInfo.startswith(
+          (
+            "item:",
+            "food:",
+            "misc:",
+          )
+        ):
+          DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.filler
+        else:
+          print(itemName, "not used")
+        _id_counter += 1
 
 
 # Each Item instance must correctly report the "game" it belongs to.
