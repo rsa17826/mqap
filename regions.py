@@ -2,7 +2,11 @@ from __future__ import annotations
 
 from BaseClasses import Entrance, Region
 from rule_builder.rules import Has, HasAll, Rule
+
 from worlds.AutoWorld import World
+
+from . import items, locations
+from ._room_geometry import ExitBase
 
 
 def create_and_connect_regions(world: World) -> None:
@@ -32,7 +36,7 @@ def create_all_regions(world: World) -> None:
 
   seen: set[str] = set()
   for room in GEOM:
-    room_id = f'{room["north"]}_{room["east"]}'
+    room_id = f"{room['north']}_{room['east']}"
     if room_id in seen:
       continue
     seen.add(room_id)
@@ -66,8 +70,8 @@ def connect_doors(world: World) -> None:
   # locations, we don't know which sub-area a trigger object sits behind, so
   # they connect from/to each room's base region, same place locations live.
   for door in EXITS["doors"]:
-    origin_id = f'{door["origin"]["north"]}_{door["origin"]["east"]}'
-    dest_id = f'{door["dest"]["north"]}_{door["dest"]["east"]}'
+    origin_id = f"{door['origin']['north']}_{door['origin']['east']}"
+    dest_id = f"{door['dest']['north']}_{door['dest']['east']}"
 
     origin_region = world.get_region(origin_id)
     dest_region = world.get_region(dest_id)
@@ -82,18 +86,18 @@ def connect_doors(world: World) -> None:
     # so we never add a return connection here ourselves -- a door explicitly
     # marked one_way (no matching reverse entry in the data) stays one-way.
 
-from . import items, locations
+
 def connect_regions(world: World) -> None:
   from ._room_geometry import GEOM
 
   # 1. Map out which room IDs have area configurations for quick lookup
-  room_has_areas = {f'{r["north"]}_{r["east"]}': "areas" in r for r in GEOM}
+  room_has_areas = {f"{r['north']}_{r['east']}": "areas" in r for r in GEOM}
 
   # 2. Direction inversion mapping
   opposites = {"north": "south", "south": "north", "east": "west", "west": "east"}
 
   for room in GEOM:
-    room_id = f'{room["north"]}_{room["east"]}'
+    room_id = f"{room['north']}_{room['east']}"
     if room_id in ("100_100", "300_300"):
       continue
 
@@ -135,9 +139,7 @@ def connect_regions(world: World) -> None:
 
         # If the target room utilizes sub-areas, land on its specific slot wrapper
         if room_has_areas.get(target_room_id, False):
-          target_region = world.get_region(
-            f"{target_room_id}#{_slot_id(opposite_direction, idx)}"
-          )
+          target_region = world.get_region(f"{target_room_id}#{_slot_id(opposite_direction, idx)}")
         else:
           target_region = world.get_region(target_room_id)
 
@@ -146,22 +148,21 @@ def connect_regions(world: World) -> None:
         source_region.exits.append(entrance)
         entrance.connect(target_region)
 
-        # Grant the entrance flag for the room being entered, scoped to that room
-        # to avoid collisions with other rooms that also have a west.0/north.0/etc.
-        flag_name = f"{target_room_id} entrance.{opposite_direction}{idx}"
         _ = target_region.add_event(
           location_name=f"{target_room_id} - entrance.{opposite_direction}{idx}",
-          item_name=flag_name,
+          item_name=f"{target_room_id} - entrance.{opposite_direction}{idx}",
           location_type=locations.MathQuestLocation,
           item_type=items.MathQuestItem,
         )
 
-def _connect_internal_slots(world: World, room, room_id: str) -> None:
+
+def _connect_internal_slots(world: World, room: ExitBase, room_id: str) -> None:
   # For every pair of slots, figure out the rule under which they're mutually
   # reachable inside this room (None = always reachable, no items needed).
   unconditional_pairs: set[frozenset[str]] = set()
   conditional_rules: dict[frozenset[str], Rule] = {}
-
+  if "areas" not in room:
+    return
   for area_node in room["areas"]:
     node_rule = _reqs_to_rule(area_node["reqs"])
     for group in area_node["areas"]:
@@ -173,12 +174,10 @@ def _connect_internal_slots(world: World, room, room_id: str) -> None:
             continue
           if node_rule is None:
             unconditional_pairs.add(pair)
-            conditional_rules.pop(pair, None)
+            _ = conditional_rules.pop(pair, None)
           else:
             existing = conditional_rules.get(pair)
-            conditional_rules[pair] = (
-              node_rule if existing is None else (existing | node_rule)
-            )
+            conditional_rules[pair] = node_rule if existing is None else (existing | node_rule)
             # print("conditional_rules", conditional_rules[pair])
 
   for pair in unconditional_pairs:
