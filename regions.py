@@ -11,12 +11,6 @@ from ._room_geometry import ExitBase
 
 def create_and_connect_regions(world: World) -> None:
   create_all_regions(world)
-  connect_regions(world)
-  connect_doors(world)
-
-
-def _slot_id(side: str, idx: int) -> str:
-  return f"{side}.{idx}"
 
 
 def _reqs_to_rule(reqs: list[list[str]]) -> Rule | None:
@@ -34,32 +28,44 @@ def _reqs_to_rule(reqs: list[list[str]]) -> Rule | None:
 connections = {}
 
 
-def createRegion(north: int, east: int, world: World, geom: list[ExitBase]):
-  def connect(x:str,y:str):
-    entrance = Entrance(world.player, x, parent=world.get_region(x))
-    world.get_region(x).exits.append(entrance)
-    entrance.connect(world.get_region(y))
-
-  for room in geom:
-    if room["north"] == north and room["east"] == east:
-      roomId = f"{room['north']}_{room['east']}"
-      if "areas" not in room:
-        continue
-      for i, areaSection in enumerate(room["areas"]):
-        for connectedAreas in areaSection["areas"]:
-          for area in connectedAreas:
-            print(area, "areaSection", areaSection)
-            side = area["side"]
-            sideIdx = area["idx"]
-            entranceId = f"{roomId}: {side} {sideIdx}"
-            connections[entranceId] = Region(entranceId, world.player, world.multiworld)
-            print(entranceId)
-      break
-
 def create_all_regions(world: World) -> None:
   from ._room_geometry import GEOM
 
   createRegion(20, 20, world, GEOM)
+
+  def createRegion(north: int, east: int):
+    def connect(x: str, y: str):
+      entrance = Entrance(world.player, x, parent=world.get_region(x))
+      world.get_region(x).exits.append(entrance)
+      entrance.connect(world.get_region(y))
+
+    for room in GEOM:
+      if room["north"] == north and room["east"] == east:
+        roomId = f"{room['north']}_{room['east']}"
+        if "areas" not in room:
+          continue
+        for i, areaSection in enumerate(room["areas"]):
+          for connectedAreas in areaSection["areas"]:
+            for area in connectedAreas:
+              print(area, "areaSection", areaSection)
+              side = area["side"]
+              sideIdx = area["idx"]
+              entranceId = f"{roomId}: {side} {sideIdx}"
+              connections[entranceId] = Region(entranceId, world.player, world.multiworld)
+              print(entranceId)
+        newRegion = createRegion(north + 1, east)
+        if newRegion is not None:
+          connect(region, newRegion)
+        newRegion = createRegion(north, east + 1)
+        if newRegion is not None:
+          connect(region, newRegion)
+        newRegion = createRegion(north - 1, east)
+        if newRegion is not None:
+          connect(region, newRegion)
+        newRegion = createRegion(north, east - 1)
+        if newRegion is not None:
+          connect(region, newRegion)
+        break
 
   # if roomId in seen:
   #   continue
