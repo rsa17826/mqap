@@ -78,27 +78,55 @@ def create_regular_locations(world: World) -> None:
     region.locations.append(location)
 
 
+import re
+
 def create_events(world: World) -> None:
   from ._progression import PROG
 
   for thing in PROG:
-    if "receive" in thing:
-      for itemInfo in thing["receive"]:
-        # Identify non-physical items like quests
-        if itemInfo.startswith(("quest:", "flag:")):
-          event_name = itemInfo.split("#")[0]
-          room_id = f"{thing['room']['north']}_{thing['room']['east']}"
+    if "receive" not in thing:
+      continue
+    for itemInfo in thing["receive"]:
+      if itemInfo.startswith(("quest:", "flag:", "area:", "entrance.")):
+        event_name = itemInfo.split("#")[0]
+        room_id = f"{thing['room']['north']}_{thing['room']['east']}"
 
-          # Get the room region where this event happens
+        if event_name.startswith("entrance."):
+          m = re.match(r"entrance\.([a-z]+)(\d+)$", event_name)
+          if not m:
+            raise ValueError(f"Unparsable entrance flag: {event_name}")
+          side, idx = m.group(1), m.group(2)
+          region = world.get_region(f"{room_id}#{side}.{idx}")
+        else:
           region = world.get_region(room_id)
 
-          # Create an Event Location and lock the Event Item to it automatically
-          _ = region.add_event(
-            location_name=f"{room_id} - {event_name}",
-            item_name=event_name,
-            location_type=MathQuestLocation,
-            item_type=items.MathQuestItem,
-          )
+        _ = region.add_event(
+          location_name=f"{room_id} - {event_name}",
+          item_name=event_name,
+          location_type=MathQuestLocation,
+          item_type=items.MathQuestItem,
+        )
+# def create_events(world: World) -> None:
+#   from ._progression import PROG
+
+#   for thing in PROG:
+#     if "receive" in thing:
+#       for itemInfo in thing["receive"]:
+#         # Identify non-physical items like quests
+#         if itemInfo.startswith(("quest:", "flag:", "location.")):
+#           event_name = itemInfo.split("#")[0]
+#           room_id = f"{thing['room']['north']}_{thing['room']['east']}"
+
+#           # Get the room region where this event happens
+#           region = world.get_region(room_id)
+
+#           # Create an Event Location and lock the Event Item to it automatically
+#           _ = region.add_event(
+#             location_name=f"{room_id} - {event_name}",
+#             item_name=event_name,
+#             location_type=MathQuestLocation,
+#             item_type=items.MathQuestItem,
+#           )
 
   # Sometimes, the player may perform in-game actions that allow them to progress which are not related to Items.
   # In our case, the player must press a button in the top left room to open the final boss door.
