@@ -6,7 +6,7 @@ from worlds.AutoWorld import World
 # Every item must have a unique integer ID associated with it.
 # We will have a lookup from item name to ID here that, in world.py, we will import and bind to the world class.
 # Even if an item doesn't exist on specific options, it must be present in this lookup.
-ITEM_NAME_TO_ID: dict[str, int] = {"item:gold": 99999}
+ITEM_NAME_TO_ID: dict[str, int] = {"item:trap": 99999}
 from ._progression import PROG
 
 # Items should have a defined default classification.
@@ -19,7 +19,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
   # "Hammer": ItemClassification.progression,
   # "Health Upgrade": ItemClassification.useful,
   # "Confetti Cannon": ItemClassification.filler,
-  "item:gold": ItemClassification.trap,
+  "item:trap": ItemClassification.trap,
 }
 _id_counter = 1
 for thing in PROG:
@@ -32,21 +32,24 @@ for thing in PROG:
           (
             "magic:",
             "weapon:",
-            "flag:final boss dead",
+            # "flag:final boss dead",
             "permit:",
             "item:fire crystal",
+            "item:key", # Treat keys as progression
+            "item:aurastone",
+            "item:",
+            # "entrance.", # <--- Ensure these match progression classification
+            # "quest:", # <--- Ensure these match progression classification
+            # "area:",
           )
         ):
-          DEFAULT_ITEM_CLASSIFICATIONS[itemName] = (
-            ItemClassification.progression
-          )
+          DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.progression
           ITEM_NAME_TO_ID[itemName] = _id_counter
         elif itemInfo.startswith(("skill:", "armor:", "item:ring")):
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.useful
           ITEM_NAME_TO_ID[itemName] = _id_counter
         elif itemInfo.startswith(
           (
-            "item:",
             "food:",
             "misc:",
           )
@@ -80,7 +83,7 @@ def get_random_filler_item_name(world: World) -> str:
   # DO NOT use a bare random object from Python's built-in random module.
   # if world.random.randint(0, 99) < world.options.trap_chance:
   #   return "Math Trap"
-  return "item:gold"
+  return "item:trap"
 
 
 def create_item_with_correct_classification(world: World, name: str) -> MathQuestItem:
@@ -143,9 +146,7 @@ def create_all_items(world: World) -> None:
   # The number of locations is also easy to determine, but we have to be careful.
   # Just calling len(world.get_locations()) would report an incorrect number, because of our *event locations*.
   # What we actually want is the number of *unfilled* locations. Luckily, there is a helper method for this:
-  number_of_unfilled_locations = len(
-    world.multiworld.get_unfilled_locations(world.player)
-  )
+  number_of_unfilled_locations = len(world.multiworld.get_unfilled_locations(world.player))
 
   # Now, we just subtract the number of items from the number of locations to get the number of empty item slots.
   needed_number_of_filler_items = number_of_unfilled_locations - number_of_items

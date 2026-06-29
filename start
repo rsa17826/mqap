@@ -1,2 +1,2 @@
-#!sh
-python3.13 ../../Generate.py && python3.13 ../../MultiServer.py $(ls -t ../../output/AP_*.zip | head -n 1)
+#!/usr/bin/env sh
+python3.13 ../../Generate.py && python3.13 ../../MultiServer.py "$(find ../../output/AP_*.zip | head -n 1)"

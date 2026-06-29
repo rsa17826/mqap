@@ -2,7 +2,7 @@ import sys
 
 # Dynamic import bypasses Pyright's strict private module analysis
 if "test.bases" not in sys.modules:
-    __import__("test.bases")
+  __import__("test.bases")
 WorldTestBase = sys.modules["test.bases"].WorldTestBase
 from typing import ClassVar
 from ..world import MathQuestWorld

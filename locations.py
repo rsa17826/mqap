@@ -29,7 +29,7 @@ for thing in PROG:
         )
       ):
         # itemName = itemInfo.split("#")[0]
-        itemName = f"{thing['room']['north']}_{thing['room']['east']} - {itemInfo.split("#")[0]}"
+        itemName = f"{thing['room']['north']}_{thing['room']['east']} - {itemInfo.split('#')[0]}"
         if itemName not in LOCATION_NAME_TO_ID:
           LOCATION_NAME_TO_ID[itemName] = _id_counter
           _id_counter += 1
@@ -57,10 +57,7 @@ class MathQuestLocation(Location):
 # Note: There is a minor typing quirk here. Some functions want location addresses to be an "int | None",
 # so while our function here only ever returns dict[str, int], we annotate it as dict[str, int | None].
 def get_location_names_with_ids(location_names: list[str]) -> dict[str, int | None]:
-  return {
-    location_name: LOCATION_NAME_TO_ID[location_name]
-    for location_name in location_names
-  }
+  return {location_name: LOCATION_NAME_TO_ID[location_name] for location_name in location_names}
 
 
 def create_all_locations(world: World) -> None:
