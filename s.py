@@ -1,4 +1,5 @@
 import sys
+
 from _progression import PROG
 
 

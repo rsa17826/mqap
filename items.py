@@ -1,13 +1,15 @@
 from __future__ import annotations
 
 from BaseClasses import Item, ItemClassification
+
 from worlds.AutoWorld import World
+
+from ._progression import PROG
 
 # Every item must have a unique integer ID associated with it.
 # We will have a lookup from item name to ID here that, in world.py, we will import and bind to the world class.
 # Even if an item doesn't exist on specific options, it must be present in this lookup.
 ITEM_NAME_TO_ID: dict[str, int] = {"item:trap": 99999}
-from ._progression import PROG
 
 # Items should have a defined default classification.
 # In our case, we will make a dictionary from item name to classification.
@@ -38,8 +40,8 @@ for thing in PROG:
             "item:key", # Treat keys as progression
             "item:aurastone",
             "item:",
-            # "entrance.", # <--- Ensure these match progression classification
-            # "quest:", # <--- Ensure these match progression classification
+            # "entrance.",
+            # "quest:",
             # "area:",
           )
         ):
@@ -73,7 +75,7 @@ class MathQuestItem(Item):
 # Ontop of our regular itempool, our world must be able to create arbitrary amounts of filler as requested by core.
 # To do this, it must define a function called world.get_filler_item_name(), which we will define in world.py later.
 # For now, let's make a function that returns the name of a random filler item here in items.py.
-def get_random_filler_item_name(world: World) -> str:
+def get_random_filler_item_name(_world: World) -> str:
   # MathQuest has an option called "trap_chance".
   # This is the percentage chance that each filler item is a Math Trap instead of a Confetti Cannon.
   # For this purpose, we need to use a random generator.

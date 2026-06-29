@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from rule_builder.rules import Has, HasAll
 from worlds.AutoWorld import World
+
 from ._progression import PROG
 
 
@@ -14,7 +15,7 @@ def set_all_rules(world: World) -> None:
   set_completion_condition(world)
 
 
-def set_all_entrance_rules(world: World) -> None:
+def set_all_entrance_rules(_world: World) -> None:
   """
   Set explicit rules for entrances if applicable.
   Static transitions not covered by progression nodes can be manually defined here.
@@ -38,7 +39,7 @@ def set_all_location_rules(world: World) -> None:
 
       # Build the Archipelago rule dynamically from the nested list
       # Inner lists represent "AND" conditions, outer blocks represent "OR" paths
-      or_conditions = []
+      or_conditions: list[HasAll[World]] = []
       for and_clause in node.get("requires", []):
         if not and_clause: # It's [[]], meaning it's un-locked/free from the start
           continue
