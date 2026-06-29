@@ -70,6 +70,7 @@ def create_all_locations(world: World) -> None:
 
 
 def create_regular_locations(world: World) -> None:
+  return
   for itemName, location_id in LOCATION_NAME_TO_ID.items():
     room_id = itemName.split(" - ", 1)[0]
     region = world.get_region(room_id)
@@ -83,6 +84,7 @@ def create_regular_locations(world: World) -> None:
 
 
 def create_events(world: World) -> None:
+  return
   from ._progression import PROG
 
   for thing in PROG:

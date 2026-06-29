@@ -1,6 +1,10 @@
 from __future__ import annotations
 
+import re
+from functools import reduce
+
 from rule_builder.rules import Has, HasAll
+
 from worlds.AutoWorld import World
 
 from ._progression import PROG
@@ -23,14 +27,11 @@ def set_all_entrance_rules(_world: World) -> None:
   pass
 
 
-import re
-
 _ENTRANCE_RE = re.compile(r"^entrance\.[a-z]+\d+$")
-
-from functools import reduce
 
 
 def set_all_location_rules(world: World) -> None:
+  return
   for node in PROG:
     if "receive" not in node:
       continue
@@ -48,7 +49,7 @@ def set_all_location_rules(world: World) -> None:
       for _and in node.get("requires", []):
         clean_items: list[str] = []
         for token in _and:
-          print(token, "d")
+          # print(token, "d")
           name = token.split("#")[0]
           if _ENTRANCE_RE.match(name):
             name = f"{room_id} - {name}"
@@ -57,7 +58,7 @@ def set_all_location_rules(world: World) -> None:
           allConditions.append(HasAll(*clean_items) if len(clean_items) > 1 else Has(clean_items[0]))
 
       if allConditions:
-        print(allConditions, node)
+        # print(allConditions, node)
         world.set_rule(location, reduce(lambda a, s: a | s, allConditions))
 
 

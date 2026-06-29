@@ -31,38 +31,60 @@ def _reqs_to_rule(reqs: list[list[str]]) -> Rule | None:
   return rule
 
 
+connections = {}
+
+
+def createRegion(north: int, east: int, world: World, geom: list[ExitBase]):
+  def connect(x:str,y:str):
+    entrance = Entrance(world.player, x, parent=world.get_region(x))
+    world.get_region(x).exits.append(entrance)
+    entrance.connect(world.get_region(y))
+
+  for room in geom:
+    if room["north"] == north and room["east"] == east:
+      roomId = f"{room['north']}_{room['east']}"
+      if "areas" not in room:
+        continue
+      for i, areaSection in enumerate(room["areas"]):
+        for connectedAreas in areaSection["areas"]:
+          for area in connectedAreas:
+            print(area, "areaSection", areaSection)
+            side = area["side"]
+            sideIdx = area["idx"]
+            entranceId = f"{roomId}: {side} {sideIdx}"
+            connections[entranceId] = Region(entranceId, world.player, world.multiworld)
+            print(entranceId)
+      break
+
 def create_all_regions(world: World) -> None:
   from ._room_geometry import GEOM
 
-  seen: set[str] = set()
-  for room in GEOM:
-    room_id = f"{room['north']}_{room['east']}"
-    if room_id in seen:
-      continue
-    seen.add(room_id)
+  createRegion(20, 20, world, GEOM)
 
-    # The room region itself. Locations attach here (see caveat in the writeup:
-    # we don't know which sub-area a chest sits in, so we treat the whole room
-    # as one space for location purposes).
-    region = Region(room_id, world.player, world.multiworld)
-    world.multiworld.regions.append(region)
+  # if roomId in seen:
+  #   continue
+  # seen.add(roomId)
 
-    if "areas" not in room:
-      continue
+  # region = Region(roomId, world.player, world.multiworld)
+  # world.multiworld.regions.append(region)
 
-    # One sub-region per exit slot referenced anywhere in "areas".
-    slot_ids: set[str] = set()
-    for area_node in room["areas"]:
-      for group in area_node["areas"]:
-        for slot in group:
-          slot_ids.add(_slot_id(slot["side"], slot["idx"]))
+  # if "areas" not in room:
+  #   continue
 
-    for slot_id in slot_ids:
-      slot_region = Region(f"{room_id}#{slot_id}", world.player, world.multiworld)
-      world.multiworld.regions.append(slot_region)
+  # # One sub-region per exit slot referenced anywhere in "areas".
+  # slot_ids: set[str] = set()
+  # for area_node in room["areas"]:
+  #   for group in area_node["areas"]:
+  #     for slot in group:
+  #       slot_ids.add(_slot_id(slot["side"], slot["idx"]))
+
+  # for slot_id in slot_ids:
+  #   slot_region = Region(f"{roomId}#{slot_id}", world.player, world.multiworld)
+  #   world.multiworld.regions.append(slot_region)
 
 
 def connect_doors(world: World) -> None:
+  return
   from ._exits import EXITS
 
   # Doors (stairs, drains, warp rings, etc.) are point-to-point teleports that
@@ -88,6 +110,7 @@ def connect_doors(world: World) -> None:
 
 
 def connect_regions(world: World) -> None:
+  return
   from ._room_geometry import GEOM
 
   # 1. Map out which room IDs have area configurations for quick lookup
@@ -97,20 +120,20 @@ def connect_regions(world: World) -> None:
   opposites = {"north": "south", "south": "north", "east": "west", "west": "east"}
 
   for room in GEOM:
-    room_id = f"{room['north']}_{room['east']}"
-    if room_id in ("100_100", "300_300"):
+    roomId = f"{room['north']}_{room['east']}"
+    if roomId in ("100_100", "300_300"):
       continue
 
     has_areas = "areas" in room
     if has_areas:
-      _connect_internal_slots(world, room, room_id)
+      _connect_internal_slots(world, room, roomId)
       for direction in ("north", "south", "east", "west"):
         num_exits = len(room["exits"][direction])
         for idx in range(num_exits):
-          slot_region = world.get_region(f"{room_id}#{_slot_id(direction, idx)}")
-          base_region = world.get_region(room_id)
-          _ = slot_region.connect(base_region, f"{room_id} {direction}.{idx} to base")
-          _ = base_region.connect(slot_region, f"{room_id} base to {direction}.{idx}")
+          slot_region = world.get_region(f"{roomId}#{_slot_id(direction, idx)}")
+          base_region = world.get_region(roomId)
+          _ = slot_region.connect(base_region, f"{roomId} {direction}.{idx} to base")
+          _ = base_region.connect(slot_region, f"{roomId} base to {direction}.{idx}")
 
     for direction in ("north", "south", "east", "west"):
       num_exits = len(room["exits"][direction])
@@ -132,9 +155,7 @@ def connect_regions(world: World) -> None:
 
       for idx in range(num_exits):
         source_region = (
-          world.get_region(f"{room_id}#{_slot_id(direction, idx)}")
-          if has_areas
-          else world.get_region(room_id)
+          world.get_region(f"{roomId}#{_slot_id(direction, idx)}") if has_areas else world.get_region(roomId)
         )
 
         # If the target room utilizes sub-areas, land on its specific slot wrapper
@@ -143,7 +164,7 @@ def connect_regions(world: World) -> None:
         else:
           target_region = world.get_region(target_room_id)
 
-        entrance_name = f"Exit from {room_id} {direction}.{idx}"
+        entrance_name = f"Exit from {roomId} {direction}.{idx}"
         entrance = Entrance(world.player, entrance_name, parent=source_region)
         source_region.exits.append(entrance)
         entrance.connect(target_region)
@@ -156,7 +177,8 @@ def connect_regions(world: World) -> None:
         )
 
 
-def _connect_internal_slots(world: World, room: ExitBase, room_id: str) -> None:
+def _connect_internal_slots(world: World, room: ExitBase, roomId: str) -> None:
+  return
   # For every pair of slots, figure out the rule under which they're mutually
   # reachable inside this room (None = always reachable, no items needed).
   unconditional_pairs: set[frozenset[str]] = set()
@@ -182,14 +204,14 @@ def _connect_internal_slots(world: World, room: ExitBase, room_id: str) -> None:
 
   for pair in unconditional_pairs:
     a, b = tuple(pair)
-    ra, rb = world.get_region(f"{room_id}#{a}"), world.get_region(f"{room_id}#{b}")
-    _ = ra.connect(rb, f"{room_id} {a}<->{b} (fwd)")
-    _ = rb.connect(ra, f"{room_id} {a}<->{b} (back)")
+    ra, rb = world.get_region(f"{roomId}#{a}"), world.get_region(f"{roomId}#{b}")
+    _ = ra.connect(rb, f"{roomId} {a}<->{b} (fwd)")
+    _ = rb.connect(ra, f"{roomId} {a}<->{b} (back)")
 
   for pair, rule in conditional_rules.items():
     a, b = tuple(pair)
-    ra, rb = world.get_region(f"{room_id}#{a}"), world.get_region(f"{room_id}#{b}")
-    e1 = ra.connect(rb, f"{room_id} {a}->{b}")
-    e2 = rb.connect(ra, f"{room_id} {b}->{a}")
+    ra, rb = world.get_region(f"{roomId}#{a}"), world.get_region(f"{roomId}#{b}")
+    e1 = ra.connect(rb, f"{roomId} {a}->{b}")
+    e2 = rb.connect(ra, f"{roomId} {b}->{a}")
     world.set_rule(e1, rule)
     world.set_rule(e2, rule)
