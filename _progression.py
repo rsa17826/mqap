@@ -98,7 +98,7 @@ manager.correct - manager.wrong > 800 = halo
     "info": """add to correct locations later
 """,
   },
-  {"room": {"north": 20, "east": 20}, "receive": ["spawnpoint"]},
+  # {"room": {"north": 20, "east": 20}, "receive": ["spawnpoint"]},
   {
     "room": {"north": 15, "east": 21},
     "requires": [["entrance.west0"]],

@@ -27,6 +27,8 @@ import re
 
 _ENTRANCE_RE = re.compile(r"^entrance\.[a-z]+\d+$")
 
+from functools import reduce
+
 
 def set_all_location_rules(world: World) -> None:
   for node in PROG:
@@ -42,23 +44,21 @@ def set_all_location_rules(world: World) -> None:
       loc_name = f"{room_id} - {itemInfo.split('#')[0]}"
       location = world.get_location(loc_name)
 
-      or_conditions = []
-      for and_clause in node.get("requires", []):
-        if not and_clause:
-          continue
-        clean_items = []
-        for token in and_clause:
+      allConditions: list[HasAll[World] | Has[World]] = []
+      for _and in node.get("requires", []):
+        clean_items: list[str] = []
+        for token in _and:
+          print(token, "d")
           name = token.split("#")[0]
           if _ENTRANCE_RE.match(name):
-            name = f"{room_id} {name}" # qualify to this node's own room
+            name = f"{room_id} - {name}"
           clean_items.append(name)
-        or_conditions.append(HasAll(*clean_items) if len(clean_items) > 1 else Has(clean_items[0]))
+        if len(clean_items):
+          allConditions.append(HasAll(*clean_items) if len(clean_items) > 1 else Has(clean_items[0]))
 
-      if or_conditions:
-        final_rule = or_conditions[0]
-        for condition in or_conditions[1:]:
-          final_rule = final_rule | condition
-        world.set_rule(location, final_rule)
+      if allConditions:
+        print(allConditions, node)
+        world.set_rule(location, reduce(lambda a, s: a | s, allConditions))
 
 
 # def set_all_location_rules(world: World) -> None:

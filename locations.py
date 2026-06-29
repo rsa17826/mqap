@@ -89,18 +89,11 @@ def create_events(world: World) -> None:
     if "receive" not in thing:
       continue
     for itemInfo in thing["receive"]:
-      if itemInfo.startswith(("quest:", "flag:", "area:", "entrance.")):
+      if itemInfo.startswith(("quest:", "flag:", "area:")):
         event_name = itemInfo.split("#")[0]
         room_id = f"{thing['room']['north']}_{thing['room']['east']}"
 
-        if event_name.startswith("entrance."):
-          m = re.match(r"entrance\.([a-z]+)(\d+)$", event_name)
-          if not m:
-            raise ValueError(f"Unparsable entrance flag: {event_name}")
-          side, idx = m.group(1), m.group(2)
-          region = world.get_region(f"{room_id}#{side}.{idx}")
-        else:
-          region = world.get_region(room_id)
+        region = world.get_region(room_id)
 
         _ = region.add_event(
           location_name=f"{room_id} - {event_name}",
