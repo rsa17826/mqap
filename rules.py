@@ -23,37 +23,41 @@ def set_all_entrance_rules(_world: World) -> None:
   pass
 
 
+import re
+
+_ENTRANCE_RE = re.compile(r"^entrance\.[a-z]+\d+$")
+
+
 def set_all_location_rules(world: World) -> None:
   for node in PROG:
     if "receive" not in node:
       continue
 
+    room_id = f"{node['room']['north']}_{node['room']['east']}"
+
     for itemInfo in node["receive"]:
-      # Match the exact location string format from locations.py
       if not itemInfo.startswith(("item:", "weapon:", "armor:", "food:", "skill:", "magic:", "permit:", "misc:")):
         continue
 
-      loc_name = f"{node['room']['north']}_{node['room']['east']} - {itemInfo.split('#')[0]}"
-
+      loc_name = f"{room_id} - {itemInfo.split('#')[0]}"
       location = world.get_location(loc_name)
 
-      # Build the Archipelago rule dynamically from the nested list
-      # Inner lists represent "AND" conditions, outer blocks represent "OR" paths
-      or_conditions: list[HasAll[World]] = []
+      or_conditions = []
       for and_clause in node.get("requires", []):
-        if not and_clause: # It's [[]], meaning it's un-locked/free from the start
+        if not and_clause:
           continue
+        clean_items = []
+        for token in and_clause:
+          name = token.split("#")[0]
+          if _ENTRANCE_RE.match(name):
+            name = f"{room_id} {name}" # qualify to this node's own room
+          clean_items.append(name)
+        or_conditions.append(HasAll(*clean_items) if len(clean_items) > 1 else Has(clean_items[0]))
 
-        # Strip item ID counts like #1 or #999 to match actual clean pool item names
-        clean_items = [item.split("#")[0] for item in and_clause]
-        or_conditions.append(HasAll(*clean_items))
-
-      # If there are actual constraints, chain them together with OR (|) operators
-      if len(or_conditions):
+      if or_conditions:
         final_rule = or_conditions[0]
         for condition in or_conditions[1:]:
           final_rule = final_rule | condition
-
         world.set_rule(location, final_rule)
 
 

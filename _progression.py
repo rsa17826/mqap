@@ -17,20 +17,41 @@ class ProgressionNode(TypedDict):
 PROG: list[ProgressionNode] = [
   {
     "room": {"north": 20, "east": 20},
+    "requires": [["area:16"]],
+    "receive": ["item:sTooth", "item:vHorn"],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [["area:2"]],
+    "receive": ["item:bTooth"],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [["area:15"]],
+    "receive": ["item:cThread"],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [["area:11"]],
+    "receive": ["item:kCrest"],
+  },
+  {
+    "room": {"north": 20, "east": 20},
     "requires": [[]],
     "receive": [
       "skill:dig",
       "skill:kick",
       "skill:flee",
       "skill:swap",
+      "misc:magic only resist bypass",
       "skill:firewall",
       "skill:firewall.1",
       "skill:halo",
       "item:aurastone",
       "item:gold",
-      "item:dragon scale",
-      "item:cotton thread",
-      "item:shadow crest",
+      "item:dScale",
+      "item:cThread",
+      "item:shadowCrest",
       "item:orc coin",
       "item:blue crystal",
       "item:key#999",
@@ -50,7 +71,7 @@ manager.correct - manager.wrong > 800 = halo
     "room": {"north": 20, "east": 20},
     "requires": [[]],
     "receive": [
-      "item:bear tooth",
+      "item:bTooth",
       "item:boar tusk",
       "item:cobra fang",
       "item:emerald",
@@ -64,8 +85,8 @@ manager.correct - manager.wrong > 800 = halo
       "item:minotaur horn",
       "item:ring of evasion",
       "item:scorpion claw",
-      "item:shark tooth",
-      "item:slamstone",
+      "item:sTooth",
+      "item:slamstones",
       "item:steel fragment",
       "item:tentacle",
       "item:troll wristband",
@@ -85,7 +106,7 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 21, "east": 20},
-    "requires": [["item:venom#1", "???"]],
+    "requires": [["item:venom#1"]],
     "receive": ["food:orange#1"],
   },
   # {"room": {"north": 18, "east": 20}, "info": "warp skill warp point"},
@@ -108,8 +129,13 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 13, "east": 13},
-    "requires": [["armor:alphaArmor", "???"]],
-    "receive": ["armor:alphaArmor.+inf"],
+    "requires": [["armor:alphaArmor"]],
+    "receive": ["craft:upgradeAAHP", "craft:upgradeAAMP"],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [["area:4"]],
+    "receive": ["item:mStaff"],
   },
   {
     "room": {"north": 11, "east": 13},
@@ -178,7 +204,7 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 8, "east": 14},
-    "requires": [["item:shark tooth#30", "item:gold#800", "skill:tough"]],
+    "requires": [["item:sTooth#30", "item:gold#800", "skill:tough"]],
     "receive": ["skill:tough.+1"],
   },
   {"room": {"north": 10, "east": 16}, "info": "warp skill warp point"},
@@ -189,10 +215,10 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 4, "east": 17},
-    "requires": [["weapon:axe", "???"]],
+    "requires": [["weapon:axe", "item:vHorn#2"]],
     "receive": ["weapon:axe.+1"],
   },
-  {"room": {"north": 8, "east": 17}, "receive": ["misc:green secret code"]},
+  {"room": {"north": 8, "east": 17}, "requires": [[]], "receive": ["misc:green secret code"]},
   {
     "room": {"north": 11, "east": 17},
     "requires": [["item:key#1", "permit:bomb"]],
@@ -200,8 +226,13 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 7, "east": 18},
-    "requires": [["item:slamstone#1", "skill:reveal"]],
+    "requires": [["item:slamstones#1", "skill:reveal"]],
     "receive": ["skill:reveal.+1"],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [["area:red chest"]],
+    "receive": ["item:slamstones"],
   },
   {
     "room": {"north": 7, "east": 25},
@@ -234,13 +265,13 @@ manager.correct - manager.wrong > 800 = halo
       [
         "entrance.south0",
         "item:aScepter#1",
-        "item:dragon scale#5",
+        "item:dScale#5",
         "skill:craft",
       ],
       [
         "entrance.south1",
         "item:aScepter#1",
-        "item:dragon scale#5",
+        "item:dScale#5",
         "skill:craft",
         "permit:bomb.2",
       ],
@@ -255,12 +286,12 @@ manager.correct - manager.wrong > 800 = halo
   # {"room": {"north": 11, "east": 24}, "info": "warp skill warp point"},
   {
     "room": {"north": 11, "east": 22},
-    "requires": [["item:shark tooth#10", "skill:craft"]],
+    "requires": [["item:sTooth#10", "skill:craft"]],
     "receive": ["craft:emerald"],
   },
   {
     "room": {"north": 12, "east": 25},
-    "requires": [["item:shark tooth#10", "skill:craft"]],
+    "requires": [["item:sTooth#10", "skill:craft"]],
     "receive": ["food:gummyBears#10", "item:diamonds#50"],
   },
   {
@@ -295,7 +326,7 @@ manager.correct - manager.wrong > 800 = halo
   # },
   # {
   #   "room": {"north": 18, "east": 25},
-  #   "requires": [["skill:medic.3", "item:dragon scale#10", "item:gator skin#10"]],
+  #   "requires": [["skill:medic.3", "item:dScale#10", "item:gator skin#10"]],
   #   "receive": ["skill:medic.4"],
   # },
   # {
@@ -322,9 +353,7 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 21, "east": 22},
-    "requires": [
-      ["item:ring of gold", "item:troll wristband#5", "item:gator skin#2"]
-    ],
+    "requires": [["item:ring of gold", "item:troll wristband#5", "item:gator skin#2"]],
     "receive": ["craft:ring of gold"],
   },
   {
@@ -335,7 +364,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 20, "east": 23},
     "requires": [["skill:reveal", "entrance.east0"]],
-    "receive": ["misc:red chest"],
+    "receive": ["area:red chest"],
   },
   {
     "room": {"north": 19, "east": 22},
@@ -344,7 +373,7 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 19, "east": 21},
-    "requires": [["quest:dig.3", "item:bear tooth#1"]],
+    "requires": [["quest:dig.3", "item:bTooth#1"]],
     "receive": ["item:gold#18"],
   },
   {"room": {"north": 19, "east": 20}, "requires": [[]], "receive": ["quest:pam.1"]},
@@ -371,62 +400,62 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 20, "east": 15},
-    "requires": [["skill:firewall.1", "item:dragon scale#5", "item:medallion#3"]],
+    "requires": [["skill:firewall", "item:dScale#5", "item:medallions#3"]],
     "receive": ["skill:firewall.2"],
   },
   {
     "room": {"north": 20, "east": 15},
-    "requires": [["skill:firewall.2", "item:dragon scale#10", "item:medallion#6"]],
+    "requires": [["skill:firewall.2", "item:dScale#10", "item:medallions#6"]],
     "receive": ["skill:firewall.3"],
   },
   {
     "room": {"north": 20, "east": 15},
-    "requires": [["skill:firewall.3", "item:dragon scale#15", "item:medallion#9"]],
+    "requires": [["skill:firewall.3", "item:dScale#15", "item:medallions#9"]],
     "receive": ["skill:firewall.4"],
   },
   {
     "room": {"north": 20, "east": 15},
-    "requires": [["skill:firewall.4", "item:dragon scale#20", "item:medallion#12"]],
+    "requires": [["skill:firewall.4", "item:dScale#20", "item:medallions#12"]],
     "receive": ["skill:firewall.5"],
   },
   {
     "room": {"north": 20, "east": 15},
-    "requires": [["skill:firewall.5", "item:dragon scale#25", "item:medallion#15"]],
+    "requires": [["skill:firewall.5", "item:dScale#25", "item:medallions#15"]],
     "receive": ["skill:firewall.6"],
   },
   {
     "room": {"north": 20, "east": 15},
-    "requires": [["skill:firewall.6", "item:dragon scale#30", "item:medallion#18"]],
+    "requires": [["skill:firewall.6", "item:dScale#30", "item:medallions#18"]],
     "receive": ["skill:firewall.7"],
   },
   {
     "room": {"north": 20, "east": 15},
-    "requires": [["skill:firewall.7", "item:dragon scale#35", "item:medallion#21"]],
+    "requires": [["skill:firewall.7", "item:dScale#35", "item:medallions#21"]],
     "receive": ["skill:firewall.8"],
   },
   {
     "room": {"north": 20, "east": 15},
-    "requires": [["skill:firewall.8", "item:dragon scale#40", "item:medallion#24"]],
+    "requires": [["skill:firewall.8", "item:dScale#40", "item:medallions#24"]],
     "receive": ["skill:firewall.9"],
   },
   {
     "room": {"north": 20, "east": 15},
-    "requires": [["skill:firewall.9", "item:dragon scale#45", "item:medallion#27"]],
+    "requires": [["skill:firewall.9", "item:dScale#45", "item:medallions#27"]],
     "receive": ["skill:firewall.10"],
   },
   {
     "room": {"north": 19, "east": 15},
-    "requires": [["item:medallion#20"]],
+    "requires": [["item:medallions#20"]],
     "receive": ["item:ruby#1"],
   },
   {
     "room": {"north": 19, "east": 15},
-    "requires": [["item:medallion#3"]],
+    "requires": [["item:medallions#3"]],
     "receive": ["skill:hint"],
   },
   {
     "room": {"north": 19, "east": 15},
-    "requires": [["item:medallion#30"]],
+    "requires": [["item:medallions#30"]],
     "receive": ["skill:fear"],
   },
   {
@@ -436,7 +465,7 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 18, "east": 13},
-    "requires": [["item:cotton thread#10", "item:shadow crest#5", "skill:reveal"]],
+    "requires": [["item:cThread#10", "item:shadowCrest#5", "skill:reveal"]],
     "receive": ["misc:max bombs.149"],
   },
   # {"room": {"north": 19, "east": 12}, "info": "warp skill warp point"},
@@ -472,7 +501,7 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 4, "east": 13},
-    "requires": [["item:shark tooth#5", "item:viking horn#5", "item:tentacle#5"]],
+    "requires": [["item:sTooth#5", "item:viking horn#5", "item:tentacle#5"]],
     "receive": ["craft:newtonsApple"],
   },
   {
@@ -487,7 +516,7 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 21, "east": 20},
-    "requires": [["entrance.south0"]],
+    "requires": [[]],
     "receive": ["quest:bBomb.1"],
   },
   {
@@ -524,7 +553,7 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 19, "east": 23},
-    "requires": [["item:bear tooth#15", "quest:gTree.3"]],
+    "requires": [["item:bTooth#15", "quest:gTree.3"]],
     "receive": ["quest:gTree.4"],
   },
   {
@@ -945,7 +974,7 @@ MathQuest.js:42550 add listeners""",
       [
         "quest:rings.13",
         "item:steel fragment#5",
-        "item:dragon scale#3",
+        "item:dScale#3",
         "item:funny bone#10",
         "?misc:geomana",
       ]
@@ -981,7 +1010,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 19, "east": 16},
     "requires": [[]],
-    "receive": ["item:medallion"],
+    "receive": ["item:medallions"],
     "info": "add reqs later",
   },
   {
@@ -1012,7 +1041,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 15, "east": 19},
     "requires": [["skill:reveal", "permit:bomb"]],
-    "receive": ["misc:red chest"],
+    "receive": ["area:red chest"],
   },
   {
     "room": {"north": 15, "east": 19},
@@ -1055,7 +1084,7 @@ MathQuest.js:42550 add listeners""",
       ["skill:reveal", "entrance.south0"],
       ["skill:reveal", "entrance.east0"],
     ],
-    "receive": ["misc:red chest"],
+    "receive": ["area:red chest"],
   },
   {
     "room": {"north": 18, "east": 17},
@@ -1101,12 +1130,12 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 5, "east": 15},
     "requires": [["skill:reveal"]],
-    "receive": ["misc:red chest"],
+    "receive": ["area:red chest"],
   },
   {
     "room": {"north": 14, "east": 14},
     "requires": [["skill:reveal"]],
-    "receive": ["misc:red chest"],
+    "receive": ["area:red chest"],
   },
   {
     "room": {"north": 15, "east": 14},
@@ -1132,7 +1161,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 23, "east": 13},
     "requires": [["skill:reveal"]],
-    "receive": ["misc:red chest"],
+    "receive": ["area:red chest"],
   },
   {
     "room": {"north": 24, "east": 14},
@@ -1151,7 +1180,7 @@ MathQuest.js:42550 add listeners""",
       "item:gold#1",
       "item:diamonds#1",
       "item:aurastone#1",
-      "item:slamstone#1",
+      "item:slamstones#1",
       "food:elixir#1",
       "food:holyWater#1",
     ],
@@ -1192,7 +1221,7 @@ MathQuest.js:42550 add listeners""",
       ["skill:reveal", "entrance.west0"],
       ["skill:reveal", "entrance.north0"],
     ],
-    "receive": ["misc:red chest"],
+    "receive": ["area:red chest"],
   },
   {
     "room": {"north": 8, "east": 10},
@@ -1290,7 +1319,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 6, "east": 24},
     "requires": [["skill:reveal"]],
-    "receive": ["misc:red chest"],
+    "receive": ["area:red chest"],
   },
   {
     "room": {"north": 15, "east": 24},
@@ -1438,7 +1467,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 19, "east": 20},
     "requires": [["quest:pam.13"]],
-    "receive": ["quest:pam.14"],
+    "receive": ["quest:pam.14", "misc:blue crystal"],
   },
   {
     "room": {"north": 19, "east": 20},
@@ -1662,7 +1691,7 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 500, "east": 501},
-    "requires": [["quest:aSword.0"]],
+    "requires": [[]],
     "receive": ["quest:aSword.1"],
   },
   {
@@ -1802,7 +1831,7 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 19, "east": 15},
-    "requires": [["item:medallion#200"]],
+    "requires": [["item:medallions#200"]],
     "receive": ["skill:shield"],
   },
   {

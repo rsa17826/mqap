@@ -82,7 +82,7 @@ def connect_doors(world: World) -> None:
     # so we never add a return connection here ourselves -- a door explicitly
     # marked one_way (no matching reverse entry in the data) stays one-way.
 
-
+from . import items, locations
 def connect_regions(world: World) -> None:
   from ._room_geometry import GEOM
 
@@ -133,7 +133,7 @@ def connect_regions(world: World) -> None:
           else world.get_region(room_id)
         )
 
-        # FIX: If the target room utilizes sub-areas, land on its specific slot wrapper
+        # If the target room utilizes sub-areas, land on its specific slot wrapper
         if room_has_areas.get(target_room_id, False):
           target_region = world.get_region(
             f"{target_room_id}#{_slot_id(opposite_direction, idx)}"
@@ -146,6 +146,15 @@ def connect_regions(world: World) -> None:
         source_region.exits.append(entrance)
         entrance.connect(target_region)
 
+        # Grant the entrance flag for the room being entered, scoped to that room
+        # to avoid collisions with other rooms that also have a west.0/north.0/etc.
+        flag_name = f"{target_room_id} entrance.{opposite_direction}{idx}"
+        _ = target_region.add_event(
+          location_name=f"{target_room_id} - entrance.{opposite_direction}{idx}",
+          item_name=flag_name,
+          location_type=locations.MathQuestLocation,
+          item_type=items.MathQuestItem,
+        )
 
 def _connect_internal_slots(world: World, room, room_id: str) -> None:
   # For every pair of slots, figure out the rule under which they're mutually
