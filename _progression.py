@@ -27,7 +27,6 @@ PROG: list[ProgressionNode] = [
       "skill:firewall.1",
       "skill:halo",
       "item:aurastone",
-      "item:key",
       "item:gold",
       "item:dragon scale",
       "item:cotton thread",
@@ -89,11 +88,6 @@ manager.correct - manager.wrong > 800 = halo
     "requires": [["item:venom#1", "???"]],
     "receive": ["food:orange#1"],
   },
-  {
-    "room": {"north": 20, "east": 20},
-    "requires": [["item:gold"]],
-    "receive": ["armor:magic robe"],
-  },
   # {"room": {"north": 18, "east": 20}, "info": "warp skill warp point"},
   {
     "room": {"north": 14, "east": 19},
@@ -104,7 +98,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 13, "east": 16},
     "requires": [["item:key#1", "entrance.west0"]],
-    "receive": ["weapon:survival knife"],
+    "receive": ["weapon:sKnife"],
   },
   # {"room": {"north": 14, "east": 16}, "info": "warp skill warp point"},
   {
@@ -142,34 +136,28 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 12, "east": 9},
     "requires": [["item:gold"]],
-    "receive": ["weapon:survival knife"],
+    "receive": ["weapon:sKnife"],
   },
   {
     "room": {"north": 12, "east": 9},
     "requires": [["item:gold"]],
-    "receive": ["weapon:warlock staff"],
+    "receive": ["weapon:warlockStaff"],
   },
   {
     "room": {"north": 12, "east": 9},
     "requires": [["item:gold"]],
-    "receive": ["weapon:sun sword"],
-  },
-  {
-    "room": {"north": 12, "east": 9},
-    "requires": [["item:gold"]],
-    "receive": ["armor:sun armor"],
-  },
-  {
-    "room": {"north": 12, "east": 9},
-    "requires": [["item:gold"]],
-    "receive": ["armor:speed vest"],
+    "receive": ["weapon:sunSword"],
   },
   {
     "room": {"north": 12, "east": 9},
     "requires": [["item:venom"]],
     "receive": ["food:orange"],
   },
-  {"room": {"north": 11, "east": 9}, "receive": ["quest:headstone"]},
+  {
+    "room": {"north": 11, "east": 9},
+    "requires": [[]],
+    "receive": ["quest:headstone"],
+  },
   {
     "room": {"north": 11, "east": 9},
     "requires": [["item:gold"]],
@@ -201,8 +189,8 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 4, "east": 17},
-    "requires": [["weapon:random axe", "???"]],
-    "receive": ["weapon:random axe.+1"],
+    "requires": [["weapon:axe", "???"]],
+    "receive": ["weapon:axe.+1"],
   },
   {"room": {"north": 8, "east": 17}, "receive": ["misc:green secret code"]},
   {
@@ -334,7 +322,9 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 21, "east": 22},
-    "requires": [["item:ring of gold", "item:troll wristband#5", "item:gator skin#2"]],
+    "requires": [
+      ["item:ring of gold", "item:troll wristband#5", "item:gator skin#2"]
+    ],
     "receive": ["craft:ring of gold"],
   },
   {
@@ -1285,7 +1275,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 18, "east": 23},
     "requires": [["permit:bomb", "item:key#1"]],
-    "receive": ["weapon:warlock staff"],
+    "receive": ["weapon:warlockStaff"],
   },
   {
     "room": {"north": 9, "east": 23},
@@ -1950,16 +1940,6 @@ MathQuest.js:42550 add listeners""",
     "requires": [[]],
     "receive": ["skill:kick"],
   },
-  {
-    "room": {"north": 500, "east": 501},
-    "requires": [["weapon:baneBlade"]],
-    "receive": ["weapon:alpha sword"],
-  },
-  {
-    "room": {"north": 200, "east": 200},
-    "requires": [["weapon:orc blade"]],
-    "receive": ["weapon:twin fury"],
-  },
   # Auto-generated from MathQuest_base.js newItem() calls
   # 159 items extracted
   # {
@@ -2073,11 +2053,6 @@ MathQuest.js:42550 add listeners""",
     "receive": ["skill:medic.6"],
   },
   {
-    "room": {"north": 11, "east": 12},
-    "requires": [["item:gold#100"]],
-    "receive": ["food:sunflowerSeeds"],
-  },
-  {
     "room": {"north": 6, "east": 13},
     "requires": [["item:key#1"]],
     "receive": ["food:grapes#5"],
@@ -2085,10 +2060,6 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 4, "east": 24},
     "receive": ["food:cherries"],
-  },
-  {
-    "room": {"north": 18, "east": 23},
-    "receive": ["weapon:warlockStaff"],
   },
   {
     "room": {"north": 18, "east": 21},
