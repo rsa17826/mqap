@@ -27,7 +27,8 @@ _id_counter = 1
 for thing in PROG:
   if "receive" in thing:
     for itemInfo in thing["receive"]:
-      itemName = itemInfo.split("#")[0]
+      # itemName = itemInfo.split("#")[0]
+      itemName = itemInfo.removesuffix("#1")
       if itemName not in ITEM_NAME_TO_ID:
         # TODO
         if itemInfo.startswith(
