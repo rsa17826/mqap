@@ -46,7 +46,6 @@ try:
 
     path = os.path.abspath(os.path.expanduser(path))
     if os.path.isdir(path):
-      # 5. Write out file
       with open(os.path.join(path, "archipelago_manifest.js"), "w", encoding="utf-8") as f: # noqa: PLW2901
         import json
 
