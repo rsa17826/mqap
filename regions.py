@@ -317,13 +317,11 @@ def create_and_connect_regions(world: World) -> None:
       "connections": ((24, 13, "root", 0), (23, 10, "root", 0)),
     },
     {
-      # TODO not sure if 10 look in a bit
-      "rule": _reqs_to_rule([["quest:gTree.10"]]),
+      "rule": _reqs_to_rule([["quest:gTree.9"]]),
       "connections": ((17, 19, "root", 0), (17.1, 19, "root", 0)),
     },
     {
-      # TODO not sure if 10 look in a bit
-      "rule": _reqs_to_rule([["quest:gTree.10"]]),
+      "rule": _reqs_to_rule([["quest:gTree.9"]]),
       "connections": ((15, 17, "root", 0), (17.1, 19, "root", 0)),
     },
     {
