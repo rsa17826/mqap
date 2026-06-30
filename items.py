@@ -36,7 +36,7 @@ for thing in PROG:
             "weapon:",
             # "flag:final boss dead",
             "permit:",
-            "item:fire crystal",
+            "misc:fire crystal",
             "item:key", # Treat keys as progression
             "item:aurastone",
             "item:",

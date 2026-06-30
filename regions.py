@@ -57,6 +57,7 @@ def _connect_with_root(world: World, source: Region, target: Region, rule: Rule 
 def _connect(world: World, source: Region, target: Region, rule: Rule | None) -> None:
   """Add a one-way entrance from source to target, with an optional access rule."""
   name = f"{source.name} -> {target.name}"
+
   # 1. Check if an entrance between these specific regions already exists
   existing = next((e for e in source.exits if e.name == name), None)
 
@@ -65,12 +66,17 @@ def _connect(world: World, source: Region, target: Region, rule: Rule | None) ->
     if rule is None:
       existing.access_rule = lambda state: True
       existing._is_unconditional = True
+      if hasattr(existing, "_rule_object"):
+        delattr(existing, "_rule_object")
 
     # If both the old and new connections have requirements, logically OR them together.
     elif not getattr(existing, "_is_unconditional", False):
-      old_rule_func = existing.access_rule
-      # Using closures carefully to capture both the old and new logic
-      existing.access_rule = lambda state, r=rule, old=old_rule_func: old(state) or r(state, world.player)
+      old_rule = getattr(existing, "_rule_object", None)
+      # Rule builder rules MUST be combined using the bitwise | operator
+      combined_rule = old_rule | rule if old_rule else rule
+
+      world.set_rule(existing, combined_rule)
+      existing._rule_object = combined_rule
     return
 
   # 2. If it doesn't exist, create it cleanly
@@ -81,8 +87,9 @@ def _connect(world: World, source: Region, target: Region, rule: Rule | None) ->
     entrance.access_rule = lambda state: True
     entrance._is_unconditional = True
   else:
-    # Capture rule in default arg to avoid late-binding closure bug
-    entrance.access_rule = lambda state, r=rule: r(state, world.player)
+    # Use rule_builder's built-in set_rule helper to correctly resolve and register the rule
+    world.set_rule(entrance, rule)
+    entrance._rule_object = rule
     entrance._is_unconditional = False
 
   source.exits.append(entrance)
@@ -186,6 +193,135 @@ def create_and_connect_regions(world: World) -> None:
       # we can safely go back to using standard _connect here!
       _connect(world, region, neighbor, rule=None)
       _connect(world, neighbor, region, rule=None)
+
+  # Create the warp region
+  warps = (
+    {
+      "rule": _reqs_to_rule([["permit:volcano"]]),
+      "connections": ((17, 17, "south", 0), (17, 17, "west", 0), (18, 17, "south", 0)),
+    },
+    {
+      "rule": None,
+      "connections": ((4, 13, "root", 0), (100, 100, "south", 0)),
+    },
+    {
+      "rule": None,
+      "connections": ((3, 16, "root", 0), (200, 200, "north", 0)),
+    },
+    {
+      "rule": None,
+      "connections": ((200, 200, "root", 0), (201, 200, "root", 0)),
+    },
+    {
+      "rule": _reqs_to_rule([["magic:drain", "quest:aSword.1"]]),
+      "connections": ((18, 25, "root", 0), (500, 500, "north", 0)),
+    },
+    {
+      "rule": None,
+      "connections": ((6, 21, "root", 0), (300, 300, "south", 0)),
+    },
+    {
+      "rule": None,
+      "connections": ((10, 16, "root", 0), (10, 17, "south", 0)),
+    },
+    {
+      "rule": _reqs_to_rule([["permit:bomb"]]),
+      "connections": ((11, 13, "root", 0), (11, 14, "south", 0)),
+    },
+    {
+      "rule": None,
+      "connections": ((11, 14, "root", 0), (9, 13, "root", 0)),
+    },
+    {
+      "rule": _reqs_to_rule([["magic:drain"]]),
+      "connections": ((9, 13, "root", 0), (10, 13, "root", 0), (9, 14, "root", 0)),
+    },
+    {
+      "rule": _reqs_to_rule([["magic:drain"]]),
+      "connections": ((9, 14, "root", 0), (10, 14, "north", 0)),
+    },
+    {
+      "rule": _reqs_to_rule([["misc:fire crystal"]]),
+      "connections": ((8, 9, "root", 0), (7, 9, "south", 0)),
+    },
+    {
+      "rule": _reqs_to_rule([["flag:lit torch 2", "flag:lit torch 1"]]),
+      "connections": ((6, 23, "root", 0), (5, 23, "south", 0)),
+    },
+    {
+      "rule": None,
+      "connections": ((17, 14, "root", 0), (18, 14, "north", 0)),
+    },
+    {
+      "rule": None,
+      "connections": ((20, 12, "root", 0), (21, 12, "south", 0)),
+    },
+    {
+      "rule": None,
+      "connections": ((22, 10, "root", 0), (22, 13, "east", 0), (22, 13, "north", 0)),
+    },
+    {
+      "rule": None,
+      "connections": ((21, 13, "east", 1), (22, 11, "south", 0), (22, 11, "north", 0)),
+    },
+    {
+      "rule": None,
+      "connections": ((22, 12, "root", 0), (21, 9, "north", 0)),
+    },
+    {
+      "rule": None,
+      "connections": ((18, 12, "root", 0), (18, 11, "west", 0)),
+    },
+    {
+      "rule": _reqs_to_rule([["permit:bomb"]]),
+      "connections": ((10, 12, "root", 0), (7, 12, "south", 0)),
+    },
+    {
+      "rule": _reqs_to_rule([["permit:bomb"]]),
+      "connections": ((12, 21, "root", 0), (11, 21, "root", 0)),
+    },
+    {
+      "rule": None,
+      "connections": ((18, 16, "root", 0), (19, 16, "south", 0)),
+    },
+    {
+      "rule": None,
+      "connections": ((19, 16, "root", 0), (19, 15, "north", 0)),
+    },
+    {
+      "rule": None,
+      "connections": ((9, 22, "north", 0), (9, 21, "root", 0)),
+    },
+    {
+      "rule": _reqs_to_rule([["permit:bomb.2"]]),
+      "connections": ((12, 14, "root", 0), (9, 21, "root", 0)),
+    },
+    {
+      "rule": None,
+      "connections": ((21, 21, "east", 0), (20, 21, "root", 0)),
+    },
+    {
+      "rule": _reqs_to_rule([["permit:bomb", "magic:lightning"]]),
+      "connections": ((20, 21, "root", 0), (19, 22, "root", 0)),
+    },
+  )
+  for warpData in warps:
+    warp = Region(
+      f"{warpData['connections'][0][0]}_{warpData['connections'][0][1]}: warp 0", world.player, world.multiworld
+    )
+    world.multiworld.regions.append(warp)
+    for con in warpData["connections"]:
+      _connect(world, exit_regions[*con], warp, rule=warpData["rule"])
+      _connect(world, warp, exit_regions[*con], rule=warpData["rule"])
+
+  # Connections INTO the warp
+  # _connect(world, exit_regions[(17, 17, "south", 0)], warp, rule=_reqs_to_rule([['permit:volcano']]))
+  # _connect(world, exit_regions[(17, 17, "west", 0)], warp, rule=_reqs_to_rule([['permit:volcano']]))
+
+  # # Connections OUT of the warp — this is what was missing
+  # _connect(world, warp, exit_regions[(18, 17, "south", 0)], rule=_reqs_to_rule([['permit:volcano']]))
+  # _connect(world, warp, exit_regions[(17, 17, "south", 0)], rule=_reqs_to_rule([['permit:volcano']]))
+  # _connect(world, warp, exit_regions[(17, 17, "west", 0)], rule=_reqs_to_rule([['permit:volcano']]))
 
 
 # if roomId in seen:

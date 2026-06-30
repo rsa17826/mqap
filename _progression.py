@@ -75,7 +75,7 @@ manager.correct - manager.wrong > 800 = halo
       "item:boar tusk",
       "item:cobra fang",
       "item:emerald",
-      "item:fire crystal",
+      "misc:fire crystal",
       "item:funny bone",
       "item:gator skin",
       "item:golden feather",
@@ -2124,7 +2124,7 @@ MathQuest.js:42550 add listeners""",
   # {
   #   "room": {"north": "?", "east": "?"},
   #   "requires": [["item:sClaw#7"], ["item:cFang#5"]],
-  #   "receive": ["item:fire crystal"],
+  #   "receive": ["misc:fire crystal"],
   # },
   {
     "room": {"north": 4, "east": 26},
