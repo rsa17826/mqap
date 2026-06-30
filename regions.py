@@ -304,7 +304,37 @@ def create_and_connect_regions(world: World) -> None:
       "rule": _reqs_to_rule([["permit:bomb", "magic:lightning"]]),
       "connections": ((20, 21, "root", 0), (19, 22, "root", 0)),
     },
+    {
+      "rule": _reqs_to_rule([["permit:bomb.2"]]),
+      "connections": ((12, 23, "root", 0), (12, 22, "north", 0)),
+    },
+    {
+      "rule": None,
+      "connections": ((24, 10, "root", 0), (23, 14, "north", 0)),
+    },
+    {
+      "rule": None,
+      "connections": ((24, 13, "root", 0), (23, 10, "root", 0)),
+    },
+    {
+      # TODO not sure if 10 look in a bit
+      "rule": _reqs_to_rule([["quest:gTree.10"]]),
+      "connections": ((17, 19, "root", 0), (17.1, 19, "root", 0)),
+    },
+    {
+      # TODO not sure if 10 look in a bit
+      "rule": _reqs_to_rule([["quest:gTree.10"]]),
+      "connections": ((15, 17, "root", 0), (17.1, 19, "root", 0)),
+    },
+    {
+      "rule": _reqs_to_rule([["flag:10.1 code"]]),
+      "connections": ((10, 21, "root", 0), (10.1, 21, "root", 0)),
+    },
   )
+  warp = Region("10.1_21: warp 0", world.player, world.multiworld)
+  warpDest = Region("9.11_20: warp 0", world.player, world.multiworld)
+  _connect(world, warpDest, warp, rule=None)
+  _connect(world, warp, warpDest, rule=None)
   for warpData in warps:
     warp = Region(
       f"{warpData['connections'][0][0]}_{warpData['connections'][0][1]}: warp 0", world.player, world.multiworld
