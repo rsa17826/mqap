@@ -22,10 +22,35 @@ def _reqs_to_rule(reqs: list[list[str]]) -> Rule | None:
 def _connect(world: World, source: Region, target: Region, rule: Rule | None) -> None:
   """Add a one-way entrance from source to target, with an optional access rule."""
   name = f"{source.name} -> {target.name}"
+
+  # 1. Check if an entrance between these specific regions already exists
+  existing = next((e for e in source.exits if e.name == name), None)
+
+  if existing:
+    # If the new connection is unconditional, it overrides any existing logic requirements.
+    if rule is None:
+      existing.access_rule = lambda state: True
+      existing._is_unconditional = True
+
+    # If both the old and new connections have requirements, logically OR them together.
+    elif not getattr(existing, "_is_unconditional", False):
+      old_rule_func = existing.access_rule
+      # Using closures carefully to capture both the old and new logic
+      existing.access_rule = lambda state, r=rule, old=old_rule_func: old(state) or r(state, world.player)
+    return
+
+  # 2. If it doesn't exist, create it cleanly
   entrance = Entrance(world.player, name, parent=source)
-  if rule is not None:
+
+  if rule is None:
+    # Explicitly flag unconditional paths to handle future overlaps cleanly
+    entrance.access_rule = lambda state: True
+    entrance._is_unconditional = True
+  else:
     # Capture rule in default arg to avoid late-binding closure bug
     entrance.access_rule = lambda state, r=rule: r(state, world.player)
+    entrance._is_unconditional = False
+
   source.exits.append(entrance)
   entrance.connect(target)
 
