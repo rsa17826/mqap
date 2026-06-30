@@ -70,10 +70,10 @@ def create_all_locations(world: World) -> None:
 
 
 def create_regular_locations(world: World) -> None:
-  return
+  # return
   for itemName, location_id in LOCATION_NAME_TO_ID.items():
     room_id = itemName.split(" - ", 1)[0]
-    region = world.get_region(room_id)
+    region = world.get_region(f"{room_id}: root")
     location = MathQuestLocation(
       world.player,
       itemName,

@@ -52,7 +52,7 @@ PROG: list[ProgressionNode] = [
       "item:dScale",
       "item:cThread",
       "item:shadowCrest",
-      "item:orc coin",
+      "item:oCoin",
       "item:blue crystal",
       "item:key#999",
       "item:gold#999",
@@ -72,28 +72,28 @@ manager.correct - manager.wrong > 800 = halo
     "requires": [[]],
     "receive": [
       "item:bTooth",
-      "item:boar tusk",
-      "item:cobra fang",
+      "item:bTusk",
+      "item:cFang",
       "item:emerald",
       "misc:fire crystal",
-      "item:funny bone",
-      "item:gator skin",
-      "item:golden feather",
-      "item:kings crest",
-      "item:mage staff",
-      "item:mages hat",
-      "item:minotaur horn",
+      "item:fBone",
+      "item:gSkin",
+      "item:gFeather",
+      "item:kCrest",
+      "item:mStaff",
+      "item:mHat",
+      "item:mHorn",
       "item:ring of evasion",
-      "item:scorpion claw",
+      "item:sClaw",
       "item:sTooth",
       "item:slamstones",
-      "item:steel fragment",
+      "item:sFrag",
       "item:tentacle",
-      "item:troll wristband",
+      "item:tBand",
       "item:venom",
-      "item:viking horn",
-      "item:void ash",
-      "item:wolf pelt",
+      "item:vHorn",
+      "item:vAsh",
+      "item:wPelt",
     ],
     "info": """add to correct locations later
 """,
@@ -112,8 +112,8 @@ manager.correct - manager.wrong > 800 = halo
   # {"room": {"north": 18, "east": 20}, "info": "warp skill warp point"},
   {
     "room": {"north": 14, "east": 19},
-    "requires": [["item:troll wristband#1", "entrance.north0"]],
-    "receive": ["item:broken alpha club#1"],
+    "requires": [["item:tBand#1", "entrance.north0"]],
+    "receive": ["item:aClub#1"],
   },
   # {"room": {"north": 12, "east": 19}, "info": "warp skill warp point"},
   {
@@ -139,7 +139,7 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 11, "east": 13},
-    "requires": [["item:mage staff#1"]],
+    "requires": [["item:mStaff#1"]],
     "receive": ["food:blueberries#1"],
   },
   {
@@ -191,16 +191,16 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 11, "east": 9},
-    "requires": [["item:wolf pelt"]],
+    "requires": [["item:wPelt"]],
     "receive": ["item:gold#22"],
   },
   {
     "room": {"north": 5, "east": 9},
     "requires": [
-      ["item:minotaur horn", "entrance.north0"],
-      ["item:minotaur horn", "entrance.east0"],
+      ["item:mHorn", "entrance.north0"],
+      ["item:mHorn", "entrance.east0"],
     ],
-    "receive": ["item:broken alpha axe#1"],
+    "receive": ["item:aAxe#1"],
   },
   {
     "room": {"north": 8, "east": 14},
@@ -210,7 +210,7 @@ manager.correct - manager.wrong > 800 = halo
   {"room": {"north": 10, "east": 16}, "info": "warp skill warp point"},
   {
     "room": {"north": 9, "east": 16},
-    "requires": [["item:gator skin#1"]],
+    "requires": [["item:gSkin#1"]],
     "receive": ["item:gold#23"],
   },
   {
@@ -296,7 +296,7 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 13, "east": 25},
-    "requires": [["item:mages hat#1", "misc:magic only resist bypass"]],
+    "requires": [["item:mHat#1", "misc:magic only resist bypass"]],
     "receive": ["item:aScepter#1"],
   },
   {"room": {"north": 14, "east": 25}, "receive": ["flag:three part code part 1"]},
@@ -316,28 +316,28 @@ manager.correct - manager.wrong > 800 = halo
   {"room": {"north": 11, "east": 26}, "receive": ["misc:stomp code"]},
   # {
   #   "room": {"north": 18, "east": 25},
-  #   "requires": [["skill:medic.1", "item:cobra fang#5"]],
+  #   "requires": [["skill:medic.1", "item:cFang#5"]],
   #   "receive": ["skill:medic.2"],
   # },
   # {
   #   "room": {"north": 18, "east": 25},
-  #   "requires": [["skill:medic.2", "item:orc coin#20", "item:mage staff#10"]],
+  #   "requires": [["skill:medic.2", "item:oCoin#20", "item:mStaff#10"]],
   #   "receive": ["skill:medic.3"],
   # },
   # {
   #   "room": {"north": 18, "east": 25},
-  #   "requires": [["skill:medic.3", "item:dScale#10", "item:gator skin#10"]],
+  #   "requires": [["skill:medic.3", "item:dScale#10", "item:gSkin#10"]],
   #   "receive": ["skill:medic.4"],
   # },
   # {
   #   "room": {"north": 18, "east": 25},
-  #   "requires": [["skill:medic.4", "item:kings crest#10", "item:alpha axe#5"]],
+  #   "requires": [["skill:medic.4", "item:kCrest#10", "item:alpha axe#5"]],
   #   "receive": ["skill:medic.5"],
   # },
   # {
   #   "room": {"north": 18, "east": 25},
   #   "requires": [
-  #     ["skill:medic.5", "item:golden feather#3", "item:aScepter#5"]
+  #     ["skill:medic.5", "item:gFeather#3", "item:aScepter#5"]
   #   ],
   #   "receive": ["skill:medic.6"],
   # },
@@ -353,7 +353,7 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 21, "east": 22},
-    "requires": [["item:ring of gold", "item:troll wristband#5", "item:gator skin#2"]],
+    "requires": [["item:ring of gold", "item:tBand#5", "item:gSkin#2"]],
     "receive": ["craft:ring of gold"],
   },
   {
@@ -368,7 +368,7 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 19, "east": 22},
-    "requires": [["item:broken alpha axe#5"]],
+    "requires": [["item:aAxe#5"]],
     "receive": ["skill:reveal"],
   },
   {
@@ -379,7 +379,7 @@ manager.correct - manager.wrong > 800 = halo
   {"room": {"north": 19, "east": 20}, "requires": [[]], "receive": ["quest:pam.1"]},
   {
     "room": {"north": 21, "east": 20},
-    "requires": [["item:boar tusk#1"]],
+    "requires": [["item:bTusk#1"]],
     "receive": ["item:gold#20"],
   },
   {
@@ -476,7 +476,7 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 17, "east": 10},
-    "requires": [["item:void ash#6"]],
+    "requires": [["item:vAsh#6"]],
     "receive": ["food:gummyBears#5"],
   },
   {
@@ -501,12 +501,12 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 4, "east": 13},
-    "requires": [["item:sTooth#5", "item:viking horn#5", "item:tentacle#5"]],
+    "requires": [["item:sTooth#5", "item:vHorn#5", "item:tentacle#5"]],
     "receive": ["craft:newtonsApple"],
   },
   {
     "room": {"north": 11, "east": 15},
-    "requires": [["skill:craft", "item:troll wristband#5", "item:wolf pelt#2"]],
+    "requires": [["skill:craft", "item:tBand#5", "item:wPelt#2"]],
     "receive": ["craft:key"],
   },
   {
@@ -684,7 +684,7 @@ at Jh.onKeyDown (http://127.0.0.1:1533/MathQuest/MathQuest.js:99147:18)
   },
   {
     "room": {"north": 12, "east": 9},
-    "requires": [["quest:gTree.14", "item:scorpion claw#7", "item:cobra fang#5"]],
+    "requires": [["quest:gTree.14", "item:sClaw#7", "item:cFang#5"]],
     "receive": ["quest:gTree.15", "misc:fire crystal"],
   },
   {
@@ -900,7 +900,7 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 18, "east": 19},
-    "requires": [["quest:seeds.2", "item:orc coin#20"]],
+    "requires": [["quest:seeds.2", "item:oCoin#20"]],
     "receive": ["quest:seeds.3"],
   },
   {
@@ -973,9 +973,9 @@ MathQuest.js:42550 add listeners""",
     "requires": [
       [
         "quest:rings.13",
-        "item:steel fragment#5",
+        "item:sFrag#5",
         "item:dScale#3",
-        "item:funny bone#10",
+        "item:fBone#10",
         "?misc:geomana",
       ]
     ],
