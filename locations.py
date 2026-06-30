@@ -93,7 +93,7 @@ def create_events(world: World) -> None:
     for itemInfo in thing["receive"]:
       if itemInfo.startswith(("quest:", "flag:", "area:")):
         event_name = itemInfo.split("#")[0]
-        room_id = f"{thing['room']['north']}_{thing['room']['east']}"
+        room_id = f"{thing['room']['north']}_{thing['room']['east']}: root"
 
         region = world.get_region(room_id)
 

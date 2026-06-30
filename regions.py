@@ -19,10 +19,44 @@ def _reqs_to_rule(reqs: list[list[str]]) -> Rule | None:
   return rule
 
 
+def _get_or_create_root(world: World, n: int, e: int, exit_regions: dict) -> Region:
+  """Finds or creates the central 'root' region for a specific room coordinate."""
+  root_key = (n, e, "root", 0)
+  if root_key in exit_regions:
+    return exit_regions[root_key]
+
+  root_name = f"{n}_{e}: root"
+  root_region = Region(root_name, world.player, world.multiworld)
+  world.multiworld.regions.append(root_region)
+  exit_regions[root_key] = root_region
+  return root_region
+
+
+def _connect_with_root(world: World, source: Region, target: Region, rule: Rule | None, exit_regions: dict) -> None:
+  """Connects source to target, and routes standard exits one-way into their room's root."""
+  # First, link the source and target normally
+  _connect(world, source, target, rule)
+
+  # Process both regions; if they are standard exits, route them into the root
+  for region in (source, target):
+    if ": " in region.name and "root" not in region.name:
+      try:
+        coords, _ = region.name.split(": ")
+        n_str, e_str = coords.split("_")
+        n, e = int(n_str), int(e_str)
+
+        root_region = _get_or_create_root(world, n, e, exit_regions)
+
+        # ONE-WAY ONLY: From the exit into the root, unconditionally
+        _connect(world, region, root_region, rule=None)
+
+      except ValueError:
+        continue
+
+
 def _connect(world: World, source: Region, target: Region, rule: Rule | None) -> None:
   """Add a one-way entrance from source to target, with an optional access rule."""
   name = f"{source.name} -> {target.name}"
-
   # 1. Check if an entrance between these specific regions already exists
   existing = next((e for e in source.exits if e.name == name), None)
 
@@ -61,15 +95,25 @@ def create_and_connect_regions(world: World) -> None:
   # Key: (north, east, side, idx) -> Region
   exit_regions: dict[tuple[int, int, str, int], Region] = {}
 
-  # ── Pass 1: create one Region per exit in every room ──────────────────────
+  # ── Pass 1: create one Region per exit in every room + root regions ───────
   for room in GEOM:
     n, e = room["north"], room["east"]
+
+    # Pre-create the root region for this room up front
+    root_name = f"{n}_{e}: root"
+    root_region = Region(root_name, world.player, world.multiworld)
+    world.multiworld.regions.append(root_region)
+    exit_regions[(n, e, "root", 0)] = root_region
+
     for side, exit_list in room.get("exits", {}).items():
       for idx in range(len(exit_list)):
         name = f"{n}_{e}: {side} {idx}"
         region = Region(name, world.player, world.multiworld)
         world.multiworld.regions.append(region)
         exit_regions[(n, e, side, idx)] = region
+
+        # ONE-WAY ONLY: Establish the connection right here during creation!
+        _connect(world, region, root_region, rule=None)
 
   # ── Pass 2: connect exits *within* each room via area groups ──────────────
   for room in GEOM:
@@ -117,8 +161,8 @@ def create_and_connect_regions(world: World) -> None:
       # Wire every node to every other node in this group (bidirectional)
       for i, src in enumerate(node_reps):
         for dst in node_reps[i + 1 :]:
-          _connect(world, src, dst, rule=rule)
-          _connect(world, dst, src, rule=rule)
+          _connect_with_root(world, src, dst, rule=rule, exit_regions=exit_regions)
+          _connect_with_root(world, dst, src, rule=rule, exit_regions=exit_regions)
 
   # ── Pass 3: connect exits *across* room boundaries ────────────────────────
   OPPOSITE = {"east": "west", "west": "east", "north": "south", "south": "north"}
@@ -126,6 +170,10 @@ def create_and_connect_regions(world: World) -> None:
 
   seen: set[frozenset] = set()
   for (n, e, side, idx), region in exit_regions.items():
+    # SKIP ROOT ENTRIES: roots do not cross physical room boundaries!
+    if side == "root":
+      continue
+
     dn, de = DELTA[side]
     neighbor_key = (n + dn, e + de, OPPOSITE[side], idx)
     pair = frozenset([(n, e, side, idx), neighbor_key])
@@ -133,6 +181,9 @@ def create_and_connect_regions(world: World) -> None:
     if neighbor_key in exit_regions and pair not in seen:
       seen.add(pair)
       neighbor = exit_regions[neighbor_key]
+
+      # Since we handle exit -> root linkages explicitly during Pass 1,
+      # we can safely go back to using standard _connect here!
       _connect(world, region, neighbor, rule=None)
       _connect(world, neighbor, region, rule=None)
 
