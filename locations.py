@@ -38,6 +38,39 @@ for thing in PROG:
           LOCATION_NAME_TO_ID[itemName] = _id_counter
           _id_counter += 1
 
+# locations runs after items so this goes here
+try:
+  with open("./path", "r") as f:
+    path = f.read().strip()
+    import os
+
+    path = os.path.abspath(os.path.expanduser(path))
+    if os.path.isdir(path):
+
+    # 5. Write out file
+      with open(os.path.join(path, "archipelago_manifest.js"), "w", encoding="utf-8") as f:
+        import json
+
+        from .items import ITEM_NAME_TO_ID
+        _ = f.write(f"""/**
+  * AUTO-GENERATED ARCHIPELAGO MANIFESTS
+  * Do not modify this file directly. Regenerate via your build script.
+  */
+
+  const AP_LOCATION_IDS = {json.dumps(LOCATION_NAME_TO_ID, indent=2)};
+
+  const AP_ITEM_IDS = {json.dumps({v: k for k, v in ITEM_NAME_TO_ID.items()}, indent=2)};
+
+  console.log(`[Archipelago] Database ready: ${{Object.keys(AP_LOCATION_IDS).length}} locations, ${{Object.keys(AP_ITEM_IDS).length}} items.`);
+  """)
+
+      print(f"Success! Generated Client database at: {path}")
+except FileNotFoundError:
+  pass
+except Exception as e:
+  print(e)
+
+# print(LOCATION_NAME_TO_ID)
 # temp: set[str] = set()
 # i = 0
 # for room in GEOM:
@@ -91,7 +124,7 @@ def create_events(world: World) -> None:
     if "receive" not in thing:
       continue
     for itemInfo in thing["receive"]:
-      if itemInfo.startswith(("quest:", "flag:", "area:")):
+      if itemInfo.startswith(("quest:", "flag:", "area:", "loot:")):
         event_name = itemInfo.split("#")[0]
         room_id = f"{thing['room']['north']}_{thing['room']['east']}: root"
 
@@ -104,28 +137,6 @@ def create_events(world: World) -> None:
           item_type=items.MathQuestItem,
         )
 
-
-# def create_events(world: World) -> None:
-#   from ._progression import PROG
-
-#   for thing in PROG:
-#     if "receive" in thing:
-#       for itemInfo in thing["receive"]:
-#         # Identify non-physical items like quests
-#         if itemInfo.startswith(("quest:", "flag:", "location.")):
-#           event_name = itemInfo.split("#")[0]
-#           room_id = f"{thing['room']['north']}_{thing['room']['east']}"
-
-#           # Get the room region where this event happens
-#           region = world.get_region(room_id)
-
-#           # Create an Event Location and lock the Event Item to it automatically
-#           _ = region.add_event(
-#             location_name=f"{room_id} - {event_name}",
-#             item_name=event_name,
-#             location_type=MathQuestLocation,
-#             item_type=items.MathQuestItem,
-#           )
 
 # Sometimes, the player may perform in-game actions that allow them to progress which are not related to Items.
 # In our case, the player must press a button in the top left room to open the final boss door.

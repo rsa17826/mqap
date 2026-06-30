@@ -27,39 +27,39 @@ def set_all_entrance_rules(_world: World) -> None:
   pass
 
 
-_ENTRANCE_RE = re.compile(r"^entrance\.[a-z]+\d+$")
+# _ENTRANCE_RE = re.compile(r"^entrance\.[a-z]+\d+$")
 
 
 def set_all_location_rules(world: World) -> None:
   return
-  for node in PROG:
-    if "receive" not in node:
-      continue
+  # for node in PROG:
+  #   if "receive" not in node:
+  #     continue
 
-    room_id = f"{node['room']['north']}_{node['room']['east']}"
+  #   room_id = f"{node['room']['north']}_{node['room']['east']}"
 
-    for itemInfo in node["receive"]:
-      if not itemInfo.startswith(("item:", "weapon:", "armor:", "food:", "skill:", "magic:", "permit:", "misc:")):
-        continue
+  #   for itemInfo in node["receive"]:
+  #     if not itemInfo.startswith(("item:", "weapon:", "armor:", "food:", "skill:", "magic:", "permit:", "misc:")):
+  #       continue
 
-      loc_name = f"{room_id} - {itemInfo.split('#')[0]}"
-      location = world.get_location(loc_name)
+  #     loc_name = f"{room_id} - {itemInfo.split('#')[0]}"
+  #     location = world.get_location(loc_name)
 
-      allConditions: list[HasAll[World] | Has[World]] = []
-      for _and in node.get("requires", []):
-        clean_items: list[str] = []
-        for token in _and:
-          # print(token, "d")
-          name = token.split("#")[0]
-          if _ENTRANCE_RE.match(name):
-            name = f"{room_id} - {name}"
-          clean_items.append(name)
-        if len(clean_items):
-          allConditions.append(HasAll(*clean_items) if len(clean_items) > 1 else Has(clean_items[0]))
+  #     allConditions: list[HasAll[World] | Has[World]] = []
+  #     for _and in node.get("requires", []):
+  #       clean_items: list[str] = []
+  #       for token in _and:
+  #         # print(token, "d")
+  #         name = token.split("#")[0]
+  #         if _ENTRANCE_RE.match(name):
+  #           name = f"{room_id} - {name}"
+  #         clean_items.append(name)
+  #       if len(clean_items):
+  #         allConditions.append(HasAll(*clean_items) if len(clean_items) > 1 else Has(clean_items[0]))
 
-      if allConditions:
-        # print(allConditions, node)
-        world.set_rule(location, reduce(lambda a, s: a | s, allConditions))
+  #     if allConditions:
+  #       # print(allConditions, node)
+  #       world.set_rule(location, reduce(lambda a, s: a | s, allConditions))
 
 
 # def set_all_location_rules(world: World) -> None:

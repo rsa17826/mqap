@@ -38,7 +38,6 @@ for thing in PROG:
             # "flag:final boss dead",
             "permit:",
             "misc:fire crystal",
-            "item:aurastones",
             # "entrance.",
             # "quest:",
             # "area:",
@@ -46,7 +45,14 @@ for thing in PROG:
         ):
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.progression
           ITEM_NAME_TO_ID[itemName] = _id_counter
-        elif itemInfo.startswith(("skill:", "armor:", "item:ring")):
+        elif itemInfo.startswith(
+          (
+            "skill:",
+            "armor:",
+            "item:ring",
+            "item:aurastones",
+          )
+        ):
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.useful
           ITEM_NAME_TO_ID[itemName] = _id_counter
         elif itemInfo.startswith(
@@ -59,13 +65,12 @@ for thing in PROG:
         ):
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.filler
           ITEM_NAME_TO_ID[itemName] = _id_counter
-        elif itemInfo.startswith(("quest:", "area:")):
+        elif itemInfo.startswith(("quest:", "area:", "loot:")):
           continue
         else:
           print(itemName, "not used")
           continue
         _id_counter += 1
-
 
 # Each Item instance must correctly report the "game" it belongs to.
 # To make this simple, it is common practice to subclass the basic Item class and override the "game" field.
