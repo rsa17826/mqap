@@ -9,13 +9,7 @@ from . import items, locations
 from ._room_geometry import ExitBase
 
 
-def create_and_connect_regions(world: World) -> None:
-  create_all_regions(world)
-
-
 def _reqs_to_rule(reqs: list[list[str]]) -> Rule | None:
-  # reqs is an OR of AND-lists, same shape as the "requires" field elsewhere.
-  # An empty inner list ([]) means "no requirement" -> this node is unconditional.
   if any(len(option) == 0 for option in reqs):
     return None
   rule: Rule | None = None
@@ -25,68 +19,119 @@ def _reqs_to_rule(reqs: list[list[str]]) -> Rule | None:
   return rule
 
 
-connections = {}
+def _connect(world: World, source: Region, target: Region, rule: Rule | None) -> None:
+  """Add a one-way entrance from source to target, with an optional access rule."""
+  name = f"{source.name} -> {target.name}"
+  entrance = Entrance(world.player, name, parent=source)
+  if rule is not None:
+    # Capture rule in default arg to avoid late-binding closure bug
+    entrance.access_rule = lambda state, r=rule: r(state, world.player)
+  source.exits.append(entrance)
+  entrance.connect(target)
 
 
-def create_all_regions(world: World) -> None:
+def create_and_connect_regions(world: World) -> None:
   from ._room_geometry import GEOM
 
-  createRegion(20, 20, world, GEOM)
+  # Key: (north, east, side, idx) -> Region
+  exit_regions: dict[tuple[int, int, str, int], Region] = {}
 
-  def createRegion(north: int, east: int):
-    def connect(x: str, y: str):
-      entrance = Entrance(world.player, x, parent=world.get_region(x))
-      world.get_region(x).exits.append(entrance)
-      entrance.connect(world.get_region(y))
+  # ── Pass 1: create one Region per exit in every room ──────────────────────
+  for room in GEOM:
+    n, e = room["north"], room["east"]
+    for side, exit_list in room.get("exits", {}).items():
+      for idx in range(len(exit_list)):
+        name = f"{n}_{e}: {side} {idx}"
+        region = Region(name, world.player, world.multiworld)
+        world.multiworld.regions.append(region)
+        exit_regions[(n, e, side, idx)] = region
 
-    for room in GEOM:
-      if room["north"] == north and room["east"] == east:
-        roomId = f"{room['north']}_{room['east']}"
-        if "areas" not in room:
+  # ── Pass 2: connect exits *within* each room via area groups ──────────────
+  for room in GEOM:
+    n, e = room["north"], room["east"]
+
+    if "areas" not in room:
+      # No area data → all exits in this room connect freely
+      all_regions = [
+        exit_regions[(n, e, side, idx)]
+        for side, exit_list in room.get("exits", {}).items()
+        for idx in range(len(exit_list))
+        if (n, e, side, idx) in exit_regions
+      ]
+      for i, src in enumerate(all_regions):
+        for dst in all_regions[i + 1 :]:
+          _connect(world, src, dst, rule=None)
+          _connect(world, dst, src, rule=None)
+      continue
+
+    for area_group in room["areas"]:
+      rule = _reqs_to_rule(area_group["reqs"])
+
+      # Each inner list is a "node" - exits that share the same physical area.
+      # Exits in the same node are directly connected (no rule).
+      # All nodes in the same group connect to each other via the group rule.
+      node_reps: list[Region] = []
+
+      for node in area_group["areas"]:
+        node_regions = [
+          exit_regions[(n, e, ex["side"], ex["idx"])]
+          for ex in node
+          if (n, e, ex["side"], ex["idx"]) in exit_regions
+        ]
+        if not node_regions:
           continue
-        for i, areaSection in enumerate(room["areas"]):
-          for connectedAreas in areaSection["areas"]:
-            for area in connectedAreas:
-              print(area, "areaSection", areaSection)
-              side = area["side"]
-              sideIdx = area["idx"]
-              entranceId = f"{roomId}: {side} {sideIdx}"
-              connections[entranceId] = Region(entranceId, world.player, world.multiworld)
-              print(entranceId)
-        newRegion = createRegion(north + 1, east)
-        if newRegion is not None:
-          connect(region, newRegion)
-        newRegion = createRegion(north, east + 1)
-        if newRegion is not None:
-          connect(region, newRegion)
-        newRegion = createRegion(north - 1, east)
-        if newRegion is not None:
-          connect(region, newRegion)
-        newRegion = createRegion(north, east - 1)
-        if newRegion is not None:
-          connect(region, newRegion)
-        break
 
-  # if roomId in seen:
-  #   continue
-  # seen.add(roomId)
+        # Wire exits inside a node together unconditionally
+        rep = node_regions[0]
+        for other in node_regions[1:]:
+          _connect(world, rep, other, rule=None)
+          _connect(world, other, rep, rule=None)
 
-  # region = Region(roomId, world.player, world.multiworld)
-  # world.multiworld.regions.append(region)
+        node_reps.append(rep)
 
-  # if "areas" not in room:
-  #   continue
+      # Wire every node to every other node in this group (bidirectional)
+      for i, src in enumerate(node_reps):
+        for dst in node_reps[i + 1 :]:
+          _connect(world, src, dst, rule=rule)
+          _connect(world, dst, src, rule=rule)
 
-  # # One sub-region per exit slot referenced anywhere in "areas".
-  # slot_ids: set[str] = set()
-  # for area_node in room["areas"]:
-  #   for group in area_node["areas"]:
-  #     for slot in group:
-  #       slot_ids.add(_slot_id(slot["side"], slot["idx"]))
+  # ── Pass 3: connect exits *across* room boundaries ────────────────────────
+  OPPOSITE = {"east": "west", "west": "east", "north": "south", "south": "north"}
+  DELTA = {"east": (0, 1), "west": (0, -1), "north": (1, 0), "south": (-1, 0)}
 
-  # for slot_id in slot_ids:
-  #   slot_region = Region(f"{roomId}#{slot_id}", world.player, world.multiworld)
-  #   world.multiworld.regions.append(slot_region)
+  seen: set[frozenset] = set()
+  for (n, e, side, idx), region in exit_regions.items():
+    dn, de = DELTA[side]
+    neighbor_key = (n + dn, e + de, OPPOSITE[side], idx)
+    pair = frozenset([(n, e, side, idx), neighbor_key])
+
+    if neighbor_key in exit_regions and pair not in seen:
+      seen.add(pair)
+      neighbor = exit_regions[neighbor_key]
+      _connect(world, region, neighbor, rule=None)
+      _connect(world, neighbor, region, rule=None)
+
+
+# if roomId in seen:
+#   continue
+# seen.add(roomId)
+
+# region = Region(roomId, world.player, world.multiworld)
+# world.multiworld.regions.append(region)
+
+# if "areas" not in room:
+#   continue
+
+# # One sub-region per exit slot referenced anywhere in "areas".
+# slot_ids: set[str] = set()
+# for area_node in room["areas"]:
+#   for group in area_node["areas"]:
+#     for slot in group:
+#       slot_ids.add(_slot_id(slot["side"], slot["idx"]))
+
+# for slot_id in slot_ids:
+#   slot_region = Region(f"{roomId}#{slot_id}", world.player, world.multiworld)
+#   world.multiworld.regions.append(slot_region)
 
 
 def connect_doors(world: World) -> None:
