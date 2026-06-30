@@ -46,25 +46,24 @@ try:
 
     path = os.path.abspath(os.path.expanduser(path))
     if os.path.isdir(path):
-
-    # 5. Write out file
-      with open(os.path.join(path, "archipelago_manifest.js"), "w", encoding="utf-8") as f:
+      # 5. Write out file
+      with open(os.path.join(path, "archipelago_manifest.js"), "w", encoding="utf-8") as f: # noqa: PLW2901
         import json
 
         from .items import ITEM_NAME_TO_ID
-        _ = f.write(f"""/**
-  * AUTO-GENERATED ARCHIPELAGO MANIFESTS
-  * Do not modify this file directly. Regenerate via your build script.
-  */
 
-  const AP_LOCATION_IDS = {json.dumps(LOCATION_NAME_TO_ID, indent=2)};
+        _ = f.write(
+          f"""/**
+          * AUTO-GENERATED ARCHIPELAGO MANIFESTS
+          * Do not modify this file directly. Regenerate via your build script.
+          */
 
-  const AP_ITEM_IDS = {json.dumps({v: k for k, v in ITEM_NAME_TO_ID.items()}, indent=2)};
+          const AP_LOCATION_IDS = {json.dumps(LOCATION_NAME_TO_ID, indent=2)}
+          const AP_ITEM_IDS = {json.dumps({v: k for k, v in ITEM_NAME_TO_ID.items()}, indent=2)}
+          console.log(`[Archipelago] Database ready: ${{Object.keys(AP_LOCATION_IDS).length}} locations, ${{Object.keys(AP_ITEM_IDS).length}} items.`);""" # noqa: E501
+        )
 
-  console.log(`[Archipelago] Database ready: ${{Object.keys(AP_LOCATION_IDS).length}} locations, ${{Object.keys(AP_ITEM_IDS).length}} items.`);
-  """)
-
-      print(f"Success! Generated Client database at: {path}")
+        print(f"Success! Generated Client database at: {path}")
 except FileNotFoundError:
   pass
 except Exception as e:
