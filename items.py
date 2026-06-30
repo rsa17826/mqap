@@ -37,9 +37,7 @@ for thing in PROG:
             # "flag:final boss dead",
             "permit:",
             "misc:fire crystal",
-            "item:key", # Treat keys as progression
-            "item:aurastone",
-            "item:",
+            "item:aurastones",
             # "entrance.",
             # "quest:",
             # "area:",
@@ -52,6 +50,8 @@ for thing in PROG:
           ITEM_NAME_TO_ID[itemName] = _id_counter
         elif itemInfo.startswith(
           (
+            "item:key",
+            "item:",
             "food:",
             "misc:",
           )
