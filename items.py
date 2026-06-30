@@ -24,46 +24,46 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
   "item:trap": ItemClassification.trap,
 }
 _id_counter = 1
-# for thing in PROG:
-#   if "receive" in thing:
-#     for itemInfo in thing["receive"]:
-#       itemName = itemInfo.split("#")[0]
-#       if itemName not in ITEM_NAME_TO_ID:
-#         # TODO
-#         if itemInfo.startswith(
-#           (
-#             "magic:",
-#             "weapon:",
-#             # "flag:final boss dead",
-#             "permit:",
-#             "item:fire crystal",
-#             "item:key", # Treat keys as progression
-#             "item:aurastone",
-#             "item:",
-#             # "entrance.",
-#             # "quest:",
-#             # "area:",
-#           )
-#         ):
-#           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.progression
-#           ITEM_NAME_TO_ID[itemName] = _id_counter
-#         elif itemInfo.startswith(("skill:", "armor:", "item:ring")):
-#           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.useful
-#           ITEM_NAME_TO_ID[itemName] = _id_counter
-#         elif itemInfo.startswith(
-#           (
-#             "food:",
-#             "misc:",
-#           )
-#         ):
-#           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.filler
-#           ITEM_NAME_TO_ID[itemName] = _id_counter
-#         elif itemInfo.startswith(("quest:", "area:")):
-#           continue
-#         else:
-#           print(itemName, "not used")
-#           continue
-#         _id_counter += 1
+for thing in PROG:
+  if "receive" in thing:
+    for itemInfo in thing["receive"]:
+      itemName = itemInfo.split("#")[0]
+      if itemName not in ITEM_NAME_TO_ID:
+        # TODO
+        if itemInfo.startswith(
+          (
+            "magic:",
+            "weapon:",
+            # "flag:final boss dead",
+            "permit:",
+            "item:fire crystal",
+            "item:key", # Treat keys as progression
+            "item:aurastone",
+            "item:",
+            # "entrance.",
+            # "quest:",
+            # "area:",
+          )
+        ):
+          DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.progression
+          ITEM_NAME_TO_ID[itemName] = _id_counter
+        elif itemInfo.startswith(("skill:", "armor:", "item:ring")):
+          DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.useful
+          ITEM_NAME_TO_ID[itemName] = _id_counter
+        elif itemInfo.startswith(
+          (
+            "food:",
+            "misc:",
+          )
+        ):
+          DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.filler
+          ITEM_NAME_TO_ID[itemName] = _id_counter
+        elif itemInfo.startswith(("quest:", "area:")):
+          continue
+        else:
+          print(itemName, "not used")
+          continue
+        _id_counter += 1
 
 
 # Each Item instance must correctly report the "game" it belongs to.

@@ -84,7 +84,7 @@ def create_regular_locations(world: World) -> None:
 
 
 def create_events(world: World) -> None:
-  return
+  # return
   from ._progression import PROG
 
   for thing in PROG:
