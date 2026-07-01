@@ -30,6 +30,7 @@ for thing in PROG:
           "magic:",
           "permit:",
           "misc:",
+          "craft:",
         )
       ):
         # itemName = itemInfo.split("#")[0]

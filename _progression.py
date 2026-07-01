@@ -1571,7 +1571,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 100, "east": 100},
     "requires": [["item:gold#10"]],
-    "receive": ["food:gingerbread"],
+    "receive": ["food:gingerBread"],
   },
   {
     "room": {"north": 100, "east": 100},
@@ -2149,10 +2149,6 @@ MathQuest.js:42550 add listeners""",
   #   "room": {"north": "?", "east": "?"},
   #   "receive": ["item:ring of evasion"],
   # },
-  # {
-  #   "room": {"north": "?", "east": "?"},
-  #   "receive": ["craft:bomb"],
-  # },
   {
     "room": {"north": 14, "east": 18},
     "requires": [["weapon:royalSword"]],
@@ -2321,7 +2317,7 @@ MathQuest.js:42550 add listeners""",
   {"room": {"north": 15, "east": 18}, "requires": [[]], "receive": ["area:0"]},
   {"room": {"north": 14, "east": 18}, "requires": [[]], "receive": ["area:0"]},
   {"room": {"north": 13, "east": 18}, "requires": [[]], "receive": ["area:0"]},
-  {"room": {"north": 13, "east": 18}, "requires": [["item:gold#50"]], "receive": ["food:gingerbread"]},
+  {"room": {"north": 13, "east": 18}, "requires": [["item:gold#50"]], "receive": ["food:gingerBread"]},
   # NOTE these grapes say 30gp but are only 15gp as they are the same ones as at 20 20
   # {"room": {"north": 13, "east": 18}, "requires": [["item:gold#30"]], "receive": ["food:grapes"]},
   {"room": {"north": 13, "east": 18}, "requires": [["item:gold#80"]], "receive": ["food:banana"]},

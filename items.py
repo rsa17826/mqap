@@ -65,12 +65,20 @@ for thing in PROG:
         ):
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.filler
           ITEM_NAME_TO_ID[itemName] = _id_counter
-        elif itemInfo.startswith(("quest:", "area:", "loot:")):
+        elif itemInfo.startswith(
+          (
+            "quest:",
+            "area:",
+            "loot:",
+            "craft:",
+          )
+        ):
           continue
         else:
           print(itemName, "not used")
           continue
         _id_counter += 1
+
 
 # Each Item instance must correctly report the "game" it belongs to.
 # To make this simple, it is common practice to subclass the basic Item class and override the "game" field.
