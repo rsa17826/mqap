@@ -483,11 +483,6 @@ manager.correct - manager.wrong > 800 = halo
     "receive": ["food:gummyBears#5"],
   },
   {
-    "room": {"north": 500, "east": 501},
-    "requires": [["weapon:baneBlade", "skill:reveal"]],
-    "receive": ["quest:alpha blade.1"],
-  },
-  {
     "room": {"north": 4, "east": 13},
     "requires": [["item:gold"]],
     "receive": ["food:orange"],
@@ -795,16 +790,16 @@ MathQuest.js:42550 add listeners""",
     "requires": [["quest:gTree.25"]],
     "receive": ["quest:aSword.1"],
   },
-  {
-    "room": {"north": 14, "east": 18},
-    "requires": [["quest:aSword.1", "weapon:baneBlade"]],
-    "receive": ["quest:aSword.2"],
-  },
-  {
-    "room": {"north": 500, "east": 501},
-    "requires": [["quest:aSword.2", "skill:reveal"]],
-    "receive": ["quest:aSword.3"],
-  },
+  # {
+  #   "room": {"north": 14, "east": 18},
+  #   "requires": [["quest:aSword.1", "weapon:baneBlade"]],
+  #   "receive": ["quest:aSword.2"],
+  # },
+  # {
+  #   "room": {"north": 500, "east": 501},
+  #   "requires": [["quest:aSword.2", "skill:reveal"]],
+  #   "receive": ["quest:aSword.3"],
+  # },
   {
     "room": {"north": 15, "east": 24},
     "requires": [["quest:oMan.1"]],
@@ -1462,7 +1457,6 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 15, "east": 17},
-    "requires": [["quest:hWater.0"]],
     "receive": ["quest:hWater.1"],
   },
   {
@@ -1494,6 +1488,10 @@ MathQuest.js:42550 add listeners""",
     "room": {"north": 14, "east": 17},
     "requires": [["quest:mChal.2"]],
     "receive": ["quest:mChal.3"],
+  },
+  {
+    "room": {"north": 19, "east": 16},
+    "receive": ["quest:access.1"],
   },
   {
     "room": {"north": 19, "east": 16},
@@ -1571,9 +1569,24 @@ MathQuest.js:42550 add listeners""",
     "receive": ["quest:dream.5"],
   },
   {
+    "room": {"north": 11, "east": 16},
+    "requires": [["quest:dream.7"]],
+    "receive": ["quest:dream.8"],
+  },
+  {
     "room": {"north": 10, "east": 10},
     "requires": [["quest:dream.8"]],
     "receive": ["quest:dream.9"],
+  },
+  {
+    "room": {"north": 10, "east": 10},
+    "requires": [["quest:dream.9"]],
+    "receive": ["quest:dream.10"],
+  },
+  {
+    "room": {"north": 10, "east": 10},
+    "requires": [["quest:dream.10", "entrance.north0"], ["quest:dream.10", "entrance.west0"]],
+    "receive": ["quest:dream.11"],
   },
   {
     "room": {"north": 11, "east": 16},
@@ -1725,6 +1738,10 @@ MathQuest.js:42550 add listeners""",
     "receive": ["quest:bBomb.26"],
   },
   {
+    "room": {"north": 11, "east": 23},
+    "receive": ["quest:dream.1"],
+  },
+  {
     "room": {"north": 13, "east": 17},
     "requires": [["quest:dream.1"]],
     "receive": ["quest:dream.2"],
@@ -1733,6 +1750,11 @@ MathQuest.js:42550 add listeners""",
     "room": {"north": 13, "east": 17},
     "requires": [["quest:dream.11"]],
     "receive": ["quest:dream.12"],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [["quest:dream.12", "area:4"]],
+    "receive": ["quest:dream.13"],
   },
   {
     "room": {"north": 13, "east": 17},
@@ -1744,66 +1766,66 @@ MathQuest.js:42550 add listeners""",
     "requires": [["quest:dream.14"]],
     "receive": ["quest:dream.15"],
   },
-  {
-    "room": {"north": 500, "east": 501},
-    "requires": [[]],
-    "receive": ["quest:aSword.1"],
-  },
-  {
-    "room": {"north": 500, "east": 501},
-    "requires": [["quest:aSword.12"]],
-    "receive": ["quest:aSword.13"],
-  },
-  {
-    "room": {"north": 500, "east": 501},
-    "requires": [["quest:aSword.6"]],
-    "receive": ["quest:aSword.7"],
-  },
-  {
-    "room": {"north": 500, "east": 501},
-    "requires": [["quest:aSword.4"]],
-    "receive": ["quest:aSword.5"],
-  },
-  {
-    "room": {"north": 19, "east": 16},
-    "requires": [["quest:aSword.3"]],
-    "receive": ["quest:aSword.4"],
-  },
-  {
-    "room": {"north": 20, "east": 17},
-    "requires": [["quest:aSword.5"]],
-    "receive": ["quest:aSword.6"],
-  },
-  {
-    "room": {"north": 500, "east": 501},
-    "requires": [["quest:aSword.7"]],
-    "receive": ["quest:aSword.11"],
-  },
-  {
-    "room": {"north": 500, "east": 501},
-    "requires": [["quest:aSword.57"]],
-    "receive": ["quest:aSword.58"],
-  },
-  {
-    "room": {"north": 500, "east": 501},
-    "requires": [["quest:aSword.51"]],
-    "receive": ["quest:aSword.52"],
-  },
-  {
-    "room": {"north": 500, "east": 501},
-    "requires": [["quest:aSword.45"]],
-    "receive": ["quest:aSword.46"],
-  },
-  {
-    "room": {"north": 500, "east": 501},
-    "requires": [["quest:aSword.39"]],
-    "receive": ["quest:aSword.40"],
-  },
-  {
-    "room": {"north": 500, "east": 501},
-    "requires": [["quest:aSword.23"]],
-    "receive": ["quest:aSword.24"],
-  },
+  # {
+  #   "room": {"north": 500, "east": 501},
+  #   "requires": [[]],
+  #   "receive": ["quest:aSword.1"],
+  # },
+  # {
+  #   "room": {"north": 500, "east": 501},
+  #   "requires": [["quest:aSword.12"]],
+  #   "receive": ["quest:aSword.13"],
+  # },
+  # {
+  #   "room": {"north": 500, "east": 501},
+  #   "requires": [["quest:aSword.6"]],
+  #   "receive": ["quest:aSword.7"],
+  # },
+  # {
+  #   "room": {"north": 500, "east": 501},
+  #   "requires": [["quest:aSword.4"]],
+  #   "receive": ["quest:aSword.5"],
+  # },
+  # {
+  #   "room": {"north": 19, "east": 16},
+  #   "requires": [["quest:aSword.3"]],
+  #   "receive": ["quest:aSword.4"],
+  # },
+  # {
+  #   "room": {"north": 20, "east": 17},
+  #   "requires": [["quest:aSword.5"]],
+  #   "receive": ["quest:aSword.6"],
+  # },
+  # {
+  #   "room": {"north": 500, "east": 501},
+  #   "requires": [["quest:aSword.7"]],
+  #   "receive": ["quest:aSword.11"],
+  # },
+  # {
+  #   "room": {"north": 500, "east": 501},
+  #   "requires": [["quest:aSword.57"]],
+  #   "receive": ["quest:aSword.58"],
+  # },
+  # {
+  #   "room": {"north": 500, "east": 501},
+  #   "requires": [["quest:aSword.51"]],
+  #   "receive": ["quest:aSword.52"],
+  # },
+  # {
+  #   "room": {"north": 500, "east": 501},
+  #   "requires": [["quest:aSword.45"]],
+  #   "receive": ["quest:aSword.46"],
+  # },
+  # {
+  #   "room": {"north": 500, "east": 501},
+  #   "requires": [["quest:aSword.39"]],
+  #   "receive": ["quest:aSword.40"],
+  # },
+  # {
+  #   "room": {"north": 500, "east": 501},
+  #   "requires": [["quest:aSword.23"]],
+  #   "receive": ["quest:aSword.24"],
+  # },
   {
     "room": {"north": 15, "east": 25},
     "requires": [["quest:oMan.13"]],
@@ -2049,11 +2071,12 @@ MathQuest.js:42550 add listeners""",
     "requires": [["item:gold"]],
     "receive": ["weapon:dagger"],
   },
-  {
-    "room": {"north": 500, "east": 501},
-    "requires": [["weapon:baneBlade"]],
-    "receive": ["weapon:aSword"],
-  },
+  # TODO
+  # {
+  #   "room": {"north": 500, "east": 501},
+  #   "requires": [["weapon:baneBlade"]],
+  #   "receive": ["weapon:aSword"],
+  # },
   {
     "room": {"north": 200, "east": 200},
     "requires": [
@@ -2543,52 +2566,52 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 20, "east": 20},
-    "requires": [["area:str up npc", "loot:tBand#15"]],
+    "requires": [["area:str up npc", "loot:tBand#15", "misc:str up npc.1"]],
     "receive": ["misc:str up npc.2"],
   },
   {
     "room": {"north": 20, "east": 20},
-    "requires": [["area:str up npc", "loot:mStaff#12"]],
+    "requires": [["area:str up npc", "loot:mStaff#12", "misc:str up npc.2"]],
     "receive": ["misc:str up npc.3"],
   },
   {
     "room": {"north": 20, "east": 20},
-    "requires": [["area:str up npc", "loot:fBone#10"]],
+    "requires": [["area:str up npc", "loot:fBone#10", "misc:str up npc.3"]],
     "receive": ["misc:str up npc.4"],
   },
   {
     "room": {"north": 20, "east": 20},
-    "requires": [["area:str up npc", "loot:cFang#15"]],
+    "requires": [["area:str up npc", "loot:cFang#15", "misc:str up npc.4"]],
     "receive": ["misc:str up npc.5"],
   },
   {
     "room": {"north": 20, "east": 20},
-    "requires": [["area:str up npc", "loot:oCoin#50"]],
+    "requires": [["area:str up npc", "loot:oCoin#50", "misc:str up npc.5"]],
     "receive": ["misc:str up npc.6"],
   },
   {
     "room": {"north": 20, "east": 20},
-    "requires": [["area:str up npc", "loot:kCrest#10"]],
+    "requires": [["area:str up npc", "loot:kCrest#10", "misc:str up npc.6"]],
     "receive": ["misc:str up npc.7"],
   },
   {
     "room": {"north": 20, "east": 20},
-    "requires": [["area:str up npc", "loot:dScale#10"]],
+    "requires": [["area:str up npc", "loot:dScale#10", "misc:str up npc.7"]],
     "receive": ["misc:str up npc.8"],
   },
   {
     "room": {"north": 20, "east": 20},
-    "requires": [["area:str up npc", "loot:vHorn#20"]],
+    "requires": [["area:str up npc", "loot:vHorn#20", "misc:str up npc.8"]],
     "receive": ["misc:str up npc.9"],
   },
   {
     "room": {"north": 20, "east": 20},
-    "requires": [["area:str up npc", "item:slamstones#10"]],
+    "requires": [["area:str up npc", "item:slamstones#10", "misc:str up npc.9"]],
     "receive": ["misc:str up npc.10"],
   },
   {
     "room": {"north": 20, "east": 20},
-    "requires": [["area:str up npc", "item:shadowCrest#5"]],
+    "requires": [["area:str up npc", "item:shadowCrest#5", "misc:str up npc.10"]],
     "receive": ["misc:str up npc.11"],
   },
   {
