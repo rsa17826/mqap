@@ -21,6 +21,11 @@ PROG: list[ProgressionNode] = [
     "receive": ["loot:venom", "loot:bClaw"],
   },
   {
+    "room": {"north": 13, "east": 25},
+    "requires": [["area:13"]],
+    "receive": ["loot:mHat"],
+  },
+  {
     "room": {"north": 20, "east": 20},
     "requires": [["area:4"]],
     "receive": ["loot:mStaff"],
@@ -361,7 +366,7 @@ manager.correct - manager.wrong > 800 = halo
   },
   {
     "room": {"north": 20, "east": 23},
-    "requires": [["skill:reveal", "entrance.east0"]],
+    "requires": [["skill:reveal", "entrance.west0", "permit:bomb"]],
     "receive": ["area:red chest"],
   },
   {
@@ -565,6 +570,11 @@ manager.correct - manager.wrong > 800 = halo
     "receive": ["quest:gTree.6", "item:gold#50"],
   },
   {
+    "room": {"north": 14, "east": 20},
+    "requires": [["quest:gTree.6"]],
+    "receive": ["quest:gTree.7"],
+  },
+  {
     "room": {"north": 15, "east": 23},
     "requires": [["quest:pam.1", "skill:dig"]],
     "receive": ["quest:pam.2"],
@@ -720,7 +730,7 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 7, "east": 10},
-    "requires": [["quest:gTree.16", "permit:bomb", "!flag:7_11 boss dead"]],
+    "requires": [["quest:gTree.16", "permit:bomb", "flag:7_11 boss dead"]],
     # TODO
     "receive": ["quest:gTree.17"],
     "info": "forgot to add permit:bomb to above, do so later",
@@ -1546,6 +1556,11 @@ MathQuest.js:42550 add listeners""",
     "receive": ["quest:oMan.19"],
   },
   {
+    "room": {"north": 10, "east": 12},
+    "requires": [["quest:oMan.17"]],
+    "receive": ["quest:oMan.18"],
+  },
+  {
     "room": {"north": 13, "east": 14},
     "requires": [["quest:mChal.3"]],
     "receive": ["quest:mChal.4"],
@@ -1567,7 +1582,6 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 100, "east": 100},
-    "requires": [["quest:isles.0"]],
     "receive": ["quest:isles.1"],
   },
   {
@@ -1665,13 +1679,12 @@ MathQuest.js:42550 add listeners""",
     "requires": [["quest:isles.11"]],
     "receive": ["quest:isles.12"],
   },
-
-    {
+  {
     "room": {"north": 9.11, "east": 20},
     "requires": [["quest:isles.12"]],
     "receive": ["quest:isles.13"],
   },
-    {
+  {
     "room": {"north": 5, "east": 20},
     "requires": [["quest:isles.13"]],
     "receive": ["quest:isles.14"],
@@ -1805,6 +1818,16 @@ MathQuest.js:42550 add listeners""",
     "room": {"north": 10, "east": 15},
     "requires": [["quest:oMan.8"]],
     "receive": ["quest:oMan.9"],
+  },
+  {
+    "room": {"north": 18, "east": 15},
+    "requires": [["quest:oMan.7"]],
+    "receive": ["quest:oMan.8"],
+  },
+  {
+    "room": {"north": 10, "east": 23},
+    "requires": [["quest:oMan.9", "magic:cloud"]],
+    "receive": ["quest:oMan.10"],
   },
   {
     "room": {"north": 10, "east": 15},
@@ -2567,5 +2590,20 @@ MathQuest.js:42550 add listeners""",
     "room": {"north": 20, "east": 20},
     "requires": [["area:str up npc", "item:shadowCrest#5"]],
     "receive": ["misc:str up npc.11"],
+  },
+  {
+    "room": {"north": 4, "east": 13},
+    "requires": [[]],
+    "receive": ["area:magic upgrades"],
+  },
+  {
+    "room": {"north": 16, "east": 23},
+    "requires": [[]],
+    "receive": ["area:magic upgrades"],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [["area:magic upgrades"]],
+    "receive": ["magic:fire.2"],
   },
 ]

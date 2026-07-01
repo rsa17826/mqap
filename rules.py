@@ -35,55 +35,32 @@ def set_all_location_rules(world: World) -> None:
     if "receive" not in node:
       continue
 
-    room_id = f"{node['room']['north']}_{node['room']['east']}"
+    room_id_base = f"{node['room']['north']}_{node['room']['east']}"
 
     for itemInfo in node["receive"]:
-      if itemInfo.startswith(
-        (
-          "quest:",
-          # "area:",
-          "loot:",
-          "flag:",
-          "area:",
-          # "craft:",
-          # "item:key",
-          # "item:",
-          # "food:",
-          # "misc:",
-          # "skill:",
-          # "armor:",
-          # "item:ring",
-          # "item:aurastones",
-          # "magic:",
-          # "weapon:",
-          # # "flag:final boss dead",
-          # "permit:",
-          # "misc:fire crystal",
-          # "entrance.",
-          # "quest:",
-          # "area:",
-        )
-      ):
-        continue
+      clean_item = itemInfo.split("#")[0]
 
-      loc_name = f"{room_id} - {itemInfo.split('#')[0]}"
+      # 1. Handle the naming difference between events and standard locations
+      if clean_item.startswith(("quest:", "flag:", "area:", "loot:")):
+        loc_name = f"{room_id_base}: root - {clean_item}"
+      else:
+        loc_name = f"{room_id_base} - {clean_item}"
       location = world.get_location(loc_name)
 
+      # 2. Build and apply the rules
       allConditions: list[HasAll[World] | Has[World]] = []
       for _and in node.get("requires", []):
         clean_items: list[str] = []
         for token in _and:
-          # print(token, "d")
           name = token.split("#")[0]
           if _ENTRANCE_RE.match(name):
-            name = f"{room_id} - {name}"
+            name = f"{room_id_base} - {name}"
           clean_items.append(name)
+
         if len(clean_items):
-          print(clean_items, )
           allConditions.append(HasAll(*clean_items) if len(clean_items) > 1 else Has(clean_items[0]))
 
       if allConditions:
-        # print(allConditions, node)
         world.set_rule(location, reduce(lambda a, s: a | s, allConditions))
 
 

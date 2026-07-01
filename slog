@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+python3.13 ../../Generate.py
+filename="$(find ../../output/ -maxdepth 1 -name "AP_*.zip" -printf "%T@ %p\n" | sort -n | tail -n 1 | cut -d' ' -f2-)"
+td=$(mktemp -d)
+uz "$filename" "$td"
+filename2="$(find "$td" -maxdepth 1 -name "*.txt" -printf "%T@ %p\n" | sort -n | tail -n 1 | cut -d' ' -f2-)"
+codium --wait "$filename2"
+rm -f "$filename"
+rm -rf "$td"
