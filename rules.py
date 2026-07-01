@@ -27,54 +27,63 @@ def set_all_entrance_rules(_world: World) -> None:
   pass
 
 
-# _ENTRANCE_RE = re.compile(r"^entrance\.[a-z]+\d+$")
-
-
-import re
-
-# Ensure this regex is defined at the module level
 _ENTRANCE_RE = re.compile(r"^entrance\.[a-z]+\d+$")
 
+
 def set_all_location_rules(world: World) -> None:
-  """
-  Dynamically applies progression rules to locations and events.
-  """
   for node in PROG:
-    requires = node.get("requires", [])
-    if not requires or any(not and_list for and_list in requires):
+    if "receive" not in node:
       continue
 
-    room_prefix = f"{node['room']['north']}_{node['room']['east']}"
+    room_id = f"{node['room']['north']}_{node['room']['east']}"
 
-    # Compile the logical DNF conditions ([[]] -> OR inside AND)
-    or_rule = None
-    for and_list in requires:
-      and_rule = None
-      for req in and_list:
+    for itemInfo in node["receive"]:
+      if not itemInfo.startswith(
+        (
+          # "quest:",
+          # "area:",
+          # "loot:",
+          "craft:",
+          "item:key",
+          "item:",
+          "food:",
+          "misc:",
+          "skill:",
+          "armor:",
+          "item:ring",
+          "item:aurastones",
+          "magic:",
+          "weapon:",
+          # "flag:final boss dead",
+          "permit:",
+          "misc:fire crystal",
+          # "entrance.",
+          # "quest:",
+          # "area:",
+        )
+      ):
+        continue
 
-        # ─── ADD ENTRANCE NAME CLEANING AND PREFIXING HERE ───
-        clean_req = req.split("#")[0]
-        if _ENTRANCE_RE.match(clean_req):
-          clean_req = f"{room_prefix} - {clean_req}"
+      loc_name = f"{room_id} - {itemInfo.split('#')[0]}"
+      location = world.get_location(loc_name)
 
-        current_rule = Has(clean_req)
-        and_rule = current_rule if and_rule is None else and_rule & current_rule
-      or_rule = and_rule if or_rule is None else or_rule | and_rule
+      allConditions: list[HasAll[World] | Has[World]] = []
+      for _and in node.get("requires", []):
+        clean_items: list[str] = []
+        for token in _and:
+          # print(token, "d")
+          name = token.split("#")[0]
+          if _ENTRANCE_RE.match(name):
+            name = f"{room_id} - {name}"
+          clean_items.append(name)
+        if len(clean_items):
+          print(clean_items, )
+          allConditions.append(HasAll(*clean_items) if len(clean_items) > 1 else Has(clean_items[0]))
 
-    if or_rule is not None:
-      for item in node.get("receive", []):
-        # Format matches the event location format we defined during region setup
-        target_name = f"{room_prefix} - {item}"
+      if allConditions:
+        # print(allConditions, node)
+        world.set_rule(location, reduce(lambda a, s: a | s, allConditions))
 
-        try:
-          target = world.get_location(target_name)
-          world.set_rule(target, or_rule)
-        except Exception:
-          try:
-            target = world.get_entrance(item)
-            world.set_rule(target, or_rule)
-          except Exception:
-            pass
 
 # def set_all_location_rules(world: World) -> None:
 #   """

@@ -17,6 +17,11 @@ class ProgressionNode(TypedDict):
 PROG: list[ProgressionNode] = [
   {
     "room": {"north": 20, "east": 20},
+    "requires": [["area:2"]],
+    "receive": ["loot:venom"],
+  },
+  {
+    "room": {"north": 20, "east": 20},
     "requires": [["area:4"]],
     "receive": ["loot:mStaff"],
   },
@@ -90,7 +95,6 @@ manager.correct - manager.wrong > 800 = halo
       "loot:sFrag",
       "loot:oArm",
       "loot:tBand",
-      "loot:venom",
       "loot:vAsh",
       "loot:wPelt",
     ],
@@ -117,7 +121,12 @@ manager.correct - manager.wrong > 800 = halo
   # {"room": {"north": 12, "east": 19}, "info": "warp skill warp point"},
   {
     "room": {"north": 13, "east": 16},
-    "requires": [["item:key#1", "entrance.west0"]],
+    "requires": [
+      [
+        "item:key#1",
+        "entrance.west0"
+      ]
+    ],
     "receive": ["weapon:sKnife"],
   },
   # {"room": {"north": 14, "east": 16}, "info": "warp skill warp point"},

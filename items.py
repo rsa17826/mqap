@@ -27,8 +27,8 @@ _id_counter = 1
 for thing in PROG:
   if "receive" in thing:
     for itemInfo in thing["receive"]:
-      # itemName = itemInfo.split("#")[0]
-      itemName = itemInfo.removesuffix("#1")
+      itemName = itemInfo.split("#")[0]
+      # itemName = itemInfo.removesuffix("#1")
       if itemName not in ITEM_NAME_TO_ID:
         # TODO
         if itemInfo.startswith(
@@ -38,6 +38,7 @@ for thing in PROG:
             # "flag:final boss dead",
             "permit:",
             "misc:fire crystal",
+            "item:key",
             # "entrance.",
             # "quest:",
             # "area:",
@@ -57,10 +58,11 @@ for thing in PROG:
           ITEM_NAME_TO_ID[itemName] = _id_counter
         elif itemInfo.startswith(
           (
-            "item:key",
             "item:",
             "food:",
             "misc:",
+            "craft:",
+            "loot:",
           )
         ):
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.filler
@@ -69,8 +71,6 @@ for thing in PROG:
           (
             "quest:",
             "area:",
-            "loot:",
-            "craft:",
           )
         ):
           continue
