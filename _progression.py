@@ -18,7 +18,7 @@ PROG: list[ProgressionNode] = [
   {
     "room": {"north": 20, "east": 20},
     "requires": [["area:2"]],
-    "receive": ["loot:venom"],
+    "receive": ["loot:venom", "loot:bClaw"],
   },
   {
     "room": {"north": 20, "east": 20},
@@ -1061,7 +1061,7 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 11, "east": 19},
-    "requires": [["item:key#1", "entrance.south2"]],
+    "requires": [["item:key#1", "entrance.east2"]],
     "receive": ["food:sunflowerSeeds#1", "food:strawberry#1"],
   },
   {
@@ -1076,7 +1076,7 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 15, "east": 18},
-    "requires": [["misc:blue crystal#1", "permit:bomb.2", "quest:gTree.?"]],
+    "requires": [["misc:blue crystal", "permit:bomb.2", "quest:gTree.10"]],
     "receive": ["food:chocolate#20", "item:bombs#50"],
   },
   {
@@ -1120,7 +1120,7 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 16, "east": 15},
-    "requires": [["misc:blue crystal#1"]],
+    "requires": [["misc:blue crystal"]],
     "receive": ["armor:diamondArmor", "quest:pam.16"],
   },
   {
@@ -1215,8 +1215,8 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 12, "east": 12},
     "requires": [
-      ["misc:blue crystal#1", "entrance.east1"],
-      ["misc:blue crystal#1", "entrance.south0"],
+      ["misc:blue crystal", "entrance.east1"],
+      ["misc:blue crystal", "entrance.south0"],
     ],
     "receive": ["magic:blessing"],
   },
@@ -1596,6 +1596,11 @@ MathQuest.js:42550 add listeners""",
     "receive": ["quest:isles.19"],
   },
   {
+    "room": {"north": 4, "east": 26},
+    "requires": [["quest:isles.19", "area:17", "area:6", "area:9", "area:2"]],
+    "receive": ["quest:isles.22"],
+  },
+  {
     "room": {"north": 201, "east": 200},
     "requires": [["quest:isles.2"]],
     "receive": ["quest:isles.3"],
@@ -1626,6 +1631,11 @@ MathQuest.js:42550 add listeners""",
     "receive": ["quest:isles.6"],
   },
   {
+    "room": {"north": 9.11, "east": 20},
+    "requires": [["quest:isles.6"]],
+    "receive": ["quest:isles.7"],
+  },
+  {
     "room": {"north": 300, "east": 300},
     "requires": [["quest:isles.15"]],
     "receive": ["quest:isles.16"],
@@ -1654,6 +1664,17 @@ MathQuest.js:42550 add listeners""",
     "room": {"north": 8, "east": 12},
     "requires": [["quest:isles.11"]],
     "receive": ["quest:isles.12"],
+  },
+
+    {
+    "room": {"north": 9.11, "east": 20},
+    "requires": [["quest:isles.12"]],
+    "receive": ["quest:isles.13"],
+  },
+    {
+    "room": {"north": 5, "east": 20},
+    "requires": [["quest:isles.13"]],
+    "receive": ["quest:isles.14"],
   },
   {
     "room": {"north": 9, "east": 18},
@@ -2141,7 +2162,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 4, "east": 26},
     "requires": [["quest:isles.22"]],
-    "receive": ["skill:tough"],
+    "receive": ["skill:tough", "quest:isles.23"],
   },
   # {
   #   "room": {"north": "?", "east": "?"},

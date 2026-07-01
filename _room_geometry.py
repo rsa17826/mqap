@@ -1703,6 +1703,16 @@ GEOM: list[ExitBase] = [
     },
   },
   {
+    "north": 9.11,
+    "east": 20,
+    "exits": {
+      "west": [],
+      "south": [],
+      "east": [],
+      "north": [],
+    },
+  },
+  {
     "north": 11,
     "east": 25,
     "exits": {

@@ -124,7 +124,7 @@ def create_and_connect_regions(world: World) -> None:
 
         # ─── ADD THIS BLOCK TO GENERATE THE ENTRANCE VIRTUAL EVENTS ───
         event_name = f"{n}_{e} - entrance.{side}{idx}"
-        _=region.add_event(
+        _ = region.add_event(
           location_name=event_name,
           item_name=event_name,
           location_type=locations.MathQuestLocation,
@@ -159,9 +159,7 @@ def create_and_connect_regions(world: World) -> None:
 
       for node in area_group["areas"]:
         node_regions = [
-          exit_regions[(n, e, ex["side"], ex["idx"])]
-          for ex in node
-          if (n, e, ex["side"], ex["idx"]) in exit_regions
+          exit_regions[(n, e, ex["side"], ex["idx"])] for ex in node if (n, e, ex["side"], ex["idx"]) in exit_regions
         ]
         if not node_regions:
           continue
@@ -337,11 +335,11 @@ def create_and_connect_regions(world: World) -> None:
       "rule": _reqs_to_rule([["flag:10.1 code"]]),
       "connections": ((10, 21, "root", 0), (10.1, 21, "root", 0)),
     },
+    {
+      "rule": None,
+      "connections": ((10.1, 21, "root", 0), (9.11, 20, "root", 0)),
+    },
   )
-  warp = Region("10.1_21: warp 0", world.player, world.multiworld)
-  warpDest = Region("9.11_20: warp 0", world.player, world.multiworld)
-  _connect(world, warpDest, warp, rule=None)
-  _connect(world, warp, warpDest, rule=None)
   for warpData in warps:
     warp = Region(
       f"{warpData['connections'][0][0]}_{warpData['connections'][0][1]}: warp 0", world.player, world.multiworld

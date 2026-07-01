@@ -39,7 +39,18 @@ for thing in PROG:
             "permit:",
             "misc:fire crystal",
             "item:key",
+            "item:gold",
+            "item:",
+            "skill:",
+            "food:",
+            "misc:blue crystal",
+            "misc:headstoneSwitch1",
+            "misc:headstoneSwitch2",
+            "misc:headstoneSwitch3",
+            "misc:headstoneSwitch4",
+            "item:emeralds", # Add specific progression items here
             # "entrance.",
+            "armor:",
             # "quest:",
             # "area:",
           )
@@ -48,8 +59,6 @@ for thing in PROG:
           ITEM_NAME_TO_ID[itemName] = _id_counter
         elif itemInfo.startswith(
           (
-            "skill:",
-            "armor:",
             "item:ring",
             "item:aurastones",
           )
@@ -58,8 +67,6 @@ for thing in PROG:
           ITEM_NAME_TO_ID[itemName] = _id_counter
         elif itemInfo.startswith(
           (
-            "item:",
-            "food:",
             "misc:",
             "craft:",
           )
