@@ -9,7 +9,11 @@ from . import items, locations
 from ._room_geometry import ExitBase
 
 
-def _reqs_to_rule(reqs: list[list[str]]) -> Rule | None:
+def _reqs_to_rule(reqs: list[list[str]]) -> Rule | None | bool:
+  # If it's an explicit empty requirement block [[]], it means "Blocked/Isolated"
+  if len(reqs) == 1 and len(reqs[0]) == 0:
+    return False
+
   if any(len(option) == 0 for option in reqs):
     return None
   rule: Rule | None = None
@@ -151,7 +155,8 @@ def create_and_connect_regions(world: World) -> None:
 
     for area_group in room["areas"]:
       rule = _reqs_to_rule(area_group["reqs"])
-
+      if rule is False:
+        continue
       # Each inner list is a "node" - exits that share the same physical area.
       # Exits in the same node are directly connected (no rule).
       # All nodes in the same group connect to each other via the group rule.

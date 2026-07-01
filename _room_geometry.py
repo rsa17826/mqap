@@ -1094,9 +1094,9 @@ GEOM: list[ExitBase] = [
       {
         "reqs": [[]],
         "areas": [
-          [{"side": "north", "idx": 0}],
-          [{"side": "north", "idx": 1}],
-          [{"side": "south", "idx": 0}],
+          [{"side": "north", "idx": 0}
+          ,{"side": "north", "idx": 1}
+          ,{"side": "south", "idx": 0}],
         ],
       }
     ],
