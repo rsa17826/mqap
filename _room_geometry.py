@@ -5170,10 +5170,6 @@ GEOM: list[ExitBase] = [
     "exits": {"west": [], "south": [], "east": [], "north": []},
   },
   {
-    # Pocket room between the two stairsDown warps near 10_21 / 9_20.
-    # Not part of the grid (no GEOM-adjacent edges reference it, see _exits.py),
-    # only reachable via door entries in EXITS["doors"]. Fully open inside,
-    # so no "areas" key.
     "north": 10.1,
     "east": 21,
     "exits": {"west": [], "south": [], "east": [], "north": []},
