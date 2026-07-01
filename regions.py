@@ -122,6 +122,15 @@ def create_and_connect_regions(world: World) -> None:
         # ONE-WAY ONLY: Establish the connection right here during creation!
         _connect(world, region, root_region, rule=None)
 
+        # ─── ADD THIS BLOCK TO GENERATE THE ENTRANCE VIRTUAL EVENTS ───
+        event_name = f"{n}_{e} - entrance.{side}{idx}"
+        _=region.add_event(
+          location_name=event_name,
+          item_name=event_name,
+          location_type=locations.MathQuestLocation,
+          item_type=items.MathQuestItem,
+        )
+
   # ── Pass 2: connect exits *within* each room via area groups ──────────────
   for room in GEOM:
     n, e = room["north"], room["east"]

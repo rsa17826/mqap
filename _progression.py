@@ -151,7 +151,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 12, "east": 9},
     "requires": [["item:gold"]],
-    "receive": ["food:cherry"],
+    "receive": ["food:cherries"],
   },
   {
     "room": {"north": 12, "east": 9},
@@ -725,7 +725,7 @@ MathQuest.js:42550 add listeners""",
     "room": {"north": 15, "east": 18},
     "requires": [["quest:gTree.17"]],
     # TODO
-    "receive": ["quest:gTree.18", "permit:shadowsoul entrance"],
+    "receive": ["quest:gTree.18", "permit:shadowsoulEntrance"],
   },
   {
     "room": {"north": 9, "east": 22},
@@ -761,9 +761,9 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 24, "east": 9},
-    "requires": [["quest:gTree.454565"]],
+    # "requires": [["quest:gTree.454565"]],
     # TODO gen should fail to win like this
-    # "requires": [["quest:gTree.22"]],
+    "requires": [["quest:gTree.22"]],
     "receive": ["quest:gTree.23", "flag:final boss dead"],
   },
   {
@@ -1313,7 +1313,7 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 4, "east": 24},
     "requires": [["item:key#1", "entrance.east0"]],
-    "receive": ["food:cherry#10"],
+    "receive": ["food:cherries#10"],
   },
   {
     "room": {"north": 6, "east": 24},
