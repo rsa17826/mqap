@@ -62,7 +62,6 @@ for thing in PROG:
             "food:",
             "misc:",
             "craft:",
-            "loot:",
           )
         ):
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.filler
@@ -71,6 +70,7 @@ for thing in PROG:
           (
             "quest:",
             "area:",
+            "loot:",
           )
         ):
           continue

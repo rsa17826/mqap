@@ -121,12 +121,7 @@ manager.correct - manager.wrong > 800 = halo
   # {"room": {"north": 12, "east": 19}, "info": "warp skill warp point"},
   {
     "room": {"north": 13, "east": 16},
-    "requires": [
-      [
-        "item:key#1",
-        "entrance.west0"
-      ]
-    ],
+    "requires": [["item:key#1", "entrance.west0"]],
     "receive": ["weapon:sKnife"],
   },
   # {"room": {"north": 14, "east": 16}, "info": "warp skill warp point"},
@@ -984,7 +979,7 @@ MathQuest.js:42550 add listeners""",
         "loot:sFrag#5",
         "loot:dScale#3",
         "loot:fBone#10",
-        "?misc:geomana",
+        # "?misc:geomana",
       ]
     ],
     "receive": ["quest:rings.14"],
@@ -1013,7 +1008,10 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 6, "east": 12},
     "requires": [["quest:rings.12", "quest:geo.5", "item:gold#1000"]],
-    "receive": ["quest:rings.13", "?misc:geomana"],
+    "receive": [
+      "quest:rings.13"
+      # , "?misc:geomana"
+    ],
   },
   {
     "room": {"north": 19, "east": 16},
@@ -1021,14 +1019,14 @@ MathQuest.js:42550 add listeners""",
     "receive": ["item:medallions"],
     "info": "add reqs later",
   },
-  {
-    "room": {"north": 13, "east": 14},
-    "requires": [
-      ["magic:fire.1", "quest:?", "entrance.east0"],
-      ["magic:fire.1", "quest:?", "entrance.north0", "permit:bomb"],
-    ],
-    "receive": ["???"],
-  },
+  # {
+  #   "room": {"north": 13, "east": 14},
+  #   "requires": [
+  #     ["magic:fire.1", "quest:?", "entrance.east0"],
+  #     ["magic:fire.1", "quest:?", "entrance.north0", "permit:bomb"],
+  #   ],
+  #   "receive": ["???"],
+  # },
   # TODO start of all chests remove dupes when done
   {
     "room": {"north": 18, "east": 20},
@@ -2129,10 +2127,6 @@ MathQuest.js:42550 add listeners""",
     "room": {"north": 9, "east": 25},
     "requires": [["item:emeralds"]],
     "receive": ["food:elixir#1"],
-  },
-  {
-    "room": {"north": 19, "east": 18},
-    "receive": ["rubies"],
   },
   {
     "room": {"north": 19, "east": 20},
