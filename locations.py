@@ -33,7 +33,7 @@ for thing in PROG:
         )
       ):
         # itemName = itemInfo.split("#")[0]
-        itemName = f"{thing['room']['north']}_{thing['room']['east']} - {itemInfo.split('#')[0]}"
+        itemName = f"{thing['room']['north']}_{thing['room']['east']} - {itemInfo.removesuffix('#1')}"
         if itemName not in LOCATION_NAME_TO_ID:
           LOCATION_NAME_TO_ID[itemName] = _id_counter
           _id_counter += 1
@@ -53,13 +53,14 @@ try:
 
         _ = f.write(
           f"""/**
-          * AUTO-GENERATED ARCHIPELAGO MANIFESTS
-          * Do not modify this file directly. Regenerate via your build script.
-          */
+* AUTO-GENERATED ARCHIPELAGO MANIFESTS
+* Do not modify this file directly. Regenerate via your build script.
+*/
 
-          const AP_LOCATION_IDS = {json.dumps(LOCATION_NAME_TO_ID, indent=2)}
-          const AP_ITEM_IDS = {json.dumps({v: k for k, v in ITEM_NAME_TO_ID.items()}, indent=2)}
-          console.log(`[Archipelago] Database ready: ${{Object.keys(AP_LOCATION_IDS).length}} locations, ${{Object.keys(AP_ITEM_IDS).length}} items.`);""" # noqa: E501
+const AP_LOCATION_IDS = {json.dumps(LOCATION_NAME_TO_ID, indent=2)}
+const AP_ITEM_IDS = {json.dumps({v: k for k, v in ITEM_NAME_TO_ID.items()}, indent=2)}
+
+console.log(`[Archipelago] Database ready: ${{Object.keys(AP_LOCATION_IDS).length}} locations, ${{Object.keys(AP_ITEM_IDS).length}} items.`);""" # noqa: E501
         )
 
         print(f"Success! Generated Client database at: {path}")
