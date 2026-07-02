@@ -43,7 +43,7 @@ for thing in PROG:
             "item:",
             "skill:",
             "food:",
-            "misc:magic only resist bypass",
+            "flag:magic only resist bypass",
             "misc:blue crystal",
             "misc:headstoneSwitch1",
             "misc:headstoneSwitch2",
