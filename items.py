@@ -38,7 +38,7 @@ for thing in PROG:
             # "flag:final boss dead",
             "permit:",
             "misc:fire crystal",
-            "item:key",
+            "loot:key",
             "item:gold",
             "item:",
             "skill:",
