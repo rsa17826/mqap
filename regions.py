@@ -9,7 +9,7 @@ from . import items, locations
 from ._room_geometry import ExitBase
 
 
-def _reqs_to_rule(reqs: list[list[str]]) -> Rule | None | bool:
+def _reqs_to_rule(reqs: list[list[str],]) -> Rule | None | bool:
   if any(len(option) == 0 for option in reqs):
     return None
   rule: Rule | None = None
@@ -32,26 +32,26 @@ def _get_or_create_root(world: World, n: int, e: int, exit_regions: dict) -> Reg
   return root_region
 
 
-def _connect_with_root(world: World, source: Region, target: Region, rule: Rule | None, exit_regions: dict) -> None:
-  """Connects source to target, and routes standard exits one-way into their room's root."""
-  # First, link the source and target normally
-  _connect(world, source, target, rule)
+# def _connect_with_root(world: World, source: Region, target: Region, rule: Rule | None, exit_regions: dict) -> None:
+#   """Connects source to target, and routes standard exits one-way into their room's root."""
+#   # First, link the source and target normally
+#   _connect(world, source, target, rule)
 
-  # Process both regions; if they are standard exits, route them into the root
-  for region in (source, target):
-    if ": " in region.name and "root" not in region.name:
-      try:
-        coords, _ = region.name.split(": ")
-        n_str, e_str = coords.split("_")
-        n, e = int(n_str), int(e_str)
+#   # Process both regions; if they are standard exits, route them into the root
+#   for region in (source, target):
+#     if ": " in region.name and "root" not in region.name:
+#       try:
+#         coords, _ = region.name.split(": ")
+#         n_str, e_str = coords.split("_")
+#         n, e = int(n_str), int(e_str)
 
-        root_region = _get_or_create_root(world, n, e, exit_regions)
+#         root_region = _get_or_create_root(world, n, e, exit_regions)
 
-        # ONE-WAY ONLY: From the exit into the root, unconditionally
-        _connect(world, region, root_region, rule=None)
+#         # ONE-WAY ONLY: From the exit into the root, unconditionally
+#         _connect(world, region, root_region, rule=None)
 
-      except ValueError:
-        continue
+#       except ValueError:
+#         continue
 
 
 def _connect(world: World, source: Region, target: Region, rule: Rule | None) -> None:

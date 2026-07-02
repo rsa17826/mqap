@@ -34,7 +34,7 @@ for thing in PROG:
         )
       ):
         # itemName = itemInfo.split("#")[0]
-        itemName = f"{thing['room']['north']}_{thing['room']['east']} - {itemInfo.split("#")[0]}"
+        itemName = f"{thing['room']['north']}_{thing['room']['east']} - {itemInfo.split('#')[0]}"
         if itemName not in LOCATION_NAME_TO_ID:
           LOCATION_NAME_TO_ID[itemName] = _id_counter
           _id_counter += 1
