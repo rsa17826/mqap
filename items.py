@@ -49,7 +49,6 @@ for thing in PROG:
             "misc:headstoneSwitch2",
             "misc:headstoneSwitch3",
             "misc:headstoneSwitch4",
-            "item:emeralds", # Add specific progression items here
             # "entrance.",
             "armor:",
             # "quest:",
