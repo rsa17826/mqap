@@ -78,8 +78,8 @@ try:
       with open(os.path.join(path, "archipelago_manifest.js"), "w", encoding="utf-8") as f: # noqa: PLW2901
         import json
 
+        from ._room_geometry import GEOM
         from .items import ITEM_NAME_TO_ID
-
         _ = f.write(
           f"""/**
 * AUTO-GENERATED ARCHIPELAGO MANIFESTS
@@ -89,10 +89,11 @@ try:
 const AP_LOCATION_IDS = {json.dumps(LOCATION_NAME_TO_ID, indent=2)}
 const AP_ITEM_IDS = {json.dumps({v: k for k, v in ITEM_NAME_TO_ID.items()}, indent=2)}
 
-const AP_ENTRANCE_IDS = {json.dumps(ENTRANCE_NAME_TO_ID, indent=2)}
-const AP_ENTRANCE_META = {json.dumps(ENTRANCE_META, indent=2)}
+const AP_ENTRANCE_IDS = {json.dumps(GEOM, indent=2)}
 const ROOM_INTERNAL_WIDTH = 710.0
 const ROOM_INTERNAL_HEIGHT = 560.0
+const BLOCKS_X = 14
+const BLOCKS_Y = 11
 
 console.log(`[Archipelago] Database ready: ${{Object.keys(AP_LOCATION_IDS).length}} locations, ${{Object.keys(AP_ITEM_IDS).length}} items, ${{Object.keys(AP_ENTRANCE_IDS).length}} entrances.`);""" # noqa: E501
         )

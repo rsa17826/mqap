@@ -9,6 +9,7 @@ from worlds.AutoWorld import World
 from . import items, locations
 from ._room_geometry import ExitBase
 import re
+
 # arbitrary but consistent group IDs
 GROUP_NS = 1
 GROUP_EW = 2
@@ -16,9 +17,10 @@ GROUP_EW = 2
 # no GROUP_WARP entry in TARGET_GROUP_LOOKUP because no ER exit is ever tagged with a warp group.
 
 TARGET_GROUP_LOOKUP: dict[int, list[int]] = {
-    GROUP_NS: [GROUP_NS],
-    GROUP_EW: [GROUP_EW],
+  GROUP_NS: [GROUP_NS],
+  GROUP_EW: [GROUP_EW],
 }
+
 
 def _reqs_to_rule(reqs: list[list[str],]) -> Rule | None | bool:
   if any(len(option) == 0 for option in reqs):
@@ -34,156 +36,156 @@ def _reqs_to_rule(reqs: list[list[str],]) -> Rule | None | bool:
 # function): both the vanilla wiring path (_connect_cross_room_vanilla) and the always-vanilla
 # warp wiring (_connect_warps_vanilla) need to iterate the exact same warp definitions.
 WARPS: tuple[dict, ...] = (
-    {
-      "rule": _reqs_to_rule([["permit:volcano"]]),
-      "connections": ((17, 17, "south", 0), (17, 17, "west", 0), (18, 17, "south", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((4, 13, "root", 0), (100, 100, "south", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((3, 16, "root", 0), (200, 200, "north", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((200, 200, "root", 0), (201, 200, "root", 0)),
-    },
-    {
-      "rule": _reqs_to_rule([["magic:drain", "quest:aSword.1"]]),
-      "connections": ((18, 25, "root", 0), (500, 500, "north", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((6, 21, "root", 0), (300, 300, "south", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((10, 16, "root", 0), (10, 17, "south", 0)),
-    },
-    {
-      "rule": _reqs_to_rule([["permit:bomb"]]),
-      "connections": ((11, 13, "root", 0), (11, 14, "south", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((11, 14, "root", 0), (9, 13, "root", 0)),
-    },
-    {
-      "rule": _reqs_to_rule([["magic:drain"]]),
-      "connections": ((9, 13, "root", 0), (10, 13, "root", 0), (9, 14, "root", 0)),
-    },
-    {
-      "rule": _reqs_to_rule([["magic:drain"]]),
-      "connections": ((9, 14, "root", 0), (10, 14, "north", 0)),
-    },
-    {
-      "rule": _reqs_to_rule([["misc:fire crystal"]]),
-      "connections": ((8, 9, "root", 0), (7, 9, "south", 0)),
-    },
-    {
-      "rule": _reqs_to_rule([["flag:lit torch 2", "flag:lit torch 1"]]),
-      "connections": ((6, 23, "root", 0), (5, 23, "south", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((17, 14, "root", 0), (18, 14, "north", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((20, 12, "root", 0), (21, 12, "south", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((22, 10, "root", 0), (22, 13, "east", 0), (22, 13, "north", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((21, 13, "east", 1), (22, 11, "south", 0), (22, 11, "north", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((22, 12, "root", 0), (21, 9, "north", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((18, 12, "root", 0), (18, 11, "west", 0)),
-    },
-    {
-      "rule": _reqs_to_rule([["permit:bomb"]]),
-      "connections": ((10, 12, "root", 0), (7, 12, "south", 0)),
-    },
-    {
-      "rule": _reqs_to_rule([["permit:bomb"]]),
-      "connections": ((12, 21, "root", 0), (11, 21, "root", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((18, 16, "root", 0), (19, 16, "south", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((19, 16, "root", 0), (19, 15, "north", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((9, 22, "north", 0), (9, 21, "root", 0)),
-    },
-    {
-      "rule": _reqs_to_rule([["permit:bomb.2"]]),
-      "connections": ((12, 14, "root", 0), (9, 21, "root", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((21, 21, "east", 0), (20, 21, "root", 0)),
-    },
-    {
-      "rule": _reqs_to_rule([["permit:bomb", "magic:lightning"]]),
-      "connections": ((20, 21, "root", 0), (19, 22, "root", 0)),
-    },
-    {
-      "rule": _reqs_to_rule([["permit:bomb.2"]]),
-      "connections": ((12, 23, "root", 0), (12, 22, "north", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((24, 10, "root", 0), (23, 14, "north", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((24, 13, "root", 0), (23, 10, "root", 0)),
-    },
-    {
-      "rule": _reqs_to_rule([["quest:gTree.9"]]),
-      "connections": ((17, 19, "root", 0), (17.1, 19, "root", 0)),
-    },
-    {
-      "rule": _reqs_to_rule([["quest:gTree.9"]]),
-      "connections": ((15, 17, "root", 0), (17.1, 19, "root", 0)),
-    },
-    {
-      "rule": _reqs_to_rule([["flag:10.1 code"]]),
-      "connections": ((10, 21, "root", 0), (10.1, 21, "root", 0)),
-    },
-    {
-      "rule": None,
-      "connections": ((10.1, 21, "root", 0), (9.11, 20, "root", 0)),
-    },
+  {
+    "rule": _reqs_to_rule([["permit:volcano"]]),
+    "connections": ((17, 17, "south", 0), (17, 17, "west", 0), (18, 17, "south", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((4, 13, "root", 0), (100, 100, "south", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((3, 16, "root", 0), (200, 200, "north", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((200, 200, "root", 0), (201, 200, "root", 0)),
+  },
+  {
+    "rule": _reqs_to_rule([["magic:drain", "quest:aSword.1"]]),
+    "connections": ((18, 25, "root", 0), (500, 500, "north", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((6, 21, "root", 0), (300, 300, "south", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((10, 16, "root", 0), (10, 17, "south", 0)),
+  },
+  {
+    "rule": _reqs_to_rule([["permit:bomb"]]),
+    "connections": ((11, 13, "root", 0), (11, 14, "south", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((11, 14, "root", 0), (9, 13, "root", 0)),
+  },
+  {
+    "rule": _reqs_to_rule([["magic:drain"]]),
+    "connections": ((9, 13, "root", 0), (10, 13, "root", 0), (9, 14, "root", 0)),
+  },
+  {
+    "rule": _reqs_to_rule([["magic:drain"]]),
+    "connections": ((9, 14, "root", 0), (10, 14, "north", 0)),
+  },
+  {
+    "rule": _reqs_to_rule([["misc:fire crystal"]]),
+    "connections": ((8, 9, "root", 0), (7, 9, "south", 0)),
+  },
+  {
+    "rule": _reqs_to_rule([["flag:lit torch 2", "flag:lit torch 1"]]),
+    "connections": ((6, 23, "root", 0), (5, 23, "south", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((17, 14, "root", 0), (18, 14, "north", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((20, 12, "root", 0), (21, 12, "south", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((22, 10, "root", 0), (22, 13, "east", 0), (22, 13, "north", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((21, 13, "east", 1), (22, 11, "south", 0), (22, 11, "north", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((22, 12, "root", 0), (21, 9, "north", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((18, 12, "root", 0), (18, 11, "west", 0)),
+  },
+  {
+    "rule": _reqs_to_rule([["permit:bomb"]]),
+    "connections": ((10, 12, "root", 0), (7, 12, "south", 0)),
+  },
+  {
+    "rule": _reqs_to_rule([["permit:bomb"]]),
+    "connections": ((12, 21, "root", 0), (11, 21, "root", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((18, 16, "root", 0), (19, 16, "south", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((19, 16, "root", 0), (19, 15, "north", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((9, 22, "north", 0), (9, 21, "root", 0)),
+  },
+  {
+    "rule": _reqs_to_rule([["permit:bomb.2"]]),
+    "connections": ((12, 14, "root", 0), (9, 21, "root", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((21, 21, "east", 0), (20, 21, "root", 0)),
+  },
+  {
+    "rule": _reqs_to_rule([["permit:bomb", "magic:lightning"]]),
+    "connections": ((20, 21, "root", 0), (19, 22, "root", 0)),
+  },
+  {
+    "rule": _reqs_to_rule([["permit:bomb.2"]]),
+    "connections": ((12, 23, "root", 0), (12, 22, "north", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((24, 10, "root", 0), (23, 14, "north", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((24, 13, "root", 0), (23, 10, "root", 0)),
+  },
+  {
+    "rule": _reqs_to_rule([["quest:gTree.9"]]),
+    "connections": ((17, 19, "root", 0), (17.1, 19, "root", 0)),
+  },
+  {
+    "rule": _reqs_to_rule([["quest:gTree.9"]]),
+    "connections": ((15, 17, "root", 0), (17.1, 19, "root", 0)),
+  },
+  {
+    "rule": _reqs_to_rule([["flag:10.1 code"]]),
+    "connections": ((10, 21, "root", 0), (10.1, 21, "root", 0)),
+  },
+  {
+    "rule": None,
+    "connections": ((10.1, 21, "root", 0), (9.11, 20, "root", 0)),
+  },
 )
 
 
-def _get_or_create_root(world: World, n: int, e: int, exit_regions: dict) -> Region:
-  """Finds or creates the central 'root' region for a specific room coordinate."""
-  root_key = (n, e, "root", 0)
-  if root_key in exit_regions:
-    return exit_regions[root_key]
+# def _get_or_create_root(world: World, n: int, e: int, exit_regions: dict) -> Region:
+#   """Finds or creates the central 'root' region for a specific room coordinate."""
+#   root_key = (n, e, "root", 0)
+#   if root_key in exit_regions:
+#     return exit_regions[root_key]
 
-  root_name = f"{n}_{e}: root"
-  root_region = Region(root_name, world.player, world.multiworld)
-  world.multiworld.regions.append(root_region)
-  exit_regions[root_key] = root_region
-  return root_region
+#   root_name = f"{n}_{e}: root"
+#   root_region = Region(root_name, world.player, world.multiworld)
+#   world.multiworld.regions.append(root_region)
+#   exit_regions[root_key] = root_region
+#   return root_region
 
 
 # def _connect_with_root(world: World, source: Region, target: Region, rule: Rule | None, exit_regions: dict) -> None:
@@ -251,53 +253,56 @@ def _connect(world: World, source: Region, target: Region, rule: Rule | None) ->
   entrance.connect(target)
   return entrance
 
+
 _SIDE_GROUP: dict[str, int] = {"north": GROUP_NS, "south": GROUP_NS, "east": GROUP_EW, "west": GROUP_EW}
 
 
 def finalize_entrance_randomization(world: World) -> None:
-    print("asdasdadsdsaasdadssd")
-    """Call this from World.connect_entrances (never from create_regions — Generic ER's own docs
+  print("asdasdadsdsaasdadssd")
+  """Call this from World.connect_entrances (never from create_regions — Generic ER's own docs
     require randomize_entrances to run at that stage). By this point _mq_er_candidates already
     holds real, vanilla-connected Entrance objects (tagged during Pass 3 in create_and_connect_regions),
     so disconnect_entrance_for_randomization has an actual connected_region to split — no need to
     fabricate throwaway connections just to immediately tear them apart."""
-    er_candidates: list[Entrance] = getattr(world, "_mq_er_candidates", [])
-    if not er_candidates:
-        world.er_pairings = []
-        return
-    print(er_candidates)
-    for entrance in er_candidates:
-        disconnect_entrance_for_randomization(entrance)
+  er_candidates: list[Entrance] = getattr(world, "_mq_er_candidates", [])
+  if not er_candidates:
+    world.er_pairings = []
+    return
+  print(er_candidates)
+  for entrance in er_candidates:
+    disconnect_entrance_for_randomization(entrance)
 
-    placement_state = randomize_entrances(
-        world,
-        coupled=True,
-        target_group_lookup=TARGET_GROUP_LOOKUP,
-        exits=er_candidates,
-    )
-    world.er_pairings = placement_state.pairings
+  placement_state = randomize_entrances(
+    world,
+    coupled=True,
+    target_group_lookup=TARGET_GROUP_LOOKUP,
+    exits=er_candidates,
+  )
+  world.er_pairings = placement_state.pairings
+  write_er_connections_json(world)
+
 
 def create_and_connect_regions(world: World) -> None:
-    """Called from World.create_regions. Always builds the complete VANILLA region graph —
-    including cross-room exits and warps — regardless of entrance_rando. If entrance_rando is on,
-    the Pass 3 cross-room entrances are additionally tagged and stashed on world._mq_er_candidates
-    for finalize_entrance_randomization (called later, from World.connect_entrances) to actually
-    disconnect and re-shuffle. Building the real vanilla graph up front means ER has genuine
-    connected_region entrances to split, rather than needing throwaway fake connections."""
-    from ._room_geometry import GEOM
+  """Called from World.create_regions. Always builds the complete VANILLA region graph —
+  including cross-room exits and warps — regardless of entrance_rando. If entrance_rando is on,
+  the Pass 3 cross-room entrances are additionally tagged and stashed on world._mq_er_candidates
+  for finalize_entrance_randomization (called later, from World.connect_entrances) to actually
+  disconnect and re-shuffle. Building the real vanilla graph up front means ER has genuine
+  connected_region entrances to split, rather than needing throwaway fake connections."""
+  from ._room_geometry import GEOM
 
-    exit_regions: dict[tuple[int, int, str, int], Region] = {}
+  exit_regions: dict[tuple[int, int, str, int], Region] = {}
 
-    _create_exit_regions_and_roots(world, GEOM, exit_regions)
-    _connect_intra_room(world, GEOM, exit_regions)
+  _create_exit_regions_and_roots(world, GEOM, exit_regions)
+  _connect_intra_room(world, GEOM, exit_regions)
 
-    er_candidates = _connect_cross_room_vanilla(
-        world, GEOM, exit_regions, tag_for_er=bool(world.options.entrance_rando)
-    )
-    world._mq_er_candidates = er_candidates # picked up later by finalize_entrance_randomization
+  er_candidates = _connect_cross_room_vanilla(world, GEOM, exit_regions, tag_for_er=bool(world.options.entrance_rando))
+  world._mq_er_candidates = er_candidates # picked up later by finalize_entrance_randomization
 
-    # Warps always wire vanilla, whether or not entrance_rando is on (see _connect_warps_vanilla).
-    _connect_warps_vanilla(world, exit_regions)
+  # Warps always wire vanilla, whether or not entrance_rando is on (see _connect_warps_vanilla).
+  _connect_warps_vanilla(world, exit_regions)
+
+
 def _create_exit_regions_and_roots(world: World, GEOM, exit_regions: dict) -> None:
   # NOTE: exit_regions is populated in place (do NOT shadow it with a fresh local dict here —
   # the caller's dict is what gets passed into _connect_intra_room / the Pass 3 functions below).
@@ -367,9 +372,7 @@ def _connect_intra_room(world: World, GEOM, exit_regions: dict) -> None:
           _connect(world, other, rep, rule=rule)
 
 
-def _connect_cross_room_vanilla(
-  world: World, GEOM, exit_regions: dict, tag_for_er: bool = False
-) -> list[Entrance]:
+def _connect_cross_room_vanilla(world: World, GEOM, exit_regions: dict, tag_for_er: bool = False) -> list[Entrance]:
   # ── Pass 3: connect exits *across* room boundaries ────────────────────────
   # Always builds real vanilla connections. When tag_for_er is True, each created entrance is
   # additionally marked with a randomization_group/type and returned so connect_entrances can
@@ -423,10 +426,6 @@ def _connect_warps_vanilla(world: World, exit_regions: dict, warps: tuple[dict, 
     for con in warpData["connections"]:
       _connect(world, exit_regions[*con], warp, rule=warpData["rule"])
       _connect(world, warp, exit_regions[*con], rule=warpData["rule"])
-
-
-def connect_doors(world: World) -> None:
-  return
 
 
 _EXIT_REGION_RE = re.compile(r"^(-?\d+(?:\.\d+)?)_(-?\d+(?:\.\d+)?): (\w+) (\d+)$")
@@ -540,24 +539,18 @@ def build_er_connections_data(world: World) -> list[dict]:
     from_pos = _compute_exit_position(from_gap, oside) if from_gap else {}
     to_pos = _compute_exit_position(to_gap, dside) if to_gap else {}
     print(from_pos)
-    connections.append({
-      "originNorth": on,
-      "originEast": oe,
-      "vanillaDestNorth": vanilla_dest_north,
-      "vanillaDestEast": vanilla_dest_east,
-      "newDestNorth": dn,
-      "newDestEast": de,
-      "newX": to_pos.get("dest_x", 330),
-      "newY": to_pos.get("dest_y", 255),
-      "xIsEven": to_pos.get("xIsEven", 0),
-      "yIsEven": to_pos.get("yIsEven", 0),
-      "srcCoord": from_pos.get("src_coord"),
-      "direction": oside,
-      "mechanism": "edge",
-      "requires": [],
-      "fromExitId": f"{on}_{oe}:{oside}{oidx}",
-      "toExitId": f"{dn}_{de}:{dside}{didx}",
-    })
+    connections.append(
+      {
+        "north": on,
+        "east": oe,
+        "side": oside,
+        "idx": oidx_s,
+        "exitNorth": dn,
+        "exitEast": de,
+        "exitSide": dside,
+        "exitIdx": didx_s,
+      }
+    )
 
   return connections
 
@@ -568,9 +561,6 @@ def write_er_connections_json(world: World) -> None:
   World.generate_output. No-ops (writes an empty connections list) when entrance_rando is off."""
   import json
   import os
-
-  out_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "json")
-  os.makedirs(out_dir, exist_ok=True)
 
   connections = build_er_connections_data(world) if world.options.entrance_rando else []
   try:
@@ -590,12 +580,3 @@ def write_er_connections_json(world: World) -> None:
     pass
   except Exception as e:
     print(e)
-
-
-
-def connect_regions(world: World) -> None:
-  return
-
-
-def _connect_internal_slots(world: World, room: ExitBase, roomId: str) -> None:
-  return
