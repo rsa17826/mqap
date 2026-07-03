@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import re
+
 from BaseClasses import Entrance, Region
 from entrance_rando import EntranceType, disconnect_entrance_for_randomization, randomize_entrances
 from rule_builder.rules import Has, HasAll, Rule
@@ -8,17 +10,21 @@ from worlds.AutoWorld import World
 
 from . import items, locations
 from ._room_geometry import ExitBase
-import re
 
-# arbitrary but consistent group IDs
-GROUP_NS = 1
-GROUP_EW = 2
+# arbitrary but consistent group IDs — one per literal side, so we can force opposite-side
+# pairing (north only connects to south, east only to west) instead of same-axis pairing.
+GROUP_NORTH = 1
+GROUP_SOUTH = 2
+GROUP_EAST = 3
+GROUP_WEST = 4
 # NOTE: warps are intentionally excluded from ER — see _connect_warps_vanilla for why. There is
 # no GROUP_WARP entry in TARGET_GROUP_LOOKUP because no ER exit is ever tagged with a warp group.
 
 TARGET_GROUP_LOOKUP: dict[int, list[int]] = {
-  GROUP_NS: [GROUP_NS],
-  GROUP_EW: [GROUP_EW],
+  GROUP_NORTH: [GROUP_SOUTH],
+  GROUP_SOUTH: [GROUP_NORTH],
+  GROUP_EAST: [GROUP_WEST],
+  GROUP_WEST: [GROUP_EAST],
 }
 
 
@@ -254,7 +260,7 @@ def _connect(world: World, source: Region, target: Region, rule: Rule | None) ->
   return entrance
 
 
-_SIDE_GROUP: dict[str, int] = {"north": GROUP_NS, "south": GROUP_NS, "east": GROUP_EW, "west": GROUP_EW}
+_SIDE_GROUP: dict[str, int] = {"north": GROUP_NORTH, "south": GROUP_SOUTH, "east": GROUP_EAST, "west": GROUP_WEST}
 
 
 def finalize_entrance_randomization(world: World) -> None:
@@ -555,28 +561,54 @@ def build_er_connections_data(world: World) -> list[dict]:
   return connections
 
 
+table_js = None
+
+
 def write_er_connections_json(world: World) -> None:
   """Writes worlds/mathquest/json/connections.json — the file patch_rooms.py reads at patch time
   (its OUT_DIR is the mathquest package's own directory, not the AP output folder). Call this from
   World.generate_output. No-ops (writes an empty connections list) when entrance_rando is off."""
-  import json
-  import os
-
   connections = build_er_connections_data(world) if world.options.entrance_rando else []
-  try:
-    with open("./path", "r") as f:
-      path = f.read().strip()
-      import os
 
-      path = os.path.abspath(os.path.expanduser(path))
-      if os.path.isdir(path):
-        with open(os.path.join(path, "json", "connections.json"), "w", encoding="utf-8") as f: # noqa: PLW2901
-          import json
+  def fmt_num(n):
+    if n is None:
+      return "-1"
+    if isinstance(n, str):
+      return f'"{n}"'
+    if n == int(n):
+      return str(int(n))
+    return f"{n:.4f}"
 
-          json.dump({"connections": connections, "seed": world.multiworld.seed_name}, f, indent=2)
+  global table_js
+  rows = [
+    "[{},{},{},{},{},{},{},{}]".format(
+      fmt_num(c["north"]),
+      fmt_num(c["east"]),
+      fmt_num(c["side"]),
+      fmt_num(c["idx"]),
+      fmt_num(c["exitNorth"]),
+      fmt_num(c["exitEast"]),
+      fmt_num(c["exitSide"]),
+      fmt_num(c["exitIdx"]),
+    )
+    for c in connections
+  ]
+  table_js = ",".join(rows)
+  from .__trywritefile import trywritefile
+  trywritefile()
+  # try:
+  #   with open("./path", "r") as f:
+  #     path = f.read().strip()
+  #     import os
 
-          print(f"Success! Generated Client connections at: {path}")
-  except FileNotFoundError:
-    pass
-  except Exception as e:
-    print(e)
+  #     path = os.path.abspath(os.path.expanduser(path))
+  #     if os.path.isdir(path):
+  #       with open(os.path.join(path, "json", "connections.json"), "w", encoding="utf-8") as f: # noqa: PLW2901
+
+  #         json.dump({"connections": connections, "seed": world.multiworld.seed_name}, f, indent=2)
+
+  #         print(f"Success! Generated Client connections at: {path}")
+  # except FileNotFoundError:
+  #   pass
+  # except Exception as e:
+  #   print(e)
