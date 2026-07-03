@@ -29,7 +29,7 @@ class MathQuestWorld(World):
     type[PerGameCommonOptions], MathQuest_options.MathQuestOptions
   )
   options: MathQuest_options.MathQuestOptions
-
+  er_pairings: ClassVar[list[tuple[str, str]]] = []
   # Our world class must have a static location_name_to_id and item_name_to_id defined.
   # We define these in regions.py and items.py respectively, so we just set them here.
   location_name_to_id: ClassVar[dict[str, int]] = locations.LOCATION_NAME_TO_ID
@@ -46,6 +46,15 @@ class MathQuestWorld(World):
   def create_regions(self) -> None:
     regions.create_and_connect_regions(self)
     locations.create_all_locations(self)
+
+  @override
+  def connect_entrances(self) -> None:
+    # Generic ER requires randomize_entrances to run here, not in create_regions.
+    # create_and_connect_regions() (called above, in create_regions) already built the complete
+    # vanilla graph and — if entrance_rando is on — tagged the Pass 3 room-exit entrances onto
+    # self._mq_er_candidates. This just finalizes the shuffle now that all worlds have finished
+    # creating their regions.
+    regions.finalize_entrance_randomization(self)
 
   @override
   def set_rules(self) -> None:
