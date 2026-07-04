@@ -33,7 +33,7 @@ for thing in PROG:
             # "flag:final boss dead",
             "permit:",
             "misc:fire crystal",
-            "item:gold",
+            "loot:gold",
             "item:",
             "skill:",
             "food:",
@@ -70,9 +70,18 @@ for thing in PROG:
           (
             "quest:",
             "area:",
+          )
+        ):
+          continue
+        elif itemInfo.startswith(
+          (
             "loot:",
           )
         ):
+          if itemName.split("#", 1)[0] not in HAS_LIST:
+            HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName)
+          else:
+            HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName) | HAS_LIST[itemName.split("#", 1)[0]]
           continue
         else:
           print(itemName, "not used")

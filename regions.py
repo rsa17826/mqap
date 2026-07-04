@@ -29,7 +29,7 @@ TARGET_GROUP_LOOKUP: dict[int, list[int]] = {
 from .items import HAS_LIST
 
 
-def _reqs_to_rule(reqs: list[list[str],]) -> Rule | None | bool:
+def _reqs_to_rule(reqs: list[list[str],]) -> Rule | None:
   if any(len(option) == 0 for option in reqs):
     return None
   rule: Rule | None = None

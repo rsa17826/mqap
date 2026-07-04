@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 from functools import reduce
 
-from rule_builder.rules import Has, HasAll
+from rule_builder.rules import Has, HasAll, Rule
 
 from worlds.AutoWorld import World
 
@@ -28,6 +28,7 @@ def set_all_entrance_rules(_world: World) -> None:
 
 
 _ENTRANCE_RE = re.compile(r"^entrance\.[a-z]+\d+$")
+from .items import HAS_LIST
 
 
 def set_all_location_rules(world: World) -> None:
@@ -50,7 +51,7 @@ def set_all_location_rules(world: World) -> None:
       location = world.get_location(loc_name)
 
       # 2. Build and apply the rules
-      allConditions: list[HasAll[World] | Has[World]] = []
+      allConditions: list[Rule[World]] = []
       for _and in node.get("requires", []):
         clean_items: list[str] = []
         for token in _and:
@@ -60,11 +61,25 @@ def set_all_location_rules(world: World) -> None:
           clean_items.append(name)
 
         if len(clean_items):
-          allConditions.append(HasAll(*clean_items) if len(clean_items) > 1 else Has(clean_items[0]))
+          sub_rule: Rule | None = None
+          for item in clean_items:
+            tname = item.split("#", 1)[0]
+            if tname in HAS_LIST:
+              temprule = HAS_LIST[tname]
+            else:
+              temprule = Has(item)
+            if sub_rule is None:
+              sub_rule = temprule
+            else:
+              sub_rule = sub_rule | temprule
+          assert sub_rule is not None
+          allConditions.append(sub_rule)
+          # allConditions.append(HasAll(*clean_items) if len(clean_items) > 1 else Has(clean_items[0]))
 
       if allConditions:
+        print(allConditions, "allConditions")
+        print(HAS_LIST, "HAS_LIST")
         world.set_rule(location, reduce(lambda a, s: a | s, allConditions))
-
 
 # def set_all_location_rules(world: World) -> None:
 #   """
