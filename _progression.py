@@ -19,12 +19,135 @@ PROG: list[ProgressionNode] = [
     "room": {"north": 20, "east": 20},
     "requires": [
       [
+        "area:6",
+      ],
+    ],
+    "receive": [
+      "loot:cFang",
+    ],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [
+      [
+        "area:11",
+      ],
+    ],
+    "receive": [
+      "loot:sFrag",
+    ],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [
+      [
+        "area:4",
+      ],
+    ],
+    "receive": [
+      "loot:wPelt",
+    ],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [
+      [
+        "area:15",
+      ],
+    ],
+    "receive": [
+      "loot:vAsh",
+    ],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [
+      [
+        "area:6",
+      ],
+    ],
+    "receive": [
+      "loot:sClaw",
+    ],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [
+      [
+        "area:3",
+      ],
+    ],
+    "receive": [
+      "loot:tBand",
+    ],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [
+      [
+        "area:16",
+      ],
+    ],
+    "receive": [
+      "loot:oArm",
+    ],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [
+      [
+        "area:1",
+        # TODO
+        # "area:1.water",
+      ],
+    ],
+    "receive": [
+      "loot:gSkin",
+    ],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [
+      [
+        "area:7",
+      ],
+    ],
+    "receive": [
+      "loot:mHorn",
+    ],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [
+      [
         "area:2",
       ],
     ],
     "receive": [
       "loot:venom",
       "loot:bClaw",
+    ],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [
+      [
+        "area:13",
+      ],
+    ],
+    "receive": [
+      "loot:mHat",
+    ],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [
+      [
+        "area:5",
+      ],
+    ],
+    "receive": [
+      "loot:fBone",
     ],
   },
   {
@@ -188,19 +311,7 @@ manager.correct - manager.wrong > 800 = halo
       [],
     ],
     "receive": [
-      "loot:cFang",
       "loot:emeralds",
-      "loot:fBone",
-      "loot:gSkin",
-      "loot:gFeather",
-      "loot:mHat",
-      "loot:mHorn",
-      "loot:sClaw",
-      "loot:sFrag",
-      "loot:oArm",
-      "loot:tBand",
-      "loot:vAsh",
-      "loot:wPelt",
     ],
     "info": """add to correct locations later
 """,
@@ -1534,6 +1645,7 @@ MathQuest.js:42550 add listeners""",
     "receive": [
       "quest:gTree.16",
       "flag:7_11 boss dead",
+      "loot:gFeather",
     ],
   },
   {
@@ -4616,17 +4728,6 @@ MathQuest.js:42550 add listeners""",
     "room": {"north": 4, "east": 24},
     "receive": [
       "food:cherries",
-    ],
-  },
-  {
-    "room": {"north": 18, "east": 21},
-    "requires": [
-      [
-        "loot:key",
-      ],
-    ],
-    "receive": [
-      "food:gingerBread",
     ],
   },
   {
