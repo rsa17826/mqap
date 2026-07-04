@@ -77,8 +77,8 @@ def set_all_location_rules(world: World) -> None:
           # allConditions.append(HasAll(*clean_items) if len(clean_items) > 1 else Has(clean_items[0]))
 
       if allConditions:
-        print(allConditions, "allConditions")
-        print(HAS_LIST, "HAS_LIST")
+        # print(allConditions, "allConditions")
+        # print(HAS_LIST, "HAS_LIST")
         world.set_rule(location, reduce(lambda a, s: a | s, allConditions))
 
 # def set_all_location_rules(world: World) -> None:

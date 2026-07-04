@@ -4699,12 +4699,6 @@ MathQuest.js:42550 add listeners""",
     ],
   },
   {
-    "room": {"north": 14, "east": 18},
-    "receive": [
-      "misc:misc",
-    ],
-  },
-  {
     "room": {"north": 13, "east": 17},
     "requires": [
       [
