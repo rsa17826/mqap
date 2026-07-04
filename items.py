@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from BaseClasses import Item, ItemClassification
+from rule_builder.rules import Has, HasAll, Rule
 
 from worlds.AutoWorld import World
 
@@ -14,11 +15,14 @@ ITEM_NAME_TO_ID: dict[str, int] = {"trap:deldel": 99999}
 DEFAULT_ITEM_CLASSIFICATIONS = {
   "trap:deldel": ItemClassification.trap,
 }
+
+HAS_LIST: dict[str, Rule[World]] = {}
+
 _id_counter = 1
 for thing in PROG:
   if "receive" in thing:
     for itemInfo in thing["receive"]:
-      itemName = itemInfo.split("#")[0]
+      itemName = itemInfo
       # itemName = itemInfo.removesuffix("#1")
       if itemName not in ITEM_NAME_TO_ID:
         # TODO
@@ -29,12 +33,10 @@ for thing in PROG:
             # "flag:final boss dead",
             "permit:",
             "misc:fire crystal",
-            "loot:key",
             "item:gold",
             "item:",
             "skill:",
             "food:",
-            "flag:magic only resist bypass",
             "misc:blue crystal",
             "misc:headstoneSwitch1",
             "misc:headstoneSwitch2",
@@ -76,6 +78,10 @@ for thing in PROG:
           print(itemName, "not used")
           continue
         _id_counter += 1
+        if itemName.split("#", 1)[0] not in HAS_LIST:
+          HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName)
+        else:
+          HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName) | HAS_LIST[itemName.split("#", 1)[0]]
 
 
 # Each Item instance must correctly report the "game" it belongs to.
@@ -194,6 +200,7 @@ def create_all_items(world: World) -> None:
   # This is how the generator actually knows about the existence of our items.
   world.multiworld.itempool += itempool
   from .__trywritefile import trywritefile
+
   trywritefile()
   # Sometimes, you might want the player to start with certain items already in their inventory.
   # These items are called "precollected items".

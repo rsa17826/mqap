@@ -41,6 +41,8 @@ def set_all_location_rules(world: World) -> None:
       clean_item = itemInfo.split("#")[0]
 
       # 1. Handle the naming difference between events and standard locations
+      if clean_item.startswith(("loot:")):
+        continue
       if clean_item.startswith(("quest:", "flag:", "area:", "loot:")):
         loc_name = f"{room_id_base}: root - {clean_item}"
       else:
@@ -52,7 +54,7 @@ def set_all_location_rules(world: World) -> None:
       for _and in node.get("requires", []):
         clean_items: list[str] = []
         for token in _and:
-          name = token.split("#")[0]
+          name = token
           if _ENTRANCE_RE.match(name):
             name = f"{room_id_base} - {name}"
           clean_items.append(name)

@@ -37,8 +37,9 @@ for thing in PROG:
         if itemName not in LOCATION_NAME_TO_ID:
           LOCATION_NAME_TO_ID[itemName] = _id_counter
           _id_counter += 1
-
+print(LOCATION_NAME_TO_ID, "LOCATION_NAME_TO_ID")
 from .__trywritefile import trywritefile
+
 trywritefile()
 
 # print(LOCATION_NAME_TO_ID)

@@ -26,6 +26,7 @@ TARGET_GROUP_LOOKUP: dict[int, list[int]] = {
   GROUP_EAST: [GROUP_WEST],
   GROUP_WEST: [GROUP_EAST],
 }
+from .items import HAS_LIST
 
 
 def _reqs_to_rule(reqs: list[list[str],]) -> Rule | None | bool:
@@ -33,7 +34,18 @@ def _reqs_to_rule(reqs: list[list[str],]) -> Rule | None | bool:
     return None
   rule: Rule | None = None
   for option in reqs:
-    sub_rule: Rule = HasAll(*option) if len(option) > 1 else Has(option[0])
+    sub_rule: Rule | None = None # = HasAll(*option) if len(option) > 1 else Has(option[0])
+    for item in option:
+      tname = item.split("#", 1)[0]
+      if tname in HAS_LIST:
+        temprule = HAS_LIST[tname]
+      else:
+        temprule = Has(item)
+      if sub_rule is None:
+        sub_rule = temprule
+      else:
+        sub_rule = sub_rule & temprule
+    assert sub_rule is not None
     rule = sub_rule if rule is None else (rule | sub_rule)
   return rule
 
@@ -585,6 +597,7 @@ def write_er_connections_json(world: World) -> None:
   ]
   table_js = ",".join(rows)
   from .__trywritefile import trywritefile
+
   trywritefile()
   # try:
   #   with open("./path", "r") as f:
