@@ -8,8 +8,8 @@ def trywritefile():
     return
   if len(ITEM_NAME_TO_ID.keys())<3:
     return
-  if not table_js or len(table_js)<3:
-    return
+  # if not table_js or len(table_js)<3:
+  #   return
   try:
     with open("./path", "r") as f:
       path = f.read().strip()
@@ -37,6 +37,9 @@ const BLOCKS_Y = 11
 const BLOCK_W = ROOM_INTERNAL_WIDTH / BLOCKS_X
 const BLOCK_H = ROOM_INTERNAL_HEIGHT / BLOCKS_Y
 
+/**
+ * @type (string|number)[][]
+ */
 var ER_TABLE = [{table_js or ""}]
 var ER_MAP = new Map()
 window.ER_MAP=ER_MAP

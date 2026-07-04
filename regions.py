@@ -551,7 +551,7 @@ def build_er_connections_data(world: World) -> list[dict]:
   return connections
 
 
-table_js = None
+table_js = []
 
 
 def write_er_connections_json(world: World) -> None:
