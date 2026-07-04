@@ -9,19 +9,10 @@ from ._progression import PROG
 # Every item must have a unique integer ID associated with it.
 # We will have a lookup from item name to ID here that, in world.py, we will import and bind to the world class.
 # Even if an item doesn't exist on specific options, it must be present in this lookup.
-ITEM_NAME_TO_ID: dict[str, int] = {"item:trap": 99999}
+ITEM_NAME_TO_ID: dict[str, int] = {"trap:deldel": 99999}
 
-# Items should have a defined default classification.
-# In our case, we will make a dictionary from item name to classification.
 DEFAULT_ITEM_CLASSIFICATIONS = {
-  # "Key": ItemClassification.progression,
-  # "Sword": ItemClassification.progression
-  # | ItemClassification.useful, # Items can have multiple classifications.
-  # "Shield": ItemClassification.progression,
-  # "Hammer": ItemClassification.progression,
-  # "Health Upgrade": ItemClassification.useful,
-  # "Confetti Cannon": ItemClassification.filler,
-  "item:trap": ItemClassification.trap,
+  "trap:deldel": ItemClassification.trap,
 }
 _id_counter = 1
 for thing in PROG:
@@ -106,7 +97,7 @@ def get_random_filler_item_name(_world: World) -> str:
   # DO NOT use a bare random object from Python's built-in random module.
   # if world.random.randint(0, 99) < world.options.trap_chance:
   #   return "Math Trap"
-  return "item:trap"
+  return "trap:deldel"
 
 
 def create_item_with_correct_classification(world: World, name: str) -> MathQuestItem:

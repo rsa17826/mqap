@@ -451,60 +451,60 @@ def _num(s: str) -> int | float:
   return int(n) if n == int(n) else n
 
 
-def _get_exit_gap(GEOM, n, e, side, idx) -> dict:
-  """Look up the raw exit gap dict for a given room/side/idx out of GEOM. Returns {} if not found
-  (e.g. for warp-hub connections, which never appear here since _mq_er_candidates only ever
-  contains Pass 3 room-exit entrances)."""
-  for room in GEOM:
-    if room["north"] == n and room["east"] == e:
-      exit_list = room.get("exits", {}).get(side, [])
-      if idx < len(exit_list):
-        return exit_list[idx]
-  return {}
+# def _get_exit_gap(GEOM, n, e, side, idx) -> dict:
+#   """Look up the raw exit gap dict for a given room/side/idx out of GEOM. Returns {} if not found
+#   (e.g. for warp-hub connections, which never appear here since _mq_er_candidates only ever
+#   contains Pass 3 room-exit entrances)."""
+#   for room in GEOM:
+#     if room["north"] == n and room["east"] == e:
+#       exit_list = room.get("exits", {}).get(side, [])
+#       if idx < len(exit_list):
+#         return exit_list[idx]
+#   return {}
 
 
-def _compute_exit_position(gap: dict, side: str) -> dict:
-  """Computes src_coord/dest_x/dest_y/xIsEven/yIsEven for one exit gap, exactly matching
-  shuffle_exits.py's per-direction formula. Every exit gets this computed uniformly regardless of
-  whether it ends up used as the "from" or "to" side of a connection — the caller picks which
-  fields it actually needs (from_exit -> src_coord/direction, to_exit -> dest_x/dest_y/xIsEven/yIsEven)."""
-  pos: dict = {}
-  if side == "north":
-    mid_block_x = (gap["left"] + gap["right"]) / 2
-    pos["src_coord"] = mid_block_x * BLOCK_W
-    pos["dest_x"] = mid_block_x * BLOCK_W
-    pos["dest_y"] = 0 * BLOCK_H
-    if (gap["left"] + gap["right"]) % 2 == 1:
-      pos["xIsEven"] = BLOCK_W / 2
-  elif side == "south":
-    mid_block_x = (gap["left"] + gap["right"]) / 2
-    pos["src_coord"] = mid_block_x * BLOCK_W
-    pos["dest_x"] = mid_block_x * BLOCK_W
-    pos["dest_y"] = 10 * BLOCK_H
-    if (gap["left"] + gap["right"]) % 2 == 1:
-      pos["xIsEven"] = BLOCK_W / 2
-  elif side == "west":
-    mid_block_y = (gap["top"] + gap["bottom"]) / 2
-    pos["src_coord"] = mid_block_y * BLOCK_H
-    pos["dest_x"] = 0 * BLOCK_W
-    pos["dest_y"] = mid_block_y * BLOCK_H
-    if (gap["top"] + gap["bottom"]) % 2 == 1:
-      pos["yIsEven"] = BLOCK_H / 2
-  elif side == "east":
-    mid_block_y = (gap["top"] + gap["bottom"]) / 2
-    pos["src_coord"] = mid_block_y * BLOCK_H
-    pos["dest_x"] = 13 * BLOCK_W
-    pos["dest_y"] = mid_block_y * BLOCK_H
-    if (gap["top"] + gap["bottom"]) % 2 == 1:
-      pos["yIsEven"] = BLOCK_H / 2
+# def _compute_exit_position(gap: dict, side: str) -> dict:
+#   """Computes src_coord/dest_x/dest_y/xIsEven/yIsEven for one exit gap, exactly matching
+#   shuffle_exits.py's per-direction formula. Every exit gets this computed uniformly regardless of
+#   whether it ends up used as the "from" or "to" side of a connection — the caller picks which
+#   fields it actually needs (from_exit -> src_coord/direction, to_exit -> dest_x/dest_y/xIsEven/yIsEven)."""
+#   pos: dict = {}
+#   if side == "north":
+#     mid_block_x = (gap["left"] + gap["right"]) / 2
+#     pos["src_coord"] = mid_block_x * BLOCK_W
+#     pos["dest_x"] = mid_block_x * BLOCK_W
+#     pos["dest_y"] = 0 * BLOCK_H
+#     if (gap["left"] + gap["right"]) % 2 == 1:
+#       pos["xIsEven"] = BLOCK_W / 2
+#   elif side == "south":
+#     mid_block_x = (gap["left"] + gap["right"]) / 2
+#     pos["src_coord"] = mid_block_x * BLOCK_W
+#     pos["dest_x"] = mid_block_x * BLOCK_W
+#     pos["dest_y"] = 10 * BLOCK_H
+#     if (gap["left"] + gap["right"]) % 2 == 1:
+#       pos["xIsEven"] = BLOCK_W / 2
+#   elif side == "west":
+#     mid_block_y = (gap["top"] + gap["bottom"]) / 2
+#     pos["src_coord"] = mid_block_y * BLOCK_H
+#     pos["dest_x"] = 0 * BLOCK_W
+#     pos["dest_y"] = mid_block_y * BLOCK_H
+#     if (gap["top"] + gap["bottom"]) % 2 == 1:
+#       pos["yIsEven"] = BLOCK_H / 2
+#   elif side == "east":
+#     mid_block_y = (gap["top"] + gap["bottom"]) / 2
+#     pos["src_coord"] = mid_block_y * BLOCK_H
+#     pos["dest_x"] = 13 * BLOCK_W
+#     pos["dest_y"] = mid_block_y * BLOCK_H
+#     if (gap["top"] + gap["bottom"]) % 2 == 1:
+#       pos["yIsEven"] = BLOCK_H / 2
 
-  # Per-gap overrides, same as shuffle_exits.py's `if "newY"/"newX" in gap: ...`
-  if "newY" in gap:
-    pos["dest_y"] = gap["newY"]
-  if "newX" in gap:
-    pos["dest_x"] = gap["newX"]
+#   # Per-gap overrides, same as shuffle_exits.py's `if "newY"/"newX" in gap: ...`
+#   if "newY" in gap:
+#     pos["dest_y"] = gap["newY"]
+#   if "newX" in gap:
+#     pos["dest_x"] = gap["newX"]
 
-  return pos
+#   return pos
 
 
 def build_er_connections_data(world: World) -> list[dict]:
@@ -519,7 +519,6 @@ def build_er_connections_data(world: World) -> list[dict]:
   when building ER_TABLE rows), so they're included here only as best-effort debug context —
   mechanism is always "edge" since warps are excluded from ER entirely (see _connect_warps_vanilla),
   and the exit ids are synthesized rather than cross-referenced against _exits.py's own id strings."""
-  from ._room_geometry import GEOM
 
   er_candidates: list[Entrance] = getattr(world, "_mq_er_candidates", [])
   connections: list[dict] = []
@@ -531,20 +530,11 @@ def build_er_connections_data(world: World) -> list[dict]:
       continue # skip anything that isn't a plain "n_e: side idx" exit region (e.g. warps, roots)
 
     on, oe, oside, oidx_s = origin_match.groups()
-    on, oe, oidx = _num(on), _num(oe), int(oidx_s)
+    on, oe = _num(on), _num(oe)
 
     dn, de, dside, didx_s = dest_match.groups()
-    dn, de, didx = _num(dn), _num(de), int(didx_s)
+    dn, de = _num(dn), _num(de)
 
-    vdn, vde = _DELTA[oside]
-    vanilla_dest_north, vanilla_dest_east = on + vdn, oe + vde
-
-    from_gap = _get_exit_gap(GEOM, on, oe, oside, oidx)
-    to_gap = _get_exit_gap(GEOM, dn, de, dside, didx)
-
-    from_pos = _compute_exit_position(from_gap, oside) if from_gap else {}
-    to_pos = _compute_exit_position(to_gap, dside) if to_gap else {}
-    print(from_pos)
     connections.append(
       {
         "north": on,

@@ -8,41 +8,12 @@ from worlds.AutoWorld import World
 
 from . import items
 from ._progression import PROG
-from ._room_geometry import GEOM as _GEOM_FOR_ENTRANCES
 
 # Every location must have a unique integer ID associated with it.
 # We will have a lookup from location name to ID here that, in world.py, we will import and bind to the world class.
 # Even if a location doesn't exist on specific options, it must be present in this lookup.
 
 LOCATION_NAME_TO_ID: dict[str, int] = {}
-# from .room_geometry import GEOM
-
-# Entrance events (created in regions.py Pass 1 as "{n}_{e} - entrance.{side}{idx}") aren't part of
-# LOCATION_NAME_TO_ID since they're generated per-room at region-build time, not from PROG receive lists.
-# We build a parallel lookup here so the client manifest can cross-reference entrance names against the
-# same DIR_CODES scheme patch_rooms.py uses for ER_TABLE rows, keeping both globals mutually consistent.
-DIR_CODES: dict[str, int] = {"north": 1, "south": 2, "west": 3, "east": 4}
-
-ENTRANCE_NAME_TO_ID: dict[str, int] = {}
-ENTRANCE_META: dict[str, dict[str, int | float | str]] = {}
-
-
-_entrance_id_counter = 1
-for _room in _GEOM_FOR_ENTRANCES:
-  _n, _e = _room["north"], _room["east"]
-  for _side, _exit_list in _room.get("exits", {}).items():
-    for _idx in range(len(_exit_list)):
-      _entrance_name = f"{_n}_{_e} - entrance.{_side}{_idx}"
-      if _entrance_name not in ENTRANCE_NAME_TO_ID:
-        ENTRANCE_NAME_TO_ID[_entrance_name] = _entrance_id_counter
-        ENTRANCE_META[_entrance_name] = {
-          "north": _n,
-          "east": _e,
-          "side": _side,
-          "idx": _idx,
-          "dirCode": DIR_CODES.get(_side, 0),
-        }
-        _entrance_id_counter += 1
 
 _id_counter = 1
 for thing in PROG:
