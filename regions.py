@@ -582,20 +582,33 @@ def write_er_connections_json(world: World) -> None:
     return f"{n:.4f}"
 
   global table_js
-  rows = [
-    "[{},{},{},{},{},{},{},{}]".format(
-      fmt_num(c["north"]),
-      fmt_num(c["east"]),
-      fmt_num(c["side"]),
-      fmt_num(c["idx"]),
-      fmt_num(c["exitNorth"]),
-      fmt_num(c["exitEast"]),
-      fmt_num(c["exitSide"]),
-      fmt_num(c["exitIdx"]),
+  # rows = [
+  #   "[{},{},{},{},{},{},{},{}]".format(
+  #     fmt_num(c["north"]),
+  #     fmt_num(c["east"]),
+  #     fmt_num(c["side"]),
+  #     fmt_num(c["idx"]),
+  #     fmt_num(c["exitNorth"]),
+  #     fmt_num(c["exitEast"]),
+  #     fmt_num(c["exitSide"]),
+  #     fmt_num(c["exitIdx"]),
+  #   )
+  #   for c in connections
+  # ]
+  # table_js = ",".join(rows)
+  table_js = [
+    (
+      c["north"],
+      c["east"],
+      c["side"],
+      c["idx"],
+      c["exitNorth"],
+      c["exitEast"],
+      c["exitSide"],
+      c["exitIdx"],
     )
     for c in connections
   ]
-  table_js = ",".join(rows)
   from .__trywritefile import trywritefile
 
   trywritefile()

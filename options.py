@@ -29,6 +29,14 @@ class EntranceRando(Toggle):
   display_name: str = "EntranceRando"
 
 
+class DeathLink(Toggle):
+  """
+  DeathLink
+  """
+
+  display_name: str = "DeathLink"
+
+
 class ItemRando(Toggle):
   """
   ItemRando
@@ -61,6 +69,7 @@ class MathQuestOptions(PerGameCommonOptions):
   entrance_rando: EntranceRando
   three_orbs: ThreeOrbs
   final_boss: FinalBoss
+  death_link: DeathLink
 
 
 # If we want to group our options by similar type, we can do so as well. This looks nice on the website.
@@ -79,8 +88,9 @@ option_groups: list[OptionGroup] = [
 option_presets: dict[str, dict[str, bool]] = {
   "main": {
     "item_rando": True,
-    "entrance_rando": True,
+    "entrance_rando": False,
     "three_orbs": True,
     "final_boss": True,
+    "death_link": True,
   },
 }

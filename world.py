@@ -84,5 +84,7 @@ class MathQuestWorld(World):
   # slot_data is just a dictionary using basic types, that will be converted to json when sent to the client.
   @override
   def fill_slot_data(self) -> Mapping[str, bool]:
+    from .regions import table_js
+
     # If you need access to the player's chosen options on the client side, there is a helper for that.
-    return self.options.as_dict(*MathQuest_options.option_presets["main"].keys())
+    return {**self.options.as_dict(*MathQuest_options.option_presets["main"].keys()), "roomData": table_js}

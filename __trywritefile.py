@@ -1,12 +1,12 @@
-
 def trywritefile():
   from ._room_geometry import GEOM
   from .items import ITEM_NAME_TO_ID
   from .locations import LOCATION_NAME_TO_ID
   from .regions import table_js
-  if len(LOCATION_NAME_TO_ID.keys())<3:
+
+  if len(LOCATION_NAME_TO_ID.keys()) < 3:
     return
-  if len(ITEM_NAME_TO_ID.keys())<3:
+  if len(ITEM_NAME_TO_ID.keys()) < 3:
     return
   # if not table_js or len(table_js)<3:
   #   return
@@ -23,7 +23,7 @@ def trywritefile():
           _ = f.write(
             f"""/**
 * AUTO-GENERATED ARCHIPELAGO MANIFESTS
-* Do not modify this file directly. Regenerate via your build script.
+* Do not modify this file directly.
 */
 
 const AP_LOCATION_IDS = {json.dumps(LOCATION_NAME_TO_ID, indent=2)}
@@ -37,31 +37,30 @@ const BLOCKS_Y = 11
 const BLOCK_W = ROOM_INTERNAL_WIDTH / BLOCKS_X
 const BLOCK_H = ROOM_INTERNAL_HEIGHT / BLOCKS_Y
 
-/**
- * @type (string|number)[][]
- */
-var ER_TABLE = [{table_js or ""}]
 var ER_MAP = new Map()
 window.ER_MAP=ER_MAP
-window.ER_TABLE=ER_TABLE
 
-for (var i = 0; i < ER_TABLE.length; i++) {{
-  var r = ER_TABLE[i]
-  // Key by origin room: "north_east"
-  var key = r[0] + "_" + r[1]
-  if (!ER_MAP.has(key)) {{
-    ER_MAP.set(key, [])
+function onRoomDataLoaded() {{
+  for (var r of window.ap.slotData.roomData) {{
+    // Key by origin room: "north_east"
+    var key = r[0] + "_" + r[1]
+    if (!ER_MAP.has(key)) {{
+      ER_MAP.set(key, [])
+    }}
+    ER_MAP.get(key).push({{
+      origSide: r[2],
+      origIdx: r[3],
+      newNorth: r[4],
+      newEast: r[5],
+      exitSide: r[6],
+      exitIdx: r[7]
+    }})
   }}
-  ER_MAP.get(key).push({{
-    origSide: r[2],
-    origIdx: r[3],
-    newNorth: r[4],
-    newEast: r[5],
-    exitSide: r[6],
-    exitIdx: r[7]
-  }})
+
+  console.log(`[Archipelago] Database ready: ${{Object.keys(AP_LOCATION_IDS).length}} locations, ${{Object.keys(AP_ITEM_IDS).length}} items, ${{Object.keys(AP_ENTRANCE_IDS).length}} entrances.`);
 }}
-console.log(`[Archipelago] Database ready: ${{Object.keys(AP_LOCATION_IDS).length}} locations, ${{Object.keys(AP_ITEM_IDS).length}} items, ${{Object.keys(AP_ENTRANCE_IDS).length}} entrances.`);""" # noqa: E501
+
+""" # noqa: E501
           )
 
           print(f"Success! Generated Client database at: {path}")
