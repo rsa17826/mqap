@@ -309,7 +309,7 @@ def create_and_connect_regions(world: World) -> None:
   connected_region entrances to split, rather than needing throwaway fake connections."""
   from ._room_geometry import GEOM
 
-  exit_regions: dict[tuple[int, int, str, int], Region] = {}
+  exit_regions: dict[tuple[float | int, int | float, str, int], Region] = {}
 
   _create_exit_regions_and_roots(world, GEOM, exit_regions)
   _connect_intra_room(world, GEOM, exit_regions)
@@ -321,7 +321,11 @@ def create_and_connect_regions(world: World) -> None:
   _connect_warps_vanilla(world, exit_regions)
 
 
-def _create_exit_regions_and_roots(world: World, GEOM, exit_regions: dict) -> None:
+def _create_exit_regions_and_roots(
+  world: World,
+  GEOM: list[ExitBase],
+  exit_regions: dict[tuple[float | int, int | float, str, int], Region],
+) -> None:
   # NOTE: exit_regions is populated in place (do NOT shadow it with a fresh local dict here —
   # the caller's dict is what gets passed into _connect_intra_room / the Pass 3 functions below).
 
@@ -343,7 +347,7 @@ def _create_exit_regions_and_roots(world: World, GEOM, exit_regions: dict) -> No
         exit_regions[(n, e, side, idx)] = region
 
         # ONE-WAY ONLY: Establish the connection right here during creation!
-        _connect(world, region, root_region, rule=None)
+        _ = _connect(world, region, root_region, rule=None)
 
         # ─── ADD THIS BLOCK TO GENERATE THE ENTRANCE VIRTUAL EVENTS ───
         event_name = f"{n}_{e} - entrance.{side}{idx}"
@@ -450,10 +454,6 @@ _EXIT_REGION_RE = re.compile(r"^(-?\d+(?:\.\d+)?)_(-?\d+(?:\.\d+)?): (\w+) (\d+)
 
 _DELTA = {"east": (0, 1), "west": (0, -1), "north": (1, 0), "south": (-1, 0)}
 
-# Ported verbatim from the standalone shuffle_exits.py script (its all_exits_raw builder).
-# GEOM's exit dicts ARE the same "gap" objects that script reads out of its geometry module —
-# {"left":.., "right":..} for north/south, {"top":.., "bottom":..} for east/west, with the same
-# optional newX/newY override keys — so the exact same pixel-position formula applies unmodified.
 BLOCK_W = 710 / 14 # 14 blocks horizontally (0-13)
 BLOCK_H = 560 / 11 # 11 blocks vertically (0-10)
 
@@ -463,106 +463,6 @@ def _num(s: str) -> int | float:
   return int(n) if n == int(n) else n
 
 
-# def _get_exit_gap(GEOM, n, e, side, idx) -> dict:
-#   """Look up the raw exit gap dict for a given room/side/idx out of GEOM. Returns {} if not found
-#   (e.g. for warp-hub connections, which never appear here since _mq_er_candidates only ever
-#   contains Pass 3 room-exit entrances)."""
-#   for room in GEOM:
-#     if room["north"] == n and room["east"] == e:
-#       exit_list = room.get("exits", {}).get(side, [])
-#       if idx < len(exit_list):
-#         return exit_list[idx]
-#   return {}
-
-
-# def _compute_exit_position(gap: dict, side: str) -> dict:
-#   """Computes src_coord/dest_x/dest_y/xIsEven/yIsEven for one exit gap, exactly matching
-#   shuffle_exits.py's per-direction formula. Every exit gets this computed uniformly regardless of
-#   whether it ends up used as the "from" or "to" side of a connection — the caller picks which
-#   fields it actually needs (from_exit -> src_coord/direction, to_exit -> dest_x/dest_y/xIsEven/yIsEven)."""
-#   pos: dict = {}
-#   if side == "north":
-#     mid_block_x = (gap["left"] + gap["right"]) / 2
-#     pos["src_coord"] = mid_block_x * BLOCK_W
-#     pos["dest_x"] = mid_block_x * BLOCK_W
-#     pos["dest_y"] = 0 * BLOCK_H
-#     if (gap["left"] + gap["right"]) % 2 == 1:
-#       pos["xIsEven"] = BLOCK_W / 2
-#   elif side == "south":
-#     mid_block_x = (gap["left"] + gap["right"]) / 2
-#     pos["src_coord"] = mid_block_x * BLOCK_W
-#     pos["dest_x"] = mid_block_x * BLOCK_W
-#     pos["dest_y"] = 10 * BLOCK_H
-#     if (gap["left"] + gap["right"]) % 2 == 1:
-#       pos["xIsEven"] = BLOCK_W / 2
-#   elif side == "west":
-#     mid_block_y = (gap["top"] + gap["bottom"]) / 2
-#     pos["src_coord"] = mid_block_y * BLOCK_H
-#     pos["dest_x"] = 0 * BLOCK_W
-#     pos["dest_y"] = mid_block_y * BLOCK_H
-#     if (gap["top"] + gap["bottom"]) % 2 == 1:
-#       pos["yIsEven"] = BLOCK_H / 2
-#   elif side == "east":
-#     mid_block_y = (gap["top"] + gap["bottom"]) / 2
-#     pos["src_coord"] = mid_block_y * BLOCK_H
-#     pos["dest_x"] = 13 * BLOCK_W
-#     pos["dest_y"] = mid_block_y * BLOCK_H
-#     if (gap["top"] + gap["bottom"]) % 2 == 1:
-#       pos["yIsEven"] = BLOCK_H / 2
-
-#   # Per-gap overrides, same as shuffle_exits.py's `if "newY"/"newX" in gap: ...`
-#   if "newY" in gap:
-#     pos["dest_y"] = gap["newY"]
-#   if "newX" in gap:
-#     pos["dest_x"] = gap["newX"]
-
-#   return pos
-
-
-def build_er_connections_data(world: World) -> list[dict]:
-  """Builds one row per randomized entrance, in the shape patch_rooms.py's connections.json
-  reader expects (originNorth/East, vanillaDestNorth/East, newDestNorth/East, newX/Y, srcCoord,
-  direction, xIsEven, yIsEven). newX/newY/xIsEven/yIsEven come from the DESTINATION exit's own
-  computed position (where you land), srcCoord/direction come from the ORIGIN exit's (where you
-  approached from) — matching shuffle_exits.py's make_connection(from_exit, to_exit).
-
-  mechanism/fromExitId/toExitId/requires are NOT consumed by patch_rooms.py's row builder (only
-  originNorth/East, vanillaDest*, newDest*, newX/Y, srcCoord, direction, xIsEven/yIsEven are read
-  when building ER_TABLE rows), so they're included here only as best-effort debug context —
-  mechanism is always "edge" since warps are excluded from ER entirely (see _connect_warps_vanilla),
-  and the exit ids are synthesized rather than cross-referenced against _exits.py's own id strings."""
-
-  er_candidates: list[Entrance] = getattr(world, "_mq_er_candidates", [])
-  connections: list[dict] = []
-
-  for entrance in er_candidates:
-    origin_match = _EXIT_REGION_RE.match(entrance.parent_region.name)
-    dest_match = _EXIT_REGION_RE.match(entrance.connected_region.name) if entrance.connected_region else None
-    if not origin_match or not dest_match:
-      continue # skip anything that isn't a plain "n_e: side idx" exit region (e.g. warps, roots)
-
-    on, oe, oside, oidx_s = origin_match.groups()
-    on, oe = _num(on), _num(oe)
-
-    dn, de, dside, didx_s = dest_match.groups()
-    dn, de = _num(dn), _num(de)
-
-    connections.append(
-      {
-        "north": on,
-        "east": oe,
-        "side": oside,
-        "idx": oidx_s,
-        "exitNorth": dn,
-        "exitEast": de,
-        "exitSide": dside,
-        "exitIdx": didx_s,
-      }
-    )
-
-  return connections
-
-
 table_js = []
 
 
@@ -570,61 +470,34 @@ def write_er_connections_json(world: World) -> None:
   """Writes worlds/mathquest/json/connections.json — the file patch_rooms.py reads at patch time
   (its OUT_DIR is the mathquest package's own directory, not the AP output folder). Call this from
   World.generate_output. No-ops (writes an empty connections list) when entrance_rando is off."""
-  connections = build_er_connections_data(world) if world.options.entrance_rando else []
-
-  def fmt_num(n):
-    if n is None:
-      return "-1"
-    if isinstance(n, str):
-      return f'"{n}"'
-    if n == int(n):
-      return str(int(n))
-    return f"{n:.4f}"
-
   global table_js
-  # rows = [
-  #   "[{},{},{},{},{},{},{},{}]".format(
-  #     fmt_num(c["north"]),
-  #     fmt_num(c["east"]),
-  #     fmt_num(c["side"]),
-  #     fmt_num(c["idx"]),
-  #     fmt_num(c["exitNorth"]),
-  #     fmt_num(c["exitEast"]),
-  #     fmt_num(c["exitSide"]),
-  #     fmt_num(c["exitIdx"]),
-  #   )
-  #   for c in connections
-  # ]
-  # table_js = ",".join(rows)
-  table_js = [
-    (
-      c["north"],
-      c["east"],
-      c["side"],
-      c["idx"],
-      c["exitNorth"],
-      c["exitEast"],
-      c["exitSide"],
-      c["exitIdx"],
-    )
-    for c in connections
-  ]
+  if world.options.entrance_rando:
+    er_candidates: list[Entrance] = getattr(world, "_mq_er_candidates", [])
+
+    for entrance in er_candidates:
+      origin_match = _EXIT_REGION_RE.match(entrance.parent_region.name)
+      dest_match = _EXIT_REGION_RE.match(entrance.connected_region.name) if entrance.connected_region else None
+      if not origin_match or not dest_match:
+        continue # skip anything that isn't a plain "n_e: side idx" exit region (e.g. warps, roots)
+
+      on, oe, oside, oidx_s = origin_match.groups()
+      on, oe = _num(on), _num(oe)
+
+      dn, de, dside, didx_s = dest_match.groups()
+      dn, de = _num(dn), _num(de)
+      table_js.append(
+        (
+          on,
+          oe,
+          oside,
+          oidx_s,
+          dn,
+          de,
+          dside,
+          didx_s,
+        )
+      )
+
   from .__trywritefile import trywritefile
 
   trywritefile()
-  # try:
-  #   with open("./path", "r") as f:
-  #     path = f.read().strip()
-  #     import os
-
-  #     path = os.path.abspath(os.path.expanduser(path))
-  #     if os.path.isdir(path):
-  #       with open(os.path.join(path, "json", "connections.json"), "w", encoding="utf-8") as f: # noqa: PLW2901
-
-  #         json.dump({"connections": connections, "seed": world.multiworld.seed_name}, f, indent=2)
-
-  #         print(f"Success! Generated Client connections at: {path}")
-  # except FileNotFoundError:
-  #   pass
-  # except Exception as e:
-  #   print(e)

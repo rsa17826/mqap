@@ -308,13 +308,14 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 20, "east": 20},
     "requires": [
-      [],
+      [
+        "skill:craft",
+        "craft:emerald",
+      ],
     ],
     "receive": [
       "loot:emeralds",
     ],
-    "info": """add to correct locations later
-""",
   },
   # {"room": {"north": 20, "east": 20}, "receive": ["spawnpoint"],},
   {
