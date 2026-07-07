@@ -18,75 +18,79 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
 
 HAS_LIST: dict[str, Rule[World]] = {}
 
-_id_counter = 1
-for thing in PROG:
-  if "receive" in thing:
-    for itemInfo in thing["receive"]:
-      itemName = itemInfo
-      # itemName = itemInfo.removesuffix("#1")
-      if itemName not in ITEM_NAME_TO_ID:
-        # TODO
-        if itemInfo.startswith(
-          (
-            "magic:",
-            "weapon:",
-            # "flag:final boss dead",
-            "permit:",
-            "misc:fire crystal",
-            "loot:gold",
-            "item:",
-            "skill:",
-            "food:",
-            "misc:blue crystal",
-            "misc:headstoneSwitch1",
-            "misc:headstoneSwitch2",
-            "misc:headstoneSwitch3",
-            "misc:headstoneSwitch4",
-            # "entrance.",
-            "armor:",
-            # "quest:",
-            # "area:",
-          )
-        ):
-          DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.progression
-          ITEM_NAME_TO_ID[itemName] = _id_counter
-        elif itemInfo.startswith(
-          (
-            "item:ring",
-            "item:aurastones",
-          )
-        ):
-          DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.useful
-          ITEM_NAME_TO_ID[itemName] = _id_counter
-        elif itemInfo.startswith(
-          (
-            "misc:",
-            "craft:",
-          )
-        ):
-          DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.filler
-          ITEM_NAME_TO_ID[itemName] = _id_counter
-        elif itemInfo.startswith(
-          (
-            "quest:",
-            "area:",
-          )
-        ):
-          continue
-        elif itemInfo.startswith(("loot:",)):
+
+def init(world: World):
+  _id_counter = 1
+  itemNameList = [
+    "magic:",
+    "weapon:",
+    # "flag:final boss dead",
+    "permit:",
+    "misc:fire crystal",
+    "loot:gold",
+    "item:",
+    "skill:",
+    "food:",
+    "misc:blue crystal",
+    "misc:headstoneSwitch1",
+    "misc:headstoneSwitch2",
+    "misc:headstoneSwitch3",
+    "misc:headstoneSwitch4",
+    # "entrance.",
+    "armor:",
+    # "quest:",
+    # "area:",
+  ]
+
+  print(world.options.each_quest_is_a_check, "world.options.each_quest_is_a_check")
+  if world.options.each_quest_is_a_check:
+    itemNameList.append("quest:")
+  for thing in PROG:
+    if "receive" in thing:
+      for itemInfo in thing["receive"]:
+        itemName = itemInfo
+        # itemName = itemInfo.removesuffix("#1")
+        if itemName not in ITEM_NAME_TO_ID:
+          if itemInfo.startswith((*itemNameList,)):
+            DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.progression
+            ITEM_NAME_TO_ID[itemName] = _id_counter
+          elif itemInfo.startswith(
+            (
+              "item:ring",
+              "item:aurastones",
+            )
+          ):
+            DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.useful
+            ITEM_NAME_TO_ID[itemName] = _id_counter
+          elif itemInfo.startswith(
+            (
+              "misc:",
+              "craft:",
+            )
+          ):
+            DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.filler
+            ITEM_NAME_TO_ID[itemName] = _id_counter
+          elif itemInfo.startswith(
+            (
+              "quest:",
+              "area:",
+            )
+          ):
+            continue
+          elif itemInfo.startswith(("loot:",)):
+            if itemName.split("#", 1)[0] not in HAS_LIST:
+              HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName)
+            else:
+              HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName) | HAS_LIST[itemName.split("#", 1)[0]]
+            continue
+          else:
+            print(itemName, "not used")
+            continue
+          _id_counter += 1
           if itemName.split("#", 1)[0] not in HAS_LIST:
             HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName)
           else:
             HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName) | HAS_LIST[itemName.split("#", 1)[0]]
-          continue
-        else:
-          print(itemName, "not used")
-          continue
-        _id_counter += 1
-        if itemName.split("#", 1)[0] not in HAS_LIST:
-          HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName)
-        else:
-          HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName) | HAS_LIST[itemName.split("#", 1)[0]]
 
 
 # Each Item instance must correctly report the "game" it belongs to.

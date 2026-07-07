@@ -44,7 +44,9 @@ def set_all_location_rules(world: World) -> None:
       # 1. Handle the naming difference between events and standard locations
       if clean_item.startswith(("loot:")):
         continue
-      if clean_item.startswith(("quest:", "flag:", "area:", "loot:")):
+      if clean_item.startswith(("quest:", "flag:", "area:", "loot:")) and not (
+        world.options.each_quest_is_a_check and clean_item.startswith("quest:")
+      ):
         loc_name = f"{room_id_base}: root - {clean_item}"
       else:
         loc_name = f"{room_id_base} - {clean_item}"
