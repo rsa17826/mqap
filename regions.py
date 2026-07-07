@@ -497,7 +497,3 @@ def write_er_connections_json(world: World) -> None:
           didx_s,
         )
       )
-
-  from .__trywritefile import trywritefile
-
-  trywritefile()

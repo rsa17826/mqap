@@ -2,6 +2,7 @@ from collections.abc import Mapping
 from typing import ClassVar, cast, override
 
 from Options import PerGameCommonOptions
+
 from worlds.AutoWorld import WebWorld, World
 
 from . import items, locations, regions, rules, web_world
@@ -84,7 +85,16 @@ class MathQuestWorld(World):
   # slot_data is just a dictionary using basic types, that will be converted to json when sent to the client.
   @override
   def fill_slot_data(self) -> Mapping[str, bool]:
+    from ._room_geometry import GEOM
+    from .items import ITEM_NAME_TO_ID
+    from .locations import LOCATION_NAME_TO_ID
     from .regions import table_js
 
     # If you need access to the player's chosen options on the client side, there is a helper for that.
-    return {**self.options.as_dict(*MathQuest_options.option_presets["main"].keys()), "roomData": table_js}
+    return {
+      **self.options.as_dict(*MathQuest_options.option_presets["main"].keys()),
+      "roomData": table_js,
+      "AP_ITEM_IDS": {v: k for k, v in ITEM_NAME_TO_ID.items()},
+      "AP_LOCATION_IDS": LOCATION_NAME_TO_ID,
+      "AP_ENTRANCE_IDS": GEOM,
+    }

@@ -208,9 +208,6 @@ def create_all_items(world: World) -> None:
   # Anyway. With our world's itempool finalized, we now need to submit it to the multiworld itempool.
   # This is how the generator actually knows about the existence of our items.
   world.multiworld.itempool += itempool
-  from .__trywritefile import trywritefile
-
-  trywritefile()
   # Sometimes, you might want the player to start with certain items already in their inventory.
   # These items are called "precollected items".
   # They will be sent as soon as they connect for the first time (depending on your client's item handling flag).
