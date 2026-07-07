@@ -10,11 +10,16 @@ from ._progression import PROG
 # Every item must have a unique integer ID associated with it.
 # We will have a lookup from item name to ID here that, in world.py, we will import and bind to the world class.
 # Even if an item doesn't exist on specific options, it must be present in this lookup.
-ITEM_NAME_TO_ID: dict[str, int] = {"trap:deldel": 99999}
+ITEM_NAME_TO_ID: dict[str, int] = {}
 
-DEFAULT_ITEM_CLASSIFICATIONS = {
-  "trap:deldel": ItemClassification.trap,
-}
+DEFAULT_ITEM_CLASSIFICATIONS = {}
+
+_id_counter = 99999
+traps = ("deldel", "randomEmemies")
+for trap in traps:
+  DEFAULT_ITEM_CLASSIFICATIONS[f"trap:{trap}"] = ItemClassification.trap
+  ITEM_NAME_TO_ID[f"trap:{trap}"] = _id_counter
+  _id_counter -= 1
 
 HAS_LIST: dict[str, Rule[World]] = {}
 maxQuests: dict[str, int] = {}
@@ -128,7 +133,7 @@ def create_all_items(world: World) -> None:
 
   for k in ITEM_NAME_TO_ID.keys():
     # Skip creating the filler trap unconditionally
-    if k == "trap:deldel":
+    if k.startswith("trap:"):
       continue
 
     # Check the option before creating quest items

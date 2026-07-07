@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import ClassVar
 
-from Options import OptionDict, OptionGroup, PerGameCommonOptions, Toggle
+from Options import OptionDict, OptionGroup, PerGameCommonOptions, Toggle, Range
 
 # In this file, we define the options the player can pick.
 # The most common types of options are Toggle, Range and Choice.
@@ -13,6 +13,21 @@ from Options import OptionDict, OptionGroup, PerGameCommonOptions, Toggle
 
 # For further reading on options, you can also read the Options API Document:
 # https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/options%20api.md
+option_presets: dict[str, dict[str, bool | int]] = {
+  "main": {
+    "item_rando": True,
+    "entrance_rando": False,
+    # "three_orbs": True,
+    "final_boss": True,
+    "death_link": True,
+    "all_quests_maxed": False,
+    "del_del": 20,
+    "nothing": 10,
+    "spawn_random_ememies": 70,
+    # "allow_clips": 0,
+    "each_quest_is_a_check": False,
+  },
+}
 
 
 # The first type of Option we'll discuss is the Toggle.
@@ -28,6 +43,7 @@ class EntranceRando(Toggle):
 
   # You'll also want to set a display name, which will determine what the option is called on the website.
   display_name: str = "EntranceRando"
+  default: bool = option_presets["main"]["entrance_rando"]
 
 
 class DeathLink(Toggle):
@@ -36,6 +52,7 @@ class DeathLink(Toggle):
   """
 
   display_name: str = "DeathLink"
+  default: bool = option_presets["main"]["death_link"]
 
 
 class ItemRando(Toggle):
@@ -44,14 +61,7 @@ class ItemRando(Toggle):
   """
 
   display_name: str = "ItemRando"
-
-
-class ThreeOrbs(Toggle):
-  """
-  ThreeOrbs
-  """
-
-  display_name: str = "ThreeOrbs"
+  default: bool = option_presets["main"]["item_rando"]
 
 
 class FinalBoss(Toggle):
@@ -60,6 +70,7 @@ class FinalBoss(Toggle):
   """
 
   display_name: str = "FinalBoss"
+  default: bool = option_presets["main"]["final_boss"]
 
 
 class EachQuestIsACheck(Toggle):
@@ -68,6 +79,7 @@ class EachQuestIsACheck(Toggle):
   """
 
   display_name: str = "EachQuestIsACheck"
+  default: bool = option_presets["main"]["each_quest_is_a_check"]
 
 
 class AllQuestsMaxed(Toggle):
@@ -76,6 +88,37 @@ class AllQuestsMaxed(Toggle):
   """
 
   display_name: str = "AllQuestsMaxed"
+  default: bool = option_presets["main"]["all_quests_maxed"]
+
+
+class DelDel(Range):
+  """
+  DelDel
+  """
+
+  range_end: int = 100
+  display_name: str = "DelDel"
+  default: bool = option_presets["main"]["del_del"]
+
+
+class SpawnRandomEmemies(Range):
+  """
+  SpawnRandomEmemies
+  """
+
+  range_end: int = 100
+  display_name: str = "SpawnRandomEmemies"
+  default: bool = option_presets["main"]["spawn_random_ememies"]
+
+
+class Nothing(Range):
+  """
+  Nothing
+  """
+
+  range_end: int = 100
+  display_name: str = "Nothing"
+  default: bool = option_presets["main"]["nothing"]
 
 
 class AllowClips(OptionDict):
@@ -97,12 +140,14 @@ class AllowClips(OptionDict):
 class MathQuestOptions(PerGameCommonOptions):
   item_rando: ItemRando
   entrance_rando: EntranceRando
-  three_orbs: ThreeOrbs
   final_boss: FinalBoss
   death_link: DeathLink
   each_quest_is_a_check: EachQuestIsACheck
   allow_clips: AllowClips
   all_quests_maxed: AllQuestsMaxed
+  del_del: DelDel
+  spawn_random_ememies: SpawnRandomEmemies
+  nothing: Nothing
 
 
 # If we want to group our options by similar type, we can do so as well. This looks nice on the website.
@@ -130,23 +175,16 @@ option_groups: list[OptionGroup] = [
   OptionGroup(
     "Win Options",
     [
-      # ThreeOrbs,
       AllQuestsMaxed,
       FinalBoss,
     ],
   ),
+  OptionGroup(
+    "Traps",
+    [
+      DelDel,
+      SpawnRandomEmemies,
+      Nothing,
+    ],
+  ),
 ]
-
-# Finally, we can define some option presets if we want the player to be able to quickly choose a specific "mode".
-option_presets: dict[str, dict[str, bool | int]] = {
-  "main": {
-    # "item_rando": True,
-    "entrance_rando": False,
-    "three_orbs": True,
-    "final_boss": True,
-    "death_link": True,
-    "all_quests_maxed": False,
-    # "allow_clips": 0,
-    # "each_quest_is_a_check": False,
-  },
-}

@@ -1,5 +1,5 @@
 from collections.abc import Mapping
-from typing import ClassVar, cast, override
+from typing import Any, ClassVar, cast, override
 
 from Options import PerGameCommonOptions
 
@@ -84,7 +84,7 @@ class MathQuestWorld(World):
   # This is what slot_data exists for. Upon every client connection, the slot's slot_data is sent to the client.
   # slot_data is just a dictionary using basic types, that will be converted to json when sent to the client.
   @override
-  def fill_slot_data(self) -> Mapping[str, bool]:
+  def fill_slot_data(self) -> Mapping[str, Any]:
     from ._room_geometry import GEOM
     from .items import ITEM_NAME_TO_ID, maxQuests
     from .locations import LOCATION_NAME_TO_ID
