@@ -1381,9 +1381,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 14, "east": 18},
     "requires": [
-      [
-        "quest:gTree.7",
-      ],
+      [],
     ],
     "receive": [
       "quest:gTree.8",
