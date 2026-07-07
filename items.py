@@ -19,78 +19,70 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
 HAS_LIST: dict[str, Rule[World]] = {}
 
 
-def init(world: World):
-  _id_counter = 1
-  itemNameList = [
-    "magic:",
-    "weapon:",
-    # "flag:final boss dead",
-    "permit:",
-    "misc:fire crystal",
-    "loot:gold",
-    "item:",
-    "skill:",
-    "food:",
-    "misc:blue crystal",
-    "misc:headstoneSwitch1",
-    "misc:headstoneSwitch2",
-    "misc:headstoneSwitch3",
-    "misc:headstoneSwitch4",
-    # "entrance.",
-    "armor:",
-    # "quest:",
-    # "area:",
-  ]
-
-  print(world.options.each_quest_is_a_check, "world.options.each_quest_is_a_check")
-  if world.options.each_quest_is_a_check:
-    itemNameList.append("quest:")
-  for thing in PROG:
-    if "receive" in thing:
-      for itemInfo in thing["receive"]:
-        itemName = itemInfo
-        # itemName = itemInfo.removesuffix("#1")
-        if itemName not in ITEM_NAME_TO_ID:
-          if itemInfo.startswith((*itemNameList,)):
-            DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.progression
-            ITEM_NAME_TO_ID[itemName] = _id_counter
-          elif itemInfo.startswith(
-            (
-              "item:ring",
-              "item:aurastones",
-            )
-          ):
-            DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.useful
-            ITEM_NAME_TO_ID[itemName] = _id_counter
-          elif itemInfo.startswith(
-            (
-              "misc:",
-              "craft:",
-            )
-          ):
-            DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.filler
-            ITEM_NAME_TO_ID[itemName] = _id_counter
-          elif itemInfo.startswith(
-            (
-              "quest:",
-              "area:",
-            )
-          ):
-            continue
-          elif itemInfo.startswith(("loot:",)):
-            if itemName.split("#", 1)[0] not in HAS_LIST:
-              HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName)
-            else:
-              HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName) | HAS_LIST[itemName.split("#", 1)[0]]
-            continue
-          else:
-            print(itemName, "not used")
-            continue
-          _id_counter += 1
-          if itemName.split("#", 1)[0] not in HAS_LIST:
-            HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName)
-          else:
-            HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName) | HAS_LIST[itemName.split("#", 1)[0]]
+_id_counter = 1
+for thing in PROG:
+  if "receive" in thing:
+    for itemInfo in thing["receive"]:
+      itemName = itemInfo
+      # itemName = itemInfo.removesuffix("#1")
+      if itemName not in ITEM_NAME_TO_ID:
+        if itemInfo.startswith(
+          (
+            "magic:",
+            "weapon:",
+            # "flag:final boss dead",
+            "permit:",
+            "misc:fire crystal",
+            "loot:gold",
+            "item:",
+            "skill:",
+            "food:",
+            "misc:blue crystal",
+            "misc:headstoneSwitch1",
+            "misc:headstoneSwitch2",
+            "misc:headstoneSwitch3",
+            "misc:headstoneSwitch4",
+            # "entrance.",
+            "armor:",
+            # "quest:",
+            # "area:",
+          )
+        ):
+          DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.progression
+          ITEM_NAME_TO_ID[itemName] = _id_counter
+        elif itemInfo.startswith(
+          (
+            "item:ring",
+            "item:aurastones",
+          )
+        ):
+          DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.useful
+          ITEM_NAME_TO_ID[itemName] = _id_counter
+        elif itemInfo.startswith(
+          (
+            "misc:",
+            "craft:",
+          )
+        ):
+          DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.filler
+          ITEM_NAME_TO_ID[itemName] = _id_counter
+        elif itemInfo.startswith(
+          (
+            "quest:",
+            "area:",
+          )
+        ):
+          continue
+        elif itemInfo.startswith(("loot:",)):
+          pass
+        else:
+          print(itemName, "not used")
+          continue
+        _id_counter += 1
+        if itemName.split("#", 1)[0] not in HAS_LIST:
+          HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName)
+        else:
+          HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName) | HAS_LIST[itemName.split("#", 1)[0]]
 
 
 # Each Item instance must correctly report the "game" it belongs to.
@@ -132,88 +124,22 @@ def create_item_with_correct_classification(world: World, name: str) -> MathQues
 
 # With those two helper functions defined, let's now get to actually creating and submitting our itempool.
 def create_all_items(world: World) -> None:
-  # This is the function in which we will create all the items that this world submits to the multiworld item pool.
-  # There must be exactly as many items as there are locations.
-  # In our case, there are either six or seven locations.
-  # We must make sure that when there are six locations, there are six items,
-  # and when there are seven locations, there are seven items.
+  itempool: list[Item] = []
 
-  # Creating items should generally be done via the world's create_item method.
-  # First, we create a list containing all the items that always exist.
+  for k in ITEM_NAME_TO_ID.keys():
+    # Skip creating the filler trap unconditionally
+    if k == "trap:deldel":
+      continue
 
-  itempool: list[Item] = [world.create_item(k) for k in ITEM_NAME_TO_ID.keys()]
+    # Check the option before creating quest items
+    if k.startswith("quest:") and not world.options.each_quest_is_a_check:
+      continue
 
-  # Some items may only exist if the player enables certain options.
-  # In our case, If the hammer option is enabled, the sixth item is the Hammer.
-  # Otherwise, we add a filler Confetti Cannon.
-  # if world.options.hammer:
-  #   # Once again, it is important to stress that even though the Hammer doesn't always exist,
-  #   # it must be present in the worlds item_name_to_id.
-  #   # Whether it is actually in the itempool is determined purely by whether we create and add the item here.
-  #   itempool.append(world.create_item("Hammer"))
+    itempool.append(world.create_item(k))
 
-  # Archipelago requires that each world submits as many locations as it submits items.
-  # This is where we can use our filler and trap items.
-  # MathQuest has two of these: The Confetti Cannon and the Math Trap.
-  # (Unfortunately, Archipelago is a bit ambiguous about its terminology here:
-  #  "filler" is an ItemClassification separate from "trap", but in a lot of its functions,
-  #  Archipelago will use "filler" to just mean "an additional item created to fill out the itempool".
-  #  "Filler" in this sense can technically have any ItemClassification,
-  #  but most commonly ItemClassification.filler or ItemClassification.trap.
-  #  Starting here, the word "filler" will be used to collectively refer to MathQuest's Confetti Cannon and Math Trap,
-  #  which are ItemClassification.filler and ItemClassification.trap respectively.)
-  # Creating filler items works the same as any other item. But there is a question:
-  # How many filler items do we actually need to create?
-  # In regions.py, we created either six or seven locations depending on the "extra_starting_chest" option.
-  # In this function, we have created five or six items depending on whether the "hammer" option is enabled.
-  # We *could* have a really complicated if-else tree checking the options again, but there is a better way.
-  # We can compare the size of our itempool so far to the number of locations in our world.
-
-  # The length of our itempool is easy to determine, since we have it as a list.
   number_of_items = len(itempool)
-
-  # The number of locations is also easy to determine, but we have to be careful.
-  # Just calling len(world.get_locations()) would report an incorrect number, because of our *event locations*.
-  # What we actually want is the number of *unfilled* locations. Luckily, there is a helper method for this:
   number_of_unfilled_locations = len(world.multiworld.get_unfilled_locations(world.player))
-
-  # Now, we just subtract the number of items from the number of locations to get the number of empty item slots.
   needed_number_of_filler_items = number_of_unfilled_locations - number_of_items
 
-  # Finally, we create that many filler items and add them to the itempool.
-  # To create our filler, we could just use world.create_item("Confetti Cannon").
-  # But there is an alternative that works even better for most worlds, including MathQuest.
-  # As discussed above, our world must have a get_filler_item_name() function defined,
-  # which must return the name of an infinitely repeatable filler item.
-  # Defining this function enables the use of a helper function called world.create_filler().
-  # You can just use this function directly to create as many filler items as you need to complete your itempool.
   itempool += [world.create_filler() for _ in range(needed_number_of_filler_items)]
-
-  # But... is that the right option for your game? Let's explore that.
-  # For some games, the concepts of "regular itempool filler" and "additionally created filler" are different.
-  # These games might want / require specific amounts of specific filler items in their regular pool.
-  # To achieve this, they will have to intentionally create the correct quantities using world.create_item().
-  # They may still use world.create_filler() to fill up the rest of their itempool with "repeatable filler",
-  # after creating their "specific quantity" filler and still having room left over.
-
-  # But there are many other games which *only* have infinitely repeatable filler items.
-  # They don't care about specific amounts of specific filler items, instead only caring about the proportions.
-  # In this case, world.create_filler() can just be used for the entire filler itempool.
-  # MathQuest is one of these games:
-  # Regardless of whether it's filler for the regular itempool or additional filler for item links / etc.,
-  # we always just want a Confetti Cannon or a Math Trap depending on the "trap_chance" option.
-  # We defined this behavior in our get_random_filler_item_name() function, which in world.py,
-  # we'll bind to world.get_filler_item_name(). So, we can just use world.create_filler() for all of our filler.
-
-  # Anyway. With our world's itempool finalized, we now need to submit it to the multiworld itempool.
-  # This is how the generator actually knows about the existence of our items.
   world.multiworld.itempool += itempool
-  # Sometimes, you might want the player to start with certain items already in their inventory.
-  # These items are called "precollected items".
-  # They will be sent as soon as they connect for the first time (depending on your client's item handling flag).
-  # Players can add precollected items themselves via the generic "start_inventory" option.
-  # If you want to add your own precollected items, you can do so via world.push_precollected().
-  # if world.options.start_with_one_confetti_cannon:
-  #   # We're adding a filler item, but you can also add progression items to the player's precollected inventory.
-  #   starting_confetti_cannon = world.create_item("Confetti Cannon")
-  #   world.push_precollected(starting_confetti_cannon)

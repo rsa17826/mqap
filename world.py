@@ -45,7 +45,6 @@ class MathQuestWorld(World):
   # For better structure and readability, we put each of these in their own file.
   @override
   def create_regions(self) -> None:
-    locations.init(self)
     regions.create_and_connect_regions(self)
     locations.create_all_locations(self)
 
@@ -64,8 +63,8 @@ class MathQuestWorld(World):
 
   @override
   def create_items(self) -> None:
-    items.init(self)
     items.create_all_items(self)
+
   # Our world class must also have a create_item function that can create any one of our items by name at any time.
   # We also put this in a different file, the same one that create_items is in.
   @override

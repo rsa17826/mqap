@@ -87,13 +87,13 @@ class AllowClips(OptionDict):
 # This is in the format "option_name_in_snake_case: OptionClassName".
 @dataclass
 class MathQuestOptions(PerGameCommonOptions):
-  # item_rando: ItemRando
+  item_rando: ItemRando
   entrance_rando: EntranceRando
   three_orbs: ThreeOrbs
   final_boss: FinalBoss
   death_link: DeathLink
   each_quest_is_a_check: EachQuestIsACheck
-  # allow_clips: AllowClips
+  allow_clips: AllowClips
 
 
 # If we want to group our options by similar type, we can do so as well. This looks nice on the website.
@@ -106,12 +106,12 @@ option_groups: list[OptionGroup] = [
       DeathLink,
     ],
   ),
-  OptionGroup(
-    "Check Options",
-    [
-      EachQuestIsACheck,
-    ],
-  ),
+  # OptionGroup(
+  #   "Check Options",
+  #   [
+  #     EachQuestIsACheck,
+  #   ],
+  # ),
   # OptionGroup(
   #   "Glitch Options",
   #   [
@@ -136,6 +136,6 @@ option_presets: dict[str, dict[str, bool | int]] = {
     "final_boss": True,
     "death_link": True,
     # "allow_clips": 0,
-    "each_quest_is_a_check": False,
+    # "each_quest_is_a_check": False,
   },
 }

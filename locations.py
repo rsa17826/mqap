@@ -16,29 +16,29 @@ from ._progression import PROG
 LOCATION_NAME_TO_ID: dict[str, int] = {}
 
 
-def init(world: World):
-  _id_counter = 1
-  for thing in PROG:
-    if "receive" in thing:
-      for itemInfo in thing["receive"]:
-        if itemInfo.startswith(
-          (
-            "item:",
-            "weapon:",
-            "armor:",
-            "food:",
-            "skill:",
-            "magic:",
-            "permit:",
-            "misc:",
-            "craft:",
-          )
-        ) or (world.options.each_quest_is_a_check and itemInfo.startswith("quest:")):
-          # itemName = itemInfo.split("#")[0]
-          itemName = f"{thing['room']['north']}_{thing['room']['east']} - {itemInfo.split('#')[0]}"
-          if itemName not in LOCATION_NAME_TO_ID:
-            LOCATION_NAME_TO_ID[itemName] = _id_counter
-            _id_counter += 1
+_id_counter = 1
+for thing in PROG:
+  if "receive" in thing:
+    for itemInfo in thing["receive"]:
+      if itemInfo.startswith(
+        (
+          "item:",
+          "weapon:",
+          "armor:",
+          "food:",
+          "skill:",
+          "magic:",
+          "permit:",
+          "misc:",
+          "craft:",
+          # "quest:",
+        )
+      ):
+        # itemName = itemInfo.split("#")[0]
+        itemName = f"{thing['room']['north']}_{thing['room']['east']} - {itemInfo.split('#')[0]}"
+        if itemName not in LOCATION_NAME_TO_ID:
+          LOCATION_NAME_TO_ID[itemName] = _id_counter
+          _id_counter += 1
 
 
 # print(LOCATION_NAME_TO_ID)
@@ -76,6 +76,9 @@ def create_all_locations(world: World) -> None:
 def create_regular_locations(world: World) -> None:
   # return
   for locationName, location_id in LOCATION_NAME_TO_ID.items():
+    # item_part = locationName.split(" - ")[-1]
+    # if item_part.startswith("quest:") and not world.options.each_quest_is_a_check:
+    #   continue
     room_id = locationName.split(" - ", 1)[0]
     region = world.get_region(f"{room_id}: root")
     location = MathQuestLocation(
@@ -96,8 +99,8 @@ def create_events(world: World) -> None:
       continue
     for itemInfo in thing["receive"]:
       if itemInfo.startswith(("quest:", "flag:", "area:", "loot:")):
-        if world.options.each_quest_is_a_check and itemInfo.startswith("quest:"):
-          continue
+        # if world.options.each_quest_is_a_check and itemInfo.startswith("quest:"):
+        #   continue
         event_name = itemInfo.split("#")[0]
         room_id = f"{thing['room']['north']}_{thing['room']['east']}: root"
 
