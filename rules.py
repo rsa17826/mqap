@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 from functools import reduce
 
-from rule_builder.rules import Has, HasAll, Rule
+from rule_builder.rules import Has, HasAll, Rule, True_
 
 from worlds.AutoWorld import World
 
@@ -53,8 +53,17 @@ def set_all_location_rules(world: World) -> None:
       location = world.get_location(loc_name)
 
       # 2. Build and apply the rules
+      requires = node.get("requires", [])
+
+      # `requires` is a DNF: a list of OR'd alternatives, where each alternative is a list of
+      # items that must ALL be held. If ANY alternative is empty, that OR-branch needs nothing
+      # at all, so the whole location is unconditionally reachable and no rule should be set
+      # (mirrors regions.py's _reqs_to_rule: `if any(len(option) == 0 ...): return None`).
+      if any(len(_and) == 0 for _and in requires):
+        continue
+
       allConditions: list[Rule[World]] = []
-      for _and in node.get("requires", []):
+      for _and in requires:
         clean_items: list[str] = []
         for token in _and:
           name = token
@@ -62,26 +71,25 @@ def set_all_location_rules(world: World) -> None:
             name = f"{room_id_base} - {name}"
           clean_items.append(name)
 
-        if len(clean_items):
-          sub_rule: Rule | None = None
-          for item in clean_items:
-            tname = item.split("#", 1)[0]
-            if tname in HAS_LIST:
-              temprule = HAS_LIST[tname]
-            else:
-              temprule = Has(item)
-            if sub_rule is None:
-              sub_rule = temprule
-            else:
-              sub_rule = sub_rule | temprule
-          assert sub_rule is not None
-          allConditions.append(sub_rule)
-          # allConditions.append(HasAll(*clean_items) if len(clean_items) > 1 else Has(clean_items[0]))
+        sub_rule: Rule | None = None
+        for item in clean_items:
+          tname = item.split("#", 1)[0]
+          if tname in HAS_LIST:
+            temprule = HAS_LIST[tname]
+          else:
+            temprule = Has(item)
+          if sub_rule is None:
+            sub_rule = temprule
+          else:
+            sub_rule = sub_rule & temprule # AND within a single requirement group
+        assert sub_rule is not None
+        allConditions.append(sub_rule)
+        # allConditions.append(HasAll(*clean_items) if len(clean_items) > 1 else Has(clean_items[0]))
 
       if allConditions:
         # print(allConditions, "allConditions")
         # print(HAS_LIST, "HAS_LIST")
-        world.set_rule(location, reduce(lambda a, s: a | s, allConditions))
+        world.set_rule(location, reduce(lambda a, s: a | s, allConditions)) # OR across alternative groups
 
 
 # def set_all_location_rules(world: World) -> None:
@@ -127,4 +135,10 @@ def set_completion_condition(world: World) -> None:
   """
   Defines the ultimate victory condition for the player to clear the multiworld.
   """
-  world.set_completion_rule(Has("flag:final boss dead"))
+  rule = True_()
+  if world.options.final_boss:
+    rule &= Has("flag:final boss dead")
+  if world.options.all_quests_maxed:
+    from .items import maxQuests
+    rule &= HasAll(*(f"quest:{name}.{value}" for name, value in maxQuests.items()))
+  world.set_completion_rule(rule)

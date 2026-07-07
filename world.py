@@ -86,7 +86,7 @@ class MathQuestWorld(World):
   @override
   def fill_slot_data(self) -> Mapping[str, bool]:
     from ._room_geometry import GEOM
-    from .items import ITEM_NAME_TO_ID
+    from .items import ITEM_NAME_TO_ID, maxQuests
     from .locations import LOCATION_NAME_TO_ID
     from .regions import table_js
 
@@ -97,4 +97,5 @@ class MathQuestWorld(World):
       "AP_ITEM_IDS": {v: k for k, v in ITEM_NAME_TO_ID.items()},
       "AP_LOCATION_IDS": LOCATION_NAME_TO_ID,
       "AP_ENTRANCE_IDS": GEOM,
+      "maxQuests": maxQuests,
     }

@@ -70,6 +70,14 @@ class EachQuestIsACheck(Toggle):
   display_name: str = "EachQuestIsACheck"
 
 
+class AllQuestsMaxed(Toggle):
+  """
+  AllQuestsMaxed
+  """
+
+  display_name: str = "AllQuestsMaxed"
+
+
 class AllowClips(OptionDict):
   """
   AllowClips
@@ -94,6 +102,7 @@ class MathQuestOptions(PerGameCommonOptions):
   death_link: DeathLink
   each_quest_is_a_check: EachQuestIsACheck
   allow_clips: AllowClips
+  all_quests_maxed: AllQuestsMaxed
 
 
 # If we want to group our options by similar type, we can do so as well. This looks nice on the website.
@@ -121,7 +130,8 @@ option_groups: list[OptionGroup] = [
   OptionGroup(
     "Win Options",
     [
-      ThreeOrbs,
+      # ThreeOrbs,
+      AllQuestsMaxed,
       FinalBoss,
     ],
   ),
@@ -135,6 +145,7 @@ option_presets: dict[str, dict[str, bool | int]] = {
     "three_orbs": True,
     "final_boss": True,
     "death_link": True,
+    "all_quests_maxed": False,
     # "allow_clips": 0,
     # "each_quest_is_a_check": False,
   },

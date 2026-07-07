@@ -17,7 +17,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
 }
 
 HAS_LIST: dict[str, Rule[World]] = {}
-
+maxQuests: dict[str, int] = {}
 
 _id_counter = 1
 for thing in PROG:
@@ -66,12 +66,12 @@ for thing in PROG:
         ):
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.filler
           ITEM_NAME_TO_ID[itemName] = _id_counter
-        elif itemInfo.startswith(
-          (
-            "quest:",
-            "area:",
-          )
-        ):
+        elif itemInfo.startswith(("quest:",)):
+          questData = itemInfo.split(":", 1)[1].split(".")
+          if questData[0] not in maxQuests or int(questData[1]) > maxQuests[questData[0]]:
+            maxQuests[questData[0]] = int(questData[1])
+          continue
+        elif itemInfo.startswith(("area:",)):
           continue
         elif itemInfo.startswith(("loot:",)):
           pass
