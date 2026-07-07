@@ -1,6 +1,7 @@
 from dataclasses import dataclass
+from typing import ClassVar
 
-from Options import OptionGroup, PerGameCommonOptions, Toggle
+from Options import OptionDict, OptionGroup, PerGameCommonOptions, Toggle
 
 # In this file, we define the options the player can pick.
 # The most common types of options are Toggle, Range and Choice.
@@ -61,36 +62,80 @@ class FinalBoss(Toggle):
   display_name: str = "FinalBoss"
 
 
+class EachQuestIsACheck(Toggle):
+  """
+  EachQuestIsACheck
+  """
+
+  display_name: str = "EachQuestIsACheck"
+
+
+class AllowClips(OptionDict):
+  """
+  AllowClips
+  """
+
+  value: ClassVar[dict[str, int]] = {
+    "no clips allowed": 0,
+    "clips always send to vanilla location": 1,
+    "clips send to default exit": 2,
+  }
+  display_name: str = "AllowClips"
+
+
 # We must now define a dataclass inheriting from PerGameCommonOptions that we put all our options in.
 # This is in the format "option_name_in_snake_case: OptionClassName".
 @dataclass
 class MathQuestOptions(PerGameCommonOptions):
-  item_rando: ItemRando
+  # item_rando: ItemRando
   entrance_rando: EntranceRando
   three_orbs: ThreeOrbs
   final_boss: FinalBoss
   death_link: DeathLink
+  each_quest_is_a_check: EachQuestIsACheck
+  # allow_clips: AllowClips
 
 
 # If we want to group our options by similar type, we can do so as well. This looks nice on the website.
 option_groups: list[OptionGroup] = [
   OptionGroup(
     "Gameplay Options",
-    [ItemRando, EntranceRando],
+    [
+      # ItemRando,
+      EntranceRando,
+      DeathLink,
+    ],
   ),
   OptionGroup(
+    "Check Options",
+    [
+      EachQuestIsACheck,
+    ],
+  ),
+  # OptionGroup(
+  #   "Glitch Options",
+  #   [
+  #     # AllowClips,
+  #   ],
+  # ),
+  OptionGroup(
     "Win Options",
-    [ThreeOrbs, FinalBoss],
+    [
+      ThreeOrbs,
+      FinalBoss,
+    ],
   ),
 ]
 
 # Finally, we can define some option presets if we want the player to be able to quickly choose a specific "mode".
-option_presets: dict[str, dict[str, bool]] = {
+option_presets: dict[str, dict[str, bool | int]] = {
   "main": {
-    "item_rando": True,
+    # "item_rando": True,
     "entrance_rando": False,
     "three_orbs": True,
     "final_boss": True,
     "death_link": True,
+    # "allow_clips": 0,
+    "each_quest_is_a_check": False,
   },
 }

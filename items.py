@@ -73,11 +73,7 @@ for thing in PROG:
           )
         ):
           continue
-        elif itemInfo.startswith(
-          (
-            "loot:",
-          )
-        ):
+        elif itemInfo.startswith(("loot:",)):
           if itemName.split("#", 1)[0] not in HAS_LIST:
             HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName)
           else:

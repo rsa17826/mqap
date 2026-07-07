@@ -81,6 +81,7 @@ def set_all_location_rules(world: World) -> None:
         # print(HAS_LIST, "HAS_LIST")
         world.set_rule(location, reduce(lambda a, s: a | s, allConditions))
 
+
 # def set_all_location_rules(world: World) -> None:
 #   """
 #   Dynamically applies progression rules to locations and events.

@@ -276,7 +276,7 @@ _SIDE_GROUP: dict[str, int] = {"north": GROUP_NORTH, "south": GROUP_SOUTH, "east
 
 
 def finalize_entrance_randomization(world: World) -> None:
-  print("asdasdadsdsaasdadssd")
+  # print("asdasdadsdsaasdadssd")
   """Call this from World.connect_entrances (never from create_regions — Generic ER's own docs
     require randomize_entrances to run at that stage). By this point _mq_er_candidates already
     holds real, vanilla-connected Entrance objects (tagged during Pass 3 in create_and_connect_regions),
@@ -286,7 +286,7 @@ def finalize_entrance_randomization(world: World) -> None:
   if not er_candidates:
     world.er_pairings = []
     return
-  print(er_candidates)
+  # print(er_candidates)
   for entrance in er_candidates:
     disconnect_entrance_for_randomization(entrance)
 
