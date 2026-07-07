@@ -15,7 +15,7 @@ ITEM_NAME_TO_ID: dict[str, int] = {}
 DEFAULT_ITEM_CLASSIFICATIONS = {}
 
 _id_counter = 99999
-traps = ("deldel", "randomEmemies")
+traps = ("spawn_random_ememies", "del_del", "nothing")
 for trap in traps:
   DEFAULT_ITEM_CLASSIFICATIONS[f"trap:{trap}"] = ItemClassification.trap
   ITEM_NAME_TO_ID[f"trap:{trap}"] = _id_counter
@@ -99,17 +99,15 @@ class MathQuestItem(Item):
 # Ontop of our regular itempool, our world must be able to create arbitrary amounts of filler as requested by core.
 # To do this, it must define a function called world.get_filler_item_name(), which we will define in world.py later.
 # For now, let's make a function that returns the name of a random filler item here in items.py.
-def get_random_filler_item_name(_world: World) -> str:
-  # MathQuest has an option called "trap_chance".
-  # This is the percentage chance that each filler item is a Math Trap instead of a Confetti Cannon.
-  # For this purpose, we need to use a random generator.
+def get_random_filler_item_name(world: World) -> str:
+  weights = [getattr(world.options, trap) for trap in traps]
 
-  # IMPORTANT: Whenever you need to use a random generator, you must use world.random.
-  # This ensures that generating with the same generator seed twice yields the same output.
-  # DO NOT use a bare random object from Python's built-in random module.
-  # if world.random.randint(0, 99) < world.options.trap_chance:
-  #   return "Math Trap"
-  return "trap:deldel"
+  if sum(weights) == 0:
+    return "trap:nothing"
+
+  # Selects one trap based on the weights list
+  chosen_trap = world.random.choices(traps, weights=weights, k=1)[0]
+  return f"trap:{chosen_trap}"
 
 
 def create_item_with_correct_classification(world: World, name: str) -> MathQuestItem:
