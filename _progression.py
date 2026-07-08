@@ -2307,6 +2307,7 @@ MathQuest.js:42550 add listeners""",
     "requires": [
       [
         "loot:key",
+        "permit:bomb",
       ],
     ],
     "receive": [
