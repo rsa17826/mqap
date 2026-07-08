@@ -23,7 +23,7 @@ option_presets: dict[str, dict[str, bool | int]] = {
     "all_quests_maxed": False,
     "del_del": 20,
     "nothing": 10,
-    "spawn_random_ememies": 70,
+    "spawn_random_enemies": 70,
     # "allow_clips": 0,
     "each_quest_is_a_check": False,
   },
@@ -101,14 +101,14 @@ class DelDel(Range):
   default: bool = option_presets["main"]["del_del"]
 
 
-class SpawnRandomEmemies(Range):
+class SpawnRandomEnemies(Range):
   """
-  SpawnRandomEmemies
+  SpawnRandomEnemies
   """
 
   range_end: int = 100
-  display_name: str = "SpawnRandomEmemies"
-  default: bool = option_presets["main"]["spawn_random_ememies"]
+  display_name: str = "SpawnRandomEnemies"
+  default: bool = option_presets["main"]["spawn_random_enemies"]
 
 
 class Nothing(Range):
@@ -146,7 +146,7 @@ class MathQuestOptions(PerGameCommonOptions):
   allow_clips: AllowClips
   all_quests_maxed: AllQuestsMaxed
   del_del: DelDel
-  spawn_random_ememies: SpawnRandomEmemies
+  spawn_random_enemies: SpawnRandomEnemies
   nothing: Nothing
 
 
@@ -183,7 +183,7 @@ option_groups: list[OptionGroup] = [
     "Traps",
     [
       DelDel,
-      SpawnRandomEmemies,
+      SpawnRandomEnemies,
       Nothing,
     ],
   ),

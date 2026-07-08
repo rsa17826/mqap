@@ -15,7 +15,7 @@ ITEM_NAME_TO_ID: dict[str, int] = {}
 DEFAULT_ITEM_CLASSIFICATIONS = {}
 
 _id_counter = 99999
-traps = ("spawn_random_ememies", "del_del", "nothing")
+traps = ("spawn_random_enemies", "del_del", "nothing")
 for trap in traps:
   DEFAULT_ITEM_CLASSIFICATIONS[f"trap:{trap}"] = ItemClassification.trap
   ITEM_NAME_TO_ID[f"trap:{trap}"] = _id_counter
@@ -76,7 +76,7 @@ for thing in PROG:
           if questData[0] not in maxQuests or int(questData[1]) > maxQuests[questData[0]]:
             maxQuests[questData[0]] = int(questData[1])
           continue
-        elif itemInfo.startswith(("area:",)):
+        elif itemInfo.startswith(("area:", "flag:")):
           continue
         elif itemInfo.startswith(("loot:",)):
           pass
