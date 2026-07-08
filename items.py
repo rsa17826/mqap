@@ -76,7 +76,13 @@ for thing in PROG:
           if questData[0] not in maxQuests or int(questData[1]) > maxQuests[questData[0]]:
             maxQuests[questData[0]] = int(questData[1])
           continue
-        elif itemInfo.startswith(("area:", "flag:")):
+        elif itemInfo.startswith(
+          (
+            "area:",
+            "flag:",
+            "power:",
+          )
+        ):
           continue
         elif itemInfo.startswith(("loot:",)):
           pass

@@ -29,6 +29,9 @@ def set_all_entrance_rules(_world: World) -> None:
 
 _ENTRANCE_RE = re.compile(r"^entrance\.[a-z]+\d+$")
 from .items import HAS_LIST
+from .power import HasPower
+
+_POWER_RE = re.compile(r"^power:(\d+)$")
 
 
 def set_all_location_rules(world: World) -> None:
@@ -42,7 +45,7 @@ def set_all_location_rules(world: World) -> None:
       clean_item = itemInfo.split("#")[0]
 
       # 1. Handle the naming difference between events and standard locations
-      if clean_item.startswith(("loot:")):
+      if clean_item.startswith(("loot:", "power:")):
         continue
       if clean_item.startswith(("quest:", "flag:", "area:", "loot:")) and not (
         world.options.each_quest_is_a_check and clean_item.startswith("quest:")
@@ -74,7 +77,10 @@ def set_all_location_rules(world: World) -> None:
         sub_rule: Rule | None = None
         for item in clean_items:
           tname = item.split("#", 1)[0]
-          if tname in HAS_LIST:
+          power_match = _POWER_RE.match(item)
+          if power_match:
+            temprule = HasPower(int(power_match.group(1)))
+          elif tname in HAS_LIST:
             temprule = HAS_LIST[tname]
           else:
             temprule = Has(item)
@@ -92,45 +98,6 @@ def set_all_location_rules(world: World) -> None:
         world.set_rule(location, reduce(lambda a, s: a | s, allConditions)) # OR across alternative groups
 
 
-# def set_all_location_rules(world: World) -> None:
-#   """
-#   Dynamically applies progression rules to locations and events.
-#   """
-#   for node in PROG:
-#     requires = node.get("requires", [])
-#     if not requires or any(not and_list for and_list in requires):
-#       continue
-
-#     # Compile the logical DNF conditions ([[]] -> OR inside AND)
-#     or_rule = None
-#     for and_list in requires:
-#       and_rule = None
-#       for req in and_list:
-#         current_rule = Has(req)
-#         and_rule = current_rule if and_rule is None else and_rule & current_rule
-#       or_rule = and_rule if or_rule is None else or_rule | and_rule
-
-#     if or_rule is not None:
-#       room_prefix = f"{node['room']['north']}_{node['room']['east']}"
-#       for item in node.get("receive", []):
-#         # Format matches the event location format we defined during region setup
-#         target_name = f"{room_prefix} - {item}"
-
-#         try:
-#           target = world.get_location(target_name)
-#           world.set_rule(target, or_rule)
-#         except Exception:
-#           try:
-#             target = world.get_entrance(item)
-#             world.set_rule(target, or_rule)
-#           except Exception:
-#             pass
-
-#         # If the target exists as a valid registered location or entrance, apply the rule
-#         # if target is not None:
-#         #   world.set_rule(target, or_rule)
-
-
 def set_completion_condition(world: World) -> None:
   """
   Defines the ultimate victory condition for the player to clear the multiworld.
@@ -140,5 +107,6 @@ def set_completion_condition(world: World) -> None:
     rule &= Has("flag:final boss dead")
   if world.options.all_quests_maxed:
     from .items import maxQuests
+
     rule &= HasAll(*(f"quest:{name}.{value}" for name, value in maxQuests.items()))
   world.set_completion_rule(rule)
