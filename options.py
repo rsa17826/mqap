@@ -214,6 +214,8 @@ class MathQuestOptions(PerGameCommonOptions):
   progressive_weapons: ProgressiveWeapons
   progressive_armor: ProgressiveArmor
   progressive_magic: ProgressiveMagic
+  infinite_gold: InfiniteGold
+  infinite_keys: InfiniteKeys
 
 
 # If we want to group our options by similar type, we can do so as well. This looks nice on the website.
