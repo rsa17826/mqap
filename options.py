@@ -24,6 +24,8 @@ option_presets: dict[str, dict[str, bool | int]] = {
     "progressive_magic": False,
     "death_link": True,
     "all_quests_maxed": False,
+    "infinite_gold": False,
+    "infinite_keys": False,
     "del_del": 20,
     "nothing": 10,
     "spawn_random_enemies": 70,
@@ -140,6 +142,22 @@ class ProgressiveMagic(Toggle):
   display_name: str = "ProgressiveMagic"
   default: bool = option_presets["main"]["progressive_magic"]
 
+class InfiniteGold(Toggle):
+  """
+  InfiniteGold
+  """
+
+  display_name: str = "InfiniteGold"
+  default: bool = option_presets["main"]["infinite_gold"]
+
+class InfiniteKeys(Toggle):
+  """
+  InfiniteKeys
+  """
+
+  display_name: str = "InfiniteKeys"
+  default: bool = option_presets["main"]["infinite_keys"]
+
 
 class Nothing(Range):
   """
@@ -201,12 +219,13 @@ option_groups: list[OptionGroup] = [
       ProgressiveMagic,
     ],
   ),
-  # OptionGroup(
-  #   "Check",
-  #   [
-  #     EachQuestIsACheck,
-  #   ],
-  # ),
+  OptionGroup(
+    "Infinites",
+    [
+      InfiniteGold,
+      InfiniteKeys,
+    ],
+  ),
   # OptionGroup(
   #   "Glitches",
   #   [
