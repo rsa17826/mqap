@@ -21,6 +21,7 @@ option_presets: dict[str, dict[str, bool | int]] = {
     "final_boss": True,
     "progressive_weapons": True,
     "progressive_armor": True,
+    "progressive_magic": False,
     "death_link": True,
     "all_quests_maxed": False,
     "del_del": 20,
@@ -112,6 +113,7 @@ class SpawnRandomEnemies(Range):
   display_name: str = "SpawnRandomEnemies"
   default: bool = option_presets["main"]["spawn_random_enemies"]
 
+
 class ProgressiveWeapons(Toggle):
   """
   ProgressiveWeapons
@@ -119,6 +121,8 @@ class ProgressiveWeapons(Toggle):
 
   display_name: str = "ProgressiveWeapons"
   default: bool = option_presets["main"]["progressive_weapons"]
+
+
 class ProgressiveArmor(Toggle):
   """
   ProgressiveArmor
@@ -126,6 +130,15 @@ class ProgressiveArmor(Toggle):
 
   display_name: str = "ProgressiveArmor"
   default: bool = option_presets["main"]["progressive_armor"]
+
+
+class ProgressiveMagic(Toggle):
+  """
+  ProgressiveMagic
+  """
+
+  display_name: str = "ProgressiveMagic"
+  default: bool = option_presets["main"]["progressive_magic"]
 
 
 class Nothing(Range):
@@ -167,32 +180,41 @@ class MathQuestOptions(PerGameCommonOptions):
   nothing: Nothing
   progressive_weapons: ProgressiveWeapons
   progressive_armor: ProgressiveArmor
+  progressive_magic: ProgressiveMagic
 
 
 # If we want to group our options by similar type, we can do so as well. This looks nice on the website.
 option_groups: list[OptionGroup] = [
   OptionGroup(
-    "Gameplay Options",
+    "Gameplay",
     [
       # ItemRando,
       EntranceRando,
       DeathLink,
     ],
   ),
+  OptionGroup(
+    "Progress",
+    [
+      ProgressiveWeapons,
+      ProgressiveArmor,
+      ProgressiveMagic,
+    ],
+  ),
   # OptionGroup(
-  #   "Check Options",
+  #   "Check",
   #   [
   #     EachQuestIsACheck,
   #   ],
   # ),
   # OptionGroup(
-  #   "Glitch Options",
+  #   "Glitches",
   #   [
   #     # AllowClips,
   #   ],
   # ),
   OptionGroup(
-    "Win Options",
+    "Win Condition",
     [
       AllQuestsMaxed,
       FinalBoss,

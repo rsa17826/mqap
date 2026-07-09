@@ -50,31 +50,49 @@ WEAPON_ORDER: dict[str, int] = {
   "weapon:soulSword": 19,
 }
 ARMOR_ORDER: dict[str, int] = {
-  "weapon:aSword": 1,
-  "weapon:club": 2,
-  "weapon:dagger": 3,
-  "weapon:sword": 4,
-  "weapon:sKnife": 5,
-  "weapon:pitchfork": 6,
-  "weapon:warlockStaff": 7,
-  "weapon:royalStaff": 8,
-  "weapon:royalSword": 9,
-  "weapon:sunSword": 10,
-  "weapon:shadowStaff": 11,
-  "weapon:refreshStaff": 12,
-  "weapon:orcBlade": 13,
-  "weapon:creeperCrusher": 14,
-  "weapon:twinFury": 15,
-  "weapon:baneBlade": 16,
-  "weapon:axe": 17,
-  "weapon:bombSword": 18,
-  "weapon:soulSword": 19,
+  "armor:alphaArmor": 1,
+  "armor:vest": 2,
+  "armor:regenArmor": 3,
+  "armor:robe": 4,
+  "armor:iron": 5,
+  "armor:mysticCloak": 6,
+  "armor:sunArmor": 7,
+  "armor:royalArmor": 8,
+  "armor:phantomCoat": 9,
+  "armor:speedVest": 10,
+  "armor:soulArmor": 11,
+  "armor:shadowCoat": 12,
+  "armor:grimGear": 13,
+  "armor:nobleArmor": 14,
+  "armor:diamondArmor": 15,
+}
+MAGIC_ORDER: dict[str, int] = {
+  "magic:slow": 1,
+  "magic:crush": 2,
+  "magic:blast": 3,
+  "magic:heal": 4,
+  "magic:fire": 5,
+  "magic:weak": 6,
+  "magic:blessing": 7,
+  "magic:drain": 8,
+  "magic:cloud": 9,
+  "magic:regen": 10,
+  "magic:refresh": 11,
+  "magic:doubleDown": 12,
+  "magic:ice": 13,
+  "magic:lightning": 14,
 }
 
 _id_counter = 1
 
 DEFAULT_ITEM_CLASSIFICATIONS["weapon:progressive weapons"] = ItemClassification.progression
 ITEM_NAME_TO_ID["weapon:progressive weapons"] = _id_counter
+_id_counter += 1
+DEFAULT_ITEM_CLASSIFICATIONS["armor:progressive armor"] = ItemClassification.progression
+ITEM_NAME_TO_ID["armor:progressive armor"] = _id_counter
+_id_counter += 1
+DEFAULT_ITEM_CLASSIFICATIONS["magic:progressive magic"] = ItemClassification.progression
+ITEM_NAME_TO_ID["magic:progressive magic"] = _id_counter
 _id_counter += 1
 
 for thing in PROG:
@@ -203,6 +221,23 @@ def create_all_items(world: World) -> None:
         print(k)
       else:
         if k == "weapon:progressive weapons":
+          continue
+    if k.startswith("armor:"):
+      if world.options.progressive_armor:
+        if k == "armor:progressive armor":
+          continue
+        k = "armor:progressive armor"
+        print(k)
+      else:
+        if k == "armor:progressive armor":
+          continue
+      if world.options.progressive_magic:
+        if k == "magic:progressive magic":
+          continue
+        k = "magic:progressive magic"
+        print(k)
+      else:
+        if k == "magic:progressive magic":
           continue
 
     itempool.append(world.create_item(k))
