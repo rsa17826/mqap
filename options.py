@@ -41,7 +41,8 @@ option_presets: dict[str, dict[str, bool | int]] = {
 # If you want a toggle to be on by default, you can use the "DefaultOnToggle" class instead of the "Toggle" class.
 class EntranceRando(Toggle):
   """
-  EntranceRando
+  Shuffles the connections between different areas, doors, or dungeons.
+  When enabled, walking through a screen transition may lead to a completely different location than normal.
   """
 
   # The docstring of an option is used as the description on the website and in the template yaml.
@@ -53,7 +54,8 @@ class EntranceRando(Toggle):
 
 class DeathLink(Toggle):
   """
-  DeathLink
+  Links your fate to other players in the multiworld.
+  When enabled, if you die, everyone else on Death Link dies too. If they die, you die. Use with caution!
   """
 
   display_name: str = "DeathLink"
@@ -62,7 +64,8 @@ class DeathLink(Toggle):
 
 class ItemRando(Toggle):
   """
-  ItemRando
+  Shuffles the locations of items throughout the game.
+  Progression items, equipment, and upgrades will be scattered across different checks instead of being in their vanilla spots.
   """
 
   display_name: str = "ItemRando"
@@ -71,7 +74,7 @@ class ItemRando(Toggle):
 
 class FinalBoss(Toggle):
   """
-  FinalBoss
+  Defeat the Final Boss to beat the game to achieve victory.
   """
 
   display_name: str = "FinalBoss"
@@ -80,7 +83,8 @@ class FinalBoss(Toggle):
 
 class EachQuestIsACheck(Toggle):
   """
-  EachQuestIsACheck
+  Changes how quests handle rewards.
+  When enabled, every individual quest completed acts as a randomized location check, allowing it to hold multiworld items.
   """
 
   display_name: str = "EachQuestIsACheck"
@@ -89,7 +93,7 @@ class EachQuestIsACheck(Toggle):
 
 class AllQuestsMaxed(Toggle):
   """
-  AllQuestsMaxed
+  Requires the player to complete and max out every single quest in the game to achieve victory.
   """
 
   display_name: str = "AllQuestsMaxed"
@@ -98,7 +102,7 @@ class AllQuestsMaxed(Toggle):
 
 class DelDel(Range):
   """
-  DelDel
+  Adjusts the frequency of the DelDel trap item appearing as the filler item. Higher values increase its spawn rate.
   """
 
   range_end: int = 100
@@ -108,7 +112,8 @@ class DelDel(Range):
 
 class SpawnRandomEnemies(Range):
   """
-  SpawnRandomEnemies
+  Adjusts the weight/frequency of the Enemy Spawn trap appearing in the pool.
+  When a player receives this trap, unexpected enemies will immediately spawn around them.
   """
 
   range_end: int = 100
@@ -118,7 +123,8 @@ class SpawnRandomEnemies(Range):
 
 class ProgressiveWeapons(Toggle):
   """
-  ProgressiveWeapons
+  Determines how weapons are received.
+  When enabled, weapon items found in the world will always upgrade your current weapon to the next tier sequentially.
   """
 
   display_name: str = "ProgressiveWeapons"
@@ -127,7 +133,8 @@ class ProgressiveWeapons(Toggle):
 
 class ProgressiveArmor(Toggle):
   """
-  ProgressiveArmor
+  Determines how armor is received.
+  When enabled, armor items found in the world will always upgrade your current armor to the next tier sequentially.
   """
 
   display_name: str = "ProgressiveArmor"
@@ -136,23 +143,26 @@ class ProgressiveArmor(Toggle):
 
 class ProgressiveMagic(Toggle):
   """
-  ProgressiveMagic
+  Determines how magic spells or upgrades are received.
+  When enabled, finding a magic item will unlock spells in a strict linear progression.
   """
 
   display_name: str = "ProgressiveMagic"
   default: bool = option_presets["main"]["progressive_magic"]
 
+
 class InfiniteGold(Toggle):
   """
-  InfiniteGold
+  Grants the player an infinite or maxed-out supply of gold right from the start of the game, bypassing the need to farm money.
   """
 
   display_name: str = "InfiniteGold"
   default: bool = option_presets["main"]["infinite_gold"]
 
+
 class InfiniteKeys(Toggle):
   """
-  InfiniteKeys
+  Grants the player an infinite supply of keys. chests requiring standard keys can be opened freely without consuming resources.
   """
 
   display_name: str = "InfiniteKeys"
@@ -161,7 +171,8 @@ class InfiniteKeys(Toggle):
 
 class Nothing(Range):
   """
-  Nothing
+  Adjusts the weight/frequency of "Nothing" filler items in the pool.
+  Finding this item gives the player absolutely nothing, serving as pure empty filler.
   """
 
   range_end: int = 100
@@ -171,7 +182,11 @@ class Nothing(Range):
 
 class AllowClips(OptionDict):
   """
-  AllowClips
+  Determines how logic handles clipping through walls or boundaries.
+
+  no clips allowed: Standard logic; out-of-bounds glitches are not expected.
+  clips always send to vanilla location: Logic assumes clipping through a transition takes you where it normally would, bypassing entrance rando remappings.
+  clips send to default exit: Logic assumes clipping takes you to the map's default error/safety exit, following entrance rando remappings.
   """
 
   value: ClassVar[dict[str, int]] = {
