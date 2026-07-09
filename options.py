@@ -19,6 +19,8 @@ option_presets: dict[str, dict[str, bool | int]] = {
     "entrance_rando": False,
     # "three_orbs": True,
     "final_boss": True,
+    "progressive_weapons": True,
+    "progressive_armor": True,
     "death_link": True,
     "all_quests_maxed": False,
     "del_del": 20,
@@ -110,6 +112,21 @@ class SpawnRandomEnemies(Range):
   display_name: str = "SpawnRandomEnemies"
   default: bool = option_presets["main"]["spawn_random_enemies"]
 
+class ProgressiveWeapons(Toggle):
+  """
+  ProgressiveWeapons
+  """
+
+  display_name: str = "ProgressiveWeapons"
+  default: bool = option_presets["main"]["progressive_weapons"]
+class ProgressiveArmor(Toggle):
+  """
+  ProgressiveArmor
+  """
+
+  display_name: str = "ProgressiveArmor"
+  default: bool = option_presets["main"]["progressive_armor"]
+
 
 class Nothing(Range):
   """
@@ -148,6 +165,8 @@ class MathQuestOptions(PerGameCommonOptions):
   del_del: DelDel
   spawn_random_enemies: SpawnRandomEnemies
   nothing: Nothing
+  progressive_weapons: ProgressiveWeapons
+  progressive_armor: ProgressiveArmor
 
 
 # If we want to group our options by similar type, we can do so as well. This looks nice on the website.

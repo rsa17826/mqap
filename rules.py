@@ -28,7 +28,7 @@ def set_all_entrance_rules(_world: World) -> None:
 
 
 _ENTRANCE_RE = re.compile(r"^entrance\.[a-z]+\d+$")
-from .items import HAS_LIST
+from .items import ARMOR_ORDER, HAS_LIST, WEAPON_ORDER
 from .power import HasPower
 
 _POWER_RE = re.compile(r"^power:(\d+)$")
@@ -80,6 +80,16 @@ def set_all_location_rules(world: World) -> None:
           power_match = _POWER_RE.match(item)
           if power_match:
             temprule = HasPower(int(power_match.group(1)))
+          elif world.options.progressive_armor and tname in WEAPON_ORDER:
+            # With progressive_weapons on, the actual item received is the generic
+            # "weapon:progressive weapons" item, not the named weapon. Reaching this
+            # weapon's logic requires having collected at least this many of them.
+            temprule = Has("armor:progressive armor", ARMOR_ORDER[tname])
+          elif world.options.progressive_weapons and tname in WEAPON_ORDER:
+            # With progressive_weapons on, the actual item received is the generic
+            # "weapon:progressive weapons" item, not the named weapon. Reaching this
+            # weapon's logic requires having collected at least this many of them.
+            temprule = Has("weapon:progressive weapons", WEAPON_ORDER[tname])
           elif tname in HAS_LIST:
             temprule = HAS_LIST[tname]
           else:

@@ -24,7 +24,59 @@ for trap in traps:
 HAS_LIST: dict[str, Rule[World]] = {}
 maxQuests: dict[str, int] = {}
 
+# Maps each individual weapon item name to its 1-based collection order.
+# Used when `progressive_weapons` is on: instead of receiving "weapon:bombSword" directly,
+# the player receives generic "weapon:progressive weapons" items, and reaching a specific
+# weapon's logic requires having received at least that many progressive weapon items.
+WEAPON_ORDER: dict[str, int] = {
+  "weapon:aSword": 1,
+  "weapon:club": 2,
+  "weapon:dagger": 3,
+  "weapon:sword": 4,
+  "weapon:sKnife": 5,
+  "weapon:pitchfork": 6,
+  "weapon:warlockStaff": 7,
+  "weapon:royalStaff": 8,
+  "weapon:royalSword": 9,
+  "weapon:sunSword": 10,
+  "weapon:shadowStaff": 11,
+  "weapon:refreshStaff": 12,
+  "weapon:orcBlade": 13,
+  "weapon:creeperCrusher": 14,
+  "weapon:twinFury": 15,
+  "weapon:baneBlade": 16,
+  "weapon:axe": 17,
+  "weapon:bombSword": 18,
+  "weapon:soulSword": 19,
+}
+ARMOR_ORDER: dict[str, int] = {
+  "weapon:aSword": 1,
+  "weapon:club": 2,
+  "weapon:dagger": 3,
+  "weapon:sword": 4,
+  "weapon:sKnife": 5,
+  "weapon:pitchfork": 6,
+  "weapon:warlockStaff": 7,
+  "weapon:royalStaff": 8,
+  "weapon:royalSword": 9,
+  "weapon:sunSword": 10,
+  "weapon:shadowStaff": 11,
+  "weapon:refreshStaff": 12,
+  "weapon:orcBlade": 13,
+  "weapon:creeperCrusher": 14,
+  "weapon:twinFury": 15,
+  "weapon:baneBlade": 16,
+  "weapon:axe": 17,
+  "weapon:bombSword": 18,
+  "weapon:soulSword": 19,
+}
+
 _id_counter = 1
+
+DEFAULT_ITEM_CLASSIFICATIONS["weapon:progressive weapons"] = ItemClassification.progression
+ITEM_NAME_TO_ID["weapon:progressive weapons"] = _id_counter
+_id_counter += 1
+
 for thing in PROG:
   if "receive" in thing:
     for itemInfo in thing["receive"]:
@@ -143,6 +195,15 @@ def create_all_items(world: World) -> None:
     # Check the option before creating quest items
     if k.startswith("quest:") and not world.options.each_quest_is_a_check:
       continue
+    if k.startswith("weapon:"):
+      if world.options.progressive_weapons:
+        if k == "weapon:progressive weapons":
+          continue
+        k = "weapon:progressive weapons"
+        print(k)
+      else:
+        if k == "weapon:progressive weapons":
+          continue
 
     itempool.append(world.create_item(k))
 
