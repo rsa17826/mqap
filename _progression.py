@@ -4008,13 +4008,6 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 20, "east": 20},
     "requires": [
-      ["quest:aSword.7", "weapon:aSword", "area:1.19"],
-    ],
-    "receive": ["quest:aSword.8"],
-  },
-  {
-    "room": {"north": 20, "east": 20},
-    "requires": [
       ["quest:aSword.8", "weapon:aSword", "area:1.19"],
     ],
     "receive": ["quest:aSword.9"],
