@@ -1,3 +1,0 @@
-[36m[1m=========================== short test summary info ============================[0m
-[31mFAILED[0m test/test_easy_mode.py::[1mTestEasyModeLogic::test_easy_mode_access[0m - AssertionError: False is not true
-[31m==================== [31m[1m1 failed[0m, [32m6 passed[0m, [33m1 warning[0m[31m in 0.40s[0m[31m ====================[0m
