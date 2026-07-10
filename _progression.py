@@ -4460,18 +4460,78 @@ MathQuest.js:42550 add listeners""",
     "receive": ["quest:aSword.57"],
   },
   {
-    "room": {"north": 5, "east": 9},
+    "room": {"north": 500, "east": 501},
     "requires": [
       [
-        "quest:aSword.51",
+        "quest:aSword.57",
         "skill:reveal",
       ],
     ],
     "receive": ["quest:aSword.58"],
   },
+  {
+    "room": {"north": 13, "east": 25},
+    "requires": [
+      [
+        "quest:aSword.58",
+        "loot:mHat",
+      ],
+    ],
+    "receive": ["quest:aSword.59"],
+  },
+  {
+    "room": {"north": 13, "east": 25},
+    "requires": [
+      [
+        "quest:aSword.59",
+        "loot:mHat",
+      ],
+    ],
+    "receive": ["quest:aSword.60"],
+  },
+  {
+    "room": {"north": 13, "east": 25},
+    "requires": [
+      [
+        "quest:aSword.60",
+        "loot:mHat",
+      ],
+    ],
+    "receive": ["quest:aSword.61"],
+  },
+  {
+    "room": {"north": 13, "east": 25},
+    "requires": [
+      [
+        "quest:aSword.61",
+        "loot:mHat",
+      ],
+    ],
+    "receive": ["quest:aSword.62"],
+  },
+  {
+    "room": {"north": 13, "east": 25},
+    "requires": [
+      [
+        "quest:aSword.62",
+        "loot:mHat",
+      ],
+    ],
+    "receive": ["quest:aSword.63"],
+  },
+  {
+    "room": {"north": 500, "east": 501},
+    "requires": [
+      [
+        "quest:aSword.63",
+        "skill:reveal",
+      ],
+    ],
+    "receive": ["quest:aSword.64"],
+  },
   # {
   #   "room": {"north": 500, "east": 501},
-  #   "requires": [["quest:aSword.12"],],
+  #   "requires": [["quest:aSword.13"],],
   #   "receive": ["quest:aSword.13"],
   # },
   # {
