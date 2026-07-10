@@ -3409,34 +3409,99 @@ GEOM: list[ExitBase] = [
   {
     "north": 14,
     "east": 20,
-    # "areas": [
-    #   {
-    #     "reqs": [
-    #       [
-    #         "power:15",
-    #       ],
-    #     ],
-    #     "areas": [
-    #       [
-    #         {"side": "north", "idx": 0},
-    #         {"side": "south", "idx": 0},
-    #       ],
-    #     ],
-    #   },
-    #   {
-    #     "reqs": [
-    #       [],
-    #     ],
-    #     "areas": [
-    #       [
-    #         {"side": "north", "idx": 0},
-    #       ],
-    #       [
-    #         {"side": "south", "idx": 0},
-    #       ],
-    #     ],
-    #   },
-    # ],
+    "areas": [
+      {
+        "reqs": [
+          [
+            "setting:progressive_weapons",
+            "weapon:progressive weapons#4",
+          ],
+          [
+            "setting:!progressive_weapons",
+            "weapon:sword",
+          ],
+          [
+            "setting:!progweap",
+            "weapon:sKnife",
+          ],
+          [
+            "setting:!progweap",
+            "weapon:sKnife",
+          ],
+          [
+            "setting:!progweap",
+            "weapon:sKnife",
+          ],
+          [
+            "setting:!progweap",
+            "weapon:pitchfork",
+          ],
+          [
+            "setting:!progweap",
+            "weapon:royalSword",
+          ],
+          [
+            "setting:!progweap",
+            "weapon:sunSword",
+          ],
+          [
+            "setting:!progweap",
+            "weapon:shadowStaff",
+          ],
+          [
+            "setting:!progweap",
+            "weapon:refreshStaff",
+          ],
+          [
+            "setting:!progweap",
+            "weapon:orcBlade",
+          ],
+          [
+            "setting:!progweap",
+            "weapon:creeperCrusher",
+          ],
+          [
+            "setting:!progweap",
+            "weapon:twinFury",
+          ],
+          [
+            "setting:!progweap",
+            "weapon:baneBlade",
+          ],
+          [
+            "setting:!progweap",
+            "weapon:axe",
+          ],
+          [
+            "setting:!progweap",
+            "weapon:bombSword",
+          ],
+          [
+            "setting:!progweap",
+            "weapon:soulSword",
+          ],
+        ],
+        "areas": [
+          [
+            {"side": "north", "idx": 0},
+            {"side": "south", "idx": 0},
+          ],
+        ],
+      },
+      {
+        "reqs": [
+          [],
+        ],
+        "areas": [
+          [
+            {"side": "north", "idx": 0},
+          ],
+          [
+            {"side": "south", "idx": 0},
+          ],
+        ],
+      },
+    ],
     "exits": {
       "west": [],
       "south": [
