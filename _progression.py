@@ -1782,17 +1782,6 @@ MathQuest.js:42550 add listeners""",
     ],
   },
   {
-    "room": {"north": 14, "east": 18},
-    "requires": [
-      [
-        "quest:gTree.25",
-      ],
-    ],
-    "receive": [
-      "quest:aSword.1",
-    ],
-  },
-  {
     "room": {"north": 15, "east": 24},
     "requires": [
       [
@@ -3959,7 +3948,12 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 14, "east": 18},
-    "requires": [["weapon:baneBlade"]],
+    "requires": [
+      [
+        "weapon:baneBlade",
+        "quest:gTree.25",
+      ]
+    ],
     "receive": ["quest:aSword.1"],
   },
   {
