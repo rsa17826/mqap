@@ -1055,6 +1055,47 @@ GEOM: list[ExitBase] = [
         "reqs": [
           [
             "permit:shadowsoulEntrance",
+            "weapon:royalSword",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:sunSword",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:shadowStaff",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:refreshStaff",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:orcBlade",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:creeperCrusher",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:twinFury",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:baneBlade",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:axe",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:bombSword",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:soulSword",
           ],
         ],
       },
@@ -2655,6 +2696,47 @@ GEOM: list[ExitBase] = [
         "reqs": [
           [
             "permit:shadowsoulEntrance",
+            "weapon:royalSword",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:sunSword",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:shadowStaff",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:refreshStaff",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:orcBlade",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:creeperCrusher",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:twinFury",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:baneBlade",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:axe",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:bombSword",
+          ],
+          [
+            "permit:shadowsoulEntrance",
+            "weapon:soulSword",
           ],
         ],
       },
