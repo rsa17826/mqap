@@ -4256,6 +4256,99 @@ MathQuest.js:42550 add listeners""",
     ],
     "receive": ["quest:aSword.42"],
   },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [
+      ["quest:aSword.42", "area:11", "weapon:aSword", "item:diamonds"],
+    ],
+    "receive": ["quest:aSword.43"],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [
+      ["quest:aSword.43", "area:9", "weapon:aSword", "item:diamonds"],
+    ],
+    "receive": ["quest:aSword.44"],
+  },
+  {
+    "room": {"north": 20, "east": 20},
+    "requires": [
+      ["quest:aSword.44", "area:15", "weapon:aSword", "item:diamonds"],
+    ],
+    "receive": ["quest:aSword.45"],
+  },
+  {
+    "room": {"north": 500, "east": 501},
+    "requires": [
+      ["quest:aSword.45", "skill:reveal"],
+    ],
+    "receive": ["quest:aSword.46"],
+  },
+  {
+    "room": {"north": 14, "east": 19},
+    "requires": [
+      [
+        "quest:aSword.46",
+        "weapon:aSword",
+        "item:diamonds",
+        "entrance.north0",
+        "loot:tBand",
+      ],
+    ],
+    "receive": ["quest:aSword.47"],
+  },
+  {
+    "room": {"north": 14, "east": 19},
+    "requires": [
+      [
+        "quest:aSword.47",
+        "weapon:aSword",
+        "item:diamonds",
+        "entrance.north0",
+        "loot:tBand",
+      ],
+    ],
+    "receive": ["quest:aSword.48"],
+  },
+  {
+    "room": {"north": 14, "east": 19},
+    "requires": [
+      [
+        "quest:aSword.48",
+        "weapon:aSword",
+        "item:diamonds",
+        "entrance.north0",
+        "loot:tBand",
+      ],
+    ],
+    "receive": ["quest:aSword.49"],
+  },
+  {
+    "room": {"north": 14, "east": 19},
+    "requires": [
+      [
+        "quest:aSword.49",
+        "weapon:aSword",
+        "item:diamonds",
+        "entrance.north0",
+        "loot:tBand",
+      ],
+    ],
+    "receive": ["quest:aSword.50"],
+  },
+  {
+    "room": {"north": 14, "east": 19},
+    "requires": [
+      [
+        "quest:aSword.50",
+        "weapon:aSword",
+        "item:diamonds",
+        "entrance.north0",
+        "loot:tBand",
+      ],
+    ],
+    "receive": ["quest:aSword.51"],
+  },
   # {
   #   "room": {"north": 500, "east": 501},
   #   "requires": [["quest:aSword.12"],],
