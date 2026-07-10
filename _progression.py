@@ -4349,6 +4349,126 @@ MathQuest.js:42550 add listeners""",
     ],
     "receive": ["quest:aSword.51"],
   },
+  {
+    "room": {"north": 500, "east": 501},
+    "requires": [
+      [
+        "quest:aSword.51",
+        "skill:reveal",
+      ],
+    ],
+    "receive": ["quest:aSword.52"],
+  },
+  {
+    "room": {"north": 5, "east": 9},
+    "requires": [
+      [
+        "quest:aSword.52",
+        "weapon:aSword",
+        "item:diamonds",
+        "entrance.north0",
+        "loot:mHorn",
+      ],
+      [
+        "quest:aSword.52",
+        "weapon:aSword",
+        "item:diamonds",
+        "entrance.east2",
+        "loot:mHorn",
+      ],
+    ],
+    "receive": ["quest:aSword.53"],
+  },
+  {
+    "room": {"north": 5, "east": 9},
+    "requires": [
+      [
+        "quest:aSword.53",
+        "weapon:aSword",
+        "item:diamonds",
+        "entrance.north0",
+        "loot:mHorn",
+      ],
+      [
+        "quest:aSword.53",
+        "weapon:aSword",
+        "item:diamonds",
+        "entrance.east2",
+        "loot:mHorn",
+      ],
+    ],
+    "receive": ["quest:aSword.54"],
+  },
+  {
+    "room": {"north": 5, "east": 9},
+    "requires": [
+      [
+        "quest:aSword.54",
+        "weapon:aSword",
+        "item:diamonds",
+        "entrance.north0",
+        "loot:mHorn",
+      ],
+      [
+        "quest:aSword.54",
+        "weapon:aSword",
+        "item:diamonds",
+        "entrance.east2",
+        "loot:mHorn",
+      ],
+    ],
+    "receive": ["quest:aSword.55"],
+  },
+  {
+    "room": {"north": 5, "east": 9},
+    "requires": [
+      [
+        "quest:aSword.55",
+        "weapon:aSword",
+        "item:diamonds",
+        "entrance.north0",
+        "loot:mHorn",
+      ],
+      [
+        "quest:aSword.55",
+        "weapon:aSword",
+        "item:diamonds",
+        "entrance.east2",
+        "loot:mHorn",
+      ],
+    ],
+    "receive": ["quest:aSword.56"],
+  },
+  {
+    "room": {"north": 5, "east": 9},
+    "requires": [
+      [
+        "quest:aSword.56",
+        "weapon:aSword",
+        "item:diamonds",
+        "entrance.north0",
+        "loot:mHorn",
+      ],
+      [
+        "quest:aSword.56",
+        "weapon:aSword",
+        "item:diamonds",
+        "entrance.east2",
+        "loot:mHorn",
+      ],
+    ],
+    "receive": ["quest:aSword.57"],
+  },
+  {
+    "room": {"north": 5, "east": 9},
+    "requires": [
+      [
+        "quest:aSword.51",
+        "skill:reveal",
+      ],
+    ],
+    "receive": ["quest:aSword.58"],
+  },
   # {
   #   "room": {"north": 500, "east": 501},
   #   "requires": [["quest:aSword.12"],],
