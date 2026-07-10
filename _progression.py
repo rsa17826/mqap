@@ -4245,14 +4245,14 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 20, "east": 20},
     "requires": [
-      ["quest:aSword.40", "area:6", "weapon:aSword", "item:diamonds"],
+      ["quest:aSword.40", "area:1.water", "weapon:aSword", "item:diamonds"],
     ],
     "receive": ["quest:aSword.41"],
   },
   {
     "room": {"north": 20, "east": 20},
     "requires": [
-      ["quest:aSword.41", "area:1.water", "weapon:aSword", "item:diamonds"],
+      ["quest:aSword.41", "area:16.water", "weapon:aSword", "item:diamonds"],
     ],
     "receive": ["quest:aSword.42"],
   },
