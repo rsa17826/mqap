@@ -118,6 +118,7 @@ for thing in PROG:
             "misc:headstoneSwitch3",
             "misc:headstoneSwitch4",
             # "entrance.",
+            "craft:",
             "armor:",
             # "quest:",
             # "area:",
@@ -133,12 +134,7 @@ for thing in PROG:
         ):
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.useful
           ITEM_NAME_TO_ID[itemName] = _id_counter
-        elif itemInfo.startswith(
-          (
-            "misc:",
-            "craft:",
-          )
-        ):
+        elif itemInfo.startswith(("misc:",)):
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.filler
           ITEM_NAME_TO_ID[itemName] = _id_counter
         elif itemInfo.startswith(("quest:",)):

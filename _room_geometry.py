@@ -3413,71 +3413,51 @@ GEOM: list[ExitBase] = [
       {
         "reqs": [
           [
-            "setting:progressive_weapons",
-            "weapon:progressive weapons#4",
-          ],
-          [
-            "setting:!progressive_weapons",
             "weapon:sword",
           ],
           [
-            "setting:!progweap",
             "weapon:sKnife",
           ],
           [
-            "setting:!progweap",
             "weapon:sKnife",
           ],
           [
-            "setting:!progweap",
             "weapon:sKnife",
           ],
           [
-            "setting:!progweap",
             "weapon:pitchfork",
           ],
           [
-            "setting:!progweap",
             "weapon:royalSword",
           ],
           [
-            "setting:!progweap",
             "weapon:sunSword",
           ],
           [
-            "setting:!progweap",
             "weapon:shadowStaff",
           ],
           [
-            "setting:!progweap",
             "weapon:refreshStaff",
           ],
           [
-            "setting:!progweap",
             "weapon:orcBlade",
           ],
           [
-            "setting:!progweap",
             "weapon:creeperCrusher",
           ],
           [
-            "setting:!progweap",
             "weapon:twinFury",
           ],
           [
-            "setting:!progweap",
             "weapon:baneBlade",
           ],
           [
-            "setting:!progweap",
             "weapon:axe",
           ],
           [
-            "setting:!progweap",
             "weapon:bombSword",
           ],
           [
-            "setting:!progweap",
             "weapon:soulSword",
           ],
         ],

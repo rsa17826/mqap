@@ -26,27 +26,44 @@ TARGET_GROUP_LOOKUP: dict[int, list[int]] = {
   GROUP_EAST: [GROUP_WEST],
   GROUP_WEST: [GROUP_EAST],
 }
+from rule_builder.rules import False_, True_
+
 from .items import HAS_LIST
 
 
-def _reqs_to_rule(reqs: list[list[str],]) -> Rule | None:
+from .items import HAS_LIST, WEAPON_ORDER, ARMOR_ORDER, MAGIC_ORDER
+
+
+def _reqs_to_rule(world: World, reqs: list[list[str]]) -> Rule | None:
   if any(len(option) == 0 for option in reqs):
     return None
+
   rule: Rule | None = None
   for option in reqs:
-    sub_rule: Rule | None = None # = HasAll(*option) if len(option) > 1 else Has(option[0])
+    sub_rule: Rule | None = None
     for item in option:
       tname = item.split("#", 1)[0]
-      if tname in HAS_LIST:
+
+      # Intercept and convert progressive weapons dynamically
+      if world.options.progressive_weapons and tname in WEAPON_ORDER:
+        temprule = Has("weapon:progressive weapons", WEAPON_ORDER[tname])
+      elif world.options.progressive_armor and tname in ARMOR_ORDER:
+        temprule = Has("armor:progressive armor", ARMOR_ORDER[tname])
+      elif world.options.progressive_magic and tname in MAGIC_ORDER:
+        temprule = Has("magic:progressive magic", MAGIC_ORDER[tname])
+      elif tname in HAS_LIST:
         temprule = HAS_LIST[tname]
       else:
         temprule = Has(item)
+
       if sub_rule is None:
         sub_rule = temprule
       else:
         sub_rule = sub_rule & temprule
+
     assert sub_rule is not None
     rule = sub_rule if rule is None else (rule | sub_rule)
+
   return rule
 
 
@@ -55,139 +72,120 @@ def _reqs_to_rule(reqs: list[list[str],]) -> Rule | None:
 # warp wiring (_connect_warps_vanilla) need to iterate the exact same warp definitions.
 WARPS: tuple[dict, ...] = (
   {
-    "rule": _reqs_to_rule([["permit:volcano"]]),
+    "reqs": [["permit:volcano"]],
     "connections": ((17, 17, "south", 0), (17, 17, "west", 0), (18, 17, "south", 0)),
   },
   {
-    "rule": None,
     "connections": ((4, 13, "root", 0), (100, 100, "south", 0)),
   },
   {
-    "rule": None,
     "connections": ((3, 16, "root", 0), (200, 200, "north", 0)),
   },
   {
-    "rule": None,
     "connections": ((200, 200, "root", 0), (201, 200, "root", 0)),
   },
   {
-    "rule": _reqs_to_rule([["magic:drain", "quest:aSword.1"]]),
+    "reqs": [["magic:drain", "quest:aSword.1"]],
     "connections": ((18, 25, "root", 0), (500, 500, "north", 0)),
   },
   {
-    "rule": None,
     "connections": ((6, 21, "root", 0), (300, 300, "south", 0)),
   },
   {
-    "rule": None,
     "connections": ((10, 16, "root", 0), (10, 17, "south", 0)),
   },
   {
-    "rule": _reqs_to_rule([["permit:bomb"]]),
+    "reqs": [["permit:bomb"]],
     "connections": ((11, 13, "root", 0), (11, 14, "south", 0)),
   },
   {
-    "rule": None,
     "connections": ((11, 14, "root", 0), (9, 13, "root", 0)),
   },
   {
-    "rule": _reqs_to_rule([["magic:drain"]]),
+    "reqs": [["magic:drain"]],
     "connections": ((9, 13, "root", 0), (10, 13, "root", 0), (9, 14, "root", 0)),
   },
   {
-    "rule": _reqs_to_rule([["magic:drain"]]),
+    "reqs": [["magic:drain"]],
     "connections": ((9, 14, "root", 0), (10, 14, "north", 0)),
   },
   {
-    "rule": _reqs_to_rule([["misc:fire crystal"]]),
+    "reqs": [["misc:fire crystal"]],
     "connections": ((8, 9, "root", 0), (7, 9, "south", 0)),
   },
   {
-    "rule": _reqs_to_rule([["flag:lit torch 2", "flag:lit torch 1"]]),
+    "reqs": [["flag:lit torch 2", "flag:lit torch 1"]],
     "connections": ((6, 23, "root", 0), (5, 23, "south", 0)),
   },
   {
-    "rule": None,
     "connections": ((17, 14, "root", 0), (18, 14, "north", 0)),
   },
   {
-    "rule": None,
     "connections": ((20, 12, "root", 0), (21, 12, "south", 0)),
   },
   {
-    "rule": None,
     "connections": ((22, 10, "root", 0), (22, 13, "east", 0), (22, 13, "north", 0)),
   },
   {
-    "rule": None,
     "connections": ((21, 13, "east", 1), (22, 11, "south", 0), (22, 11, "north", 0)),
   },
   {
-    "rule": None,
     "connections": ((22, 12, "root", 0), (21, 9, "north", 0)),
   },
   {
-    "rule": None,
     "connections": ((18, 12, "root", 0), (18, 11, "west", 0)),
   },
   {
-    "rule": _reqs_to_rule([["permit:bomb"]]),
+    "reqs": [["permit:bomb"]],
     "connections": ((10, 12, "root", 0), (7, 12, "south", 0)),
   },
   {
-    "rule": _reqs_to_rule([["permit:bomb"]]),
+    "reqs": [["permit:bomb"]],
     "connections": ((12, 21, "root", 0), (11, 21, "root", 0)),
   },
   {
-    "rule": None,
     "connections": ((18, 16, "root", 0), (19, 16, "south", 0)),
   },
   {
-    "rule": None,
     "connections": ((19, 16, "root", 0), (19, 15, "north", 0)),
   },
   {
-    "rule": None,
     "connections": ((9, 22, "north", 0), (9, 21, "root", 0)),
   },
   {
-    "rule": _reqs_to_rule([["permit:bomb.2"]]),
+    "reqs": [["permit:bomb.2"]],
     "connections": ((12, 14, "root", 0), (9, 21, "root", 0)),
   },
   {
-    "rule": None,
     "connections": ((21, 21, "east", 0), (20, 21, "root", 0)),
   },
   {
-    "rule": _reqs_to_rule([["permit:bomb", "magic:lightning"]]),
+    "reqs": [["permit:bomb", "magic:lightning"]],
     "connections": ((20, 21, "root", 0), (19, 22, "root", 0)),
   },
   {
-    "rule": _reqs_to_rule([["permit:bomb.2"]]),
+    "reqs": [["permit:bomb.2"]],
     "connections": ((12, 23, "root", 0), (12, 22, "north", 0)),
   },
   {
-    "rule": None,
     "connections": ((24, 10, "root", 0), (23, 14, "north", 0)),
   },
   {
-    "rule": None,
     "connections": ((24, 13, "root", 0), (23, 10, "root", 0)),
   },
   {
-    "rule": _reqs_to_rule([["quest:gTree.9"]]),
+    "reqs": [["quest:gTree.9"]],
     "connections": ((17, 19, "root", 0), (17.1, 19, "root", 0)),
   },
   {
-    "rule": _reqs_to_rule([["quest:gTree.9"]]),
+    "reqs": [["quest:gTree.9"]],
     "connections": ((15, 17, "root", 0), (17.1, 19, "root", 0)),
   },
   {
-    "rule": _reqs_to_rule([["flag:10.1 code"]]),
+    "reqs": [["flag:10.1 code"]],
     "connections": ((10, 21, "root", 0), (10.1, 21, "root", 0)),
   },
   {
-    "rule": None,
     "connections": ((10.1, 21, "root", 0), (9.11, 20, "root", 0)),
   },
 )
@@ -278,10 +276,10 @@ _SIDE_GROUP: dict[str, int] = {"north": GROUP_NORTH, "south": GROUP_SOUTH, "east
 def finalize_entrance_randomization(world: World) -> None:
   # print("asdasdadsdsaasdadssd")
   """Call this from World.connect_entrances (never from create_regions — Generic ER's own docs
-    require randomize_entrances to run at that stage). By this point _mq_er_candidates already
-    holds real, vanilla-connected Entrance objects (tagged during Pass 3 in create_and_connect_regions),
-    so disconnect_entrance_for_randomization has an actual connected_region to split — no need to
-    fabricate throwaway connections just to immediately tear them apart."""
+  require randomize_entrances to run at that stage). By this point _mq_er_candidates already
+  holds real, vanilla-connected Entrance objects (tagged during Pass 3 in create_and_connect_regions),
+  so disconnect_entrance_for_randomization has an actual connected_region to split — no need to
+  fabricate throwaway connections just to immediately tear them apart."""
   er_candidates: list[Entrance] = getattr(world, "_mq_er_candidates", [])
   if not er_candidates:
     world.er_pairings = []
@@ -379,7 +377,7 @@ def _connect_intra_room(world: World, GEOM, exit_regions: dict) -> None:
       continue
 
     for area_group in room["areas"]:
-      rule = _reqs_to_rule(area_group["reqs"])
+      rule = _reqs_to_rule(world, area_group["reqs"])
 
       for node in area_group["areas"]:
         node_regions = [
@@ -445,9 +443,10 @@ def _connect_warps_vanilla(world: World, exit_regions: dict, warps: tuple[dict, 
       f"{warpData['connections'][0][0]}_{warpData['connections'][0][1]}: warp {i}", world.player, world.multiworld
     )
     world.multiworld.regions.append(warp)
+    rule = _reqs_to_rule(world, warpData.get("reqs", [[]]))
     for con in warpData["connections"]:
-      _connect(world, exit_regions[*con], warp, rule=warpData["rule"])
-      _connect(world, warp, exit_regions[*con], rule=warpData["rule"])
+      _connect(world, exit_regions[*con], warp, rule=rule)
+      _connect(world, warp, exit_regions[*con], rule=rule)
 
 
 _EXIT_REGION_RE = re.compile(r"^(-?\d+(?:\.\d+)?)_(-?\d+(?:\.\d+)?): (\w+) (\d+)$")

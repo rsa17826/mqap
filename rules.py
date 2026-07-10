@@ -45,7 +45,7 @@ def set_all_location_rules(world: World) -> None:
       clean_item = itemInfo.split("#")[0]
 
       # 1. Handle the naming difference between events and standard locations
-      if clean_item.startswith(("loot:", "power:")):
+      if clean_item.startswith(("power:")):
         continue
       if clean_item.startswith(("quest:", "flag:", "area:", "loot:")) and not (
         world.options.each_quest_is_a_check and clean_item.startswith("quest:")
