@@ -3265,8 +3265,8 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 13, "east": 14},
     "requires": [
-      ["quest:mChal.1", "entrance.west0"],
-      ["quest:mChal.1", "permit:bomb"],
+      ["magic:fire", "quest:mChal.1", "entrance.west0"],
+      ["magic:fire", "quest:mChal.1", "permit:bomb"],
     ],
     "receive": [
       "quest:mChal.2",
@@ -3349,7 +3349,12 @@ MathQuest.js:42550 add listeners""",
   },
   {
     "room": {"north": 15, "east": 17},
-    "requires": [["skill:reveal"]],
+    "requires": [
+      [
+        "skill:reveal",
+        "skill:craft",
+      ]
+    ],
     "receive": [
       "quest:hWater.1",
     ],
