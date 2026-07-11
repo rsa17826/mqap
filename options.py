@@ -28,6 +28,7 @@ option_presets: dict[str, dict[str, bool | int]] = {
     "infinite_keys": False,
     "del_del": 20,
     "nothing": 10,
+    "filler_gold": 30,
     "spawn_random_enemies": 70,
     # "allow_clips": 0,
     "each_quest_is_a_check": False,
@@ -180,6 +181,17 @@ class Nothing(Range):
   default: bool = option_presets["main"]["nothing"]
 
 
+class FillerGold(Range):
+  """
+  filler gold..., more like fill 'yr pockets with gold; 500 gold to be exact
+  Adjusts the weight/frequency of getting gold filler items in the pool.
+  """
+
+  range_end: int = 100
+  display_name: str = "FillerGold"
+  default: bool = option_presets["main"]["filler_gold"]
+
+
 class AllowClips(OptionDict):
   """
   Determines how logic handles clipping through walls or boundaries.
@@ -216,6 +228,7 @@ class MathQuestOptions(PerGameCommonOptions):
   progressive_magic: ProgressiveMagic
   infinite_gold: InfiniteGold
   infinite_keys: InfiniteKeys
+  filler_gold: FillerGold
 
 
 # If we want to group our options by similar type, we can do so as well. This looks nice on the website.
@@ -262,6 +275,7 @@ option_groups: list[OptionGroup] = [
       DelDel,
       SpawnRandomEnemies,
       Nothing,
+      FillerGold,
     ],
   ),
 ]

@@ -15,10 +15,12 @@ ITEM_NAME_TO_ID: dict[str, int] = {}
 DEFAULT_ITEM_CLASSIFICATIONS = {}
 
 _id_counter = 99999
-traps = ("spawn_random_enemies", "del_del", "nothing")
-for trap in traps:
-  DEFAULT_ITEM_CLASSIFICATIONS[f"trap:{trap}"] = ItemClassification.trap
-  ITEM_NAME_TO_ID[f"trap:{trap}"] = _id_counter
+fillers = ("trap:spawn_random_enemies", "trap:del_del", "trap:nothing", "filler:filler_gold")
+for filler in fillers:
+  DEFAULT_ITEM_CLASSIFICATIONS[filler] = (
+    ItemClassification.trap if filler.startswith("trap:") else ItemClassification.filler
+  )
+  ITEM_NAME_TO_ID[filler] = _id_counter
   _id_counter -= 1
 
 HAS_LIST: dict[str, Rule[World]] = {}
@@ -172,14 +174,13 @@ class MathQuestItem(Item):
 # To do this, it must define a function called world.get_filler_item_name(), which we will define in world.py later.
 # For now, let's make a function that returns the name of a random filler item here in items.py.
 def get_random_filler_item_name(world: World) -> str:
-  weights = [getattr(world.options, trap) for trap in traps]
+  weights = [getattr(world.options, trap.split(":")[1]) for trap in fillers]
 
   if sum(weights) == 0:
     return "trap:nothing"
 
   # Selects one trap based on the weights list
-  chosen_trap = world.random.choices(traps, weights=weights, k=1)[0]
-  return f"trap:{chosen_trap}"
+  return world.random.choices(fillers, weights=weights, k=1)[0]
 
 
 def create_item_with_correct_classification(world: World, name: str) -> MathQuestItem:
@@ -204,6 +205,8 @@ def create_all_items(world: World) -> None:
   for k in ITEM_NAME_TO_ID.keys():
     # Skip creating the filler trap unconditionally
     if k.startswith("trap:"):
+      continue
+    if k.startswith("filler:"):
       continue
 
     # Check the option before creating quest items
