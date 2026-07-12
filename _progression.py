@@ -3795,6 +3795,17 @@ MathQuest.js:42550 add listeners""",
     "room": {"north": 300, "east": 300},
     "requires": [
       [
+        "item:gold#50",
+      ],
+    ],
+    "receive": [
+      "food:blueberries",
+    ],
+  },
+  {
+    "room": {"north": 300, "east": 300},
+    "requires": [
+      [
         "quest:isles.1",
       ],
     ],
@@ -3972,10 +3983,12 @@ MathQuest.js:42550 add listeners""",
     "requires": [
       [
         "quest:bBomb.11",
+        "weapon:royalSword",
       ],
     ],
     "receive": [
       "quest:bBomb.12",
+      "weapon:creeperCrusher",
     ],
   },
   {
@@ -5371,17 +5384,6 @@ MathQuest.js:42550 add listeners""",
   #   "room": {"north": "?", "east": "?",},
   #   "receive": ["item:ring of evasion"],
   # },
-  {
-    "room": {"north": 14, "east": 18},
-    "requires": [
-      [
-        "weapon:royalSword",
-      ],
-    ],
-    "receive": [
-      "weapon:creeperCrusher",
-    ],
-  },
   {
     "room": {"north": 13, "east": 17},
     "requires": [
