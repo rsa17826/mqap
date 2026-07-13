@@ -67,130 +67,6 @@ def _reqs_to_rule(world: World, reqs: list[list[str]]) -> Rule | None:
   return rule
 
 
-# Moved to module scope (was previously built inline inside the old monolithic region-connection
-# function): both the vanilla wiring path (_connect_cross_room_vanilla) and the always-vanilla
-# warp wiring (_connect_warps_vanilla) need to iterate the exact same warp definitions.
-WARPS: tuple[dict, ...] = (
-  {
-    "reqs": [["permit:volcano"]],
-    "connections": ((17, 17, "south", 0), (17, 17, "west", 0), (18, 17, "south", 0)),
-  },
-  {
-    "connections": ((4, 13, "root", 0), (100, 100, "south", 0)),
-  },
-  {
-    "connections": ((3, 16, "root", 0), (200, 200, "north", 0)),
-  },
-  {
-    "connections": ((200, 200, "root", 0), (201, 200, "root", 0)),
-  },
-  {
-    "reqs": [["magic:drain", "quest:aSword.1"]],
-    "connections": ((18, 25, "root", 0), (500, 500, "north", 0)),
-  },
-  {
-    "connections": ((6, 21, "root", 0), (300, 300, "south", 0)),
-  },
-  {
-    "connections": ((10, 16, "root", 0), (10, 17, "south", 0)),
-  },
-  {
-    "reqs": [["permit:bomb"]],
-    "connections": ((11, 13, "root", 0), (11, 14, "south", 0)),
-  },
-  {
-    "connections": ((11, 14, "root", 0), (9, 13, "root", 0)),
-  },
-  {
-    "reqs": [["magic:drain"]],
-    "connections": ((9, 13, "root", 0), (10, 13, "root", 0), (9, 14, "root", 0)),
-  },
-  {
-    "reqs": [["magic:drain"]],
-    "connections": ((9, 14, "root", 0), (10, 14, "north", 0)),
-  },
-  {
-    "reqs": [["misc:fire crystal"]],
-    "connections": ((8, 9, "root", 0), (7, 9, "south", 0)),
-  },
-  {
-    "reqs": [["flag:lit torch 2", "flag:lit torch 1"]],
-    "connections": ((6, 23, "root", 0), (5, 23, "south", 0)),
-  },
-  {
-    "connections": ((17, 14, "root", 0), (18, 14, "north", 0)),
-  },
-  {
-    "connections": ((20, 12, "root", 0), (21, 12, "south", 0)),
-  },
-  {
-    "connections": ((22, 10, "root", 0), (22, 13, "east", 0), (22, 13, "north", 0)),
-  },
-  {
-    "connections": ((21, 13, "east", 1), (22, 11, "south", 0), (22, 11, "north", 0)),
-  },
-  {
-    "connections": ((22, 12, "root", 0), (21, 9, "north", 0)),
-  },
-  {
-    "connections": ((18, 12, "root", 0), (18, 11, "west", 0)),
-  },
-  {
-    "reqs": [["permit:bomb"]],
-    "connections": ((10, 12, "root", 0), (7, 12, "south", 0)),
-  },
-  {
-    "reqs": [["permit:bomb"]],
-    "connections": ((12, 21, "root", 0), (11, 21, "root", 0)),
-  },
-  {
-    "connections": ((18, 16, "root", 0), (19, 16, "south", 0)),
-  },
-  {
-    "connections": ((19, 16, "root", 0), (19, 15, "north", 0)),
-  },
-  {
-    "connections": ((9, 22, "north", 0), (9, 21, "root", 0)),
-  },
-  {
-    "reqs": [["permit:bomb.2"]],
-    "connections": ((12, 14, "root", 0), (9, 21, "root", 0)),
-  },
-  {
-    "connections": ((21, 21, "east", 0), (20, 21, "root", 0)),
-  },
-  {
-    "reqs": [["permit:bomb", "magic:lightning"]],
-    "connections": ((20, 21, "root", 0), (19, 22, "root", 0)),
-  },
-  {
-    "reqs": [["permit:bomb.2"]],
-    "connections": ((12, 23, "root", 0), (12, 22, "north", 0)),
-  },
-  {
-    "connections": ((24, 10, "root", 0), (23, 14, "north", 0)),
-  },
-  {
-    "connections": ((24, 13, "root", 0), (23, 10, "root", 0)),
-  },
-  {
-    "reqs": [["quest:gTree.9"]],
-    "connections": ((17, 19, "root", 0), (17.1, 19, "root", 0)),
-  },
-  {
-    "reqs": [["quest:gTree.9"]],
-    "connections": ((15, 17, "root", 0), (17.1, 19, "root", 0)),
-  },
-  {
-    "reqs": [["flag:10.1 code"]],
-    "connections": ((10, 21, "root", 0), (10.1, 21, "root", 0)),
-  },
-  {
-    "connections": ((10.1, 21, "root", 0), (9.11, 20, "root", 0)),
-  },
-)
-
-
 # def _get_or_create_root(world: World, n: int, e: int, exit_regions: dict) -> Region:
 #   """Finds or creates the central 'root' region for a specific room coordinate."""
 #   root_key = (n, e, "root", 0)
@@ -298,6 +174,9 @@ def finalize_entrance_randomization(world: World) -> None:
   write_er_connections_json(world)
 
 
+from ._room_geometry import GEOM, WARPS
+
+
 def create_and_connect_regions(world: World) -> None:
   """Called from World.create_regions. Always builds the complete VANILLA region graph —
   including cross-room exits and warps — regardless of entrance_rando. If entrance_rando is on,
@@ -305,14 +184,13 @@ def create_and_connect_regions(world: World) -> None:
   for finalize_entrance_randomization (called later, from World.connect_entrances) to actually
   disconnect and re-shuffle. Building the real vanilla graph up front means ER has genuine
   connected_region entrances to split, rather than needing throwaway fake connections."""
-  from ._room_geometry import GEOM
 
   exit_regions: dict[tuple[float | int, int | float, str, int], Region] = {}
 
-  _create_exit_regions_and_roots(world, GEOM, exit_regions)
-  _connect_intra_room(world, GEOM, exit_regions)
+  _create_exit_regions_and_roots(world, exit_regions)
+  _connect_intra_room(world, exit_regions)
 
-  er_candidates = _connect_cross_room_vanilla(world, GEOM, exit_regions, tag_for_er=bool(world.options.entrance_rando))
+  er_candidates = _connect_cross_room_vanilla(world, exit_regions, tag_for_er=bool(world.options.entrance_rando))
   world._mq_er_candidates = er_candidates # picked up later by finalize_entrance_randomization
 
   # Warps always wire vanilla, whether or not entrance_rando is on (see _connect_warps_vanilla).
@@ -321,7 +199,6 @@ def create_and_connect_regions(world: World) -> None:
 
 def _create_exit_regions_and_roots(
   world: World,
-  GEOM: list[ExitBase],
   exit_regions: dict[tuple[float | int, int | float, str, int], Region],
 ) -> None:
   # NOTE: exit_regions is populated in place (do NOT shadow it with a fresh local dict here —
@@ -357,7 +234,7 @@ def _create_exit_regions_and_roots(
         )
 
 
-def _connect_intra_room(world: World, GEOM, exit_regions: dict) -> None:
+def _connect_intra_room(world: World, exit_regions: dict) -> None:
   # ── Pass 2: connect exits *within* each room via area groups ──────────────
   for room in GEOM:
     n, e = room["north"], room["east"]
@@ -392,7 +269,7 @@ def _connect_intra_room(world: World, GEOM, exit_regions: dict) -> None:
           _connect(world, other, rep, rule=rule)
 
 
-def _connect_cross_room_vanilla(world: World, GEOM, exit_regions: dict, tag_for_er: bool = False) -> list[Entrance]:
+def _connect_cross_room_vanilla(world: World, exit_regions: dict, tag_for_er: bool = False) -> list[Entrance]:
   # ── Pass 3: connect exits *across* room boundaries ────────────────────────
   # Always builds real vanilla connections. When tag_for_er is True, each created entrance is
   # additionally marked with a randomization_group/type and returned so connect_entrances can
@@ -430,7 +307,7 @@ def _connect_cross_room_vanilla(world: World, GEOM, exit_regions: dict, tag_for_
   return er_candidates
 
 
-def _connect_warps_vanilla(world: World, exit_regions: dict, warps: tuple[dict, ...] = WARPS) -> None:
+def _connect_warps_vanilla(world: World, exit_regions: dict) -> None:
   """Vanilla (always-on) warp wiring. Warps are deliberately NOT part of entrance randomization:
   several WARPS entries are many-to-one hubs (e.g. warp 0 connects three separate rooms so that any
   spoke reaches any other spoke), and coupled Generic ER fundamentally pairs single entrances 1:1.
@@ -438,15 +315,15 @@ def _connect_warps_vanilla(world: World, exit_regions: dict, warps: tuple[dict, 
   "any spoke reaches any other spoke" semantics and can deadlock the ER solver (dead-end warp
   targets with no reachable matching warp exit left to pair against). So regardless of whether
   entrance_rando is on, warps always get wired here exactly as in vanilla."""
-  for i, warpData in enumerate(warps):
+  for i, warpData in enumerate(WARPS):
     warp = Region(
       f"{warpData['connections'][0][0]}_{warpData['connections'][0][1]}: warp {i}", world.player, world.multiworld
     )
     world.multiworld.regions.append(warp)
     rule = _reqs_to_rule(world, warpData.get("reqs", [[]]))
     for con in warpData["connections"]:
-      _connect(world, exit_regions[*con], warp, rule=rule)
-      _connect(world, warp, exit_regions[*con], rule=rule)
+      _ = _connect(world, exit_regions[*con], warp, rule=rule)
+      _ = _connect(world, warp, exit_regions[*con], rule=rule)
 
 
 _EXIT_REGION_RE = re.compile(r"^(-?\d+(?:\.\d+)?)_(-?\d+(?:\.\d+)?): (\w+) (\d+)$")
