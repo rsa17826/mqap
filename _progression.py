@@ -426,7 +426,7 @@ manager.correct - manager.wrong > 800 = halo
     "room": {"north": 11, "east": 13},
     "requires": [
       [
-        "loot:mStaff",
+        "loot:mStaff#1",
       ],
     ],
     "receive": [
@@ -1123,7 +1123,7 @@ manager.correct - manager.wrong > 800 = halo
   #   ],
   # },
   {
-    "room": {"north": 19, "east": 15},
+    "room": {"north": 20, "east": 15},
     "requires": [
       [
         "loot:medallions#20",
@@ -1752,14 +1752,6 @@ MathQuest.js:42550 add listeners""",
     "receive": [
       "quest:seeds.1",
     ],
-  },
-  {
-    "room": {"north": 6, "east": 23},
-    "requires": [
-      [],
-    ],
-    "receive": [],
-    "info": "how show the warp requiring this",
   },
   {
     "room": {"north": 5, "east": 24},
@@ -3299,6 +3291,18 @@ MathQuest.js:42550 add listeners""",
     ],
   },
   {
+    "room": {"north": 14, "east": 17},
+    "requires": [
+      [
+        "item:gold",
+        "permit:bomb",
+      ],
+    ],
+    "receive": [
+      "item:bombs",
+    ],
+  },
+  {
     "room": {"north": 13, "east": 14},
     "requires": [
       ["magic:fire", "quest:mChal.1", "entrance.west0"],
@@ -3400,10 +3404,12 @@ MathQuest.js:42550 add listeners""",
     "requires": [
       [
         "quest:hWater.6",
+        "skill:reveal",
       ],
     ],
     "receive": [
       "quest:hWater.7",
+      "craft:holyWater",
     ],
   },
   {
@@ -3529,6 +3535,7 @@ MathQuest.js:42550 add listeners""",
     "requires": [
       [
         "quest:access.8",
+        "magic:crush",
       ],
     ],
     "receive": [
