@@ -320,7 +320,8 @@ PROG: list[ProgressionNode] = [
       "skill:swap",
       "skill:firewall",
       "skill:halo",
-      "item:gold",
+      # TODO !!! make instead push precollected 20_20 - item:gold
+      # "item:gold",
       "loot:key",
     ],
     "info": """can be got anywhere
@@ -1203,19 +1204,6 @@ manager.correct - manager.wrong > 800 = halo
   #   ],
   # },
   {
-    "room": {"north": 100, "east": 100},
-    "requires": [
-      [
-        "loot:sTooth#5",
-        "loot:vHorn#5",
-        "loot:oArm#5",
-      ],
-    ],
-    "receive": [
-      "craft:newtonsApple",
-    ],
-  },
-  {
     "room": {"north": 11, "east": 15},
     "requires": [
       [
@@ -1347,7 +1335,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "quest:gTree.6",
-      "item:gold#50",
+      "item:gold - mayor#50",
     ],
   },
   {
@@ -4069,16 +4057,18 @@ MathQuest.js:42550 add listeners""",
     "room": {"north": 14, "east": 18},
     "requires": [
       [
-        "weapon:baneBlade",
         "quest:gTree.25",
       ]
     ],
     "receive": ["quest:aSword.1"],
   },
   {
-    "room": {"north": 500, "east": 501},
+    "room": {"north": 14, "east": 18},
     "requires": [
-      ["quest:aSword.1", "skill:reveal"],
+      [
+        "weapon:baneBlade",
+        "quest:aSword.1",
+      ]
     ],
     "receive": ["quest:aSword.2"],
   },
@@ -7046,7 +7036,8 @@ MathQuest.js:42550 add listeners""",
   {
     "room": {"north": 12, "east": 16},
     "requires": [
-      [],
+      ["entrance.east1"],
+      ["entrance.west0"],
     ],
     "receive": [
       "area:1",
