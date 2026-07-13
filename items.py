@@ -230,14 +230,14 @@ def create_all_items(world: World) -> None:
       else:
         if k == "armor:progressive armor":
           continue
-      if world.options.progressive_magic:
-        if k == "magic:progressive magic":
-          continue
-        k = "magic:progressive magic"
-        print(k)
-      else:
-        if k == "magic:progressive magic":
-          continue
+    if world.options.progressive_magic:
+      if k == "magic:progressive magic":
+        continue
+      k = "magic:progressive magic"
+      print(k)
+    else:
+      if k == "magic:progressive magic":
+        continue
 
     itempool.append(world.create_item(k))
 
