@@ -54,6 +54,16 @@ class AreaAreaNode(TypedDict):
 
 GEOM: list[ExitBase] = [
   {
+    "north": -1,
+    "east": -1,
+    "exits": {
+      "west": [],
+      "south": [],
+      "east": [],
+      "north": [],
+    },
+  },
+  {
     "north": 3,
     "east": 16,
     "exits": {
@@ -6486,7 +6496,7 @@ WARPS: tuple[Warp, ...] = (
     "connections": ((6, 23, "root", 0), (5, 23, "south", 0)),
   },
   {
-    "connections": ((17, 14, "root", 0), (18, 14, "north", 0)),
+    "connections": ((17, 14, "south", 0), (18, 14, "north", 0)),
   },
   {
     "connections": ((20, 12, "root", 0), (21, 12, "south", 0)),
@@ -6533,7 +6543,7 @@ WARPS: tuple[Warp, ...] = (
   },
   {
     "reqs": [["permit:bomb.2"]],
-    "connections": ((12, 23, "root", 0), (12, 22, "north", 0)),
+    "connections": ((12, 23, "north", 0), (12, 22, "north", 0)),
   },
   {
     "connections": ((24, 10, "east", 0), (23, 14, "north", 0)),
@@ -6544,15 +6554,50 @@ WARPS: tuple[Warp, ...] = (
   },
   {
     "reqs": [["quest:gTree.9"]],
-    "connections": ((17, 19, "root", 0), (17.1, 19, "root", 0)),
+    "connections": ((17, 19, "east", 0), (17.1, 19, "root", 0)),
   },
   {
     "reqs": [["quest:gTree.9"]],
-    "connections": ((15, 17, "root", 0), (17.1, 19, "root", 0)),
+    "connections": ((15, 17, "south", 0), (17.1, 19, "root", 0)),
   },
   {
     "reqs": [["flag:10.1 code"]],
     "connections": ((10, 21, "root", 0), (10.1, 21, "root", 0)),
+  },
+  {
+    "reqs": [["skill:warp"]],
+    "connections": ((-1, -1, "root", 0), (18, 20, "east", 0)),
+  },
+  {
+    "reqs": [["skill:warp"]],
+    "connections": ((-1, -1, "root", 0), (15, 22, "north", 0)),
+  },
+  {
+    "reqs": [["skill:warp"]],
+    "connections": ((-1, -1, "root", 0), (12, 19, "east", 0)),
+  },
+  {
+    "reqs": [["skill:warp"]],
+    "connections": ((-1, -1, "root", 0), (10, 16, "west", 0)),
+  },
+  {
+    "reqs": [["skill:warp"]],
+    "connections": ((-1, -1, "root", 0), (12, 10, "south", 0)),
+  },
+  {
+    "reqs": [["skill:warp", "quest:gTree.16"]],
+    "connections": ((-1, -1, "root", 0), (7, 9, "south", 0)),
+  },
+  {
+    "reqs": [["skill:warp", "quest:gTree.19"]],
+    "connections": ((-1, -1, "root", 0), (7, 9, "south", 0)),
+  },
+  {
+    "reqs": [["skill:warp", "quest:gTree.22"]],
+    "connections": ((-1, -1, "root", 0), (11, 24, "east", 0)),
+  },
+  {
+    "connections": ((20, 20, "root", 0), (-1, -1, "root", 0)),
   },
   {
     "connections": ((10.1, 21, "root", 0), (9.11, 20, "root", 0)),
