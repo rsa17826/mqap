@@ -26,6 +26,7 @@ option_presets: dict[str, dict[str, bool | int]] = {
     "all_quests_maxed": False,
     "infinite_gold": False,
     "infinite_keys": False,
+    "infinite_aurastones": False,
     "del_del": 20,
     "nothing": 10,
     "filler_gold": 30,
@@ -163,11 +164,19 @@ class InfiniteGold(Toggle):
 
 class InfiniteKeys(Toggle):
   """
-  Grants the player an infinite supply of keys. chests requiring standard keys can be opened freely without consuming resources.
+  Grants the player an infinite supply of keys. chests requiring standard keys can be opened freely without consuming any keys.
   """
 
   display_name: str = "InfiniteKeys"
   default: bool = option_presets["main"]["infinite_keys"]
+
+class InfiniteAurastones(Toggle):
+  """
+  Grants the player an infinite supply of aurastones.
+  """
+
+  display_name: str = "InfiniteAurastones"
+  default: bool = option_presets["main"]["infinite_aurastones"]
 
 
 class Nothing(Range):
@@ -229,6 +238,7 @@ class MathQuestOptions(PerGameCommonOptions):
   infinite_gold: InfiniteGold
   infinite_keys: InfiniteKeys
   filler_gold: FillerGold
+  infinite_aurastones: InfiniteAurastones
 
 
 # If we want to group our options by similar type, we can do so as well. This looks nice on the website.
@@ -254,6 +264,7 @@ option_groups: list[OptionGroup] = [
     [
       InfiniteGold,
       InfiniteKeys,
+      InfiniteAurastones,
     ],
   ),
   # OptionGroup(
