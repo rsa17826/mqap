@@ -1,7 +1,7 @@
 from dataclasses import dataclass
-from typing import ClassVar
+from typing import ClassVar, cast
 
-from Options import OptionDict, OptionGroup, PerGameCommonOptions, Toggle, Range
+from Options import OptionDict, OptionGroup, PerGameCommonOptions, Range, Toggle
 
 # In this file, we define the options the player can pick.
 # The most common types of options are Toggle, Range and Choice.
@@ -51,7 +51,7 @@ class EntranceRando(Toggle):
 
   # You'll also want to set a display name, which will determine what the option is called on the website.
   display_name: str = "EntranceRando"
-  default: bool = option_presets["main"]["entrance_rando"]
+  default: bool = cast(bool, option_presets["main"]["entrance_rando"])
 
 
 class DeathLink(Toggle):
@@ -61,7 +61,7 @@ class DeathLink(Toggle):
   """
 
   display_name: str = "DeathLink"
-  default: bool = option_presets["main"]["death_link"]
+  default: bool = cast(bool, option_presets["main"]["death_link"])
 
 
 class ItemRando(Toggle):
@@ -71,7 +71,7 @@ class ItemRando(Toggle):
   """
 
   display_name: str = "ItemRando"
-  default: bool = option_presets["main"]["item_rando"]
+  default: bool = cast(bool, option_presets["main"]["item_rando"])
 
 
 class FinalBoss(Toggle):
@@ -80,7 +80,7 @@ class FinalBoss(Toggle):
   """
 
   display_name: str = "FinalBoss"
-  default: bool = option_presets["main"]["final_boss"]
+  default: bool = cast(bool, option_presets["main"]["final_boss"])
 
 
 class EachQuestIsACheck(Toggle):
@@ -90,7 +90,7 @@ class EachQuestIsACheck(Toggle):
   """
 
   display_name: str = "EachQuestIsACheck"
-  default: bool = option_presets["main"]["each_quest_is_a_check"]
+  default: bool = cast(bool, option_presets["main"]["each_quest_is_a_check"])
 
 
 class AllQuestsMaxed(Toggle):
@@ -99,7 +99,7 @@ class AllQuestsMaxed(Toggle):
   """
 
   display_name: str = "AllQuestsMaxed"
-  default: bool = option_presets["main"]["all_quests_maxed"]
+  default: bool = cast(bool, option_presets["main"]["all_quests_maxed"])
 
 
 class DelDel(Range):
@@ -109,7 +109,7 @@ class DelDel(Range):
 
   range_end: int = 100
   display_name: str = "DelDel"
-  default: bool = option_presets["main"]["del_del"]
+  default: bool = cast(bool, option_presets["main"]["del_del"])
 
 
 class SpawnRandomEnemies(Range):
@@ -120,7 +120,7 @@ class SpawnRandomEnemies(Range):
 
   range_end: int = 100
   display_name: str = "SpawnRandomEnemies"
-  default: bool = option_presets["main"]["spawn_random_enemies"]
+  default: bool = cast(bool, option_presets["main"]["spawn_random_enemies"])
 
 
 class ProgressiveWeapons(Toggle):
@@ -130,7 +130,7 @@ class ProgressiveWeapons(Toggle):
   """
 
   display_name: str = "ProgressiveWeapons"
-  default: bool = option_presets["main"]["progressive_weapons"]
+  default: bool = cast(bool, option_presets["main"]["progressive_weapons"])
 
 
 class ProgressiveArmor(Toggle):
@@ -140,7 +140,7 @@ class ProgressiveArmor(Toggle):
   """
 
   display_name: str = "ProgressiveArmor"
-  default: bool = option_presets["main"]["progressive_armor"]
+  default: bool = cast(bool, option_presets["main"]["progressive_armor"])
 
 
 class ProgressiveMagic(Toggle):
@@ -150,7 +150,7 @@ class ProgressiveMagic(Toggle):
   """
 
   display_name: str = "ProgressiveMagic"
-  default: bool = option_presets["main"]["progressive_magic"]
+  default: bool = cast(bool, option_presets["main"]["progressive_magic"])
 
 
 class InfiniteGold(Toggle):
@@ -159,7 +159,7 @@ class InfiniteGold(Toggle):
   """
 
   display_name: str = "InfiniteGold"
-  default: bool = option_presets["main"]["infinite_gold"]
+  default: bool = cast(bool, option_presets["main"]["infinite_gold"])
 
 
 class InfiniteKeys(Toggle):
@@ -168,7 +168,8 @@ class InfiniteKeys(Toggle):
   """
 
   display_name: str = "InfiniteKeys"
-  default: bool = option_presets["main"]["infinite_keys"]
+  default: bool = cast(bool, option_presets["main"]["infinite_keys"])
+
 
 class InfiniteAurastones(Toggle):
   """
@@ -176,7 +177,7 @@ class InfiniteAurastones(Toggle):
   """
 
   display_name: str = "InfiniteAurastones"
-  default: bool = option_presets["main"]["infinite_aurastones"]
+  default: bool = cast(bool, option_presets["main"]["infinite_aurastones"])
 
 
 class Nothing(Range):
@@ -187,7 +188,7 @@ class Nothing(Range):
 
   range_end: int = 100
   display_name: str = "Nothing"
-  default: bool = option_presets["main"]["nothing"]
+  default: bool = cast(bool, option_presets["main"]["nothing"])
 
 
 class FillerGold(Range):
@@ -198,7 +199,7 @@ class FillerGold(Range):
 
   range_end: int = 100
   display_name: str = "FillerGold"
-  default: bool = option_presets["main"]["filler_gold"]
+  default: bool = cast(bool, option_presets["main"]["filler_gold"])
 
 
 class AllowClips(OptionDict):

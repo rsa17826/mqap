@@ -143,6 +143,7 @@ for thing in PROG:
           questData = itemInfo.split(":", 1)[1].split(".")
           if questData[0] not in maxQuests or int(questData[1]) > maxQuests[questData[0]]:
             maxQuests[questData[0]] = int(questData[1])
+
           continue
         elif itemInfo.startswith(
           (
@@ -157,6 +158,7 @@ for thing in PROG:
         else:
           print(itemName, "not used")
           continue
+
         _id_counter += 1
         if itemName.split("#", 1)[0] not in HAS_LIST:
           HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName)
@@ -166,6 +168,8 @@ for thing in PROG:
 
 # Each Item instance must correctly report the "game" it belongs to.
 # To make this simple, it is common practice to subclass the basic Item class and override the "game" field.
+
+
 class MathQuestItem(Item):
   game: str = "MathQuest"
 
@@ -206,38 +210,46 @@ def create_all_items(world: World) -> None:
     # Skip creating the filler trap unconditionally
     if k.startswith("trap:"):
       continue
+
     if k.startswith("filler:"):
       continue
 
     # Check the option before creating quest items
     if k.startswith("quest:") and not world.options.each_quest_is_a_check:
       continue
+
     if k.startswith("weapon:"):
       if world.options.progressive_weapons:
         if k == "weapon:progressive weapons":
           continue
+
         k = "weapon:progressive weapons"
         print(k)
       else:
         if k == "weapon:progressive weapons":
           continue
+
     if k.startswith("armor:"):
       if world.options.progressive_armor:
         if k == "armor:progressive armor":
           continue
+
         k = "armor:progressive armor"
         print(k)
       else:
         if k == "armor:progressive armor":
           continue
-    if world.options.progressive_magic:
-      if k == "magic:progressive magic":
-        continue
-      k = "magic:progressive magic"
-      print(k)
-    else:
-      if k == "magic:progressive magic":
-        continue
+
+    if k.startswith("magic:"):
+      if world.options.progressive_magic:
+        if k == "magic:progressive magic":
+          continue
+
+        k = "magic:progressive magic"
+        print(k)
+      else:
+        if k == "magic:progressive magic":
+          continue
 
     itempool.append(world.create_item(k))
 
