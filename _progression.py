@@ -19,6 +19,17 @@ PROG: list[ProgressionNode] = [
     "room": {"north": -1, "east": -1},
     "requires": [
       [
+        "area:3",
+      ],
+    ],
+    "receive": [
+      "loot:bFang",
+    ],
+  },
+  {
+    "room": {"north": -1, "east": -1},
+    "requires": [
+      [
         "area:6",
       ],
     ],
@@ -335,8 +346,6 @@ PROG: list[ProgressionNode] = [
       "skill:swap",
       "skill:firewall",
       "skill:halo",
-      # TODO !!! make instead push precollected 20_20 - item:gold
-      # "item:gold",
       "loot:key",
     ],
     "info": """can be got anywhere
@@ -540,7 +549,7 @@ manager.correct - manager.wrong > 800 = halo
       ],
     ],
     "receive": [
-      "item:gold#22",
+      "item:gold - merchant#8",
     ],
   },
   {
@@ -586,7 +595,7 @@ manager.correct - manager.wrong > 800 = halo
       ],
     ],
     "receive": [
-      "item:gold#23",
+      "item:gold - merchant#9",
     ],
   },
   {
@@ -955,7 +964,7 @@ manager.correct - manager.wrong > 800 = halo
       ],
     ],
     "receive": [
-      "item:gold#18",
+      "item:gold - merchant#1",
     ],
   },
   {
@@ -975,7 +984,7 @@ manager.correct - manager.wrong > 800 = halo
       ],
     ],
     "receive": [
-      "item:gold#20",
+      "item:gold - merchant#3",
     ],
   },
   {
@@ -1065,7 +1074,7 @@ manager.correct - manager.wrong > 800 = halo
       ],
     ],
     "receive": [
-      "food:newtonsApple",
+      "food:newtonsApple#2",
     ],
   },
   # NOTE don't need this many, lv4 is enough
@@ -1212,7 +1221,7 @@ manager.correct - manager.wrong > 800 = halo
       ],
     ],
     "receive": [
-      "misc:bombCapacity",
+      "misc:bombCapacity#50",
     ],
   },
   # {"room": {"north": 19, "east": 12}, "info": "warp skill warp point",},
@@ -2258,7 +2267,7 @@ manager.correct - manager.wrong > 800 = halo
     "requires": [
       [
         "quest:geo.1",
-        "item:geode#5",
+        "item:geodes#5",
       ],
     ],
     "receive": [
@@ -2710,7 +2719,8 @@ manager.correct - manager.wrong > 800 = halo
       "item:gold",
       "item:diamonds",
       "item:aurastones",
-      "loot:slamstones",
+      "item:rubies",
+      "item:slamstones",
       "food:elixir",
       "food:holyWater",
     ],
@@ -2745,7 +2755,7 @@ manager.correct - manager.wrong > 800 = halo
         "loot:key",
       ],
     ],
-    "receive": [
+     "receive": [
       "food:grapes#5",
       "food:strawberry",
     ],
@@ -2758,7 +2768,7 @@ manager.correct - manager.wrong > 800 = halo
       ],
     ],
     "receive": [
-      "item:geode#2",
+      "item:geodes#2",
     ],
   },
   {
@@ -3202,8 +3212,8 @@ manager.correct - manager.wrong > 800 = halo
       ],
     ],
     "receive": [
-      "food:gummyBears - 1-0-2",
-      "food:blueberries - 1-0-2",
+      "food:gummyBears - 1-0-2#10",
+      "food:blueberries - 1-0-2#5",
     ],
   },
   {
@@ -3214,9 +3224,9 @@ manager.correct - manager.wrong > 800 = halo
       ],
     ],
     "receive": [
-      "item:gold - 5-0-5",
-      "item:rubies - 5-0-5",
-      "item:diamonds - 5-0-5",
+      "item:gold - 5-0-5#2000",
+      "item:rubies - 5-0-5#3",
+      "item:diamonds - 5-0-5#7",
     ],
   },
   {
@@ -3227,7 +3237,7 @@ manager.correct - manager.wrong > 800 = halo
       ],
     ],
     "receive": [
-      "item:gold - 2-2-0",
+      "item:gold - 2-2-0#900",
     ],
   },
   {
@@ -3316,7 +3326,7 @@ manager.correct - manager.wrong > 800 = halo
       ],
     ],
     "receive": [
-      "item:bombs",
+      "item:bombs#10",
     ],
   },
   {
@@ -6777,6 +6787,17 @@ manager.correct - manager.wrong > 800 = halo
       "food:gingerBread",
     ],
   },
+  {
+    "room": {"north": 13, "east": 18},
+    "requires": [
+      [
+        "loot:bFang#1",
+      ],
+    ],
+    "receive": [
+      "item:gold - merchant#5",
+    ],
+  },
   # NOTE these grapes say 30gp but are only 15gp as they are the same ones as at 20 20
   # {"room": {"north": 13, "east": 18}, "requires": [["item:gold#30"],], "receive": ["food:grapes"],},
   {
@@ -6977,6 +6998,17 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "area:0",
+    ],
+  },
+  {
+    "room": {"north": 13, "east": 17},
+    "requires": [
+      [
+        "loot:tBand",
+      ],
+    ],
+    "receive": [
+      "item:gold - merchant#12",
     ],
   },
   {
