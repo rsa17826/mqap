@@ -17,9 +17,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {}
 _id_counter = 99999
 fillers = ("trap:spawn_random_enemies", "trap:del_del", "trap:nothing", "filler:filler_gold")
 for filler in fillers:
-  DEFAULT_ITEM_CLASSIFICATIONS[filler] = (
-    ItemClassification.trap if filler.startswith("trap:") else ItemClassification.filler
-  )
+  DEFAULT_ITEM_CLASSIFICATIONS[filler] = ItemClassification.trap if filler.startswith("trap:") else ItemClassification.filler
   ITEM_NAME_TO_ID[filler] = _id_counter
   _id_counter -= 1
 
@@ -85,7 +83,7 @@ MAGIC_ORDER: dict[str, int] = {
   "magic:ice": 13,
   "magic:lightning": 14,
 }
-
+QUEST_NAMES: set[str] = set() # quest names, e.g. "mChar"
 _id_counter = 1
 
 DEFAULT_ITEM_CLASSIFICATIONS["weapon:progressive weapons"] = ItemClassification.progression
@@ -129,6 +127,15 @@ for thing in PROG:
         ):
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.progression
           ITEM_NAME_TO_ID[itemName] = _id_counter
+        elif itemInfo.startswith(("quest:",)):
+          questData = itemInfo.split(":", 1)[1].split(".")
+          questName = questData[0]
+          if questName not in maxQuests or int(questData[1]) > maxQuests[questName]:
+            maxQuests[questName] = int(questData[1])
+
+          QUEST_NAMES.add(questName)
+          continue # still no per-level id; handled generically below
+
         elif itemInfo.startswith(
           (
             "item:ring",
@@ -170,6 +177,13 @@ for thing in PROG:
 
 
 
+for questName in QUEST_NAMES:
+  itemName = f"quest:{questName} progressive"
+  DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.progression
+  ITEM_NAME_TO_ID[itemName] = _id_counter
+  _id_counter += 1
+
+
 # Each Item instance must correctly report the "game" it belongs to.
 # To make this simple, it is common practice to subclass the basic Item class and override the "game" field.
 
@@ -209,6 +223,12 @@ def create_item_with_correct_classification(world: World, name: str) -> MathQues
 # With those two helper functions defined, let's now get to actually creating and submitting our itempool.
 def create_all_items(world: World) -> None:
   itempool: list[Item] = []
+  if world.options.each_quest_is_a_check:
+    for questName, maxLevel in maxQuests.items():
+      for _ in range(maxLevel):
+        itempool.append(world.create_item(f"quest:{questName} progressive"))
+
+
 
   for k in ITEM_NAME_TO_ID.keys():
     # Skip creating the filler trap unconditionally

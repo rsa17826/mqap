@@ -32,6 +32,7 @@ from .items import ARMOR_ORDER, HAS_LIST, WEAPON_ORDER, MAGIC_ORDER
 from .power import HasPower
 
 _POWER_RE = re.compile(r"^power:(\d+)$")
+_QUEST_RE = re.compile(r"^quest:([^.]+)\.(\d+)$")
 
 
 def set_all_location_rules(world: World) -> None:
@@ -48,9 +49,7 @@ def set_all_location_rules(world: World) -> None:
       if clean_item.startswith(("power:")):
         continue
 
-      if clean_item.startswith(("quest:", "flag:", "area:", "loot:")) and not (
-        world.options.each_quest_is_a_check and clean_item.startswith("quest:")
-      ):
+      if clean_item.startswith(("quest:", "flag:", "area:", "loot:")) and not (world.options.each_quest_is_a_check and clean_item.startswith("quest:")):
         loc_name = f"{room_id_base}: root - {clean_item}"
       else:
         loc_name = f"{room_id_base} - {clean_item}"
@@ -80,8 +79,12 @@ def set_all_location_rules(world: World) -> None:
         sub_rule: Rule | None = None
         for item in clean_items:
           tname = item.split("#", 1)[0]
+          quest_match = _QUEST_RE.match(tname)
           power_match = _POWER_RE.match(item)
-          if power_match:
+          if quest_match:
+            qname, qlevel = quest_match.group(1), int(quest_match.group(2))
+            temprule = Has(f"quest:{qname} progressive", qlevel)
+          elif power_match:
             temprule = HasPower(int(power_match.group(1)))
           elif world.options.progressive_magic and tname in MAGIC_ORDER:
             # With progressive_weapons on, the actual item received is the generic
@@ -93,6 +96,7 @@ def set_all_location_rules(world: World) -> None:
             # "weapon:progressive weapons" item, not the named weapon. Reaching this
             # weapon's logic requires having collected at least this many of them.
             temprule = Has("armor:progressive armor", ARMOR_ORDER[tname])
+
           elif world.options.progressive_weapons and tname in WEAPON_ORDER:
             # With progressive_weapons on, the actual item received is the generic
             # "weapon:progressive weapons" item, not the named weapon. Reaching this
@@ -133,6 +137,12 @@ def set_completion_condition(world: World) -> None:
   if world.options.all_quests_maxed:
     from .items import maxQuests
 
-    rule &= HasAll(*(f"quest:{name}.{value}" for name, value in maxQuests.items()))
+    if world.options.all_quests_maxed:
+      from .items import maxQuests
+
+      for name, value in maxQuests.items():
+        rule &= Has(f"quest:{name} progressive", value)
+
+
 
   world.set_completion_rule(rule)

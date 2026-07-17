@@ -31,7 +31,7 @@ for thing in PROG:
           "permit:",
           "misc:",
           "craft:",
-          # "quest:",
+          "quest:",
         )
       ):
         # itemName = itemInfo.split("#")[0]
@@ -39,6 +39,9 @@ for thing in PROG:
         if itemName not in LOCATION_NAME_TO_ID:
           LOCATION_NAME_TO_ID[itemName] = _id_counter
           _id_counter += 1
+
+
+
 
 
 # print(LOCATION_NAME_TO_ID)
@@ -76,6 +79,12 @@ def create_all_locations(world: World) -> None:
 def create_regular_locations(world: World) -> None:
   # return
   for locationName, location_id in LOCATION_NAME_TO_ID.items():
+    item_part = locationName.split(" - ")[-1]
+    if item_part.startswith("quest:") and not world.options.each_quest_is_a_check:
+      continue
+
+    room_id = locationName.split(" - ", 1)[0]
+
     # item_part = locationName.split(" - ")[-1]
     # if item_part.startswith("quest:") and not world.options.each_quest_is_a_check:
     #   continue
@@ -97,10 +106,12 @@ def create_events(world: World) -> None:
   for thing in PROG:
     if "receive" not in thing:
       continue
+
     for itemInfo in thing["receive"]:
       if itemInfo.startswith(("quest:", "flag:", "area:", "loot:")):
-        # if world.options.each_quest_is_a_check and itemInfo.startswith("quest:"):
-        #   continue
+        if world.options.each_quest_is_a_check and itemInfo.startswith("quest:"):
+          continue
+
         event_name = itemInfo.split("#")[0]
         room_id = f"{thing['room']['north']}_{thing['room']['east']}: root"
 
@@ -112,6 +123,8 @@ def create_events(world: World) -> None:
           location_type=MathQuestLocation,
           item_type=items.MathQuestItem,
         )
+
+
 
 
 # Sometimes, the player may perform in-game actions that allow them to progress which are not related to Items.

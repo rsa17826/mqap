@@ -28,10 +28,10 @@ TARGET_GROUP_LOOKUP: dict[int, list[int]] = {
 }
 from rule_builder.rules import False_, True_
 
-from .items import HAS_LIST
+from .items import ARMOR_ORDER, HAS_LIST, MAGIC_ORDER, WEAPON_ORDER
 
-
-from .items import HAS_LIST, WEAPON_ORDER, ARMOR_ORDER, MAGIC_ORDER
+_QUEST_RE = re.compile(r"^quest:([^.]+)\.(\d+)$")
+_POWER_RE = re.compile(r"^power:(\d+)$")
 
 
 def _reqs_to_rule(world: World, reqs: list[list[str]]) -> Rule | None:
@@ -43,9 +43,13 @@ def _reqs_to_rule(world: World, reqs: list[list[str]]) -> Rule | None:
     sub_rule: Rule | None = None
     for item in option:
       tname = item.split("#", 1)[0]
+      quest_match = _QUEST_RE.match(tname)
 
       # Intercept and convert progressive weapons dynamically
-      if world.options.progressive_weapons and tname in WEAPON_ORDER:
+      if quest_match:
+        qname, qlevel = quest_match.group(1), int(quest_match.group(2))
+        temprule = Has(f"quest:{qname} progressive", qlevel)
+      elif world.options.progressive_weapons and tname in WEAPON_ORDER:
         temprule = Has("weapon:progressive weapons", WEAPON_ORDER[tname])
       elif world.options.progressive_armor and tname in ARMOR_ORDER:
         temprule = Has("armor:progressive armor", ARMOR_ORDER[tname])
@@ -60,6 +64,7 @@ def _reqs_to_rule(world: World, reqs: list[list[str]]) -> Rule | None:
         sub_rule = temprule
       else:
         sub_rule = sub_rule & temprule
+
 
     assert sub_rule is not None
     rule = sub_rule if rule is None else (rule | sub_rule)
@@ -118,6 +123,7 @@ def _connect(world: World, source: Region, target: Region, rule: Rule | None) ->
       if hasattr(existing, "_rule_object"):
         delattr(existing, "_rule_object")
 
+
     # If both the old and new connections have requirements, logically OR them together.
     elif not getattr(existing, "_is_unconditional", False):
       old_rule = getattr(existing, "_rule_object", None)
@@ -126,6 +132,7 @@ def _connect(world: World, source: Region, target: Region, rule: Rule | None) ->
 
       world.set_rule(existing, combined_rule)
       existing._rule_object = combined_rule
+
     return existing
 
   # 2. If it doesn't exist, create it cleanly
@@ -160,6 +167,7 @@ def finalize_entrance_randomization(world: World) -> None:
   if not er_candidates:
     world.er_pairings = []
     return
+
   # print(er_candidates)
   for entrance in er_candidates:
     disconnect_entrance_for_randomization(entrance)
@@ -234,6 +242,8 @@ def _create_exit_regions_and_roots(
         )
 
 
+
+
 def _connect_intra_room(world: World, exit_regions: dict) -> None:
   # ── Pass 2: connect exits *within* each room via area groups ──────────────
   for room in GEOM:
@@ -241,25 +251,20 @@ def _connect_intra_room(world: World, exit_regions: dict) -> None:
 
     if "areas" not in room:
       # No area data → all exits in this room connect freely
-      all_regions = [
-        exit_regions[(n, e, side, idx)]
-        for side, exit_list in room.get("exits", {}).items()
-        for idx in range(len(exit_list))
-        if (n, e, side, idx) in exit_regions
-      ]
+      all_regions = [exit_regions[(n, e, side, idx)] for side, exit_list in room.get("exits", {}).items() for idx in range(len(exit_list)) if (n, e, side, idx) in exit_regions]
       for i, src in enumerate(all_regions):
         for dst in all_regions[i + 1 :]:
           _connect(world, src, dst, rule=None)
           _connect(world, dst, src, rule=None)
+
+
       continue
 
     for area_group in room["areas"]:
       rule = _reqs_to_rule(world, area_group["reqs"])
 
       for node in area_group["areas"]:
-        node_regions = [
-          exit_regions[(n, e, ex["side"], ex["idx"])] for ex in node if (n, e, ex["side"], ex["idx"]) in exit_regions
-        ]
+        node_regions = [exit_regions[(n, e, ex["side"], ex["idx"])] for ex in node if (n, e, ex["side"], ex["idx"]) in exit_regions]
         if len(node_regions) < 2:
           continue # single-exit node — nothing to wire, just a placeholder
 
@@ -267,6 +272,9 @@ def _connect_intra_room(world: World, exit_regions: dict) -> None:
         for other in node_regions[1:]:
           _connect(world, rep, other, rule=rule)
           _connect(world, other, rep, rule=rule)
+
+
+
 
 
 def _connect_cross_room_vanilla(world: World, exit_regions: dict, tag_for_er: bool = False) -> list[Entrance]:
@@ -304,11 +312,15 @@ def _connect_cross_room_vanilla(world: World, exit_regions: dict, tag_for_er: bo
           entrance.randomization_group = _SIDE_GROUP[entrance_side]
           er_candidates.append(entrance)
 
+
+
+
   return er_candidates
 
 
 def _connect_warps_vanilla(world: World, exit_regions: dict) -> None:
   """Vanilla (always-on) warp wiring. Warps are deliberately NOT part of entrance randomization:
+
   several WARPS entries are many-to-one hubs (e.g. warp 0 connects three separate rooms so that any
   spoke reaches any other spoke), and coupled Generic ER fundamentally pairs single entrances 1:1.
   Flattening a hub into independent two-way edges and letting them shuffle globally breaks that
@@ -316,14 +328,13 @@ def _connect_warps_vanilla(world: World, exit_regions: dict) -> None:
   targets with no reachable matching warp exit left to pair against). So regardless of whether
   entrance_rando is on, warps always get wired here exactly as in vanilla."""
   for i, warpData in enumerate(WARPS):
-    warp = Region(
-      f"{warpData['connections'][0][0]}_{warpData['connections'][0][1]}: warp {i}", world.player, world.multiworld
-    )
+    warp = Region(f"{warpData['connections'][0][0]}_{warpData['connections'][0][1]}: warp {i}", world.player, world.multiworld)
     world.multiworld.regions.append(warp)
     rule = _reqs_to_rule(world, warpData.get("reqs", [[]]))
     for con in warpData["connections"]:
       _ = _connect(world, exit_regions[*con], warp, rule=rule)
       _ = _connect(world, warp, exit_regions[*con], rule=rule)
+
 
 
 _EXIT_REGION_RE = re.compile(r"^(-?\d+(?:\.\d+)?)_(-?\d+(?:\.\d+)?): (\w+) (\d+)$")
@@ -373,3 +384,5 @@ def write_er_connections_json(world: World) -> None:
           didx_s,
         )
       )
+
+
