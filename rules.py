@@ -47,12 +47,14 @@ def set_all_location_rules(world: World) -> None:
       # 1. Handle the naming difference between events and standard locations
       if clean_item.startswith(("power:")):
         continue
+
       if clean_item.startswith(("quest:", "flag:", "area:", "loot:")) and not (
         world.options.each_quest_is_a_check and clean_item.startswith("quest:")
       ):
         loc_name = f"{room_id_base}: root - {clean_item}"
       else:
         loc_name = f"{room_id_base} - {clean_item}"
+
       location = world.get_location(loc_name)
 
       # 2. Build and apply the rules
@@ -72,6 +74,7 @@ def set_all_location_rules(world: World) -> None:
           name = token
           if _ENTRANCE_RE.match(name):
             name = f"{room_id_base} - {name}"
+
           clean_items.append(name)
 
         sub_rule: Rule | None = None
@@ -99,18 +102,24 @@ def set_all_location_rules(world: World) -> None:
             temprule = HAS_LIST[tname]
           else:
             temprule = Has(item)
+
           if sub_rule is None:
             sub_rule = temprule
           else:
             sub_rule = sub_rule & temprule # AND within a single requirement group
+
+
         assert sub_rule is not None
         allConditions.append(sub_rule)
+
         # allConditions.append(HasAll(*clean_items) if len(clean_items) > 1 else Has(clean_items[0]))
 
       if allConditions:
         # print(allConditions, "allConditions")
         # print(HAS_LIST, "HAS_LIST")
         world.set_rule(location, reduce(lambda a, s: a | s, allConditions)) # OR across alternative groups
+
+
 
 
 def set_completion_condition(world: World) -> None:
@@ -120,8 +129,10 @@ def set_completion_condition(world: World) -> None:
   rule = True_()
   if world.options.final_boss:
     rule &= Has("flag:final boss dead")
+
   if world.options.all_quests_maxed:
     from .items import maxQuests
 
     rule &= HasAll(*(f"quest:{name}.{value}" for name, value in maxQuests.items()))
+
   world.set_completion_rule(rule)

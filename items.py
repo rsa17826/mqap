@@ -23,6 +23,7 @@ for filler in fillers:
   ITEM_NAME_TO_ID[filler] = _id_counter
   _id_counter -= 1
 
+
 HAS_LIST: dict[str, Rule[World]] = {}
 maxQuests: dict[str, int] = {}
 
@@ -166,6 +167,9 @@ for thing in PROG:
           HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName) | HAS_LIST[itemName.split("#", 1)[0]]
 
 
+
+
+
 # Each Item instance must correctly report the "game" it belongs to.
 # To make this simple, it is common practice to subclass the basic Item class and override the "game" field.
 
@@ -229,6 +233,8 @@ def create_all_items(world: World) -> None:
         if k == "weapon:progressive weapons":
           continue
 
+
+
     if k.startswith("armor:"):
       if world.options.progressive_armor:
         if k == "armor:progressive armor":
@@ -240,6 +246,8 @@ def create_all_items(world: World) -> None:
         if k == "armor:progressive armor":
           continue
 
+
+
     if k.startswith("magic:"):
       if world.options.progressive_magic:
         if k == "magic:progressive magic":
@@ -250,6 +258,8 @@ def create_all_items(world: World) -> None:
       else:
         if k == "magic:progressive magic":
           continue
+
+
 
     itempool.append(world.create_item(k))
 

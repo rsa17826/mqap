@@ -13,6 +13,8 @@ def find_unrewarded_requirements(data):
         if "entrance" not in item:
           all_receives.add(item)
 
+
+
     # Collect all requires (flattening the nested lists)
     if "requires" in entry:
       for sublist in entry["requires"]:
@@ -20,6 +22,10 @@ def find_unrewarded_requirements(data):
           item = item.split("#")[0]
           if "entrance" not in item:
             all_requires.add(item)
+
+
+
+
 
   # Find requirements that are NOT in the receives set
   unrewarded = all_requires - all_receives

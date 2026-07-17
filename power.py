@@ -38,10 +38,12 @@ for name, _data in aPOWER_TABLE.items():
   power = int(_data[0].get("power", 0))
   if power_group == "armor":
     power *= 0.8
+
   _data = PowerData(power=int(power), power_group=power_group)
   POWER_TABLE[name] = _data
   if _data.power <= 0:
     continue
+
   if _data.power_group is None:
     UNGROUPED_POWER_ITEMS.append(name)
   else:
@@ -72,12 +74,17 @@ class HasPower(Rule[World], game="MathQuest"):
       for name in UNGROUPED_POWER_ITEMS:
         if prog_items[name]:
           total += POWER_TABLE[name].power
+
+
       for names in POWER_GROUP_ITEMS.values():
         best = 0
         for name in names:
           if prog_items[name]:
             best = max(best, POWER_TABLE[name].power)
+
+
         total += best
+
       return total >= self.min_power
 
     @override
@@ -87,8 +94,12 @@ class HasPower(Rule[World], game="MathQuest"):
       for names in POWER_GROUP_ITEMS.values():
         for name in names:
           deps.setdefault(name, set()).add(id(self))
+
+
       return deps
 
     @override
     def __str__(self) -> str:
       return f"HasPower({self.min_power})"
+
+
