@@ -85,7 +85,6 @@ class MathQuestWorld(World):
   def fill_slot_data(self) -> Mapping[str, Any]:
     from ._room_geometry import GEOM
     from .items import ITEM_NAME_TO_ID, maxQuests
-    from .locations import LOCATION_NAME_TO_ID
     from .regions import table_js
 
     # If you need access to the player's chosen options on the client side, there is a helper for that.

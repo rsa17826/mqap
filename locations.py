@@ -44,17 +44,6 @@ for thing in PROG:
 
 
 
-# print(LOCATION_NAME_TO_ID)
-# temp: set[str] = set()
-# i = 0
-# for room in GEOM:
-#   _id = f'{room["north"]}_{room["east"]}'
-#   if _id not in temp:
-#     temp.add(_id)
-#     LOCATION_NAME_TO_ID[_id] = i
-#     i += 1
-
-
 # Each Location instance must correctly report the "game" it belongs to.
 # To make this simple, it is common practice to subclass the basic Location class and override the "game" field.
 class MathQuestLocation(Location):
