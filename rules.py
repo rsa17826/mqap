@@ -83,7 +83,7 @@ def set_all_location_rules(world: World) -> None:
           power_match = _POWER_RE.match(item)
           if quest_match:
             qname, qlevel = quest_match.group(1), int(quest_match.group(2))
-            temprule = Has(f"quest:{qname} progressive", qlevel)
+            temprule = Has(f"quest:{qname}", qlevel)
           elif power_match:
             temprule = HasPower(int(power_match.group(1)))
           elif world.options.progressive_magic and tname in MAGIC_ORDER:
@@ -141,7 +141,7 @@ def set_completion_condition(world: World) -> None:
       from .items import maxQuests
 
       for name, value in maxQuests.items():
-        rule &= Has(f"quest:{name} progressive", value)
+        rule &= Has(f"quest:{name}", value)
 
 
 

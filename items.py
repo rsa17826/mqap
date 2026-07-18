@@ -178,7 +178,7 @@ for thing in PROG:
 
 
 for questName in QUEST_NAMES:
-  itemName = f"quest:{questName} progressive"
+  itemName = f"quest:{questName}"
   DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.progression
   ITEM_NAME_TO_ID[itemName] = _id_counter
   _id_counter += 1
@@ -226,7 +226,7 @@ def create_all_items(world: World) -> None:
   if world.options.each_quest_is_a_check:
     for questName, maxLevel in maxQuests.items():
       for _ in range(maxLevel):
-        itempool.append(world.create_item(f"quest:{questName} progressive"))
+        itempool.append(world.create_item(f"quest:{questName}"))
 
 
 
