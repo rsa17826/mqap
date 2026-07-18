@@ -26,9 +26,7 @@ class MathQuestWorld(World):
 
   # This is how we associate the options defined in our options.py with our world.
   # (Note: options.py has been imported as "MathQuest_options" at the top of this file to avoid a name conflict)
-  options_dataclass: ClassVar[type[PerGameCommonOptions]] = cast(
-    type[PerGameCommonOptions], MathQuest_options.MathQuestOptions
-  )
+  options_dataclass: ClassVar[type[PerGameCommonOptions]] = cast(type[PerGameCommonOptions], MathQuest_options.MathQuestOptions)
   options: MathQuest_options.MathQuestOptions
   er_pairings: ClassVar[list[tuple[str, str]]] = []
   # Our world class must have a static location_name_to_id and item_name_to_id defined.
@@ -95,7 +93,12 @@ class MathQuestWorld(World):
       **self.options.as_dict(*MathQuest_options.option_presets["main"].keys()),
       "roomData": table_js,
       "AP_ITEM_IDS": {v: k for k, v in ITEM_NAME_TO_ID.items()},
-      "AP_LOCATION_IDS": LOCATION_NAME_TO_ID,
+      "AP_LOCATION_IDS": {
+        loc.name: loc.address
+        for loc in self.multiworld.get_locations(self.player)
+        if loc.address is not None # exclude events
+      },
       "AP_ENTRANCE_IDS": GEOM,
       "maxQuests": maxQuests,
     }
+

@@ -81,7 +81,7 @@ def set_all_location_rules(world: World) -> None:
           tname = item.split("#", 1)[0]
           quest_match = _QUEST_RE.match(tname)
           power_match = _POWER_RE.match(item)
-          if quest_match:
+          if world.options.each_quest_is_a_check and quest_match:
             qname, qlevel = quest_match.group(1), int(quest_match.group(2))
             temprule = Has(f"quest:{qname}", qlevel)
           elif power_match:
