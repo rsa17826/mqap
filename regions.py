@@ -205,6 +205,105 @@ def create_and_connect_regions(world: World) -> None:
   _connect_warps_vanilla(world, exit_regions)
 
 
+WEAP_POW = [
+  [
+    "weapon:aSword", # 0
+  ],
+  [
+    "weapon:club", # 1
+  ],
+  [
+    "weapon:dagger", # 2
+  ],
+  [
+    "weapon:sword", # 3
+  ],
+  [
+    "weapon:sKnife", # 4
+  ],
+  [
+    "weapon:pitchfork", # 5
+  ],
+  [
+    "weapon:warlockStaff", # 6
+  ],
+  [
+    "weapon:royalStaff", # 7
+  ],
+  [
+    "weapon:royalSword", # 8
+  ],
+  [
+    "weapon:sunSword", # 9
+  ],
+  [
+    "weapon:shadowStaff", # 10
+  ],
+  [
+    "weapon:refreshStaff", # 11
+  ],
+  [
+    "weapon:orcBlade", # 12
+  ],
+  [
+    "weapon:creeperCrusher", # 13
+  ],
+  [
+    "weapon:twinFury", # 14
+  ],
+  [
+    "weapon:baneBlade", # 15
+  ],
+  [
+    "weapon:axe", # 16
+  ],
+  [
+    "weapon:bombSword", # 17
+  ],
+  [
+    "weapon:soulSword", # 18
+  ],
+]
+
+AREA_POWER_REQS = {
+  "3": 2,
+  "6": 8,
+  "11": 12,
+  "4": 8,
+  "15": 0,
+  "16": 0,
+  "1.water": 0,
+  "2.water": 0,
+  "7": 0,
+  "2": 0,
+  "13": 0,
+  "5": 0,
+  "12": 0,
+  "8": 0,
+  "1": 0,
+  "17": 0,
+  "9": 0,
+  "1.19": 0,
+  "14": 0,
+  "0": 0,
+  "3.1": 0,
+  "16.1": 0,
+  "3.3": -1,
+  "8.1": 0,
+  "9.1": 0,
+  "5.1": 0,
+  "4.1": 0,
+  "10": 0,
+  "11.3": 0,
+  "11.4": 0,
+  "11.2": 0,
+  "11.1": 0,
+  "7.1": 0,
+  "7.2": 0,
+  "6.1": 0,
+}
+
+
 def _create_exit_regions_and_roots(
   world: World,
   exit_regions: dict[tuple[float | int, int | float, str, int], Region],
