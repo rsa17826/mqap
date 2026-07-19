@@ -84,20 +84,19 @@ class MathQuestWorld(World):
   @override
   def fill_slot_data(self) -> Mapping[str, Any]:
     from ._room_geometry import GEOM
-    from .items import ITEM_NAME_TO_ID, maxQuests
-    from .regions import table_js
+    from .items import AREA_MAP, ITEM_NAME_TO_ID, maxQuests
+    from .regions import AREA_POWER_REQS, table_js # regions.py already imports/mutates
+    # AREA_POWER_REQS into [[weapon]] form
+    # at module load, so this is the final form
 
-    # If you need access to the player's chosen options on the client side, there is a helper for that.
     return {
       **self.options.as_dict(*MathQuest_options.option_presets["main"].keys()),
       "roomData": table_js,
       "AP_ITEM_IDS": {v: k for k, v in ITEM_NAME_TO_ID.items()},
-      "AP_LOCATION_IDS": {
-        loc.name: loc.address
-        for loc in self.multiworld.get_locations(self.player)
-        if loc.address is not None # exclude events
-      },
+      "AP_LOCATION_IDS": {loc.name: loc.address for loc in self.multiworld.get_locations(self.player) if loc.address is not None},
       "AP_ENTRANCE_IDS": GEOM,
       "maxQuests": maxQuests,
+      "AREA_MAP": AREA_MAP,
+      "AREA_POWER_REQS": AREA_POWER_REQS,
     }
 

@@ -440,7 +440,7 @@ manager.correct - manager.wrong > 800 = halo
         "skill:craft",
       ],
     ],
-    "receive": [
+  "receive": [
       "craft:upgradeAAHP",
       "craft:upgradeAAMP",
     ],
