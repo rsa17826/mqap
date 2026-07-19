@@ -28,7 +28,7 @@ TARGET_GROUP_LOOKUP: dict[int, list[int]] = {
 }
 from rule_builder.rules import False_, True_
 
-from .items import ARMOR_ORDER, HAS_LIST, MAGIC_ORDER, WEAPON_ORDER, AREA_MAP
+from .items import AREA_MAP, ARMOR_ORDER, HAS_LIST, MAGIC_ORDER, WEAPON_ORDER
 
 _QUEST_RE = re.compile(r"^quest:([^.]+)\.(\d+)$")
 _POWER_RE = re.compile(r"^power:(\d+)$")
@@ -205,48 +205,7 @@ def create_and_connect_regions(world: World) -> None:
   _connect_warps_vanilla(world, exit_regions)
 
 
-AREA_POWER_REQS = {
-  # "0": 0,
-  "1.19": 1,
-  "1.water": 2,
-  "1": 1,
-  "10": 13,
-  "11.1": 4,
-  "11.2": 13,
-  "11.3": 17,
-  "11.4": 17,
-  "11": 13,
-  "12": 15,
-  "13": [["flag:magic only resist bypass"]],
-  # "14": 0,
-  "15": 17,
-  "16.1": 16,
-  "16": 16,
-  # "17": 0,
-  "2.water": 2,
-  "2": 2,
-  "3.1": 4,
-  # "3.3": 0,
-  "3": 3,
-  "4.1": 5,
-  "4": 9,
-  # "5.1": 0,
-  "5": 10,
-  # "6.1": 0,
-  "6": 9,
-  # "7.1": 0,
-  # "7.2": 0,
-  "7": 9,
-  # "8.1": 0,
-  "8": 10,
-  "9.1": 17,
-  "9": 10,
-}
-
-for k, v in AREA_POWER_REQS.items():
-  if isinstance(v, int):
-    AREA_POWER_REQS[k] = [[weapon] for weapon, i in WEAPON_ORDER.items() if i > v]
-
+from _progression import AREA_POWER_REQS
 
 def _create_exit_regions_and_roots(
   world: World,
@@ -349,10 +308,19 @@ def _connect_cross_room_vanilla(world: World, exit_regions: dict, tag_for_er: bo
       seen.add(pair)
       neighbor = exit_regions[neighbor_key]
 
+      # Gate each direction by the AREA_POWER_REQS of the room being *entered* —
+      # forward walks (n,e) -> neighbor room, so it's gated by the neighbor's area;
+      # backward walks neighbor -> (n,e), so it's gated by (n,e)'s own area.
+      area_here = AREA_MAP[f"{n}_{e}"]
+      area_there = AREA_MAP[f"{neighbor_key[0]}_{neighbor_key[1]}"]
+
+      forward_rule = _reqs_to_rule(world, AREA_POWER_REQS[area_there]) if area_there in AREA_POWER_REQS else None
+      backward_rule = _reqs_to_rule(world, AREA_POWER_REQS[area_here]) if area_here in AREA_POWER_REQS else None
+
       # Since we handle exit -> root linkages explicitly during Pass 1,
       # we can safely go back to using standard _connect here!
-      forward = _connect(world, region, neighbor, rule=None)
-      backward = _connect(world, neighbor, region, rule=None)
+      forward = _connect(world, region, neighbor, rule=forward_rule)
+      backward = _connect(world, neighbor, region, rule=backward_rule)
 
       if tag_for_er:
         for entrance, entrance_side in ((forward, side), (backward, OPPOSITE[side])):

@@ -8592,3 +8592,45 @@ manager.correct - manager.wrong > 800 = halo
     ],
   },
 ]
+AREA_POWER_REQS = {
+  # "0": 0,
+  "1.19": 1,
+  "1.water": 2,
+  "1": 1,
+  "10": 13,
+  "11.1": 4,
+  "11.2": 13,
+  "11.3": 17,
+  "11.4": 17,
+  "11": 13,
+  "12": 15,
+  "13": [["flag:magic only resist bypass"]],
+  # "14": 0,
+  "15": 17,
+  "16.1": 16,
+  "16": 16,
+  # "17": 0,
+  "2.water": 2,
+  "2": 2,
+  "3.1": 4,
+  # "3.3": 0,
+  "3": 3,
+  "4.1": 5,
+  "4": 9,
+  # "5.1": 0,
+  "5": 10,
+  # "6.1": 0,
+  "6": 9,
+  # "7.1": 0,
+  # "7.2": 0,
+  "7": 9,
+  # "8.1": 0,
+  "8": 10,
+  "9.1": 17,
+  "9": 10,
+}
+
+for k, v in AREA_POWER_REQS.items():
+  if isinstance(v, int):
+    AREA_POWER_REQS[k] = [[weapon] for weapon, i in WEAPON_ORDER.items() if i > v]
+
