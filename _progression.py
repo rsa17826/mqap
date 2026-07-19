@@ -8629,8 +8629,3 @@ AREA_POWER_REQS = {
   "9.1": 17,
   "9": 10,
 }
-
-for k, v in AREA_POWER_REQS.items():
-  if isinstance(v, int):
-    AREA_POWER_REQS[k] = [[weapon] for weapon, i in WEAPON_ORDER.items() if i > v]
-
