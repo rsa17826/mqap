@@ -84,6 +84,8 @@ MAGIC_ORDER: dict[str, int] = {
   "magic:lightning": 14,
 }
 QUEST_NAMES: set[str] = set() # quest names, e.g. "mChar"
+AREA_MAP = {}
+
 _id_counter = 1
 
 DEFAULT_ITEM_CLASSIFICATIONS["weapon:progressive weapons"] = ItemClassification.progression
@@ -156,6 +158,12 @@ for thing in PROG:
         elif itemInfo.startswith(
           (
             "area:",
+          )
+        ):
+          AREA_MAP[f"{thing['room']['north']}_{thing['room']['east']}"] = itemInfo.split("area:")[1]
+          continue
+        elif itemInfo.startswith(
+          (
             "flag:",
             "power:",
           )

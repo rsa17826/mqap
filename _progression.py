@@ -8072,6 +8072,33 @@ manager.correct - manager.wrong > 800 = halo
     ],
   },
   {
+    "room": {"north": 4, "east": 26},
+    "requires": [
+      [],
+    ],
+    "receive": [
+      "area:9",
+    ],
+  },
+  {
+    "room": {"north": 18, "east": 12},
+    "requires": [
+      [],
+    ],
+    "receive": [
+      "area:10",
+    ],
+  },
+  {
+    "room": {"north": 19, "east": 12},
+    "requires": [
+      [],
+    ],
+    "receive": [
+      "area:10",
+    ],
+  },
+  {
     "room": {"north": 9, "east": 11},
     "requires": [
       [],

@@ -28,7 +28,7 @@ TARGET_GROUP_LOOKUP: dict[int, list[int]] = {
 }
 from rule_builder.rules import False_, True_
 
-from .items import ARMOR_ORDER, HAS_LIST, MAGIC_ORDER, WEAPON_ORDER
+from .items import ARMOR_ORDER, HAS_LIST, MAGIC_ORDER, WEAPON_ORDER, AREA_MAP
 
 _QUEST_RE = re.compile(r"^quest:([^.]+)\.(\d+)$")
 _POWER_RE = re.compile(r"^power:(\d+)$")
@@ -205,69 +205,47 @@ def create_and_connect_regions(world: World) -> None:
   _connect_warps_vanilla(world, exit_regions)
 
 
-WEAP_POW = [
-  ["weapon:aSword"], # 0
-  ["weapon:club"], # 1
-  ["weapon:dagger"], # 2
-  ["weapon:sword"], # 3
-  ["weapon:sKnife"], # 4
-  ["weapon:pitchfork"], # 5
-  ["weapon:warlockStaff"], # 6
-  ["weapon:royalStaff"], # 7
-  ["weapon:royalSword"], # 8
-  ["weapon:sunSword"], # 9
-  ["weapon:shadowStaff"], # 10
-  ["weapon:refreshStaff"], # 11
-  ["weapon:orcBlade"], # 12
-  ["weapon:creeperCrusher"], # 13
-  ["weapon:twinFury"], # 14
-  ["weapon:baneBlade"], # 15
-  ["weapon:axe"], # 16
-  ["weapon:bombSword"], # 17
-  ["weapon:soulSword"], # 18
-]
-
 AREA_POWER_REQS = {
-  # "0": -1,
-  "1.19": 0,
-  "1.water": 1,
-  "1": 0,
-  "10": 12,
-  "11.1": 3,
-  "11.2": 12,
-  "11.3": 16,
-  "11.4": 16,
-  "11": 12,
-  "12": 14,
+  # "0": 0,
+  "1.19": 1,
+  "1.water": 2,
+  "1": 1,
+  "10": 13,
+  "11.1": 4,
+  "11.2": 13,
+  "11.3": 17,
+  "11.4": 17,
+  "11": 13,
+  "12": 15,
   "13": [["flag:magic only resist bypass"]],
-  # "14": -1,
-  "15": 16,
-  "16.1": 15,
-  "16": 15,
-  # "17": -1,
-  "2.water": 1,
-  "2": 1,
-  "3.1": 3,
-  # "3.3": -1,
-  "3": 2,
-  "4.1": 4,
-  "4": 8,
-  # "5.1": -1,
-  "5": 9,
-  # "6.1": -1,
-  "6": 8,
-  # "7.1": -1,
-  # "7.2": -1,
-  "7": 8,
-  # "8.1": -1,
-  "8": 9,
-  "9.1": 16,
-  "9": 9,
+  # "14": 0,
+  "15": 17,
+  "16.1": 16,
+  "16": 16,
+  # "17": 0,
+  "2.water": 2,
+  "2": 2,
+  "3.1": 4,
+  # "3.3": 0,
+  "3": 3,
+  "4.1": 5,
+  "4": 9,
+  # "5.1": 0,
+  "5": 10,
+  # "6.1": 0,
+  "6": 9,
+  # "7.1": 0,
+  # "7.2": 0,
+  "7": 9,
+  # "8.1": 0,
+  "8": 10,
+  "9.1": 17,
+  "9": 10,
 }
 
 for k, v in AREA_POWER_REQS.items():
   if isinstance(v, int):
-    AREA_POWER_REQS[k] = [weapon for i, weapon in enumerate(WEAP_POW) if i > v]
+    AREA_POWER_REQS[k] = [[weapon] for weapon, i in WEAPON_ORDER.items() if i > v]
 
 
 def _create_exit_regions_and_roots(
@@ -295,7 +273,12 @@ def _create_exit_regions_and_roots(
         exit_regions[(n, e, side, idx)] = region
 
         # ONE-WAY ONLY: Establish the connection right here during creation!
-        _ = _connect(world, region, root_region, rule=None)
+        powerRule = None
+        area = AREA_MAP[f"{n}_{e}"]
+        if area in AREA_POWER_REQS:
+          powerRule = _reqs_to_rule(world, AREA_POWER_REQS[area])
+
+        _ = _connect(world, region, root_region, rule=powerRule)
 
         # ─── ADD THIS BLOCK TO GENERATE THE ENTRANCE VIRTUAL EVENTS ───
         event_name = f"{n}_{e} - entrance.{side}{idx}"
