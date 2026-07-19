@@ -206,102 +206,68 @@ def create_and_connect_regions(world: World) -> None:
 
 
 WEAP_POW = [
-  [
-    "weapon:aSword", # 0
-  ],
-  [
-    "weapon:club", # 1
-  ],
-  [
-    "weapon:dagger", # 2
-  ],
-  [
-    "weapon:sword", # 3
-  ],
-  [
-    "weapon:sKnife", # 4
-  ],
-  [
-    "weapon:pitchfork", # 5
-  ],
-  [
-    "weapon:warlockStaff", # 6
-  ],
-  [
-    "weapon:royalStaff", # 7
-  ],
-  [
-    "weapon:royalSword", # 8
-  ],
-  [
-    "weapon:sunSword", # 9
-  ],
-  [
-    "weapon:shadowStaff", # 10
-  ],
-  [
-    "weapon:refreshStaff", # 11
-  ],
-  [
-    "weapon:orcBlade", # 12
-  ],
-  [
-    "weapon:creeperCrusher", # 13
-  ],
-  [
-    "weapon:twinFury", # 14
-  ],
-  [
-    "weapon:baneBlade", # 15
-  ],
-  [
-    "weapon:axe", # 16
-  ],
-  [
-    "weapon:bombSword", # 17
-  ],
-  [
-    "weapon:soulSword", # 18
-  ],
+  ["weapon:aSword"], # 0
+  ["weapon:club"], # 1
+  ["weapon:dagger"], # 2
+  ["weapon:sword"], # 3
+  ["weapon:sKnife"], # 4
+  ["weapon:pitchfork"], # 5
+  ["weapon:warlockStaff"], # 6
+  ["weapon:royalStaff"], # 7
+  ["weapon:royalSword"], # 8
+  ["weapon:sunSword"], # 9
+  ["weapon:shadowStaff"], # 10
+  ["weapon:refreshStaff"], # 11
+  ["weapon:orcBlade"], # 12
+  ["weapon:creeperCrusher"], # 13
+  ["weapon:twinFury"], # 14
+  ["weapon:baneBlade"], # 15
+  ["weapon:axe"], # 16
+  ["weapon:bombSword"], # 17
+  ["weapon:soulSword"], # 18
 ]
 
 AREA_POWER_REQS = {
-  "3": 2,
-  "6": 8,
-  "11": 12,
-  "4": 8,
-  "15": 16,
-  "16": 15,
-  "1.water": 1,
-  "2.water": 1,
-  "7": 8,
-  "2": 1,
-  "13": "flag:magic only resist bypass",
-  "5": 9,
-  "12": 14,
-  "8": 9,
-  "1": 0,
-  "17": -1,
-  "9": 9,
+  "0": -1,
   "1.19": 0,
-  "14": 0,
-  "0": 0,
-  "3.1": 0,
-  "16.1": 0,
+  "1.water": 1,
+  "1": 0,
+  "10": 12,
+  "11.1": 3,
+  "11.2": 12,
+  "11.3": 16,
+  "11.4": 16,
+  "11": 12,
+  "12": 14,
+  "13": [["flag:magic only resist bypass"]],
+  "14": -1,
+  "15": 16,
+  "16.1": 15,
+  "16": 15,
+  "17": -1,
+  "2.water": 1,
+  "2": 1,
+  "3.1": 3,
   "3.3": -1,
-  "8.1": 0,
-  "9.1": 0,
-  "5.1": 0,
-  "4.1": 0,
-  "10": 0,
-  "11.3": 0,
-  "11.4": 0,
-  "11.2": 0,
-  "11.1": 0,
-  "7.1": 0,
-  "7.2": 0,
-  "6.1": 0,
+  "3": 2,
+  "4.1": 4,
+  "4": 8,
+  "5.1": -1,
+  "5": 9,
+  "6.1": -1,
+  "6": 8,
+  "7.1": -1,
+  "7.2": -1,
+  "7": 8,
+  "8.1": -1,
+  "8": 9,
+  "9.1": 16,
+  "9": 9,
 }
+
+for k, v in AREA_POWER_REQS.items():
+  if isinstance(v, int):
+    AREA_POWER_REQS[k] = [weapon for i, weapon in enumerate(WEAP_POW) if i > v]
 
 
 def _create_exit_regions_and_roots(
