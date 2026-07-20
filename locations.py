@@ -112,6 +112,12 @@ def create_events(world: World) -> None:
           location_type=MathQuestLocation,
           item_type=items.MathQuestItem,
         )
+        _ = region.add_event(
+          location_name=f"{room_id} - room",
+          item_name="flag:new room",
+          location_type=MathQuestLocation,
+          item_type=items.MathQuestItem,
+        )
 
 
 
