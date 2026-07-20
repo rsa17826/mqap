@@ -102,9 +102,9 @@ def set_all_location_rules(world: World) -> None:
             # "weapon:progressive weapons" item, not the named weapon. Reaching this
             # weapon's logic requires having collected at least this many of them.
             temprule = Has("weapon:progressive weapons", WEAPON_ORDER[tname])
-          elif tname == "flag:new room":
+          elif tname == "flag:room with mobs":
             print("asdlkjasdjllasdladsl", int(item.split("#", 1)[1]))
-            temprule = Has("flag:new room", int(item.split("#", 1)[1]))
+            temprule = Has("flag:room with mobs", int(item.split("#", 1)[1]))
           elif tname in HAS_LIST:
             temprule = HAS_LIST[tname]
           else:

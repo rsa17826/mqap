@@ -8,7 +8,7 @@ class RoomCoordinates(TypedDict):
 
 class ProgressionNode(TypedDict):
   room: RoomCoordinates
-  receive: NotRequired[list[str]]
+  receive: list[str]
   # requires: NotRequired[list[list[str]]]
   requires: list[list[str]]
   info: NotRequired[str]
@@ -338,7 +338,7 @@ PROG: list[ProgressionNode] = [
     "room": {"north": -1, "east": -1},
     "requires": [
       [
-        "flag:new room#5",
+        "flag:room with mobs#5",
       ],
     ],
     "receive": [
@@ -352,7 +352,7 @@ manager.correct - manager.wrong > 9 = dig
     "room": {"north": -1, "east": -1},
     "requires": [
       [
-        "flag:new room#20",
+        "flag:room with mobs#20",
       ],
     ],
     "receive": [
@@ -366,7 +366,7 @@ manager.correct - manager.wrong > 49 = kick
     "room": {"north": -1, "east": -1},
     "requires": [
       [
-        "flag:new room#40",
+        "flag:room with mobs#40",
       ],
     ],
     "receive": [
@@ -380,7 +380,7 @@ manager.correct - manager.wrong > 149 = flee
     "room": {"north": -1, "east": -1},
     "requires": [
       [
-        "flag:new room#80",
+        "flag:room with mobs#80",
       ],
     ],
     "receive": [
@@ -394,7 +394,7 @@ manager.correct - manager.wrong > 300 = swap
     "room": {"north": -1, "east": -1},
     "requires": [
       [
-        "flag:new room#100",
+        "flag:room with mobs#100",
       ],
     ],
     "receive": [
@@ -409,7 +409,7 @@ manager.correct - manager.wrong > 500 = firewall
     "room": {"north": -1, "east": -1},
     "requires": [
       [
-        "flag:new room#130",
+        "flag:room with mobs#130",
       ],
     ],
     "receive": [
@@ -423,7 +423,7 @@ manager.correct - manager.wrong > 800 = halo
     "room": {"north": -1, "east": -1},
     "requires": [
       [
-        "flag:new room#10",
+        "flag:room with mobs#10",
       ],
     ],
     "receive": [
