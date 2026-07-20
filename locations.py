@@ -89,10 +89,10 @@ def create_regular_locations(world: World) -> None:
 
 
 def create_events(world: World) -> None:
-  from ._progression import PROG
+  from ._progression import AREA_POWER_REQS, PROG
   from .items import AREA_MAP
   from .regions import _reqs_to_rule
-
+  # print(AREA_POWER_REQS, "AREA_POWER_REQS")
   newRoomLocations = set()
   for thing in PROG:
     for itemInfo in thing["receive"]:
@@ -101,7 +101,8 @@ def create_events(world: World) -> None:
           continue
 
         event_name = itemInfo.split("#")[0]
-        room_id = f"{thing['room']['north']}_{thing['room']['east']}: root"
+        roomPos = f"{thing['room']['north']}_{thing['room']['east']}"
+        room_id = f"{roomPos}: root"
 
         region = world.get_region(room_id)
 
@@ -111,8 +112,8 @@ def create_events(world: World) -> None:
           location_type=MathQuestLocation,
           item_type=items.MathQuestItem,
         )
-        if room_id not in newRoomLocations and f"{thing['room']['north']}_{thing['room']['east']}" in AREA_MAP:
-          area = AREA_MAP[f"{n}_{e}"]
+        if room_id not in newRoomLocations and roomPos in AREA_MAP:
+          area = AREA_MAP[roomPos]
           powerRule = None
           if not world.options.no_power_reqs and area in AREA_POWER_REQS:
             powerRule = _reqs_to_rule(world, AREA_POWER_REQS[area])
