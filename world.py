@@ -86,8 +86,19 @@ class MathQuestWorld(World):
     from ._room_geometry import GEOM
     from .items import AREA_MAP, ITEM_NAME_TO_ID, maxQuests
     from .regions import AREA_POWER_REQS, table_js # regions.py already imports/mutates
+
     # AREA_POWER_REQS into [[weapon]] form
     # at module load, so this is the final form
+    for loc in self.multiworld.get_locations(self.player):
+      if "new room" in loc.name:
+          print(
+              loc.name,
+              "item:",
+              loc.item.name if loc.item else None,
+              "adv:",
+              loc.item.advancement if loc.item else None,
+          )
+
 
     return {
       **self.options.as_dict(*MathQuest_options.option_presets["main"].keys()),
