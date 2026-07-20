@@ -105,6 +105,7 @@ def set_all_location_rules(world: World) -> None:
           elif tname == "flag:room with mobs":
             print("asdlkjasdjllasdladsl", int(item.split("#", 1)[1]))
             temprule = Has("flag:room with mobs", int(item.split("#", 1)[1]))
+            # temprule = Has("flag:room with mobs", 3) # int(item.split("#", 1)[1]))
             # temprule = Has("flag:room with mobs", 1) # int(item.split("#", 1)[1]))
           elif tname in HAS_LIST:
             temprule = HAS_LIST[tname]

@@ -423,7 +423,7 @@ manager.correct - manager.wrong > 800 = halo
     "room": {"north": -1, "east": -1},
     "requires": [
       [
-        # "flag:room with mobs#10",
+        "flag:room with mobs#10",
       ],
     ],
     "receive": [

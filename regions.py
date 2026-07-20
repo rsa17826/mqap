@@ -179,7 +179,62 @@ def finalize_entrance_randomization(world: World) -> None:
     exits=er_candidates,
   )
   world.er_pairings = placement_state.pairings
-  write_er_connections_json(world)
+
+
+# TODO !!! er and !no_power_reqs together fail gen
+
+#   # CRITICAL: the access rule each entrance carries right now was computed in
+#   # _connect_cross_room_vanilla against its ORIGINAL vanilla destination. ER has just
+#   # repointed connected_region to a different room, but nothing updates the rule to
+#   # match — so entrances end up gated by a room they no longer lead to. Recompute every
+#   # shuffled entrance's rule from its real, post-shuffle destination before moving on.
+#   _refresh_er_entrance_rules(world, er_candidates)
+
+#   write_er_connections_json(world)
+
+
+# def _refresh_er_entrance_rules(world: World, er_candidates: list[Entrance]) -> None:
+#   """After ER shuffles er_candidates, recompute each entrance's access rule based on the
+#   AREA_POWER_REQS of the room it now ACTUALLY leads into (entrance.connected_region),
+#   not whatever vanilla neighbor it originally pointed at. Mirrors the gating rule used in
+#   _connect_cross_room_vanilla (gate by the area of the room being entered)."""
+#   n_processed = 0
+#   n_matched = 0
+#   n_gated = 0
+#   for entrance in er_candidates:
+#     n_processed += 1
+#     connected = entrance.connected_region
+#     if connected is None:
+#       print("ER_REFRESH: no connected_region for", entrance.name)
+#       continue
+
+#     match = _EXIT_REGION_RE.match(connected.name)
+#     if not match:
+#       print("ER_REFRESH: no regex match for connected region", connected.name)
+#       continue # not a plain "n_e: side idx" exit region (e.g. warp/root) — leave as-is
+
+#     n_matched += 1
+#     n_str, e_str, _side, _idx = match.groups()
+#     roomPos = f"{_num(n_str)}_{_num(e_str)}"
+
+#     area = AREA_MAP.get(roomPos)
+#     new_rule = None
+#     if area is not None and not world.options.no_power_reqs and area in AREA_POWER_REQS:
+#       new_rule = _reqs_to_rule(world, AREA_POWER_REQS[area])
+#       n_gated += 1
+
+#     if new_rule is None:
+#       entrance.access_rule = lambda state: True
+#       entrance._is_unconditional = True
+#       if hasattr(entrance, "_rule_object"):
+#         delattr(entrance, "_rule_object")
+#     else:
+#       world.set_rule(entrance, new_rule)
+#       entrance._rule_object = new_rule
+#       entrance._is_unconditional = False
+
+
+#   print(f"ER_REFRESH: processed={n_processed} matched={n_matched} gated={n_gated}")
 
 
 from ._room_geometry import GEOM, WARPS
@@ -209,7 +264,7 @@ from ._progression import AREA_POWER_REQS
 
 for k, v in AREA_POWER_REQS.items():
   if isinstance(v, int):
-    if v <= 8:
+    if v <= 0:
       AREA_POWER_REQS[k] = []
     else:
       AREA_POWER_REQS[k] = [[weapon] for weapon, i in WEAPON_ORDER.items() if i > v]
@@ -331,7 +386,15 @@ def _connect_cross_room_vanilla(world: World, exit_regions: dict, tag_for_er: bo
       forward = _connect(world, region, neighbor, rule=forward_rule)
       backward = _connect(world, neighbor, region, rule=backward_rule)
 
-      if tag_for_er:
+      # Only let ER shuffle exits that stay WITHIN a single area. Cross-area boundary
+      # edges are deliberately placed by the map's designer to form the intended tier
+      # progression (e.g. area 1 -> area 3 -> area 16); letting ER freely re-pair these
+      # with ANY other exit of the same physical side can fabricate a shortcut straight
+      # into a high-power-tier area with none of its prerequisites satisfied, which
+      # collapses the early sphere and breaks fill_restrictive. Vanilla-boundary edges
+      # (area_here != area_there) are always left fixed; only intra-area edges (which
+      # carry no power gate anyway) are tagged as ER candidates.
+      if tag_for_er and area_here == area_there:
         for entrance, entrance_side in ((forward, side), (backward, OPPOSITE[side])):
           entrance.randomization_type = EntranceType.TWO_WAY
           entrance.randomization_group = _SIDE_GROUP[entrance_side]
