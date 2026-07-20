@@ -33,6 +33,7 @@ option_presets: dict[str, dict[str, bool | int]] = {
     "spawn_random_enemies": 70,
     # "allow_clips": 0,
     "each_quest_is_a_check": False,
+    "no_power_reqs": False,
   },
 }
 
@@ -180,6 +181,15 @@ class InfiniteAurastones(Toggle):
   default: bool = cast(bool, option_presets["main"]["infinite_aurastones"])
 
 
+class NoPowerReqs(Toggle):
+  """
+  no_power_reqs
+  """
+
+  display_name: str = "NoPowerReqs"
+  default: bool = cast(bool, option_presets["main"]["no_power_reqs"])
+
+
 class Nothing(Range):
   """
   Adjusts the weight/frequency of "Nothing" filler items in the pool.
@@ -240,6 +250,7 @@ class MathQuestOptions(PerGameCommonOptions):
   infinite_keys: InfiniteKeys
   filler_gold: FillerGold
   infinite_aurastones: InfiniteAurastones
+  no_power_reqs: NoPowerReqs
 
 
 # If we want to group our options by similar type, we can do so as well. This looks nice on the website.
