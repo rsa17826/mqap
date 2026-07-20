@@ -113,21 +113,19 @@ def create_events(world: World) -> None:
           location_type=MathQuestLocation,
           item_type=items.MathQuestItem,
         )
+        if room_id not in newRoomLocations:
+          newRoomLocations.add(room_id)
+          _ = region.add_event(
+            location_name=f"{room_id} - new room",
+            item_name="flag:new room",
+            location_type=MathQuestLocation,
+            item_type=items.MathQuestItem,
+          )
 
 
-    room_id = f"{thing['room']['north']}_{thing['room']['east']}: root"
-    if room_id not in newRoomLocations:
-      newRoomLocations.add(room_id)
-      region = world.get_region(room_id)
-      _ = region.add_event(
-        location_name=f"{room_id} - new room",
-        item_name="flag:new room",
-        location_type=MathQuestLocation,
-        item_type=items.MathQuestItem,
-      )
 
 
-  print("newRoomLocations", len(newRoomLocations))
+  print("newRoomLocations", len(newRoomLocations), newRoomLocations)
 
 
 # Sometimes, the player may perform in-game actions that allow them to progress which are not related to Items.
