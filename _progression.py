@@ -19,6 +19,18 @@ PROG: list[ProgressionNode] = [
     "room": {"north": -1, "east": -1},
     "requires": [
       [
+        "area:7",
+        "quest:isles.10",
+      ],
+    ],
+    "receive": [
+      "flag:magnetic slime",
+    ],
+  },
+  {
+    "room": {"north": -1, "east": -1},
+    "requires": [
+      [
         "area:3",
       ],
     ],
@@ -2222,6 +2234,7 @@ manager.correct - manager.wrong > 800 = halo
     "room": {"north": 11, "east": 11},
     "requires": [
       [
+        "loot:cFang#5",
         "quest:rings.5",
       ],
     ],
@@ -4057,6 +4070,7 @@ manager.correct - manager.wrong > 800 = halo
     "room": {"north": 8, "east": 12},
     "requires": [
       [
+        "flag:magnetic slime",
         "quest:isles.11",
       ],
     ],
@@ -4065,7 +4079,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
   },
   {
-    "room": {"north": 9.11, "east": 20},
+    "room": {"north": 5, "east": 20},
     "requires": [
       [
         "quest:isles.12",
@@ -4200,6 +4214,7 @@ manager.correct - manager.wrong > 800 = halo
       [
         "quest:dream.12",
         "area:4",
+        "food:steak#12"
       ],
     ],
     "receive": [
@@ -4226,6 +4241,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "quest:dream.15",
+      "armor:nobleArmor",
     ],
   },
   {
@@ -5549,17 +5565,6 @@ manager.correct - manager.wrong > 800 = halo
   #   "room": {"north": "?", "east": "?",},
   #   "receive": ["item:ring of evasion"],
   # },
-  {
-    "room": {"north": 13, "east": 17},
-    "requires": [
-      [
-        "armor:royalArmor",
-      ],
-    ],
-    "receive": [
-      "armor:nobleArmor",
-    ],
-  },
   # {
   #   "room": {"north": "?", "east": "?",},
   #   "receive": ["misc:bobbisPendant"],
