@@ -2643,6 +2643,17 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "armor:diamondArmor",
+    ],
+  },
+  {
+    "room": {"north": 19, "east": 20},
+    "requires": [
+      [
+        "armor:diamondArmor",
+        "quest:pam.15",
+      ],
+    ],
+    "receive": [
       "quest:pam.16",
     ],
   },
@@ -3244,6 +3255,7 @@ manager.correct - manager.wrong > 800 = halo
     "requires": [
       [
         "quest:bBomb.13",
+        "weapon:creeperCrusher",
       ],
     ],
     "receive": [
