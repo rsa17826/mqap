@@ -897,21 +897,21 @@ manager.correct - manager.wrong > 800 = halo
     "room": {"north": 14, "east": 25},
     "requires": [[]],
     "receive": [
-      "flag:three part code part 1",
+      "flag:three part code part 3",
     ],
   },
   {
     "room": {"north": 14, "east": 24},
     "requires": [[]],
     "receive": [
-      "flag:three part code part 2",
+      "flag:three part code part 1",
     ],
   },
   {
     "room": {"north": 13, "east": 24},
     "requires": [[]],
     "receive": [
-      "flag:three part code part 3",
+      "flag:three part code part 2",
     ],
   },
   {
@@ -3086,7 +3086,6 @@ manager.correct - manager.wrong > 800 = halo
     "requires": [
       [
         "loot:key",
-        "permit:bomb",
       ],
     ],
     "receive": [
