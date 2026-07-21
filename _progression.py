@@ -2117,7 +2117,6 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "quest:bBomb.6",
-      "permit:volcano",
     ],
   },
   {
@@ -2129,6 +2128,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "quest:bBomb.7",
+      "permit:volcano",
     ],
   },
   {
