@@ -8,7 +8,7 @@ class RoomCoordinates(TypedDict):
 
 class ProgressionNode(TypedDict):
   room: RoomCoordinates
-  receive: list[str]
+  receive: NotRequired[list[str]]
   # requires: NotRequired[list[list[str]]]
   requires: list[list[str]]
   info: NotRequired[str]
@@ -563,7 +563,7 @@ manager.correct - manager.wrong > 800 = halo
       ],
     ],
     "receive": [
-      "misc:headstoneSwitch2",
+      "misc:headstoneSwitch3",
     ],
   },
   # {"room": {"north": 10, "east": 12}, "info": "warp skill warp point",},
@@ -852,7 +852,7 @@ manager.correct - manager.wrong > 800 = halo
       ],
     ],
     "receive": [
-      "misc:headstoneSwitch3",
+      "misc:headstoneSwitch4",
     ],
   },
   {
@@ -909,21 +909,21 @@ manager.correct - manager.wrong > 800 = halo
     "room": {"north": 14, "east": 25},
     "requires": [[]],
     "receive": [
-      "flag:three part code part 3",
+      "flag:three part code part 1",
     ],
   },
   {
     "room": {"north": 14, "east": 24},
     "requires": [[]],
     "receive": [
-      "flag:three part code part 1",
+      "flag:three part code part 2",
     ],
   },
   {
     "room": {"north": 13, "east": 24},
     "requires": [[]],
     "receive": [
-      "flag:three part code part 2",
+      "flag:three part code part 3",
     ],
   },
   {
@@ -981,7 +981,7 @@ manager.correct - manager.wrong > 800 = halo
       ],
     ],
     "receive": [
-      "misc:headstoneSwitch4",
+      "misc:headstoneSwitch1",
     ],
   },
   {
@@ -1300,7 +1300,7 @@ manager.correct - manager.wrong > 800 = halo
       ],
     ],
     "receive": [
-      "misc:headstoneSwitch1",
+      "misc:headstoneSwitch2",
     ],
   },
   {
@@ -3110,6 +3110,7 @@ manager.correct - manager.wrong > 800 = halo
     "requires": [
       [
         "loot:key",
+        "permit:bomb",
       ],
     ],
     "receive": [
@@ -4211,11 +4212,7 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": -1, "east": -1},
     "requires": [
-      [
-        "quest:dream.12",
-        "area:4",
-        "food:steak#12"
-      ],
+      ["quest:dream.12", "area:4", "food:steak#12"],
     ],
     "receive": [
       "quest:dream.13",
@@ -8691,10 +8688,10 @@ manager.correct - manager.wrong > 800 = halo
   },
 ]
 AREA_POWER_REQS = {
-  # "0": -1,
+  # "0": 0,
   "1.19": 1,
-  "1.water": 0,
-  "1": 0,
+  "1.water": 2,
+  # "1": 1,
   "10": 13,
   "11.1": 4,
   "11.2": 13,
@@ -8703,26 +8700,26 @@ AREA_POWER_REQS = {
   "11": 13,
   "12": 15,
   "13": [["flag:magic only resist bypass"]],
-  # "14": -1,
+  # "14": 0,
   "15": 17,
   "16.1": 16,
   "16": 16,
-  # "17": -1,
+  # "17": 0,
   "2.water": 2,
   "2": 2,
   "3.1": 4,
-  # "3.3": -1,
+  # "3.3": 0,
   "3": 3,
   "4.1": 5,
   "4": 9,
-  # "5.1": -1,
+  # "5.1": 0,
   "5": 10,
-  # "6.1": -1,
+  # "6.1": 0,
   "6": 9,
-  # "7.1": -1,
-  # "7.2": -1,
+  # "7.1": 0,
+  # "7.2": 0,
   "7": 9,
-  # "8.1": -1,
+  # "8.1": 0,
   "8": 10,
   "9.1": 17,
   "9": 10,
