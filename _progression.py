@@ -4212,7 +4212,11 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": -1, "east": -1},
     "requires": [
-      ["quest:dream.12", "area:4", "food:steak#12"],
+      [
+        "quest:dream.12",
+        "area:4",
+        "food:steak#12",
+      ],
     ],
     "receive": [
       "quest:dream.13",
