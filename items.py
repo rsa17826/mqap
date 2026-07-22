@@ -231,7 +231,7 @@ def create_item_with_correct_classification(world: World, name: str) -> MathQues
 # With those two helper functions defined, let's now get to actually creating and submitting our itempool.
 def create_all_items(world: World) -> None:
   itempool: list[Item] = []
-  if world.options.each_quest_is_a_check:
+  if world.options.each_quest_is_an_item:
     for questName, maxLevel in maxQuests.items():
       for _ in range(maxLevel):
         itempool.append(world.create_item(f"quest:{questName}"))
@@ -247,7 +247,7 @@ def create_all_items(world: World) -> None:
       continue
 
     # Check the option before creating quest items
-    if k.startswith("quest:") and not world.options.each_quest_is_a_check:
+    if k.startswith("quest:") and not world.options.each_quest_is_an_item:
       continue
 
     if k.startswith("weapon:"):

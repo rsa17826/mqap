@@ -92,12 +92,13 @@ def create_events(world: World) -> None:
   from ._progression import AREA_POWER_REQS, PROG
   from .items import AREA_MAP
   from .regions import _reqs_to_rule
+
   # print(AREA_POWER_REQS, "AREA_POWER_REQS")
   newRoomLocations = set()
   for thing in PROG:
     for itemInfo in thing["receive"]:
       if itemInfo.startswith(("quest:", "flag:", "area:", "loot:")):
-        if world.options.each_quest_is_a_check and itemInfo.startswith("quest:"):
+        if world.options.each_quest_is_an_item and itemInfo.startswith("quest:"):
           continue
 
         event_name = itemInfo.split("#")[0]
@@ -130,4 +131,5 @@ def create_events(world: World) -> None:
 
 
 
-  print("newRoomLocations", len(newRoomLocations), newRoomLocations)
+
+  # print("newRoomLocations", len(newRoomLocations), newRoomLocations)

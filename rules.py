@@ -81,9 +81,15 @@ def set_all_location_rules(world: World) -> None:
           tname = item.split("#", 1)[0]
           quest_match = _QUEST_RE.match(tname)
           power_match = _POWER_RE.match(item)
-          if world.options.each_quest_is_a_check and quest_match:
+          if quest_match:
             qname, qlevel = quest_match.group(1), int(quest_match.group(2))
-            temprule = Has(f"quest:{qname}", qlevel)
+            if world.options.each_quest_is_an_item:
+              temprule = Has(f"quest:{qname}", qlevel)
+            else:
+              # quest progress tracked via locally-granted event items instead
+              temprule = Has(f"quest:{qname}.{qlevel}")
+
+
           elif power_match:
             temprule = HasPower(int(power_match.group(1)))
           elif world.options.progressive_magic and tname in MAGIC_ORDER:
@@ -105,6 +111,7 @@ def set_all_location_rules(world: World) -> None:
           elif tname == "flag:room with mobs":
             print("asdlkjasdjllasdladsl", int(item.split("#", 1)[1]))
             temprule = Has("flag:room with mobs", int(item.split("#", 1)[1]))
+
             # temprule = Has("flag:room with mobs", 3) # int(item.split("#", 1)[1]))
             # temprule = Has("flag:room with mobs", 1) # int(item.split("#", 1)[1]))
           elif tname in HAS_LIST:
@@ -142,11 +149,11 @@ def set_completion_condition(world: World) -> None:
   if world.options.all_quests_maxed:
     from .items import maxQuests
 
-    if world.options.all_quests_maxed:
-      from .items import maxQuests
-
-      for name, value in maxQuests.items():
+    for name, value in maxQuests.items():
+      if world.options.each_quest_is_an_item:
         rule &= Has(f"quest:{name}", value)
+      else:
+        rule &= Has(f"quest:{name}.{value}")
 
 
 
