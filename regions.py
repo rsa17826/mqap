@@ -46,7 +46,9 @@ def _reqs_to_rule(world: World, reqs: list[list[str]]) -> Rule | None:
       quest_match = _QUEST_RE.match(tname)
 
       # Intercept and convert progressive weapons dynamically
-      if world.options.each_quest_is_an_item and quest_match:
+      if tname == "permit:bomb":
+        temprule = Has("permit:bomb", int(item.split("#", 1)[1]))
+      elif world.options.each_quest_is_an_item and quest_match:
         qname, qlevel = quest_match.group(1), int(quest_match.group(2))
         temprule = Has(f"quest:{qname}", qlevel)
       elif world.options.progressive_weapons and tname in WEAPON_ORDER:
