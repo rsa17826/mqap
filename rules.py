@@ -89,7 +89,6 @@ def set_all_location_rules(world: World) -> None:
               # quest progress tracked via locally-granted event items instead
               temprule = Has(f"quest:{qname}.{qlevel}")
 
-
           elif power_match:
             temprule = HasPower(int(power_match.group(1)))
           elif world.options.progressive_magic and tname in MAGIC_ORDER:
@@ -111,7 +110,12 @@ def set_all_location_rules(world: World) -> None:
           elif tname == "flag:room with mobs":
             temprule = Has("flag:room with mobs", int(item.split("#", 1)[1]))
           elif tname == "permit:bomb":
-            temprule = Has("permit:bomb", int(item.split("#", 1)[1]))
+            v = 1
+            vv = item.split("#", 1)
+            if len(vv) > 1:
+              v = int(vv[1])
+
+            temprule = Has("permit:bomb", v)
 
           elif tname in HAS_LIST:
             temprule = HAS_LIST[tname]
