@@ -49,12 +49,20 @@ def set_all_location_rules(world: World) -> None:
       if clean_item.startswith(("power:")):
         continue
 
-      if clean_item.startswith(("quest:", "flag:", "area:", "loot:")) and not (world.options.each_quest_is_a_check and clean_item.startswith("quest:")):
-        loc_name = f"{room_id_base}: root - {clean_item}"
-      else:
-        loc_name = f"{room_id_base} - {clean_item}"
+      loc_names: list[str] = []
+      if clean_item.startswith(("quest:", "flag:", "area:", "loot:")):
+        # The event always exists and is what actually grants the flag/progress
+        # item, so the requirement rule must always be applied to it.
+        loc_names.append(f"{room_id_base}: root - {clean_item}")
 
-      location = world.get_location(loc_name)
+        # `each_quest_is_a_check` additionally creates a separate, regular check
+        # location (for item placement) alongside the event. That location needs
+        # the same requirement rule applied to it too.
+        if world.options.each_quest_is_a_check and clean_item.startswith("quest:"):
+          loc_names.append(f"{room_id_base} - {clean_item}")
+
+      else:
+        loc_names.append(f"{room_id_base} - {clean_item}")
 
       # 2. Build and apply the rules
       requires = node.get("requires", [])
@@ -109,14 +117,8 @@ def set_all_location_rules(world: World) -> None:
             temprule = Has("weapon:progressive weapons", WEAPON_ORDER[tname])
           elif tname == "flag:room with mobs":
             temprule = Has("flag:room with mobs", int(item.split("#", 1)[1]))
-          elif tname == "permit:bomb":
-            v = 1
-            vv = item.split("#", 1)
-            if len(vv) > 1:
-              v = int(vv[1])
-
-            temprule = Has("permit:bomb", v)
-
+          elif tname == "permit:bomb" or tname == "permit:bomb@2":
+            temprule = Has("permit:bomb") & Has("permit:bomb@2") if "#2" in item else Has("permit:bomb") | Has("permit:bomb@2")
           elif tname in HAS_LIST:
             temprule = HAS_LIST[tname]
           else:
@@ -136,7 +138,11 @@ def set_all_location_rules(world: World) -> None:
       if allConditions:
         # print(allConditions, "allConditions")
         # print(HAS_LIST, "HAS_LIST")
-        world.set_rule(location, reduce(lambda a, s: a | s, allConditions)) # OR across alternative groups
+        rule = reduce(lambda a, s: a | s, allConditions) # OR across alternative groups
+        for loc_name in loc_names:
+          location = world.get_location(loc_name)
+          world.set_rule(location, rule)
+
 
 
 
