@@ -24,6 +24,11 @@ for filler in fillers:
 
 HAS_LIST: dict[str, Rule[World]] = {}
 maxQuests: dict[str, int] = {}
+# How many times each item name is requested across all `receive` lists in PROG.
+# Needed because an item can be listed in `receive` more than once (e.g. "permit:bomb"
+# appearing in two different nodes) and each occurrence should correspond to a real
+# copy of that item being placed in the multiworld, not just a single one.
+ITEM_COUNTS: dict[str, int] = {}
 
 # Maps each individual weapon item name to its 1-based collection order.
 # Used when `progressive_weapons` is on: instead of receiving "weapon:bombSword" directly,
@@ -103,6 +108,7 @@ for thing in PROG:
     for itemInfo in thing["receive"]:
       itemName = itemInfo
       # itemName = itemInfo.removesuffix("#1")
+      ITEM_COUNTS[itemName] = ITEM_COUNTS.get(itemName, 0) + 1
       if itemName not in ITEM_NAME_TO_ID:
         if itemInfo.startswith(
           (
@@ -155,11 +161,7 @@ for thing in PROG:
             maxQuests[questData[0]] = int(questData[1])
 
           continue
-        elif itemInfo.startswith(
-          (
-            "area:",
-          )
-        ):
+        elif itemInfo.startswith(("area:",)):
           AREA_MAP[f"{thing['room']['north']}_{thing['room']['east']}"] = itemInfo.split("area:")[1]
           continue
         elif itemInfo.startswith(
@@ -250,6 +252,11 @@ def create_all_items(world: World) -> None:
     if k.startswith("quest:") and not world.options.each_quest_is_an_item:
       continue
 
+    # How many copies of this item were actually requested via `receive` lists.
+    # Defaults to 1 for anything not tracked (shouldn't normally happen for
+    # real items, but keeps this safe).
+    count = ITEM_COUNTS.get(k, 1)
+
     if k.startswith("weapon:"):
       if world.options.progressive_weapons:
         if k == "weapon:progressive weapons":
@@ -289,7 +296,8 @@ def create_all_items(world: World) -> None:
 
 
 
-    itempool.append(world.create_item(k))
+    itempool.extend(world.create_item(k) for _ in range(count))
+
 
   number_of_items = len(itempool)
   number_of_unfilled_locations = len(world.multiworld.get_unfilled_locations(world.player))

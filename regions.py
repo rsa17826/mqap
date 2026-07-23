@@ -52,6 +52,7 @@ def _reqs_to_rule(world: World, reqs: list[list[str]]) -> Rule | None:
         if len(vv) > 1:
           v = int(vv[1])
 
+        print("aaaaaaaa", v)
         temprule = Has("permit:bomb", v)
       elif world.options.each_quest_is_an_item and quest_match:
         qname, qlevel = quest_match.group(1), int(quest_match.group(2))
