@@ -919,21 +919,21 @@ manager.correct - manager.wrong > 800 = halo
     "room": {"north": 14, "east": 25},
     "requires": [[]],
     "receive": [
-      "flag:three part code part 1",
+      "flag:three part code part 3",
     ],
   },
   {
     "room": {"north": 14, "east": 24},
     "requires": [[]],
     "receive": [
-      "flag:three part code part 2",
+      "flag:three part code part 1",
     ],
   },
   {
     "room": {"north": 13, "east": 24},
     "requires": [[]],
     "receive": [
-      "flag:three part code part 3",
+      "flag:three part code part 2",
     ],
   },
   {
@@ -2276,7 +2276,7 @@ manager.correct - manager.wrong > 800 = halo
         "item:ring of health",
         "item:ring of evasion",
         "item:ring of poison",
-        "quest:rings.1",
+        "quest:rings.6",
       ]
     ],
     "receive": [
@@ -2328,8 +2328,19 @@ manager.correct - manager.wrong > 800 = halo
       ],
     ],
     "receive": [
-      "item:ring of magic",
       "quest:rings.9",
+    ],
+  },
+  {
+    "room": {"north": -1, "east": -1},
+    "requires": [
+      [
+        "quest:rings.9",
+        "area:4",
+      ],
+    ],
+    "receive": [
+      "item:ring of magic",
     ],
     "info": "doesn't require lv3 fire but using lv3 fire doesn't require as much luck but if not it will spawn eventually",
   },
@@ -3898,14 +3909,8 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 10, "east": 12},
     "requires": [
-      [
-        "quest:oMan.17",
-        "area:6"
-      ],
-      [
-        "quest:oMan.17",
-        "area:7"
-      ],
+      ["quest:oMan.17", "area:6"],
+      ["quest:oMan.17", "area:7"],
     ],
     "receive": [
       "quest:oMan.18",
@@ -4056,7 +4061,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
   },
   {
-    "room": {"north": 4, "east": 26},
+    "room": {"north": -1, "east": -1},
     "requires": [
       [
         "quest:isles.19",
@@ -4071,7 +4076,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
   },
   {
-    "room": {"north": 4, "east": 26},
+    "room": {"north": -1, "east": -1},
     "requires": [
       [
         "quest:isles.20",
@@ -4086,7 +4091,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
   },
   {
-    "room": {"north": 4, "east": 26},
+    "room": {"north": -1, "east": -1},
     "requires": [
       [
         "quest:isles.21",
@@ -4727,7 +4732,7 @@ manager.correct - manager.wrong > 800 = halo
     "receive": ["quest:aSword.39"],
   },
   {
-    "room": {"north": 501, "east": 500},
+    "room": {"north": 500, "east": 501},
     "requires": [
       ["quest:aSword.39", "skill:reveal"],
     ],
