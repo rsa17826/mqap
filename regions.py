@@ -181,6 +181,7 @@ def finalize_entrance_randomization(world: World) -> None:
     exits=er_candidates,
   )
   world.er_pairings = placement_state.pairings
+  write_er_connections_json(world)
 
 
 # TODO !!! er and !no_power_reqs together fail gen
@@ -260,7 +261,6 @@ def create_and_connect_regions(world: World) -> None:
 
   # Warps always wire vanilla, whether or not entrance_rando is on (see _connect_warps_vanilla).
   _connect_warps_vanilla(world, exit_regions)
-  write_er_connections_json(world)
 
 
 from ._progression import AREA_POWER_REQS
