@@ -260,6 +260,7 @@ def create_and_connect_regions(world: World) -> None:
 
   # Warps always wire vanilla, whether or not entrance_rando is on (see _connect_warps_vanilla).
   _connect_warps_vanilla(world, exit_regions)
+  write_er_connections_json(world)
 
 
 from ._progression import AREA_POWER_REQS
@@ -448,6 +449,7 @@ def write_er_connections_json(world: World) -> None:
   (its OUT_DIR is the mathquest package's own directory, not the AP output folder). Call this from
   World.generate_output. No-ops (writes an empty connections list) when entrance_rando is off."""
   global table_js
+  print("world.options.entrance_rando", world.options.entrance_rando)
   if world.options.entrance_rando:
     er_candidates: list[Entrance] = getattr(world, "_mq_er_candidates", [])
 
