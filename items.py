@@ -296,7 +296,7 @@ def create_all_items(world: World) -> None:
 
 
 
-    itempool.extend(world.create_item(k) for _ in range(count))
+    itempool.append(world.create_item(k))
 
 
   number_of_items = len(itempool)
