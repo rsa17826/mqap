@@ -389,20 +389,10 @@ def _connect_cross_room_vanilla(world: World, exit_regions: dict, tag_for_er: bo
       forward = _connect(world, region, neighbor, rule=forward_rule)
       backward = _connect(world, neighbor, region, rule=backward_rule)
 
-      # Only let ER shuffle exits that stay WITHIN a single area. Cross-area boundary
-      # edges are deliberately placed by the map's designer to form the intended tier
-      # progression (e.g. area 1 -> area 3 -> area 16); letting ER freely re-pair these
-      # with ANY other exit of the same physical side can fabricate a shortcut straight
-      # into a high-power-tier area with none of its prerequisites satisfied, which
-      # collapses the early sphere and breaks fill_restrictive. Vanilla-boundary edges
-      # (area_here != area_there) are always left fixed; only intra-area edges (which
-      # carry no power gate anyway) are tagged as ER candidates.
-      if tag_for_er and area_here == area_there:
-        for entrance, entrance_side in ((forward, side), (backward, OPPOSITE[side])):
-          entrance.randomization_type = EntranceType.TWO_WAY
-          entrance.randomization_group = _SIDE_GROUP[entrance_side]
-          er_candidates.append(entrance)
-
+      for entrance, entrance_side in ((forward, side), (backward, OPPOSITE[side])):
+        entrance.randomization_type = EntranceType.TWO_WAY
+        entrance.randomization_group = _SIDE_GROUP[entrance_side]
+        er_candidates.append(entrance)
 
 
 
