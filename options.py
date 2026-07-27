@@ -27,6 +27,7 @@ option_presets: dict[str, dict[str, bool | int]] = {
     "infinite_gold": False,
     "infinite_keys": False,
     "infinite_aurastones": False,
+    "infinite_bombs": False,
     "del_del": 20,
     "nothing": 10,
     "filler_gold": 30,
@@ -191,6 +192,13 @@ class InfiniteAurastones(Toggle):
 
   display_name: str = "InfiniteAurastones"
   default: bool = cast(bool, option_presets["main"]["infinite_aurastones"])
+class InfiniteBombs(Toggle):
+  """
+  Grants the player an infinite supply of bombs.
+  """
+
+  display_name: str = "InfiniteBombs"
+  default: bool = cast(bool, option_presets["main"]["infinite_bombs"])
 
 
 class NoPowerReqs(Toggle):
@@ -282,6 +290,7 @@ class MathQuestOptions(PerGameCommonOptions):
   each_quest_is_an_item: EachQuestIsAnItem
   poison: Poison
   confusion: Confusion
+  infinite_bombs: InfiniteBombs
 
 
 # If we want to group our options by similar type, we can do so as well. This looks nice on the website.
@@ -308,6 +317,7 @@ option_groups: list[OptionGroup] = [
       InfiniteGold,
       InfiniteKeys,
       InfiniteAurastones,
+      InfiniteBombs,
     ],
   ),
   # OptionGroup(
