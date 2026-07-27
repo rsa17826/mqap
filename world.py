@@ -11,8 +11,7 @@ from . import options as MathQuest_options
 
 class MathQuestWorld(World):
   """
-  MathQuest is a minimal 8bit-era inspired adventure game with grid-like movement.
-  Good games don't need more than six checks.
+  TODO -
   """
 
   topology_present = True
@@ -85,19 +84,7 @@ class MathQuestWorld(World):
   def fill_slot_data(self) -> Mapping[str, Any]:
     from ._room_geometry import GEOM
     from .items import AREA_MAP, ITEM_NAME_TO_ID, maxQuests
-    from .regions import AREA_POWER_REQS # regions.py already imports/mutates
-
-    # AREA_POWER_REQS into [[weapon]] form
-    # at module load, so this is the final form
-    # for loc in self.multiworld.get_locations(self.player):
-    #   if "new room" in loc.name:
-    #     print(
-    #       loc.name,
-    #       "item:",
-    #       loc.item.name if loc.item else None,
-    #       "adv:",
-    #       loc.item.advancement if loc.item else None,
-    #     )
+    from .regions import AREA_POWER_REQS
 
     return {
       **self.options.as_dict(*MathQuest_options.option_presets["main"].keys()),
