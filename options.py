@@ -30,6 +30,8 @@ option_presets: dict[str, dict[str, bool | int]] = {
     "del_del": 20,
     "nothing": 10,
     "filler_gold": 30,
+    "confusion": 30,
+    "poison": 30,
     "spawn_random_enemies": 70,
     # "allow_clips": 0,
     "each_quest_is_a_check": False,
@@ -222,6 +224,22 @@ class FillerGold(Range):
   default: bool = cast(bool, option_presets["main"]["filler_gold"])
 
 
+class Poison(Range):
+  """ """
+
+  range_end: int = 100
+  display_name: str = "Poison"
+  default: bool = cast(bool, option_presets["main"]["poison"])
+
+
+class Confusion(Range):
+  """ """
+
+  range_end: int = 100
+  display_name: str = "Confusion"
+  default: bool = cast(bool, option_presets["main"]["confusion"])
+
+
 class AllowClips(OptionDict):
   """
   Determines how logic handles clipping through walls or boundaries.
@@ -262,6 +280,7 @@ class MathQuestOptions(PerGameCommonOptions):
   infinite_aurastones: InfiniteAurastones
   no_power_reqs: NoPowerReqs
   each_quest_is_an_item: EachQuestIsAnItem
+  poison: Poison
 
 
 # If we want to group our options by similar type, we can do so as well. This looks nice on the website.
@@ -309,6 +328,8 @@ option_groups: list[OptionGroup] = [
       DelDel,
       SpawnRandomEnemies,
       Nothing,
+      Poison,
+      Confusion,
       FillerGold,
     ],
   ),
