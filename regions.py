@@ -431,14 +431,12 @@ def _num(s: str) -> int | float:
   return int(n) if n == int(n) else n
 
 
-table_js = []
-
 
 def write_er_connections_json(world: World) -> None:
   """Writes worlds/mathquest/json/connections.json — the file patch_rooms.py reads at patch time
   (its OUT_DIR is the mathquest package's own directory, not the AP output folder). Call this from
   World.generate_output. No-ops (writes an empty connections list) when entrance_rando is off."""
-  global table_js
+  connections = []
   print("world.options.entrance_rando", world.options.entrance_rando)
   if world.options.entrance_rando:
     er_candidates: list[Entrance] = getattr(world, "_mq_er_candidates", [])
@@ -454,7 +452,7 @@ def write_er_connections_json(world: World) -> None:
 
       dn, de, dside, didx_s = dest_match.groups()
       dn, de = _num(dn), _num(de)
-      table_js.append(
+      connections.append(
         (
           on,
           oe,
@@ -468,3 +466,4 @@ def write_er_connections_json(world: World) -> None:
       )
 
 
+  world._mq_table_js = connections

@@ -8798,12 +8798,15 @@ manager.correct - manager.wrong > 800 = halo
     "room": {"north": -1, "east": -1},
     "requires": [
       [
+        "quest:curse.1",
         "area:12",
       ],
       [
+        "quest:curse.1",
         "area:9",
       ],
       [
+        "quest:curse.1",
         "area:13",
       ],
     ],
