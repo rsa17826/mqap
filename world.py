@@ -101,7 +101,7 @@ class MathQuestWorld(World):
 
     return {
       **self.options.as_dict(*MathQuest_options.option_presets["main"].keys()),
-      "roomData": self._mq_table_js,
+      "roomData": getattr(self, "_mq_table_js", []),
       "AP_ITEM_IDS": {v: k for k, v in ITEM_NAME_TO_ID.items()},
       "AP_LOCATION_IDS": {loc.name: loc.address for loc in self.multiworld.get_locations(self.player) if loc.address is not None},
       "AP_ENTRANCE_IDS": GEOM,
