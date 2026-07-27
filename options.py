@@ -281,6 +281,7 @@ class MathQuestOptions(PerGameCommonOptions):
   no_power_reqs: NoPowerReqs
   each_quest_is_an_item: EachQuestIsAnItem
   poison: Poison
+  confusion: Confusion
 
 
 # If we want to group our options by similar type, we can do so as well. This looks nice on the website.

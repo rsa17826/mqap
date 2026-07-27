@@ -1114,8 +1114,7 @@ manager.correct - manager.wrong > 800 = halo
     "room": {"north": 21, "east": 17},
     "requires": [
       [
-        # NOTE
-        # "item:aurastones",
+        "item:aurastones",
         "item:gold#500",
       ],
     ],
