@@ -8830,7 +8830,7 @@ manager.correct - manager.wrong > 800 = halo
     "room": {"north": 12, "east": 22},
     "requires": [
       [
-        "quest:curse.3",
+        "quest:curse.4",
       ],
     ],
     "receive": [
