@@ -28,7 +28,7 @@ option_presets: dict[str, dict[str, bool | int]] = {
     "infinite_keys": False,
     "infinite_aurastones": False,
     "infinite_bombs": False,
-    "del_del": 20,
+    "del_del": 0,
     "nothing": 10,
     "filler_gold": 30,
     "confusion": 30,
