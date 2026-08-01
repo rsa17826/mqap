@@ -1,4 +1,4 @@
 @file \.py$
-@regex (True|False)(?:(?<=True) or |(?<=False) and )world\.options\.\w+
+@regex (True|False) (?:or|and) world\.options\.\w+
 @errgroup 1
 @info remove "$1" when option fixed
