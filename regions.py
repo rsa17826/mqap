@@ -431,7 +431,6 @@ def _num(s: str) -> int | float:
   return int(n) if n == int(n) else n
 
 
-
 def write_er_connections_json(world: World) -> None:
   """Writes worlds/mathquest/json/connections.json — the file patch_rooms.py reads at patch time
   (its OUT_DIR is the mathquest package's own directory, not the AP output folder). Call this from

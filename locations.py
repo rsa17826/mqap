@@ -108,7 +108,7 @@ def create_events(world: World) -> None:
         if (False and world.options.each_quest_is_an_item) and itemInfo.startswith("quest:"):
           continue
 
-        event_name = itemInfo
+        event_name = itemInfo.split("#", 1)[0]
         roomPos = f"{thing['room']['north']}_{thing['room']['east']}"
         room_id = f"{roomPos}: root"
 
