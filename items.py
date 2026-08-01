@@ -88,7 +88,7 @@ MAGIC_ORDER: dict[str, int] = {
   "magic:ice": 13,
   "magic:lightning": 14,
 }
-QUEST_NAMES: set[str] = set() # quest names, e.g. "mChar"
+QUEST_NAMES: set[str] = set()  # quest names, e.g. "mChar"
 AREA_MAP = {}
 
 _id_counter = 1
@@ -142,7 +142,7 @@ for thing in PROG:
             maxQuests[questName] = int(questData[1])
 
           QUEST_NAMES.add(questName)
-          continue # still no per-level id; handled generically below
+          continue  # still no per-level id; handled generically below
 
         elif itemInfo.startswith(
           (
@@ -178,11 +178,11 @@ for thing in PROG:
           continue
 
         _id_counter += 1
-        if itemName.split("#", 1)[0] not in HAS_LIST:
-          HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName)
-        else:
-          HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName) | HAS_LIST[itemName.split("#", 1)[0]]
 
+      if itemName.split("#", 1)[0] not in HAS_LIST:
+        HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName)
+      else:
+        HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName) | HAS_LIST[itemName.split("#", 1)[0]]
 
 
 
