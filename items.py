@@ -309,6 +309,9 @@ def create_all_items(world: World) -> None:
   needed_number_of_filler_items = number_of_unfilled_locations - number_of_items
   print("needed_number_of_filler_items", needed_number_of_filler_items, "number_of_items", number_of_items)
   itempool += [world.create_filler() for _ in range(needed_number_of_filler_items)]
+  # reachable = world.multiworld.get_all_state(use_cache=False).reachable_regions[world.player]
+  # locs = [l for l in world.multiworld.get_locations(world.player) if l.parent_region not in reachable]
+  # print(len(locs), "reachable of", len(world.multiworld.get_locations(world.player)), locs)
   # from .locations import LOCATION_NAME_TO_ID
   # location_counts = Counter(name.split(" - ", 1)[1] for name in LOCATION_NAME_TO_ID if not (name.split(" - ", 1)[1].startswith("quest:") and not world.options.each_quest_is_a_check))
   # print("=== created ===")
