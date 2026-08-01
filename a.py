@@ -1,5 +1,6 @@
 from collections import Counter
 from _progression import PROG
+
 pairs = Counter()
 
 for thing in PROG:
@@ -8,13 +9,10 @@ for thing in PROG:
 
   room = f"{thing['room']['north']}_{thing['room']['east']}"
 
-  for item in thing["receive"]:
-    if item.startswith(("food:cherries", "food:gingerBread", "food:holyWater")):
-      pairs[(room, item)] += 1
+  for item in thing["requires"]:
+    for i in item:
+      if not i.startswith(("food:", "magic:", "weapon:", "skill:", "flag:", "quest:", "area:", "loot:", "item:", "entr", "armor:", "misc:", "permit:")):
+        print(i)
 
 
-
-for pair, count in pairs.items():
-  if count > 1:
-    print(pair, count)
 

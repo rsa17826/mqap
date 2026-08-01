@@ -117,17 +117,27 @@ for thing in PROG:
             # "flag:final boss dead",
             "permit:",
             "misc:fire crystal",
-            "loot:gold",
-            "item:",
+            "item:aurastones",
+            "item:bombs",
+            "item:diamonds",
+            "item:geodes",
+            "item:gold",
+            "item:ring of evasion",
+            "item:ring of gold",
+            "item:ring of health",
+            "item:ring of poison",
+            "item:rubies",
             "skill:",
-            "food:",
             "misc:blue crystal",
             "misc:headstoneSwitch1",
             "misc:headstoneSwitch2",
             "misc:headstoneSwitch3",
             "misc:headstoneSwitch4",
+            "food:honey",
+            "food:steak",
+            "food:apple",
             # "entrance.",
-            "craft:",
+            "craft:emerald",
             "armor:",
             # "quest:",
             # "area:",
@@ -144,15 +154,10 @@ for thing in PROG:
           QUEST_NAMES.add(questName)
           continue  # still no per-level id; handled generically below
 
-        elif itemInfo.startswith(
-          (
-            "item:ring",
-            "item:aurastones",
-          )
-        ):
+        elif itemInfo.startswith(("item:ring", "craft:")):
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.useful
           ITEM_NAME_TO_ID[itemName] = _id_counter
-        elif itemInfo.startswith(("misc:",)):
+        elif itemInfo.startswith(("misc:", "item:", "food:")):
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.filler
           ITEM_NAME_TO_ID[itemName] = _id_counter
         elif itemInfo.startswith(("quest:",)):
