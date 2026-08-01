@@ -105,7 +105,7 @@ def create_events(world: World) -> None:
   for thing in PROG:
     for itemInfo in thing["receive"]:
       if itemInfo.startswith(("quest:", "flag:", "area:", "loot:")):
-        if world.options.each_quest_is_an_item and itemInfo.startswith("quest:"):
+        if (False and world.options.each_quest_is_an_item) and itemInfo.startswith("quest:"):
           continue
 
         event_name = itemInfo

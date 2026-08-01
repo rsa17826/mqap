@@ -36,7 +36,7 @@ option_presets: dict[str, dict[str, bool | int]] = {
     "spawn_random_enemies": 70,
     # "allow_clips": 0,
     "each_quest_is_a_check": False,
-    "each_quest_is_an_item": False,
+    # "each_quest_is_an_item": False,
     "no_power_reqs": False,
   },
 }
@@ -158,13 +158,13 @@ class ProgressiveMagic(Toggle):
   default: bool = cast(bool, option_presets["main"]["progressive_magic"])
 
 
-class EachQuestIsAnItem(Toggle):
-  """
-  WARNING: not working!
-  """
+# class EachQuestIsAnItem(Toggle):
+#   """
+#   WARNING: not working!
+#   """
 
-  display_name: str = "EachQuestIsAnItem"
-  default: bool = cast(bool, option_presets["main"]["each_quest_is_an_item"])
+#   display_name: str = "EachQuestIsAnItem"
+#   default: bool = cast(bool, option_presets["main"]["each_quest_is_an_item"])
 
 
 class InfiniteGold(Toggle):
@@ -287,7 +287,7 @@ class MathQuestOptions(PerGameCommonOptions):
   filler_gold: FillerGold
   infinite_aurastones: InfiniteAurastones
   no_power_reqs: NoPowerReqs
-  each_quest_is_an_item: EachQuestIsAnItem
+  # each_quest_is_an_item: EachQuestIsAnItem
   poison: Poison
   confusion: Confusion
   infinite_bombs: InfiniteBombs

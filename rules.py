@@ -91,7 +91,7 @@ def set_all_location_rules(world: World) -> None:
           power_match = _POWER_RE.match(item)
           if quest_match:
             qname, qlevel = quest_match.group(1), int(quest_match.group(2))
-            if world.options.each_quest_is_an_item:
+            if False and world.options.each_quest_is_an_item:
               temprule = Has(f"quest:{qname}", qlevel)
             else:
               # quest progress tracked via locally-granted event items instead
@@ -159,7 +159,7 @@ def set_completion_condition(world: World) -> None:
     from .items import maxQuests
 
     for name, value in maxQuests.items():
-      if world.options.each_quest_is_an_item:
+      if False and world.options.each_quest_is_an_item:
         rule &= Has(f"quest:{name}", value)
       else:
         rule &= Has(f"quest:{name}.{value}")

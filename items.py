@@ -237,7 +237,7 @@ def create_item_with_correct_classification(world: World, name: str) -> MathQues
 def create_all_items(world: World) -> None:
   # created = Counter()
   itempool: list[Item] = []
-  if world.options.each_quest_is_an_item:
+  if False and world.options.each_quest_is_an_item:
     for questName, maxLevel in maxQuests.items():
       for _ in range(maxLevel):
         itempool.append(world.create_item(f"quest:{questName}"))
@@ -253,7 +253,7 @@ def create_all_items(world: World) -> None:
       continue
 
     # Check the option before creating quest items
-    if k.startswith("quest:") and not world.options.each_quest_is_an_item:
+    if k.startswith("quest:") and not (False and world.options.each_quest_is_an_item):
       continue
 
     # How many copies of this item were actually requested via `receive` lists.
