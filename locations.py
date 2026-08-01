@@ -123,7 +123,7 @@ def create_events(world: World) -> None:
         if room_id not in newRoomLocations and roomPos in AREA_MAP:
           area = AREA_MAP[roomPos]
           powerRule = None
-          if not world.options.no_power_reqs and area in AREA_POWER_REQS:
+          if not (True or world.options.no_power_reqs) and area in AREA_POWER_REQS:
             powerRule = _reqs_to_rule(world, AREA_POWER_REQS[area])
 
           # TODO add the rule to the event !!!

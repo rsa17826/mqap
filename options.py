@@ -37,7 +37,7 @@ option_presets: dict[str, dict[str, bool | int]] = {
     # "allow_clips": 0,
     "each_quest_is_a_check": False,
     # "each_quest_is_an_item": False,
-    "no_power_reqs": False,
+    "no_power_reqs": True,
   },
 }
 

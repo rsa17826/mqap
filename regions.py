@@ -301,7 +301,7 @@ def _create_exit_regions_and_roots(
         # ONE-WAY ONLY: Establish the connection right here during creation!
         powerRule = None
         area = AREA_MAP[f"{n}_{e}"]
-        if not world.options.no_power_reqs and area in AREA_POWER_REQS:
+        if not (True or world.options.no_power_reqs) and area in AREA_POWER_REQS:
           powerRule = _reqs_to_rule(world, AREA_POWER_REQS[area])
 
         _ = _connect(world, region, root_region, rule=powerRule)
@@ -381,8 +381,8 @@ def _connect_cross_room_vanilla(world: World, exit_regions: dict, tag_for_er: bo
       area_here = AREA_MAP[f"{n}_{e}"]
       area_there = AREA_MAP[f"{neighbor_key[0]}_{neighbor_key[1]}"]
 
-      forward_rule = _reqs_to_rule(world, AREA_POWER_REQS[area_there]) if not world.options.no_power_reqs and area_there in AREA_POWER_REQS else None
-      backward_rule = _reqs_to_rule(world, AREA_POWER_REQS[area_here]) if not world.options.no_power_reqs and area_here in AREA_POWER_REQS else None
+      forward_rule = _reqs_to_rule(world, AREA_POWER_REQS[area_there]) if not (True or world.options.no_power_reqs) and area_there in AREA_POWER_REQS else None
+      backward_rule = _reqs_to_rule(world, AREA_POWER_REQS[area_here]) if not (True or world.options.no_power_reqs) and area_here in AREA_POWER_REQS else None
 
       # Since we handle exit -> root linkages explicitly during Pass 1,
       # we can safely go back to using standard _connect here!
