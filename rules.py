@@ -43,7 +43,7 @@ def set_all_location_rules(world: World) -> None:
     room_id_base = f"{node['room']['north']}_{node['room']['east']}"
 
     for itemInfo in node["receive"]:
-      clean_item = itemInfo.split("#")[0]
+      clean_item = itemInfo
 
       # 1. Handle the naming difference between events and standard locations
       if clean_item.startswith(("power:")):

@@ -230,8 +230,12 @@ def create_item_with_correct_classification(world: World, name: str) -> MathQues
   return MathQuestItem(name, classification, ITEM_NAME_TO_ID[name], world.player)
 
 
+# from collections import Counter
+
+
 # With those two helper functions defined, let's now get to actually creating and submitting our itempool.
 def create_all_items(world: World) -> None:
+  # created = Counter()
   itempool: list[Item] = []
   if world.options.each_quest_is_an_item:
     for questName, maxLevel in maxQuests.items():
@@ -296,12 +300,30 @@ def create_all_items(world: World) -> None:
 
 
 
-    itempool.append(world.create_item(k))
+    itempool.extend(world.create_item(k) for _ in range(count))
 
+    # created[k] += count
 
   number_of_items = len(itempool)
   number_of_unfilled_locations = len(world.multiworld.get_unfilled_locations(world.player))
   needed_number_of_filler_items = number_of_unfilled_locations - number_of_items
   print("needed_number_of_filler_items", needed_number_of_filler_items, "number_of_items", number_of_items)
   itempool += [world.create_filler() for _ in range(needed_number_of_filler_items)]
+  # from .locations import LOCATION_NAME_TO_ID
+  # location_counts = Counter(name.split(" - ", 1)[1] for name in LOCATION_NAME_TO_ID if not (name.split(" - ", 1)[1].startswith("quest:") and not world.options.each_quest_is_a_check))
+  # print("=== created ===")
+  # for name, count in sorted(created.items()):
+  #   print(count, name)
+
+  # for name in sorted(set(created) | set(location_counts)):
+  #   if created[name] != location_counts[name]:
+  #     print(name, created[name], location_counts[name])
+
+  # print(len(world.multiworld.get_unfilled_locations(world.player)))
+
+  # location_items = {name.split(" - ", 1)[1] for name in LOCATION_NAME_TO_ID}
+
+  # created_items = set(created)
+
+  # print("created_items - location_items", created_items - location_items)
   world.multiworld.itempool += itempool

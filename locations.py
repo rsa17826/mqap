@@ -35,7 +35,7 @@ for thing in PROG:
         )
       ):
         # itemName = itemInfo.split("#")[0]
-        itemName = f"{thing['room']['north']}_{thing['room']['east']} - {itemInfo.split('#')[0]}"
+        itemName = f"{thing['room']['north']}_{thing['room']['east']} - {itemInfo}"
         if itemName not in LOCATION_NAME_TO_ID:
           LOCATION_NAME_TO_ID[itemName] = _id_counter
           _id_counter += 1
@@ -67,6 +67,7 @@ def create_all_locations(world: World) -> None:
 
 def create_regular_locations(world: World) -> None:
   # return
+  # created = 0
   for locationName, location_id in LOCATION_NAME_TO_ID.items():
     item_part = locationName.split(" - ")[-1]
     if item_part.startswith("quest:") and not world.options.each_quest_is_a_check:
@@ -88,7 +89,13 @@ def create_regular_locations(world: World) -> None:
     region.locations.append(location)
 
 
+    # created += 1
+
+  # print("regular:", created)
+
+
 def create_events(world: World) -> None:
+  # events = 0
   from ._progression import AREA_POWER_REQS, PROG
   from .items import AREA_MAP
   from .regions import _reqs_to_rule
@@ -101,7 +108,7 @@ def create_events(world: World) -> None:
         if world.options.each_quest_is_an_item and itemInfo.startswith("quest:"):
           continue
 
-        event_name = itemInfo.split("#")[0]
+        event_name = itemInfo
         roomPos = f"{thing['room']['north']}_{thing['room']['east']}"
         room_id = f"{roomPos}: root"
 
@@ -131,5 +138,9 @@ def create_events(world: World) -> None:
 
 
 
+
+          # events += 1
+
+  # print("events:", events)
 
   # print("newRoomLocations", len(newRoomLocations), newRoomLocations)
