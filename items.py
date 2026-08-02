@@ -136,6 +136,7 @@ for thing in PROG:
             "food:honey",
             "food:steak",
             "food:apple",
+            "food:sunflowerSeeds",
             # "entrance.",
             "craft:emerald",
             "armor:",
