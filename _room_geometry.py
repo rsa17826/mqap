@@ -3126,7 +3126,9 @@ GEOM: list[ExitBase] = [
       {
         "reqs": [
           [
+            # TODO make stomping work on both sides
             "flag:stomp code",
+            "skill:stomp",
           ],
         ],
         "areas": [
@@ -6474,7 +6476,7 @@ WARPS: tuple[Warp, ...] = (
     "connections": ((200, 200, "root", 0), (201, 200, "root", 0)),
   },
   {
-    "reqs": [["magic:drain", "quest:aSword.1"]],
+    "reqs": [["magic:drain"]],
     "connections": ((18, 25, "root", 0), (500, 500, "north", 0)),
   },
   {
