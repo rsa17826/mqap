@@ -106,7 +106,7 @@ _id_counter += 1
 for thing in PROG:
   if "receive" in thing:
     for itemInfo in thing["receive"]:
-      itemName = itemInfo.split("#", 1)[0]
+      itemName = itemInfo#.split("#", 1)[0]
       # itemName = itemInfo.removesuffix("#1")
       ITEM_COUNTS[itemName] = ITEM_COUNTS.get(itemName, 0) + 1
       if itemName not in ITEM_NAME_TO_ID:
