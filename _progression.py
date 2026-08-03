@@ -2145,7 +2145,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
   },
   {
-    "room": {"north": 20, "east": 18},
+    "room": {"north": 20, "east": 17},
     "requires": [
       [
         "quest:bBomb.7",
@@ -8970,7 +8970,7 @@ manager.correct - manager.wrong > 800 = halo
     "room": {"north": 12, "east": 22},
     "requires": [
       [
-        "permit:bomb",
+        "permit:bomb#2",
         "food:apple",
       ],
     ],
