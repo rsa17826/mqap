@@ -661,6 +661,7 @@ manager.correct - manager.wrong > 800 = halo
         "loot:sTooth#30",
         "item:gold#800",
         "skill:tough",
+        "loot:aAxe",
       ],
     ],
     "receive": [
@@ -1161,7 +1162,7 @@ manager.correct - manager.wrong > 800 = halo
       ],
     ],
     "receive": [
-      "food:newtonsApple#2",
+      "food:newtonsApple",
     ],
   },
   # NOTE don't need this many, lv4 is enough
@@ -7892,6 +7893,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "area:14",
+      "area:str up npc"
     ],
   },
   {
