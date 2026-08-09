@@ -88,7 +88,7 @@ MAGIC_ORDER: dict[str, int] = {
   "magic:ice": 13,
   "magic:lightning": 14,
 }
-QUEST_NAMES: set[str] = set()  # quest names, e.g. "mChar"
+QUEST_NAMES: set[str] = set() # quest names, e.g. "mChar"
 AREA_MAP = {}
 
 _id_counter = 1
@@ -106,7 +106,7 @@ _id_counter += 1
 for thing in PROG:
   if "receive" in thing:
     for itemInfo in thing["receive"]:
-      itemName = itemInfo#.split("#", 1)[0]
+      itemName = itemInfo # .split("#", 1)[0]
       # itemName = itemInfo.removesuffix("#1")
       ITEM_COUNTS[itemName] = ITEM_COUNTS.get(itemName, 0) + 1
       if itemName not in ITEM_NAME_TO_ID:
@@ -122,10 +122,6 @@ for thing in PROG:
             "item:diamonds",
             "item:geodes",
             "item:gold",
-            "item:ring of evasion",
-            "item:ring of gold",
-            "item:ring of health",
-            "item:ring of poison",
             "item:rubies",
             "skill:",
             "misc:blue crystal",
@@ -140,6 +136,7 @@ for thing in PROG:
             # "entrance.",
             "craft:emerald",
             "armor:",
+            "item:ring",
             # "quest:",
             # "area:",
           )
@@ -153,9 +150,9 @@ for thing in PROG:
             maxQuests[questName] = int(questData[1])
 
           QUEST_NAMES.add(questName)
-          continue  # still no per-level id; handled generically below
+          continue # still no per-level id; handled generically below
 
-        elif itemInfo.startswith(("item:ring", "craft:")):
+        elif itemInfo.startswith(("craft:")):
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.useful
           ITEM_NAME_TO_ID[itemName] = _id_counter
         elif itemInfo.startswith(("misc:", "item:", "food:")):

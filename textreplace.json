@@ -6,5 +6,12 @@
   "North": "Up",
   "South": "Down",
   "East": "Right",
-  "West": "Left"
+  "West": "Left",
+  "item:ring of gold": "ring1",
+  "item:ring of health": "ring2",
+  "item:ring of evasion": "ring3",
+  "item:ring of poison": "ring4",
+  "item:ring of magic": "ring5",
+  "item:ring of skill": "ring6",
+  "item:ring of death": "ring7"
 }
