@@ -3664,6 +3664,10 @@ manager.correct - manager.wrong > 800 = halo
         "quest:dream.3",
         "magic:slow",
       ],
+      [
+        "quest:dream.3",
+        "magic:doubledown",
+      ],
     ],
     "receive": [
       "quest:dream.4",
