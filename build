@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+trap 'rm -f ~/projects/Archipelago/output/apworlds/mathquest.apworld; exit 0' TERM
+python3.13 make_apworlds.py mathquest &>/dev/null
+echo ~/projects/Archipelago/output/apworlds/mathquest.apworld
+
+while :; do
+  sleep 1
+done
