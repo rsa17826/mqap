@@ -389,10 +389,12 @@ def _connect_cross_room_vanilla(world: World, exit_regions: dict, tag_for_er: bo
       forward = _connect(world, region, neighbor, rule=forward_rule)
       backward = _connect(world, neighbor, region, rule=backward_rule)
 
-      for entrance, entrance_side in ((forward, side), (backward, OPPOSITE[side])):
-        entrance.randomization_type = EntranceType.TWO_WAY
-        entrance.randomization_group = _SIDE_GROUP[entrance_side]
-        er_candidates.append(entrance)
+      if tag_for_er:
+        for entrance, entrance_side in ((forward, side), (backward, OPPOSITE[side])):
+          entrance.randomization_type = EntranceType.TWO_WAY
+          entrance.randomization_group = _SIDE_GROUP[entrance_side]
+          er_candidates.append(entrance)
+
 
 
 
