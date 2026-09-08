@@ -3156,7 +3156,6 @@ manager.correct - manager.wrong > 800 = halo
     "requires": [
       [
         "loot:key",
-        "permit:bomb",
       ],
     ],
     "receive": [
