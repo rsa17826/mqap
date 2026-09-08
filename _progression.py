@@ -860,6 +860,7 @@ manager.correct - manager.wrong > 800 = halo
     "room": {"north": 100, "east": 100},
     "requires": [
       [
+        "skill:craft",
         "loot:oArm#5",
         "loot:sTooth#5",
         "loot:vHorn#5",
@@ -3735,6 +3736,7 @@ manager.correct - manager.wrong > 800 = halo
       [
         "quest:hWater.6",
         "skill:reveal",
+        # "skill:craft",
       ],
     ],
     "receive": [
