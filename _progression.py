@@ -7686,8 +7686,16 @@ manager.correct - manager.wrong > 800 = halo
       ["entrance.west0"],
     ],
     "receive": [
-      "area:1",
       "area:str up npc",
+    ],
+  },
+  {
+    "room": {"north": 12, "east": 16},
+    "requires": [
+      [],
+    ],
+    "receive": [
+      "area:1",
     ],
   },
   {
