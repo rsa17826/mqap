@@ -489,6 +489,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "food:orange",
+      "static:food:orange",
     ],
   },
   # {"room": {"north": 18, "east": 20}, "info": "warp skill warp point",},
@@ -564,6 +565,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "food:sunflowerSeeds",
+      "static:food:sunflowerSeeds",
     ],
   },
   {
@@ -622,6 +624,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "food:orange",
+      "static:food:orange",
     ],
   },
   {
@@ -787,6 +790,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "food:chocolate",
+      "static:food:chocolate",
     ],
   },
   {
@@ -810,6 +814,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "food:steak",
+      "static:food:steak",
     ],
   },
   {
@@ -822,6 +827,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "food:peppers",
+      "static:food:peppers",
     ],
   },
   {
@@ -7333,6 +7339,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "food:gingerBread",
+      "static:food:gingerBread",
     ],
   },
   {
@@ -7344,6 +7351,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "item:gold - merchant#5",
+      "static:item:gold",
     ],
   },
   # NOTE these grapes say 30gp but are only 15gp as they are the same ones as at 20 20
@@ -7357,6 +7365,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "food:banana",
+      "static:food:banana",
     ],
   },
   {
