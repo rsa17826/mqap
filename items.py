@@ -88,7 +88,7 @@ MAGIC_ORDER: dict[str, int] = {
   "magic:ice": 13,
   "magic:lightning": 14,
 }
-QUEST_NAMES: set[str] = set() # quest names, e.g. "mChar"
+QUEST_NAMES: set[str] = set()
 AREA_MAP = {}
 
 _id_counter = 1
@@ -150,20 +150,13 @@ for thing in PROG:
             maxQuests[questName] = int(questData[1])
 
           QUEST_NAMES.add(questName)
-          continue # still no per-level id; handled generically below
-
-        elif itemInfo.startswith(("craft:")):
+          continue
+        elif itemInfo.startswith(("craft:",)):
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.useful
           ITEM_NAME_TO_ID[itemName] = _id_counter
         elif itemInfo.startswith(("misc:", "item:", "food:")):
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.filler
           ITEM_NAME_TO_ID[itemName] = _id_counter
-        elif itemInfo.startswith(("quest:",)):
-          questData = itemInfo.split(":", 1)[1].split(".")
-          if questData[0] not in maxQuests or int(questData[1]) > maxQuests[questData[0]]:
-            maxQuests[questData[0]] = int(questData[1])
-
-          continue
         elif itemInfo.startswith(("area:",)):
           AREA_MAP[f"{thing['room']['north']}_{thing['room']['east']}"] = itemInfo.split("area:")[1]
           continue
@@ -176,12 +169,20 @@ for thing in PROG:
           continue
         elif itemInfo.startswith(("loot:",)):
           pass
+        elif itemName.startswith("static:"):
+          if itemName.split("#", 1)[0] not in HAS_LIST:
+            HAS_LIST[itemName.replace("static:", "")] = Has(itemName)
+          else:
+            HAS_LIST[itemName.replace("static:", "")] = Has(itemName) | HAS_LIST[itemName.replace("static:", "")]
+
+          continue
         else:
           print(itemName, "not used")
           continue
 
         _id_counter += 1
 
+      # NOTE flag used for shop items
       if itemName.split("#", 1)[0] not in HAS_LIST:
         HAS_LIST[itemName.split("#", 1)[0]] = Has(itemName)
       else:
@@ -190,6 +191,7 @@ for thing in PROG:
 
 
 
+print("\n".join([":::".join([repr(xx) for xx in x]) for x in HAS_LIST.items()]))
 for questName in QUEST_NAMES:
   itemName = f"quest:{questName}"
   DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.progression

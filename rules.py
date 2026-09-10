@@ -50,7 +50,7 @@ def set_all_location_rules(world: World) -> None:
         continue
 
       loc_names: list[str] = []
-      if clean_item.startswith(("quest:", "flag:", "area:", "loot:")):
+      if clean_item.startswith(("quest:", "flag:", "area:", "loot:", "static:")):
         # The event always exists and is what actually grants the flag/progress
         # item, so the requirement rule must always be applied to it.
         loc_names.append(f"{room_id_base}: root - {clean_item}")

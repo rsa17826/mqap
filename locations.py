@@ -104,7 +104,7 @@ def create_events(world: World) -> None:
   newRoomLocations = set()
   for thing in PROG:
     for itemInfo in thing["receive"]:
-      if itemInfo.startswith(("quest:", "flag:", "area:", "loot:")):
+      if itemInfo.startswith(("quest:", "flag:", "area:", "loot:", "static:")):
         if (False and world.options.each_quest_is_an_item) and itemInfo.startswith("quest:"):
           continue
 

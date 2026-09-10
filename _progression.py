@@ -5556,6 +5556,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "food:apple",
+      "static:food:apple",
     ],
   },
   {
@@ -5567,6 +5568,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "food:honey",
+      "static:food:honey",
     ],
   },
   {
@@ -5578,6 +5580,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "food:grapes",
+      "static:food:grapes",
     ],
   },
   {
@@ -5589,6 +5592,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "food:carrot",
+      "static:food:carrot",
     ],
   },
   {
@@ -5600,6 +5604,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "food:beefJerky",
+      "static:food:beefJerky",
     ],
   },
   {
@@ -5611,6 +5616,7 @@ manager.correct - manager.wrong > 800 = halo
     ],
     "receive": [
       "food:cherries",
+      "static:food:cherries",
     ],
   },
   {
