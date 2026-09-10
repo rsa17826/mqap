@@ -191,7 +191,7 @@ for thing in PROG:
 
 
 
-print(HAS_LIST["skill:kick"])
+# print(HAS_LIST["skill:kick"])
 # print("\n".join([":::".join([repr(xx) for xx in x]) for x in HAS_LIST.items()]))
 for questName in QUEST_NAMES:
   itemName = f"quest:{questName}"
