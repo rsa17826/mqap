@@ -170,7 +170,7 @@ for thing in PROG:
         elif itemInfo.startswith(("loot:",)):
           pass
         elif itemName.startswith("static:"):
-          if itemName.split("#", 1)[0] not in HAS_LIST:
+          if itemName.replace("static:", "") not in HAS_LIST:
             HAS_LIST[itemName.replace("static:", "")] = Has(itemName)
           else:
             HAS_LIST[itemName.replace("static:", "")] = Has(itemName) | HAS_LIST[itemName.replace("static:", "")]
@@ -191,7 +191,8 @@ for thing in PROG:
 
 
 
-print("\n".join([":::".join([repr(xx) for xx in x]) for x in HAS_LIST.items()]))
+# print(HAS_LIST["food:apple"])
+# print("\n".join([":::".join([repr(xx) for xx in x]) for x in HAS_LIST.items()]))
 for questName in QUEST_NAMES:
   itemName = f"quest:{questName}"
   DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.progression
