@@ -341,7 +341,8 @@ PROG: list[ProgressionNode] = [
     "requires": [
       [
         "skill:reveal",
-        "permit:bomb#2",
+        "permit:bomb",
+        "quest:bBomb.9",
         "loot:vAsh#30",
         "loot:shadowCrest#25",
       ],
