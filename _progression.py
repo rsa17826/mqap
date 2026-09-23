@@ -8580,6 +8580,7 @@ manager.correct - manager.wrong > 800 = halo
       "area:6",
       "area:str up npc",
     ],
+    "info": "this npc doesn't work with autoyes yet",
   },
   {
     "room": {"north": 7, "east": 12},
