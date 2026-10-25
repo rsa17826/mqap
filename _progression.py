@@ -3644,18 +3644,58 @@ manager.correct - manager.wrong > 800 = halo
   {
     "room": {"north": 13, "east": 14},
     "requires": [
-      ["magic:fire", "quest:mChal.1", "entrance.west0"],
-      ["magic:fire", "quest:mChal.1", "permit:bomb"],
+      [
+        "quest:mChal.1",
+        "entrance.west0",
+      ],
+      [
+        "quest:mChal.1",
+        "permit:bomb",
+      ],
+    ],
+    "receive": [
+      "flag:chalaceAvailable",
+    ],
+  },
+  {
+    "room": {"north": 7, "east": 25},
+    "requires": [],
+    "receive": [
+      "flag:chalaceAvailable",
+    ],
+  },
+  {
+    "room": {"north": 8, "east": 21},
+    "requires": [],
+    "receive": [
+      "flag:chalaceAvailable",
+    ],
+  },
+  {
+    "room": {"north": -1, "east": -1},
+    "requires": [
+      [
+        "magic:fire",
+        "flag:chalaceAvailable",
+        "quest:mChal.1",
+      ],
     ],
     "receive": [
       "quest:mChal.2",
     ],
+    "info": "any chalace can be lit with lv1 fire if this quest is at 1 and it will progress this quest to 2",
   },
   {
     "room": {"north": 13, "east": 14},
     "requires": [
-      ["quest:mChal.3", "entrance.west0"],
-      ["quest:mChal.3", "permit:bomb"],
+      [
+        "quest:mChal.3",
+        "entrance.west0",
+      ],
+      [
+        "quest:mChal.3",
+        "permit:bomb",
+      ],
     ],
     "receive": [
       "quest:mChal.4",

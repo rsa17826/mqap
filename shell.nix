@@ -32,6 +32,6 @@ pkgs.mkShell {
     ]
   );
   shellHook = ''
-    source /home/nyix/projects/Archipelago/.venv/bin/activate
+    source /home/nyix/projects/MultiworldGG/.venv/bin/activate
   '';
 }
