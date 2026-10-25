@@ -16,7 +16,7 @@ import sys
 import zipfile
 from pathlib import Path
 
-os.chdir("/home/nyix/projects/Archipelago")
+os.chdir("/home/nyix/projects/MultiworldGG")
 sys.path.insert(0, os.getcwd())
 
 from Utils import version_tuple # type: ignore
@@ -46,6 +46,12 @@ OUT_DIR = Path("output") / "apworlds"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 only = set(sys.argv[1:])
+
+import worlds
+from worlds.AutoWorld import AutoWorldRegister
+from worlds.Files import APWorldContainer
+
+worlds.ensure_worlds_loaded(write_launcher_cache=False)
 
 for worldname, worldtype in AutoWorldRegister.world_types.items():
   if worldname in non_apworlds:
