@@ -261,14 +261,14 @@ def create_and_connect_regions(world: World) -> None:
   _connect_warps_vanilla(world, exit_regions)
 
 
-from ._progression import AREA_POWER_REQS
+from ._progression import AREA_POWER_REQS, WEAPON_POWER_ORDER
 
 for k, v in AREA_POWER_REQS.items():
   if isinstance(v, int):
     if v <= 0:
       AREA_POWER_REQS[k] = []
     else:
-      AREA_POWER_REQS[k] = [[weapon] for weapon, i in WEAPON_ORDER.items() if i > v]
+      AREA_POWER_REQS[k] = [[weapon] for weapon, i in WEAPON_POWER_ORDER.items() if i > v]
 
 
 
