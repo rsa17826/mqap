@@ -191,7 +191,7 @@ for thing in PROG:
 
 
 
-AREA_MAP["9.11_20"] = {3}
+AREA_MAP["9.11_20"] = {"3"}
 print(AREA_MAP)
 
 # print(HAS_LIST["skill:kick"])

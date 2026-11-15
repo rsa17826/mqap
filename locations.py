@@ -125,8 +125,9 @@ def create_events(world: World) -> None:
 
 
         newRequires = expand_area_requirements(thing["requires"])
-        if roomPos=="9_22":
-          print(newRequires)
+        # if roomPos == "9_22":
+        #   print(newRequires)
+
         aa = _reqs_to_rule(world, newRequires)
         assert aa is not None, [thing["requires"], newRequires]
         assert finalRule is not None, [thing["requires"], newRequires]
@@ -135,7 +136,6 @@ def create_events(world: World) -> None:
         # print("\n\n", area, _and, AREA_POWER_REQS[area], thing["requires"], powerReqs, newAnd)
         # raise "ASd"
 
-        # for
         _ = region.add_event(
           location_name=f"{room_id} - {event_name}",
           item_name=event_name,
@@ -144,14 +144,20 @@ def create_events(world: World) -> None:
           rule=finalRule,
         )
         if room_id not in newRoomLocations and roomPos in AREA_MAP:
-          # TODO add the rule to the event !!!
           newRoomLocations.add(room_id)
+          roomRule = True_()
+          if roomPos != "-1_-1":
+            powerRule = get_area_power_rule(world, roomPos)
+            if powerRule is not None:
+              roomRule &= powerRule
+
+
           _ = region.add_event(
             location_name=f"{room_id} - new room",
             item_name="flag:room with mobs",
             location_type=MathQuestLocation,
             item_type=items.MathQuestItem,
-            rule=finalRule,
+            rule=roomRule,
           )
 
 
