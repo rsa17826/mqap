@@ -272,7 +272,7 @@ def create_all_items(world: World) -> None:
           continue
 
         k = "weapon:progressive weapons"
-        print(k)
+        # print(k)
       else:
         if k == "weapon:progressive weapons":
           continue
@@ -285,7 +285,7 @@ def create_all_items(world: World) -> None:
           continue
 
         k = "armor:progressive armor"
-        print(k)
+        # print(k)
       else:
         if k == "armor:progressive armor":
           continue
@@ -298,7 +298,7 @@ def create_all_items(world: World) -> None:
           continue
 
         k = "magic:progressive magic"
-        print(k)
+        # print(k)
       else:
         if k == "magic:progressive magic":
           continue
