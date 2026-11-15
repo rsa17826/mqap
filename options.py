@@ -37,7 +37,7 @@ option_presets: dict[str, dict[str, bool | int]] = {
     # "allow_clips": 0,
     "each_quest_is_a_check": False,
     # "each_quest_is_an_item": False,
-    "no_power_reqs": True,
+    "no_power_reqs": False,
   },
 }
 
@@ -169,7 +169,7 @@ class ProgressiveMagic(Toggle):
 
 class InfiniteGold(Toggle):
   """
-  Grants the player an infinite or maxed-out supply of gold right from the start of the game, bypassing the need to farm money.
+  Grants the player an infinite supply of gold right from the start of the game, bypassing the need to farm money.
   """
 
   display_name: str = "InfiniteGold"
@@ -192,6 +192,8 @@ class InfiniteAurastones(Toggle):
 
   display_name: str = "InfiniteAurastones"
   default: bool = cast(bool, option_presets["main"]["infinite_aurastones"])
+
+
 class InfiniteBombs(Toggle):
   """
   Grants the player an infinite supply of bombs.
@@ -203,7 +205,9 @@ class InfiniteBombs(Toggle):
 
 class NoPowerReqs(Toggle):
   """
-  no_power_reqs
+  if enabled area power requirements will be disabled
+  if not enabled each ingame area will not out of logic if the player doesn't posesess a powerful enough weapon for that area
+  er worlds currently don't generate if this option is not enabled
   """
 
   display_name: str = "NoPowerReqs"
@@ -223,7 +227,7 @@ class Nothing(Range):
 
 class FillerGold(Range):
   """
-  filler gold..., more like fill 'yr pockets with gold; 500 gold to be exact
+  filler gold..., more like fill 'yr pockets with gold; 2000 gold to be exact
   Adjusts the weight/frequency of getting gold filler items in the pool.
   """
 
