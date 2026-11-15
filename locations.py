@@ -112,7 +112,7 @@ def create_events(world: World) -> None:
         room_id = f"{roomPos}: root"
 
         region = world.get_region(room_id)
-        powerRule = get_area_power_rule(roomPos)
+        powerRule = get_area_power_rule(world, roomPos)
 
         _ = region.add_event(
           location_name=f"{room_id} - {event_name}",
