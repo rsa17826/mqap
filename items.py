@@ -163,7 +163,6 @@ for thing in PROG:
         elif itemInfo.startswith(
           (
             "flag:",
-            "power:",
           )
         ):
           continue
