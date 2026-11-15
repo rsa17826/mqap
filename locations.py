@@ -100,7 +100,7 @@ def create_events(world: World) -> None:
   # events = 0
   from ._progression import PROG
   from .items import AREA_MAP
-  from .regions import get_area_power_rule, AREA_POWER_REQS, _reqs_to_rule
+  from .regions import get_area_power_rule, AREA_POWER_REQS, _reqs_to_rule, expand_area_requirements
 
   # print(AREA_POWER_REQS)
   newRoomLocations = set()
@@ -124,30 +124,10 @@ def create_events(world: World) -> None:
             finalRule &= newRule
 
 
-        for or_group in thing["requires"]:
-          # Each OR alternative is an AND group
-          area_conditions = [condition for condition in or_group if condition.startswith("area:")]
-
-          if not area_conditions:
-            new_requires.append(or_group)
-            continue
-
-          area = area_conditions[0].removeprefix("area:")
-          powerReqs = AREA_POWER_REQS.get(area, [])
-
-          if not powerReqs:
-            new_requires.append(or_group)
-            continue
-
-          # Each power_group is another AND requirement
-          for power_group in powerReqs:
-            new_requires.append([*or_group, *power_group])
-
-
-        thing["requires"] = new_requires
-        aa = _reqs_to_rule(world, thing["requires"])
-        assert aa is not None, thing["requires"]
-        assert finalRule is not None, thing["requires"]
+        newRequires = expand_area_requirements(thing["requires"])
+        aa = _reqs_to_rule(world, newRequires)
+        assert aa is not None, [thing["requires"], newRequires]
+        assert finalRule is not None, [thing["requires"], newRequires]
         finalRule &= aa
 
         # print("\n\n", area, _and, AREA_POWER_REQS[area], thing["requires"], powerReqs, newAnd)

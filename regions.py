@@ -33,6 +33,30 @@ from .items import AREA_MAP, ARMOR_ORDER, HAS_LIST, MAGIC_ORDER, WEAPON_ORDER
 _QUEST_RE = re.compile(r"^quest:([^.]+)\.(\d+)$")
 
 
+def expand_area_requirements(requires):
+  new_requires = []
+
+  for and_group in requires:
+    area_conditions = [condition for condition in and_group if condition.startswith("area:")]
+
+    if not area_conditions:
+      new_requires.append(and_group)
+      continue
+
+    area = area_conditions[0].removeprefix("area:")
+    power_reqs = AREA_POWER_REQS.get(area, [])
+
+    if not power_reqs:
+      new_requires.append(and_group)
+      continue
+
+    for power_group in power_reqs:
+      new_requires.append([*and_group, *power_group])
+
+
+  return new_requires
+
+
 def get_area_power_rule(world: World, region_id: str):
   if world.options.no_power_reqs:
     return None

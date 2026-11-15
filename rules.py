@@ -35,6 +35,8 @@ _QUEST_RE = re.compile(r"^quest:([^.]+)\.(\d+)$")
 
 
 def set_all_location_rules(world: World) -> None:
+  from .regions import expand_area_requirements
+
   for node in PROG:
     if "receive" not in node:
       continue
@@ -64,7 +66,7 @@ def set_all_location_rules(world: World) -> None:
         loc_names.append(f"{room_id_base} - {clean_item}")
 
       # 2. Build and apply the rules
-      requires = node.get("requires", [])
+      requires = expand_area_requirements(node.get("requires", []))
 
       # `requires` is a DNF: a list of OR'd alternatives, where each alternative is a list of
       # items that must ALL be held. If ANY alternative is empty, that OR-branch needs nothing
@@ -127,10 +129,12 @@ def set_all_location_rules(world: World) -> None:
 
 
         assert sub_rule is not None
-        powerRule = get_area_power_rule(world, room_id_base)
-        if powerRule is not None:
-          # print("asdkasads", area, "aaaaaa", powerRule, "zzzzz", room_id_base, ",z,z,z,z,", sub_rule)
-          sub_rule &= powerRule
+        if room_id_base != "-1_-1":
+          powerRule = get_area_power_rule(world, room_id_base)
+
+          if powerRule is not None:
+            sub_rule &= powerRule
+
 
         allConditions.append(sub_rule)
 
