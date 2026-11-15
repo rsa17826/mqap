@@ -125,6 +125,8 @@ def create_events(world: World) -> None:
 
 
         newRequires = expand_area_requirements(thing["requires"])
+        if roomPos=="9_22":
+          print(newRequires)
         aa = _reqs_to_rule(world, newRequires)
         assert aa is not None, [thing["requires"], newRequires]
         assert finalRule is not None, [thing["requires"], newRequires]
