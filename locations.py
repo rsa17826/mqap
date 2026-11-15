@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import re
+from .lib import print
 
 from BaseClasses import ItemClassification, Location
+from rule_builder.rules import False_, True_
 
 from worlds.AutoWorld import World
 
@@ -98,8 +100,9 @@ def create_events(world: World) -> None:
   # events = 0
   from ._progression import PROG
   from .items import AREA_MAP
-  from .regions import get_area_power_rule
+  from .regions import get_area_power_rule, AREA_POWER_REQS, _reqs_to_rule
 
+  # print(AREA_POWER_REQS)
   newRoomLocations = set()
   for thing in PROG:
     for itemInfo in thing["receive"]:
@@ -112,14 +115,51 @@ def create_events(world: World) -> None:
         room_id = f"{roomPos}: root"
 
         region = world.get_region(room_id)
-        powerRule = get_area_power_rule(world, roomPos)
+        new_requires = []
+        finalRule = True_()
+        if roomPos != "-1_-1":
+          newRule = get_area_power_rule(world, roomPos)
 
+          if newRule is not None:
+            finalRule &= newRule
+
+
+        for or_group in thing["requires"]:
+          # Each OR alternative is an AND group
+          area_conditions = [condition for condition in or_group if condition.startswith("area:")]
+
+          if not area_conditions:
+            new_requires.append(or_group)
+            continue
+
+          area = area_conditions[0].removeprefix("area:")
+          powerReqs = AREA_POWER_REQS.get(area, [])
+
+          if not powerReqs:
+            new_requires.append(or_group)
+            continue
+
+          # Each power_group is another AND requirement
+          for power_group in powerReqs:
+            new_requires.append([*or_group, *power_group])
+
+
+        thing["requires"] = new_requires
+        aa = _reqs_to_rule(world, thing["requires"])
+        assert aa is not None, thing["requires"]
+        assert finalRule is not None, thing["requires"]
+        finalRule &= aa
+
+        # print("\n\n", area, _and, AREA_POWER_REQS[area], thing["requires"], powerReqs, newAnd)
+        # raise "ASd"
+
+        # for
         _ = region.add_event(
           location_name=f"{room_id} - {event_name}",
           item_name=event_name,
           location_type=MathQuestLocation,
           item_type=items.MathQuestItem,
-          rule=powerRule,
+          rule=finalRule,
         )
         if room_id not in newRoomLocations and roomPos in AREA_MAP:
           # TODO add the rule to the event !!!
@@ -129,7 +169,7 @@ def create_events(world: World) -> None:
             item_name="flag:room with mobs",
             location_type=MathQuestLocation,
             item_type=items.MathQuestItem,
-            rule=powerRule,
+            rule=finalRule,
           )
 
 

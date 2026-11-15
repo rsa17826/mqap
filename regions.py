@@ -38,9 +38,6 @@ def get_area_power_rule(world: World, region_id: str):
     return None
 
   powerRule = None
-  if region_id == "-1_-1":
-    return None
-
   allAreas = AREA_MAP[region_id]
   if any(area in AREA_POWER_REQS for area in allAreas):
     powerRule = True_()
@@ -55,9 +52,9 @@ def get_area_power_rule(world: World, region_id: str):
   return powerRule
 
 
-def _reqs_to_rule(world: World, reqs: list[list[str]]) -> Rule | None:
+def _reqs_to_rule(world: World, reqs: list[list[str]]) -> Rule:
   if any(len(option) == 0 for option in reqs):
-    return None
+    return True_()
 
   rule: Rule | None = None
   for option in reqs:
@@ -92,7 +89,7 @@ def _reqs_to_rule(world: World, reqs: list[list[str]]) -> Rule | None:
     assert sub_rule is not None
     rule = sub_rule if rule is None else (rule | sub_rule)
 
-  return rule
+  return True_() if rule is None else rule
 
 
 # def _get_or_create_root(world: World, n: int, e: int, exit_regions: dict) -> Region:
