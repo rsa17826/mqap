@@ -158,13 +158,14 @@ for thing in PROG:
           DEFAULT_ITEM_CLASSIFICATIONS[itemName] = ItemClassification.filler
           ITEM_NAME_TO_ID[itemName] = _id_counter
         elif itemInfo.startswith(("area:",)):
-          AREA_MAP[f"{thing['room']['north']}_{thing['room']['east']}"] = itemInfo.split("area:")[1]
+          if f"{thing['room']['north']}_{thing['room']['east']}" not in AREA_MAP:
+            AREA_MAP[f"{thing['room']['north']}_{thing['room']['east']}"] = set()
+
+          AREA_MAP[f"{thing['room']['north']}_{thing['room']['east']}"].add(itemInfo.split("area:")[1])
+          # if f"{thing['room']['north']}_{thing['room']['east']}" == "-1_-1":
+          # AREA_POWER_REQS[area]
           continue
-        elif itemInfo.startswith(
-          (
-            "flag:",
-          )
-        ):
+        elif itemInfo.startswith(("flag:",)):
           continue
         elif itemInfo.startswith(("loot:",)):
           pass
@@ -189,6 +190,9 @@ for thing in PROG:
 
 
 
+
+AREA_MAP["9.11_20"] = {3}
+print(AREA_MAP)
 
 # print(HAS_LIST["skill:kick"])
 # print("\n".join([":::".join([repr(xx) for xx in x]) for x in HAS_LIST.items()]))
@@ -272,6 +276,7 @@ def create_all_items(world: World) -> None:
           continue
 
         k = "weapon:progressive weapons"
+
         # print(k)
       else:
         if k == "weapon:progressive weapons":
@@ -285,6 +290,7 @@ def create_all_items(world: World) -> None:
           continue
 
         k = "armor:progressive armor"
+
         # print(k)
       else:
         if k == "armor:progressive armor":
@@ -298,6 +304,7 @@ def create_all_items(world: World) -> None:
           continue
 
         k = "magic:progressive magic"
+
         # print(k)
       else:
         if k == "magic:progressive magic":

@@ -96,11 +96,10 @@ def create_regular_locations(world: World) -> None:
 
 def create_events(world: World) -> None:
   # events = 0
-  from ._progression import AREA_POWER_REQS, PROG
+  from ._progression import PROG
   from .items import AREA_MAP
-  from .regions import _reqs_to_rule
+  from .regions import get_area_power_rule
 
-  # print(AREA_POWER_REQS, "AREA_POWER_REQS")
   newRoomLocations = set()
   for thing in PROG:
     for itemInfo in thing["receive"]:
@@ -113,10 +112,7 @@ def create_events(world: World) -> None:
         room_id = f"{roomPos}: root"
 
         region = world.get_region(room_id)
-        area = AREA_MAP[roomPos] if roomPos != "-1_-1" and roomPos != "9.11_20" else None
-        powerRule = None
-        if not (world.options.no_power_reqs) and area in AREA_POWER_REQS:
-          powerRule = _reqs_to_rule(world, AREA_POWER_REQS[area])
+        powerRule = get_area_power_rule(roomPos)
 
         _ = region.add_event(
           location_name=f"{room_id} - {event_name}",

@@ -3,13 +3,13 @@ from __future__ import annotations
 import re
 from functools import reduce
 
-from rule_builder.rules import Has, HasAll, Rule, True_
+from rule_builder.rules import Has, Rule, True_
 
 from worlds.AutoWorld import World
 
-from ._progression import AREA_POWER_REQS, PROG
-from .items import AREA_MAP
-from .regions import _reqs_to_rule
+from ._progression import PROG
+from .regions import get_area_power_rule
+
 
 def set_all_rules(world: World) -> None:
   """
@@ -29,7 +29,7 @@ def set_all_entrance_rules(_world: World) -> None:
 
 
 _ENTRANCE_RE = re.compile(r"^entrance\.[a-z]+\d+$")
-from .items import ARMOR_ORDER, HAS_LIST, WEAPON_ORDER, MAGIC_ORDER
+from .items import ARMOR_ORDER, HAS_LIST, MAGIC_ORDER, WEAPON_ORDER
 
 _QUEST_RE = re.compile(r"^quest:([^.]+)\.(\d+)$")
 
@@ -127,14 +127,10 @@ def set_all_location_rules(world: World) -> None:
 
 
         assert sub_rule is not None
-        powerRule = None
-        area = AREA_MAP[room_id_base] if room_id_base != "-1_-1" and room_id_base != "9.11_20" else None
-        if not (world.options.no_power_reqs) and area in AREA_POWER_REQS:
-          powerRule = _reqs_to_rule(world, AREA_POWER_REQS[area])
-          if powerRule is not None:
-            # print("asdkasads", area, "aaaaaa", powerRule, "zzzzz", room_id_base, ",z,z,z,z,", sub_rule)
-            sub_rule &= powerRule
-
+        powerRule = get_area_power_rule(world, room_id_base)
+        if powerRule is not None:
+          # print("asdkasads", area, "aaaaaa", powerRule, "zzzzz", room_id_base, ",z,z,z,z,", sub_rule)
+          sub_rule &= powerRule
 
         allConditions.append(sub_rule)
 
