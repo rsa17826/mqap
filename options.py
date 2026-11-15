@@ -250,6 +250,7 @@ class Confusion(Range):
 
 class AllowClips(OptionDict):
   """
+  NOTE this option doesn't do anything right now
   Determines how logic handles clipping through walls or boundaries.
 
   no clips allowed: Standard logic; out-of-bounds glitches are not expected.

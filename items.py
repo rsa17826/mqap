@@ -15,7 +15,7 @@ ITEM_NAME_TO_ID: dict[str, int] = {}
 DEFAULT_ITEM_CLASSIFICATIONS = {}
 
 _id_counter = 99999
-fillers = ("trap:spawn_random_enemies", "trap:del_del", "trap:nothing", "filler:filler_gold")
+fillers = ("trap:spawn_random_enemies", "trap:del_del", "trap:nothing", "filler:filler_gold", "trap:poison", "trap:confusion")
 for filler in fillers:
   DEFAULT_ITEM_CLASSIFICATIONS[filler] = ItemClassification.trap if filler.startswith("trap:") else ItemClassification.filler
   ITEM_NAME_TO_ID[filler] = _id_counter
