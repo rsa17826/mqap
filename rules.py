@@ -66,7 +66,7 @@ def set_all_location_rules(world: World) -> None:
         loc_names.append(f"{room_id_base} - {clean_item}")
 
       # 2. Build and apply the rules
-      requires = expand_area_requirements(node.get("requires", []))
+      requires = expand_area_requirements(world, node.get("requires", []))
 
       # `requires` is a DNF: a list of OR'd alternatives, where each alternative is a list of
       # items that must ALL be held. If ANY alternative is empty, that OR-branch needs nothing

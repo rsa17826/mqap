@@ -33,7 +33,8 @@ from .items import AREA_MAP, ARMOR_ORDER, HAS_LIST, MAGIC_ORDER, WEAPON_ORDER
 _QUEST_RE = re.compile(r"^quest:([^.]+)\.(\d+)$")
 
 
-def expand_area_requirements(requires):
+def expand_area_requirements(world:World, requires):
+  if world.options.no_power_reqs:return requires
   new_requires = []
 
   for and_group in requires:

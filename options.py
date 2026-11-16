@@ -301,6 +301,7 @@ class MathQuestOptions(PerGameCommonOptions):
   progressive_armor: ProgressiveArmor
   progressive_magic: ProgressiveMagic
   infinite_gold: InfiniteGold
+  battle_loot_mult: BattleLootMult
   infinite_keys: InfiniteKeys
   filler_gold: FillerGold
   infinite_aurastones: InfiniteAurastones

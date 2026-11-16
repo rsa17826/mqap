@@ -124,7 +124,7 @@ def create_events(world: World) -> None:
             finalRule &= newRule
 
 
-        newRequires = expand_area_requirements(thing["requires"])
+        newRequires = expand_area_requirements(world, thing["requires"])
         # if roomPos == "9_22":
         #   print(newRequires)
 
