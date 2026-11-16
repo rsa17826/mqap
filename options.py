@@ -31,6 +31,7 @@ option_presets: dict[str, dict[str, bool | int]] = {
     "del_del": 0,
     "nothing": 10,
     "filler_gold": 30,
+    "battle_loot_mult": 1,
     "confusion": 30,
     "poison": 30,
     "spawn_random_enemies": 70,
@@ -107,8 +108,20 @@ class AllQuestsMaxed(Toggle):
   default: bool = cast(bool, option_presets["main"]["all_quests_maxed"])
 
 
+class BattleLootMult(Range):
+  """
+  a multiplier applied to all mob drops.
+  """
+
+  range_start: int = 0
+  range_end: int = 10
+  display_name: str = "BattleLootMult"
+  default: bool = cast(bool, option_presets["main"]["battle_loot_mult"])
+
+
 class DelDel(Range):
   """
+  NOTE doesn't do anything
   Adjusts the frequency of the DelDel trap item appearing as the filler item. Higher values increase its spawn rate.
   """
 
@@ -317,12 +330,13 @@ option_groups: list[OptionGroup] = [
     ],
   ),
   OptionGroup(
-    "Infinites",
+    "Grind",
     [
       InfiniteGold,
       InfiniteKeys,
       InfiniteAurastones,
       InfiniteBombs,
+      BattleLootMult,
     ],
   ),
   # OptionGroup(
