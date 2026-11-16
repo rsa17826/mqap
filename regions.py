@@ -418,8 +418,8 @@ def _connect_cross_room_vanilla(world: World, exit_regions: dict, tag_for_er: bo
       # Gate each direction by the AREA_POWER_REQS of the room being *entered* —
       # forward walks (n,e) -> neighbor room, so it's gated by the neighbor's area;
       # backward walks neighbor -> (n,e), so it's gated by (n,e)'s own area.
-      forward_rule = get_area_power_rule(world, f"{n}_{e}")
-      backward_rule = get_area_power_rule(world, f"{neighbor_key[0]}_{neighbor_key[1]}")
+      backward_rule = get_area_power_rule(world, f"{n}_{e}")
+      forward_rule = get_area_power_rule(world, f"{neighbor_key[0]}_{neighbor_key[1]}")
 
       # Since we handle exit -> root linkages explicitly during Pass 1,
       # we can safely go back to using standard _connect here!
